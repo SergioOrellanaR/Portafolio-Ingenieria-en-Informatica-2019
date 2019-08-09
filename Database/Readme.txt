@@ -1,0 +1,1 @@
+La presente carpeta será en donde se subirán todos los scripts de la database, se sugiere que también se suba el modelo relacional de ser posible.
