@@ -43,7 +43,7 @@ CREATE TABLE company (
     name             VARCHAR2(255) NOT NULL,
     address          NVARCHAR2(255) NOT NULL,
     logo             BLOB,
-    id_workingarea   INTEGER NOT NULL,
+    id_working_area   INTEGER NOT NULL,
     id_commune       INTEGER NOT NULL
 );
 
@@ -402,20 +402,20 @@ BEGIN
   FROM dual;
 END;
 /
-CREATE TABLE workingarea (
+CREATE TABLE working_area (
     id     INTEGER NOT NULL,
     name   NVARCHAR2(255) NOT NULL
 );
 
-ALTER TABLE workingarea ADD CONSTRAINT workingarea_pk PRIMARY KEY ( id );
+ALTER TABLE working_area ADD CONSTRAINT working_area_pk PRIMARY KEY ( id );
 
-CREATE SEQUENCE workingarea_id_seq;
+CREATE SEQUENCE working_area_id_seq;
 
-CREATE TRIGGER workingarea_ai
-BEFORE INSERT ON workingarea
+CREATE TRIGGER working_area_ai
+BEFORE INSERT ON working_area
 FOR EACH ROW
 BEGIN
-  SELECT workingarea_id_seq.nextval
+  SELECT working_area_id_seq.nextval
   INTO :new.id
   FROM dual;
 END;
@@ -461,8 +461,8 @@ ALTER TABLE company
         REFERENCES commune ( id );
 
 ALTER TABLE company
-    ADD CONSTRAINT company_workingarea_fk FOREIGN KEY ( id_workingarea )
-        REFERENCES workingarea ( id );
+    ADD CONSTRAINT company_working_area_fk FOREIGN KEY ( id_working_area )
+        REFERENCES working_area ( id );
 
 ALTER TABLE province
     ADD CONSTRAINT id_region_fk FOREIGN KEY ( id_region )
