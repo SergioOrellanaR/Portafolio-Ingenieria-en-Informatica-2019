@@ -1,0 +1,46 @@
+--Dropeo de todas las tablas (select 'drop table ', table_name, 'cascade constraints;' from user_tables;)
+
+drop table 	TASK	cascade constraints;
+drop table 	ROLE_PERMISSIONS	cascade constraints;
+drop table 	ROLE	cascade constraints;
+drop table 	REGION	cascade constraints;
+drop table 	PROVINCE	cascade constraints;
+drop table 	PROCESSED_TASK_HISTORY	cascade constraints;
+drop table 	PROCESSED_TASK	cascade constraints;
+drop table 	PERMISSION	cascade constraints;
+drop table 	MONTH	cascade constraints;
+drop table 	LOOP_TASK_SCHEDULE	cascade constraints;
+drop table 	LOOP_TASK	cascade constraints;
+drop table 	INTERNAL_UNIT	cascade constraints;
+drop table 	GENDER	cascade constraints;
+drop table 	DAY_OF_WEEK	cascade constraints;
+drop table 	COMPANY	cascade constraints;
+drop table 	COMMUNE	cascade constraints;
+drop table 	ASSIGNED_UNIT	cascade constraints;
+drop table 	WORKING_AREA	cascade constraints;
+drop table 	USER_INFO	cascade constraints;
+drop table 	TASK_STATUS	cascade constraints;
+drop table 	TASK_ASSIGNMENT	cascade constraints;
+
+--Eliminación de todas las secuencias (select 'drop sequence ' || sequence_name || ';' from user_sequences;)
+
+drop sequence ASSIGNED_UNIT_ID_SEQ;
+drop sequence COMMUNE_ID_SEQ;
+drop sequence COMPANY_ID_SEQ;
+drop sequence DAY_OF_WEEK_ID_SEQ;
+drop sequence GENDER_ID_SEQ;
+drop sequence INTERNAL_UNIT_ID_SEQ;
+drop sequence LOOP_TASK_ID_SEQ;
+drop sequence LOOP_TASK_SCHEDULE_ID_SEQ;
+drop sequence MONTH_ID_SEQ;
+drop sequence PERMISSION_ID_SEQ;
+drop sequence PROCESSED_TASK_ID_SEQ;
+drop sequence PROVINCE_ID_SEQ;
+drop sequence PT_HISTORY_ID_SEQ;
+drop sequence REGION_ID_SEQ;
+drop sequence ROLE_ID_SEQ;
+drop sequence TASK_ASSIGNMENT_ID_SEQ;
+drop sequence TASK_ID_SEQ;
+drop sequence TASK_STATUS_ID_SEQ;
+drop sequence USER_ID_SEQ;
+drop sequence WORKING_AREA_ID_SEQ;
