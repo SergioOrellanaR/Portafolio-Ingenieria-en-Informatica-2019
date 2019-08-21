@@ -1,0 +1,6 @@
+--Ejecutar con System, este script crea el usuario para poder crear la database.
+
+CREATE USER ProcessSA IDENTIFIED BY pft2019;
+GRANT CONNECT, RESOURCE TO ProcessSA;
+GRANT UNLIMITED TABLESPACE TO ProcessSA;
+GRANT CREATE SESSION TO ProcessSA;
