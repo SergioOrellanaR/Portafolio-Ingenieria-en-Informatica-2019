@@ -486,6 +486,14 @@ INSERT INTO month(name) VALUES ('Diciembre');
 
 --Insert de Task_Status (Pendiente)
 
+INSERT INTO task_status(status) VALUES ('Asignado');
+INSERT INTO task_status(status) VALUES ('En proceso');
+INSERT INTO task_status(status) VALUES ('Completado');
+INSERT INTO task_status(status) VALUES ('Reasignado');
+INSERT INTO task_status(status) VALUES ('Rechazado');
+INSERT INTO task_status(status) VALUES ('Cerrado');
+INSERT INTO task_status(status) VALUES ('Fallido');
+
 --Insert de permission (Pendiente)
 
 --Insert de tareas por default (Pendiente)
