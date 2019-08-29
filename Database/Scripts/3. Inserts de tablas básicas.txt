@@ -1,4 +1,4 @@
---INSERT de Regiones
+﻿--INSERT de Regiones
 
 INSERT INTO region(name) VALUES('Arica y Parinacota');
 INSERT INTO region(name) VALUES('Tarapacá');
@@ -493,6 +493,8 @@ INSERT INTO task_status(status) VALUES ('Reasignado');
 INSERT INTO task_status(status) VALUES ('Rechazado');
 INSERT INTO task_status(status) VALUES ('Cerrado');
 INSERT INTO task_status(status) VALUES ('Fallido');
+INSERT INTO task_status(status) VALUES ('Vencido');
+INSERT INTO task_status(status) VALUES ('Suspendido');
 
 --Insert de permission (Pendiente)
 
