@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="province" directorySegmentName="seg_0" id="B20E4ADB-D236-0E7D-7FCB-9CADB1E5AD18">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="id" id="3E9003E5-CF94-0696-9FA4-19C51A80EEDE">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="name" id="520D18F9-AC69-69B0-45E0-599DD36E0958">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="id_region" id="B9F85E93-A118-BFAC-10DA-C6CA0C69531B">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="id_region_fk" id="EFF406B4-0F63-25DD-1194-FF27D7D78F58">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="province_pk" id="77862E1C-CF61-112F-2BF9-74CEB726D8F0">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="task_status" directorySegmentName="seg_0" id="48671578-0961-982D-744B-C4AAD25E3C5B">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="status" id="6B9DA993-0BC4-0EC9-1B6D-BA5B4DCFAC31">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="id" id="AFBF8321-AEB4-795A-F943-24F96C002BF8">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="task_status_pk" id="7F876E7B-557E-EACC-2294-7141E955F3EF">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

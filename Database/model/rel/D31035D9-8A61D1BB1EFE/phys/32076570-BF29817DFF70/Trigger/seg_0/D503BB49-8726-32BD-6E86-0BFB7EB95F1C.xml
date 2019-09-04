@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="internal_unit_ai" directorySegmentName="seg_0" id="D503BB49-8726-32BD-6E86-0BFB7EB95F1C">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:51:11 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<actions>INSERT</actions>
+<body><![CDATA[BEGIN
+  SELECT internal_unit_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END;]]></body>
+<triggerTime>BEFORE</triggerTime>
+<table>349846B7-0081-D48D-3403-387E2ACDCD7E</table>
+</TriggerOraclev10g>

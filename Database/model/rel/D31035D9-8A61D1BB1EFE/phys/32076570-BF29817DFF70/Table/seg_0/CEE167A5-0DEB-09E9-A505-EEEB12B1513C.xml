@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="day_of_week" directorySegmentName="seg_0" id="CEE167A5-0DEB-09E9-A505-EEEB12B1513C">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="id" id="392EE19F-F33B-2ABF-67BA-0C0DDD8C58F0">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="name" id="E674BBA1-4D11-8790-4B1A-3A2119ED39B2">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="day_of_week_pk" id="8C0A443F-D17A-3D46-E4DE-D6C27F499C0D">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

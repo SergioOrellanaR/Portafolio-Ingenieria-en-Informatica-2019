@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EEF7B29A-6A23-46F7-F9B8-D74247FCEC2A" containerWithKeyObject="C6F26FC7-0D15-4273-6020-7CCFD4323185" localFKIndex="BB42EFB6-0E22-43E7-E71A-545064360529" name="lt_schedule_month_fk">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:05 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>44C71EBE-A6DA-7427-9EB4-55B53316E065</importedID>
+<referredTableLongName>month</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>46118DC5-D3D3-0F2E-21B0-493E11FA1BF4</referredTableID>
+<keyObject>545113FD-8196-BF5F-BB55-28DC827C14BB</keyObject>
+<referredKeyID>545113FD-8196-BF5F-BB55-28DC827C14BB</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

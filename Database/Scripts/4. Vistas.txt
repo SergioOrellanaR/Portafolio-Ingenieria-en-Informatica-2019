@@ -1,0 +1,44 @@
+CREATE OR REPLACE VIEW VW_ALL_PERMISSIONS_PER_ROL AS 
+select 
+rol.name as rol,
+perm.name  as Permiso,
+perm.description as descripcion
+from 
+permission perm
+inner join role_permissions rp on (rp.id_permission = perm.id)
+inner join role rol on (rp.id_role = rol.id);
+
+CREATE OR REPLACE VIEW VW_PERMISSION_ADMINISTRADOR AS 
+select 
+rol.name as rol,
+perm.name  as Permiso,
+perm.description as descripcion
+from 
+permission perm
+inner join role_permissions rp on (rp.id_permission = perm.id)
+inner join role rol on (rp.id_role = rol.id)
+where rol.name = 'Administrador'
+;
+
+
+CREATE OR REPLACE VIEW VW_PERMISSION_DDP AS 
+select 
+rol.name as rol,
+perm.name  as Permiso,
+perm.description as descripcion
+from 
+permission perm
+inner join role_permissions rp on (rp.id_permission = perm.id)
+inner join role rol on (rp.id_role = rol.id)
+where rol.name = 'Diseñador de procesos';
+
+CREATE OR REPLACE VIEW VW_PERMISSION_FUNCIONARIO AS 
+select 
+rol.name as rol,
+perm.name  as Permiso,
+perm.description as descripcion
+from 
+permission perm
+inner join role_permissions rp on (rp.id_permission = perm.id)
+inner join role rol on (rp.id_role = rol.id)
+where rol.name = 'Funcionario';

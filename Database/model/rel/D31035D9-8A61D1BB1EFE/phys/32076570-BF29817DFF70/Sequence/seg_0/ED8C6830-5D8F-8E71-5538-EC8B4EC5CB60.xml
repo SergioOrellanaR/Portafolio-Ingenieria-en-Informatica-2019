@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SequenceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SequenceOraclev10g" name="pt_history_id_seq" directorySegmentName="seg_0" id="ED8C6830-5D8F-8E71-5538-EC8B4EC5CB60">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:51:11 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+</SequenceOraclev10g>

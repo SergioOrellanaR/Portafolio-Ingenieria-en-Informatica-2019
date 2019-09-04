@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2EE36281-8D8F-AE64-9113-C3CEB89E7929" containerWithKeyObject="C6F26FC7-0D15-4273-6020-7CCFD4323185" localFKIndex="65343800-639E-2B06-8BFF-0A8D66DA0375" name="lt_schedule_day_of_week_fk">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:05 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>E71111AD-DB36-9A0B-1F6B-45C749830928</importedID>
+<referredTableLongName>day_of_week</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>CEE167A5-0DEB-09E9-A505-EEEB12B1513C</referredTableID>
+<keyObject>8C0A443F-D17A-3D46-E4DE-D6C27F499C0D</keyObject>
+<referredKeyID>8C0A443F-D17A-3D46-E4DE-D6C27F499C0D</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

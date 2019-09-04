@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="857441C1-9D7F-99FB-84C9-FBBBDB13748A" containerWithKeyObject="B20E4ADB-D236-0E7D-7FCB-9CADB1E5AD18" localFKIndex="EFF406B4-0F63-25DD-1194-FF27D7D78F58" name="id_region_fk">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>EEEE3EE6-AF6B-2C4C-DFE3-1422E460FA35</importedID>
+<referredTableLongName>region</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>893F2ADE-2B51-43BF-C499-E4450EDBA82D</referredTableID>
+<keyObject>7C60B067-D7CD-0EF8-943B-2804DEF366F4</keyObject>
+<referredKeyID>7C60B067-D7CD-0EF8-943B-2804DEF366F4</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

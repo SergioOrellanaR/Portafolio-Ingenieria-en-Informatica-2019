@@ -1,0 +1,116 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F7B2440C-3AFA-ABCD-E4AF-3814FFF72001" name="assigned_unit">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:03 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>87E3554D-6260-367B-32B2-7860BFA56282</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="02EA9339-6128-95AC-1E51-5ED340D2174B">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>CD7608DE-3F04-920C-E642-1C2B5B99CB74</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_internalunit" id="AF3CA313-F598-CAC4-9B7D-C45B564FCB05">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>A38C08BA-8DD2-A4E4-0508-D0740BC59D60</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="18728EF2-7518-C022-A2A2-02E61AD5A5E7" referredColumn="AB105773-3EAE-B986-6458-DB2C9E4A1057"/>
+</associations>
+</Column>
+<Column name="id_company" id="656AF618-990C-9753-8DA0-8E42DCF3904C">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>07BA28F5-DE6A-295C-EF1B-4A431DB1C4CB</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9A82C0B9-53FA-C9C9-9427-E714EAD3E0E8" referredColumn="7B3EFF54-5B90-C0F0-7576-916C391408EF"/>
+</associations>
+</Column>
+<Column name="id_superior_unit" id="57B82D40-3CA2-899C-7706-9C9F81168030">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>05CF541B-E61C-17EB-A6F6-6C84ABEF8DEB</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A169C941-2814-1B2B-7FD0-397E53C1C599" referredColumn="02EA9339-6128-95AC-1E51-5ED340D2174B"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6989DD42-0AEE-EFA3-88E3-3FDCB815F48A" name="assigned_unit_pk">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>4B17A955-8E9B-3609-3EC1-1F2B2E4F9EAA</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="02EA9339-6128-95AC-1E51-5ED340D2174B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0DBCF212-B1AB-CBE9-729A-975C3FC40439" name="assigned_unit_assigned_role_fk">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="57B82D40-3CA2-899C-7706-9C9F81168030"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C38BF173-6541-5188-C868-65F588C7A888" name="assigned_unit_company_fk">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="656AF618-990C-9753-8DA0-8E42DCF3904C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="07101434-7C16-7486-7DBB-4239A8B9BE6B" name="assigned_unit_role_fk">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AF3CA313-F598-CAC4-9B7D-C45B564FCB05"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -5,4 +5,12 @@
 <ownerDesignName>model</ownerDesignName>
 <capitalNames>false</capitalNames>
 <designId>64FDDC6E-1B6C-477D-49DE-4841091EECC7</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="0B5BF49A-4EC8-A62D-550E-76531344162F">
+<designStoragePath>C:\2. Creacion tablas, relaciones y triggers autoincrementales</designStoragePath>
+</designDescr>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="7696F4CC-759E-FDB5-E4DA-604857CF62EF">
+<designStoragePath>C:\2. Creacion tablas, relaciones y triggers autoincrementales</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
 </OSDM_Design>

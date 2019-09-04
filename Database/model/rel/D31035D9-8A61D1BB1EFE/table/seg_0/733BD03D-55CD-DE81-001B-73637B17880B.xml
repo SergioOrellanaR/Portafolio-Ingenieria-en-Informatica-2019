@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="733BD03D-55CD-DE81-001B-73637B17880B" name="role_permissions">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>1396A503-AB66-945B-A2DD-EE2A5D32D91C</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_role" id="D8277C59-2D4E-ACC1-1910-0447DEC8195B">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>992ED28C-B568-4E1D-0950-3ADD6920EC65</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6C51899B-F6B8-A568-0CF3-3171393D7B40" referredColumn="09385427-48D8-9BC8-66FD-CF908CA37F4C"/>
+</associations>
+</Column>
+<Column name="id_permission" id="2F13CAD0-6DB1-2059-E3E5-A55059BA0C4F">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>AB0FBCE6-2B24-6C95-99D2-3B6A205E9C65</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0E50CFC4-D838-C5CB-2480-322B637DB41F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EA93D732-7A6B-994F-DC8F-383FDDEF7458" referredColumn="2CDF49F1-D33C-B78F-83A2-CEA69461E5B0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="020E1334-C32B-B75D-5CE5-E1C60C46C162" name="role_permissions_pk">
+<sourceDDLFile>2. Creacion tablas, relaciones y triggers autoincrementales.ddl</sourceDDLFile>
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<importedID>B8D29E24-9E81-D534-E672-98D4C591B565</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D8277C59-2D4E-ACC1-1910-0447DEC8195B"/>
+<colUsage columnID="2F13CAD0-6DB1-2059-E3E5-A55059BA0C4F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="45FA1C4D-1E5B-1D35-0DCD-37107D8606BA" name="rtype_permission_p_fk">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:05 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2F13CAD0-6DB1-2059-E3E5-A55059BA0C4F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="24665969-CF9B-3CDA-BA3D-A9EFF24A17E5" name="rtype_permission_rt_fk">
+<createdBy>sorellana</createdBy>
+<createdTime>2019-09-04 11:52:05 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D8277C59-2D4E-ACC1-1910-0447DEC8195B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
