@@ -42,3 +42,28 @@ permission perm
 inner join role_permissions rp on (rp.id_permission = perm.id)
 inner join role rol on (rp.id_role = rol.id)
 where rol.name = 'Funcionario';
+
+CREATE OR REPLACE VIEW VW_LIST_PERMISSIONS_WITH_ROLES AS 
+select 
+perm.id as IdPermiso,
+perm.NAME as NombrePermiso,
+CASE rpad.id_role
+    WHEN 1 THEN 'SI'
+    ELSE 'NO'
+END
+as Administrador,
+CASE rpddp.id_role
+    WHEN 2 THEN 'SI'
+    ELSE 'NO'
+END  as DDP,
+CASE rpfun.id_role
+    WHEN 3 THEN 'SI'
+    ELSE 'NO'
+END  as Funcionario
+--perm.description as descripcion
+from 
+permission perm
+left join role_permissions rpad on  (rpad.id_permission = perm.id AND rpad.id_role=1)
+left join role_permissions rpddp on (rpddp.id_permission = perm.id AND rpddp.id_role=2)
+left join role_permissions rpfun on (rpfun.id_permission = perm.id AND rpfun.id_role=3)
+order by idpermiso;
