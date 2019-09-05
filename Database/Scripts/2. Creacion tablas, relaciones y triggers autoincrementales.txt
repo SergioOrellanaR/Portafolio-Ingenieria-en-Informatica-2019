@@ -193,6 +193,7 @@ CREATE TABLE task (
     name                NVARCHAR2(255) NOT NULL,
     description         NVARCHAR2(1000) NOT NULL,
     ispredefinided      CHAR(1) NOT NULL,
+    isactive            CHAR(1),
     id_superior_task    INTEGER,
     id_dependent_task   INTEGER
 );
