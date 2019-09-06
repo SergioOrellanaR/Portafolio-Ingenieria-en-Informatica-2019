@@ -680,12 +680,12 @@ INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 83);
 
 --Insert de tareas por default
 
-INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Organizar tiempos del proyecto', 'Se deben realizar documentos para la organizacion del tiempo del proyecto', 1,1,null,null);
+INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Organizar tiempos del proyecto', 'Se deben realizar documentos para la organizacion del tiempo del proyecto', 1,null,null,null);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar Carta Gantt', 'Se debe realizar carta gantt acorde a los tiempos del proyecto', 1,1,1,null);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar EDT', 'Se debe realizar EDT acorde a Carta Gantt', 1,1,1,2);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar BPMN', 'Realización de análisis de negocio del sistema', 1,1,1,null);
-INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Conteo y Estados de equipos', 'Revisión del estado de los equipos de la oficina', 1,1,null,null);
-INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Asignacion de Responsabilidades', 'Asignación de roles a profesionales involucrado en el proyecto', 1,1,null,1);
+INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Conteo y Estados de equipos', 'Revisión del estado de los equipos de la oficina', 1,null,null,null);
+INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Asignacion de Responsabilidades', 'Asignación de roles a profesionales involucrado en el proyecto', 1,null,null,1);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Analisis del personal', 'Se debe realizar un analisis de las cualidades del personal', 1,1,6,null);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Entrevistas Psicologicas', 'Se debe realizar entrevista con una psicologa y ver el estado mental de los profesionales', 1,1,7,null);
 INSERT INTO task(name, description, ispredefinided, isactive, id_superior_task, id_dependent_task) VALUES ('Entrevistas Medicas', 'Se debe realizar entrevista con una medico y ver el estado de salud de los profesionales', 1,1,7,null);
