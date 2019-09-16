@@ -1,0 +1,1595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProcessSAModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ASSIGNED_UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_INTERNALUNIT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMPANY" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SUPERIOR_UNIT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="COMMUNE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ID_PROVINCE" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ADDRESS" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="LOGO" Type="blob" />
+          <Property Name="ID_WORKING_AREA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMMUNE" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DAY_OF_WEEK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INTERNAL_UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ID_ROLE" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOOP_TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK_ASSIGNMENT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TIME" Type="date" Nullable="false" />
+          <Property Name="ISACTIVE" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOOP_TASK_SCHEDULE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_LOOP_TASK" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_DAYOFWEEK" Type="number" Precision="38" Scale="0" />
+          <Property Name="DAYOFMONTH" Type="number" Precision="38" Scale="0" />
+          <Property Name="NUMBEROFWEEK" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_MONTH" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="MONTH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERMISSION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="250" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar2" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="PROCESSED_TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMMENTARY" Type="nvarchar2" MaxLength="1000" />
+          <Property Name="ASSIGNATIONDATE" Type="date" Nullable="false" />
+          <Property Name="ENDDATE" Type="date" Nullable="false" />
+          <Property Name="ID_TASKSTATUS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK_ASSIGNMENT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SCHEDULED_LOOPTASK" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="PROCESSED_TASK_HISTORY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNEDTASK" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar2" MaxLength="1000" Nullable="false" />
+          <Property Name="EVENTDATETIME" Type="date" Nullable="false" />
+          <Property Name="JUSTIFICATION" Type="nvarchar2" MaxLength="1000" />
+          <Property Name="ID_USERJUSTIFICATOR" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="PROVINCE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ID_REGION" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE_PERMISSIONS">
+          <Key>
+            <PropertyRef Name="ID_ROLE" />
+            <PropertyRef Name="ID_PERMISSION" />
+          </Key>
+          <Property Name="ID_ROLE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_PERMISSION" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar2" MaxLength="1000" Nullable="false" />
+          <Property Name="ISPREDEFINIDED" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ISACTIVE" Type="char" MaxLength="1" />
+          <Property Name="ID_SUPERIOR_TASK" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_DEPENDENT_TASK" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TASK_ASSIGNMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNERUSER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_RECEIVERUSER" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TASK_STATUS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STATUS" Type="nvarchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_INFO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="LASTNAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ADDRESS" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="date" Nullable="false" />
+          <Property Name="EMAIL" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ID_COMMUNE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNED_UNIT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMPANY" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_GENDER" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WORKING_AREA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="ASSIGNED_TASK_PROC_TASK_FK">
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_TASK_ASSIGNMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_TASK_TASK_FK">
+          <End Role="TASK_STATUS" Type="Self.TASK_STATUS" Multiplicity="1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_STATUS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_TASKSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_UNIT_ASSIGNED_ROLE_FK">
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="0..1" />
+          <End Role="ASSIGNED_UNIT1" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT1">
+              <PropertyRef Name="ID_SUPERIOR_UNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_UNIT_COMPANY_FK">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID_COMPANY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_UNIT_ROLE_FK">
+          <End Role="INTERNAL_UNIT" Type="Self.INTERNAL_UNIT" Multiplicity="1" />
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INTERNAL_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID_INTERNALUNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ATASK_CHANGE_HISTORY_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="0..1" />
+          <End Role="PROCESSED_TASK_HISTORY" Type="Self.PROCESSED_TASK_HISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK_HISTORY">
+              <PropertyRef Name="ID_USERJUSTIFICATOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMMUNE_PROVINCE_FK">
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="1" />
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVINCE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMMUNE">
+              <PropertyRef Name="ID_PROVINCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMPANY_COMMUNE_FK">
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="1" />
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMUNE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ID_COMMUNE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMPANY_WORKING_AREA_FK">
+          <End Role="WORKING_AREA" Type="Self.WORKING_AREA" Multiplicity="1" />
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORKING_AREA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ID_WORKING_AREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ID_REGION_FK">
+          <End Role="REGION" Type="Self.REGION" Multiplicity="1" />
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROVINCE">
+              <PropertyRef Name="ID_REGION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOOP_TASK_MONTH_FK">
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="1" />
+          <End Role="LOOP_TASK" Type="Self.LOOP_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK">
+              <PropertyRef Name="ID_TASK_ASSIGNMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_DAY_OF_WEEK_FK">
+          <End Role="DAY_OF_WEEK" Type="Self.DAY_OF_WEEK" Multiplicity="0..1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAY_OF_WEEK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_DAYOFWEEK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_LOOP_TASK_FK">
+          <End Role="LOOP_TASK" Type="Self.LOOP_TASK" Multiplicity="1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOOP_TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_LOOP_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_MONTH_FK">
+          <End Role="MONTH" Type="Self.MONTH" Multiplicity="0..1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONTH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_MONTH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PROCESSED_TASK_LT_SCHEDULE_FK">
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="0..1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_SCHEDULED_LOOPTASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROLE_INTERNALUNIT_FK">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="INTERNAL_UNIT" Type="Self.INTERNAL_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="INTERNAL_UNIT">
+              <PropertyRef Name="ID_ROLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RTYPE_PERMISSION_P_FK">
+          <End Role="PERMISSION" Type="Self.PERMISSION" Multiplicity="1" />
+          <End Role="ROLE_PERMISSIONS" Type="Self.ROLE_PERMISSIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISSION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ROLE_PERMISSIONS">
+              <PropertyRef Name="ID_PERMISSION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RTYPE_PERMISSION_RT_FK">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="ROLE_PERMISSIONS" Type="Self.ROLE_PERMISSIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ROLE_PERMISSIONS">
+              <PropertyRef Name="ID_ROLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TABLE_18_ASSIGNED_TASK_FK">
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="1" />
+          <End Role="PROCESSED_TASK_HISTORY" Type="Self.PROCESSED_TASK_HISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROCESSED_TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK_HISTORY">
+              <PropertyRef Name="ID_ASSIGNEDTASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_ASSIGNMENT_FK">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_ASSIGNMENT_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_ASSIGNERUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_RECEIVER_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="0..1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_RECEIVERUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_TASK_FK">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="0..1" />
+          <End Role="TASK1" Type="Self.TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK1">
+              <PropertyRef Name="ID_SUPERIOR_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_TASK_FKV1">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="0..1" />
+          <End Role="TASK1" Type="Self.TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK1">
+              <PropertyRef Name="ID_DEPENDENT_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_ASSIGNED_ROLE_FK">
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_ASSIGNED_UNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_COMMUNE_FK">
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMUNE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_COMMUNE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_COMPANY_FK">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="0..1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_COMPANY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_GENDER_FK">
+          <End Role="GENDER" Type="Self.GENDER" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENDER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_GENDER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcessSAModelStoreContainer">
+          <EntitySet Name="ASSIGNED_UNIT" EntityType="Self.ASSIGNED_UNIT" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="COMMUNE" EntityType="Self.COMMUNE" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="DAY_OF_WEEK" EntityType="Self.DAY_OF_WEEK" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="GENDER" EntityType="Self.GENDER" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="INTERNAL_UNIT" EntityType="Self.INTERNAL_UNIT" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="LOOP_TASK" EntityType="Self.LOOP_TASK" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="LOOP_TASK_SCHEDULE" EntityType="Self.LOOP_TASK_SCHEDULE" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="MONTH" EntityType="Self.MONTH" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="PERMISSION" EntityType="Self.PERMISSION" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="PROCESSED_TASK" EntityType="Self.PROCESSED_TASK" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="PROCESSED_TASK_HISTORY" EntityType="Self.PROCESSED_TASK_HISTORY" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="PROVINCE" EntityType="Self.PROVINCE" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="REGION" EntityType="Self.REGION" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="ROLE_PERMISSIONS" EntityType="Self.ROLE_PERMISSIONS" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="TASK" EntityType="Self.TASK" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="TASK_ASSIGNMENT" EntityType="Self.TASK_ASSIGNMENT" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="TASK_STATUS" EntityType="Self.TASK_STATUS" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="USER_INFO" EntityType="Self.USER_INFO" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="WORKING_AREA" EntityType="Self.WORKING_AREA" Schema="PROCESSSA" store:Type="Tables" />
+          <AssociationSet Name="ASSIGNED_TASK_PROC_TASK_FK" Association="Self.ASSIGNED_TASK_PROC_TASK_FK">
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_TASK_TASK_FK" Association="Self.ASSIGNED_TASK_TASK_FK">
+            <End Role="TASK_STATUS" EntitySet="TASK_STATUS" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_UNIT_ASSIGNED_ROLE_FK" Association="Self.ASSIGNED_UNIT_ASSIGNED_ROLE_FK">
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+            <End Role="ASSIGNED_UNIT1" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_UNIT_COMPANY_FK" Association="Self.ASSIGNED_UNIT_COMPANY_FK">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_UNIT_ROLE_FK" Association="Self.ASSIGNED_UNIT_ROLE_FK">
+            <End Role="INTERNAL_UNIT" EntitySet="INTERNAL_UNIT" />
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="ATASK_CHANGE_HISTORY_USER_FK" Association="Self.ATASK_CHANGE_HISTORY_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="PROCESSED_TASK_HISTORY" EntitySet="PROCESSED_TASK_HISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="COMMUNE_PROVINCE_FK" Association="Self.COMMUNE_PROVINCE_FK">
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+          </AssociationSet>
+          <AssociationSet Name="COMPANY_COMMUNE_FK" Association="Self.COMPANY_COMMUNE_FK">
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+            <End Role="COMPANY" EntitySet="COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="COMPANY_WORKING_AREA_FK" Association="Self.COMPANY_WORKING_AREA_FK">
+            <End Role="WORKING_AREA" EntitySet="WORKING_AREA" />
+            <End Role="COMPANY" EntitySet="COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="ID_REGION_FK" Association="Self.ID_REGION_FK">
+            <End Role="REGION" EntitySet="REGION" />
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+          </AssociationSet>
+          <AssociationSet Name="LOOP_TASK_MONTH_FK" Association="Self.LOOP_TASK_MONTH_FK">
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+            <End Role="LOOP_TASK" EntitySet="LOOP_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_DAY_OF_WEEK_FK" Association="Self.LT_SCHEDULE_DAY_OF_WEEK_FK">
+            <End Role="DAY_OF_WEEK" EntitySet="DAY_OF_WEEK" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_LOOP_TASK_FK" Association="Self.LT_SCHEDULE_LOOP_TASK_FK">
+            <End Role="LOOP_TASK" EntitySet="LOOP_TASK" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_MONTH_FK" Association="Self.LT_SCHEDULE_MONTH_FK">
+            <End Role="MONTH" EntitySet="MONTH" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="PROCESSED_TASK_LT_SCHEDULE_FK" Association="Self.PROCESSED_TASK_LT_SCHEDULE_FK">
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="ROLE_INTERNALUNIT_FK" Association="Self.ROLE_INTERNALUNIT_FK">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="INTERNAL_UNIT" EntitySet="INTERNAL_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="RTYPE_PERMISSION_P_FK" Association="Self.RTYPE_PERMISSION_P_FK">
+            <End Role="PERMISSION" EntitySet="PERMISSION" />
+            <End Role="ROLE_PERMISSIONS" EntitySet="ROLE_PERMISSIONS" />
+          </AssociationSet>
+          <AssociationSet Name="RTYPE_PERMISSION_RT_FK" Association="Self.RTYPE_PERMISSION_RT_FK">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="ROLE_PERMISSIONS" EntitySet="ROLE_PERMISSIONS" />
+          </AssociationSet>
+          <AssociationSet Name="TABLE_18_ASSIGNED_TASK_FK" Association="Self.TABLE_18_ASSIGNED_TASK_FK">
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+            <End Role="PROCESSED_TASK_HISTORY" EntitySet="PROCESSED_TASK_HISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_ASSIGNMENT_FK" Association="Self.TASK_ASSIGNMENT_FK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_ASSIGNMENT_USER_FK" Association="Self.TASK_ASSIGNMENT_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_RECEIVER_USER_FK" Association="Self.TASK_RECEIVER_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_TASK_FK" Association="Self.TASK_TASK_FK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK1" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_TASK_FKV1" Association="Self.TASK_TASK_FKV1">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK1" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="USER_ASSIGNED_ROLE_FK" Association="Self.USER_ASSIGNED_ROLE_FK">
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="USER_COMMUNE_FK" Association="Self.USER_COMMUNE_FK">
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="USER_COMPANY_FK" Association="Self.USER_COMPANY_FK">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="USER_GENDER_FK" Association="Self.USER_GENDER_FK">
+            <End Role="GENDER" EntitySet="GENDER" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProcessSAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ASSIGNED_UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_INTERNALUNIT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMPANY" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SUPERIOR_UNIT" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="ASSIGNED_UNIT1" Relationship="Self.ASSIGNED_UNIT_ASSIGNED_ROLE_FK" FromRole="ASSIGNED_UNIT" ToRole="ASSIGNED_UNIT1" />
+          <NavigationProperty Name="ASSIGNED_UNIT2" Relationship="Self.ASSIGNED_UNIT_ASSIGNED_ROLE_FK" FromRole="ASSIGNED_UNIT1" ToRole="ASSIGNED_UNIT" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.ASSIGNED_UNIT_COMPANY_FK" FromRole="ASSIGNED_UNIT" ToRole="COMPANY" />
+          <NavigationProperty Name="INTERNAL_UNIT" Relationship="Self.ASSIGNED_UNIT_ROLE_FK" FromRole="ASSIGNED_UNIT" ToRole="INTERNAL_UNIT" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.USER_ASSIGNED_ROLE_FK" FromRole="ASSIGNED_UNIT" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="COMMUNE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_PROVINCE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="PROVINCE" Relationship="Self.COMMUNE_PROVINCE_FK" FromRole="COMMUNE" ToRole="PROVINCE" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.COMPANY_COMMUNE_FK" FromRole="COMMUNE" ToRole="COMPANY" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.USER_COMMUNE_FK" FromRole="COMMUNE" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LOGO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID_WORKING_AREA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMMUNE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="ASSIGNED_UNIT" Relationship="Self.ASSIGNED_UNIT_COMPANY_FK" FromRole="COMPANY" ToRole="ASSIGNED_UNIT" />
+          <NavigationProperty Name="COMMUNE" Relationship="Self.COMPANY_COMMUNE_FK" FromRole="COMPANY" ToRole="COMMUNE" />
+          <NavigationProperty Name="WORKING_AREA" Relationship="Self.COMPANY_WORKING_AREA_FK" FromRole="COMPANY" ToRole="WORKING_AREA" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.USER_COMPANY_FK" FromRole="COMPANY" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="DAY_OF_WEEK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="LOOP_TASK_SCHEDULE" Relationship="Self.LT_SCHEDULE_DAY_OF_WEEK_FK" FromRole="DAY_OF_WEEK" ToRole="LOOP_TASK_SCHEDULE" />
+        </EntityType>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.USER_GENDER_FK" FromRole="GENDER" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="INTERNAL_UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ROLE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="ASSIGNED_UNIT" Relationship="Self.ASSIGNED_UNIT_ROLE_FK" FromRole="INTERNAL_UNIT" ToRole="ASSIGNED_UNIT" />
+          <NavigationProperty Name="ROLE" Relationship="Self.ROLE_INTERNALUNIT_FK" FromRole="INTERNAL_UNIT" ToRole="ROLE" />
+        </EntityType>
+        <EntityType Name="LOOP_TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK_ASSIGNMENT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TIME" Type="DateTime" Nullable="false" />
+          <Property Name="ISACTIVE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TASK_ASSIGNMENT" Relationship="Self.LOOP_TASK_MONTH_FK" FromRole="LOOP_TASK" ToRole="TASK_ASSIGNMENT" />
+          <NavigationProperty Name="LOOP_TASK_SCHEDULE" Relationship="Self.LT_SCHEDULE_LOOP_TASK_FK" FromRole="LOOP_TASK" ToRole="LOOP_TASK_SCHEDULE" />
+        </EntityType>
+        <EntityType Name="LOOP_TASK_SCHEDULE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_LOOP_TASK" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_DAYOFWEEK" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="DAYOFMONTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NUMBEROFWEEK" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_MONTH" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="DAY_OF_WEEK" Relationship="Self.LT_SCHEDULE_DAY_OF_WEEK_FK" FromRole="LOOP_TASK_SCHEDULE" ToRole="DAY_OF_WEEK" />
+          <NavigationProperty Name="LOOP_TASK" Relationship="Self.LT_SCHEDULE_LOOP_TASK_FK" FromRole="LOOP_TASK_SCHEDULE" ToRole="LOOP_TASK" />
+          <NavigationProperty Name="MONTH" Relationship="Self.LT_SCHEDULE_MONTH_FK" FromRole="LOOP_TASK_SCHEDULE" ToRole="MONTH" />
+          <NavigationProperty Name="PROCESSED_TASK" Relationship="Self.PROCESSED_TASK_LT_SCHEDULE_FK" FromRole="LOOP_TASK_SCHEDULE" ToRole="PROCESSED_TASK" />
+        </EntityType>
+        <EntityType Name="MONTH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="LOOP_TASK_SCHEDULE" Relationship="Self.LT_SCHEDULE_MONTH_FK" FromRole="MONTH" ToRole="LOOP_TASK_SCHEDULE" />
+        </EntityType>
+        <EntityType Name="PERMISSION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ROLE" Relationship="Self.ROLE_PERMISSIONS" FromRole="PERMISSION" ToRole="ROLE" />
+        </EntityType>
+        <EntityType Name="PROCESSED_TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMMENTARY" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ASSIGNATIONDATE" Type="DateTime" Nullable="false" />
+          <Property Name="ENDDATE" Type="DateTime" Nullable="false" />
+          <Property Name="ID_TASKSTATUS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK_ASSIGNMENT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SCHEDULED_LOOPTASK" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="LOOP_TASK_SCHEDULE" Relationship="Self.PROCESSED_TASK_LT_SCHEDULE_FK" FromRole="PROCESSED_TASK" ToRole="LOOP_TASK_SCHEDULE" />
+          <NavigationProperty Name="TASK_ASSIGNMENT" Relationship="Self.ASSIGNED_TASK_PROC_TASK_FK" FromRole="PROCESSED_TASK" ToRole="TASK_ASSIGNMENT" />
+          <NavigationProperty Name="TASK_STATUS" Relationship="Self.ASSIGNED_TASK_TASK_FK" FromRole="PROCESSED_TASK" ToRole="TASK_STATUS" />
+          <NavigationProperty Name="PROCESSED_TASK_HISTORY" Relationship="Self.TABLE_18_ASSIGNED_TASK_FK" FromRole="PROCESSED_TASK" ToRole="PROCESSED_TASK_HISTORY" />
+        </EntityType>
+        <EntityType Name="PROCESSED_TASK_HISTORY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNEDTASK" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EVENTDATETIME" Type="DateTime" Nullable="false" />
+          <Property Name="JUSTIFICATION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ID_USERJUSTIFICATOR" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="PROCESSED_TASK" Relationship="Self.TABLE_18_ASSIGNED_TASK_FK" FromRole="PROCESSED_TASK_HISTORY" ToRole="PROCESSED_TASK" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.ATASK_CHANGE_HISTORY_USER_FK" FromRole="PROCESSED_TASK_HISTORY" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="PROVINCE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_REGION" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="COMMUNE" Relationship="Self.COMMUNE_PROVINCE_FK" FromRole="PROVINCE" ToRole="COMMUNE" />
+          <NavigationProperty Name="REGION" Relationship="Self.ID_REGION_FK" FromRole="PROVINCE" ToRole="REGION" />
+        </EntityType>
+        <EntityType Name="REGION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PROVINCE" Relationship="Self.ID_REGION_FK" FromRole="REGION" ToRole="PROVINCE" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="INTERNAL_UNIT" Relationship="Self.ROLE_INTERNALUNIT_FK" FromRole="ROLE" ToRole="INTERNAL_UNIT" />
+          <NavigationProperty Name="PERMISSION" Relationship="Self.ROLE_PERMISSIONS" FromRole="ROLE" ToRole="PERMISSION" />
+        </EntityType>
+        <EntityType Name="TASK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ISPREDEFINIDED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ISACTIVE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ID_SUPERIOR_TASK" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_DEPENDENT_TASK" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="TASK_ASSIGNMENT" Relationship="Self.TASK_ASSIGNMENT_FK" FromRole="TASK" ToRole="TASK_ASSIGNMENT" />
+          <NavigationProperty Name="TASK1" Relationship="Self.TASK_TASK_FK" FromRole="TASK" ToRole="TASK1" />
+          <NavigationProperty Name="TASK2" Relationship="Self.TASK_TASK_FK" FromRole="TASK1" ToRole="TASK" />
+          <NavigationProperty Name="TASK11" Relationship="Self.TASK_TASK_FKV1" FromRole="TASK" ToRole="TASK1" />
+          <NavigationProperty Name="TASK3" Relationship="Self.TASK_TASK_FKV1" FromRole="TASK1" ToRole="TASK" />
+        </EntityType>
+        <EntityType Name="TASK_ASSIGNMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_TASK" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNERUSER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_RECEIVERUSER" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="LOOP_TASK" Relationship="Self.LOOP_TASK_MONTH_FK" FromRole="TASK_ASSIGNMENT" ToRole="LOOP_TASK" />
+          <NavigationProperty Name="PROCESSED_TASK" Relationship="Self.ASSIGNED_TASK_PROC_TASK_FK" FromRole="TASK_ASSIGNMENT" ToRole="PROCESSED_TASK" />
+          <NavigationProperty Name="TASK" Relationship="Self.TASK_ASSIGNMENT_FK" FromRole="TASK_ASSIGNMENT" ToRole="TASK" />
+          <NavigationProperty Name="USER_INFO" Relationship="Self.TASK_ASSIGNMENT_USER_FK" FromRole="TASK_ASSIGNMENT" ToRole="USER_INFO" />
+          <NavigationProperty Name="USER_INFO1" Relationship="Self.TASK_RECEIVER_USER_FK" FromRole="TASK_ASSIGNMENT" ToRole="USER_INFO" />
+        </EntityType>
+        <EntityType Name="TASK_STATUS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PROCESSED_TASK" Relationship="Self.ASSIGNED_TASK_TASK_FK" FromRole="TASK_STATUS" ToRole="PROCESSED_TASK" />
+        </EntityType>
+        <EntityType Name="USER_INFO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="DateTime" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_COMMUNE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_ASSIGNED_UNIT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_COMPANY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_GENDER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="ASSIGNED_UNIT" Relationship="Self.USER_ASSIGNED_ROLE_FK" FromRole="USER_INFO" ToRole="ASSIGNED_UNIT" />
+          <NavigationProperty Name="COMMUNE" Relationship="Self.USER_COMMUNE_FK" FromRole="USER_INFO" ToRole="COMMUNE" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.USER_COMPANY_FK" FromRole="USER_INFO" ToRole="COMPANY" />
+          <NavigationProperty Name="GENDER" Relationship="Self.USER_GENDER_FK" FromRole="USER_INFO" ToRole="GENDER" />
+          <NavigationProperty Name="PROCESSED_TASK_HISTORY" Relationship="Self.ATASK_CHANGE_HISTORY_USER_FK" FromRole="USER_INFO" ToRole="PROCESSED_TASK_HISTORY" />
+          <NavigationProperty Name="TASK_ASSIGNMENT" Relationship="Self.TASK_ASSIGNMENT_USER_FK" FromRole="USER_INFO" ToRole="TASK_ASSIGNMENT" />
+          <NavigationProperty Name="TASK_ASSIGNMENT1" Relationship="Self.TASK_RECEIVER_USER_FK" FromRole="USER_INFO" ToRole="TASK_ASSIGNMENT" />
+        </EntityType>
+        <EntityType Name="WORKING_AREA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.COMPANY_WORKING_AREA_FK" FromRole="WORKING_AREA" ToRole="COMPANY" />
+        </EntityType>
+        <Association Name="ASSIGNED_UNIT_ASSIGNED_ROLE_FK">
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="0..1" />
+          <End Role="ASSIGNED_UNIT1" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT1">
+              <PropertyRef Name="ID_SUPERIOR_UNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_UNIT_COMPANY_FK">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID_COMPANY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_UNIT_ROLE_FK">
+          <End Role="INTERNAL_UNIT" Type="Self.INTERNAL_UNIT" Multiplicity="1" />
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INTERNAL_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID_INTERNALUNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_ASSIGNED_ROLE_FK">
+          <End Role="ASSIGNED_UNIT" Type="Self.ASSIGNED_UNIT" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSIGNED_UNIT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_ASSIGNED_UNIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMMUNE_PROVINCE_FK">
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="1" />
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVINCE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMMUNE">
+              <PropertyRef Name="ID_PROVINCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMPANY_COMMUNE_FK">
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="1" />
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMUNE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ID_COMMUNE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_COMMUNE_FK">
+          <End Role="COMMUNE" Type="Self.COMMUNE" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMUNE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_COMMUNE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMPANY_WORKING_AREA_FK">
+          <End Role="WORKING_AREA" Type="Self.WORKING_AREA" Multiplicity="1" />
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORKING_AREA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="COMPANY">
+              <PropertyRef Name="ID_WORKING_AREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_COMPANY_FK">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="0..1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_COMPANY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_DAY_OF_WEEK_FK">
+          <End Role="DAY_OF_WEEK" Type="Self.DAY_OF_WEEK" Multiplicity="0..1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAY_OF_WEEK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_DAYOFWEEK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_GENDER_FK">
+          <End Role="GENDER" Type="Self.GENDER" Multiplicity="1" />
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENDER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_INFO">
+              <PropertyRef Name="ID_GENDER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROLE_INTERNALUNIT_FK">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="INTERNAL_UNIT" Type="Self.INTERNAL_UNIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="INTERNAL_UNIT">
+              <PropertyRef Name="ID_ROLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOOP_TASK_MONTH_FK">
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="1" />
+          <End Role="LOOP_TASK" Type="Self.LOOP_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK">
+              <PropertyRef Name="ID_TASK_ASSIGNMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_LOOP_TASK_FK">
+          <End Role="LOOP_TASK" Type="Self.LOOP_TASK" Multiplicity="1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOOP_TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_LOOP_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LT_SCHEDULE_MONTH_FK">
+          <End Role="MONTH" Type="Self.MONTH" Multiplicity="0..1" />
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONTH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID_MONTH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PROCESSED_TASK_LT_SCHEDULE_FK">
+          <End Role="LOOP_TASK_SCHEDULE" Type="Self.LOOP_TASK_SCHEDULE" Multiplicity="0..1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOOP_TASK_SCHEDULE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_SCHEDULED_LOOPTASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_TASK_PROC_TASK_FK">
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_TASK_ASSIGNMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ASSIGNED_TASK_TASK_FK">
+          <End Role="TASK_STATUS" Type="Self.TASK_STATUS" Multiplicity="1" />
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK_STATUS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK">
+              <PropertyRef Name="ID_TASKSTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TABLE_18_ASSIGNED_TASK_FK">
+          <End Role="PROCESSED_TASK" Type="Self.PROCESSED_TASK" Multiplicity="1" />
+          <End Role="PROCESSED_TASK_HISTORY" Type="Self.PROCESSED_TASK_HISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROCESSED_TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK_HISTORY">
+              <PropertyRef Name="ID_ASSIGNEDTASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ATASK_CHANGE_HISTORY_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="0..1" />
+          <End Role="PROCESSED_TASK_HISTORY" Type="Self.PROCESSED_TASK_HISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROCESSED_TASK_HISTORY">
+              <PropertyRef Name="ID_USERJUSTIFICATOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ID_REGION_FK">
+          <End Role="REGION" Type="Self.REGION" Multiplicity="1" />
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REGION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROVINCE">
+              <PropertyRef Name="ID_REGION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_ASSIGNMENT_FK">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_TASK_FK">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="0..1" />
+          <End Role="TASK1" Type="Self.TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK1">
+              <PropertyRef Name="ID_SUPERIOR_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_TASK_FKV1">
+          <End Role="TASK" Type="Self.TASK" Multiplicity="0..1" />
+          <End Role="TASK1" Type="Self.TASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TASK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK1">
+              <PropertyRef Name="ID_DEPENDENT_TASK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_ASSIGNMENT_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_ASSIGNERUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TASK_RECEIVER_USER_FK">
+          <End Role="USER_INFO" Type="Self.USER_INFO" Multiplicity="0..1" />
+          <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_INFO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TASK_ASSIGNMENT">
+              <PropertyRef Name="ID_RECEIVERUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROLE_PERMISSIONS">
+          <End Role="PERMISSION" Type="Self.PERMISSION" Multiplicity="*" />
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProcessSAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ASSIGNED_UNIT" EntityType="Self.ASSIGNED_UNIT" />
+          <EntitySet Name="COMMUNE" EntityType="Self.COMMUNE" />
+          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" />
+          <EntitySet Name="DAY_OF_WEEK" EntityType="Self.DAY_OF_WEEK" />
+          <EntitySet Name="GENDER" EntityType="Self.GENDER" />
+          <EntitySet Name="INTERNAL_UNIT" EntityType="Self.INTERNAL_UNIT" />
+          <EntitySet Name="LOOP_TASK" EntityType="Self.LOOP_TASK" />
+          <EntitySet Name="LOOP_TASK_SCHEDULE" EntityType="Self.LOOP_TASK_SCHEDULE" />
+          <EntitySet Name="MONTH" EntityType="Self.MONTH" />
+          <EntitySet Name="PERMISSION" EntityType="Self.PERMISSION" />
+          <EntitySet Name="PROCESSED_TASK" EntityType="Self.PROCESSED_TASK" />
+          <EntitySet Name="PROCESSED_TASK_HISTORY" EntityType="Self.PROCESSED_TASK_HISTORY" />
+          <EntitySet Name="PROVINCE" EntityType="Self.PROVINCE" />
+          <EntitySet Name="REGION" EntityType="Self.REGION" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" />
+          <EntitySet Name="TASK" EntityType="Self.TASK" />
+          <EntitySet Name="TASK_ASSIGNMENT" EntityType="Self.TASK_ASSIGNMENT" />
+          <EntitySet Name="TASK_STATUS" EntityType="Self.TASK_STATUS" />
+          <EntitySet Name="USER_INFO" EntityType="Self.USER_INFO" />
+          <EntitySet Name="WORKING_AREA" EntityType="Self.WORKING_AREA" />
+          <AssociationSet Name="ASSIGNED_UNIT_ASSIGNED_ROLE_FK" Association="Self.ASSIGNED_UNIT_ASSIGNED_ROLE_FK">
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+            <End Role="ASSIGNED_UNIT1" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_UNIT_COMPANY_FK" Association="Self.ASSIGNED_UNIT_COMPANY_FK">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_UNIT_ROLE_FK" Association="Self.ASSIGNED_UNIT_ROLE_FK">
+            <End Role="INTERNAL_UNIT" EntitySet="INTERNAL_UNIT" />
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="USER_ASSIGNED_ROLE_FK" Association="Self.USER_ASSIGNED_ROLE_FK">
+            <End Role="ASSIGNED_UNIT" EntitySet="ASSIGNED_UNIT" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="COMMUNE_PROVINCE_FK" Association="Self.COMMUNE_PROVINCE_FK">
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+          </AssociationSet>
+          <AssociationSet Name="COMPANY_COMMUNE_FK" Association="Self.COMPANY_COMMUNE_FK">
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+            <End Role="COMPANY" EntitySet="COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="USER_COMMUNE_FK" Association="Self.USER_COMMUNE_FK">
+            <End Role="COMMUNE" EntitySet="COMMUNE" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="COMPANY_WORKING_AREA_FK" Association="Self.COMPANY_WORKING_AREA_FK">
+            <End Role="WORKING_AREA" EntitySet="WORKING_AREA" />
+            <End Role="COMPANY" EntitySet="COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="USER_COMPANY_FK" Association="Self.USER_COMPANY_FK">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_DAY_OF_WEEK_FK" Association="Self.LT_SCHEDULE_DAY_OF_WEEK_FK">
+            <End Role="DAY_OF_WEEK" EntitySet="DAY_OF_WEEK" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="USER_GENDER_FK" Association="Self.USER_GENDER_FK">
+            <End Role="GENDER" EntitySet="GENDER" />
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="ROLE_INTERNALUNIT_FK" Association="Self.ROLE_INTERNALUNIT_FK">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="INTERNAL_UNIT" EntitySet="INTERNAL_UNIT" />
+          </AssociationSet>
+          <AssociationSet Name="LOOP_TASK_MONTH_FK" Association="Self.LOOP_TASK_MONTH_FK">
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+            <End Role="LOOP_TASK" EntitySet="LOOP_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_LOOP_TASK_FK" Association="Self.LT_SCHEDULE_LOOP_TASK_FK">
+            <End Role="LOOP_TASK" EntitySet="LOOP_TASK" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="LT_SCHEDULE_MONTH_FK" Association="Self.LT_SCHEDULE_MONTH_FK">
+            <End Role="MONTH" EntitySet="MONTH" />
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+          </AssociationSet>
+          <AssociationSet Name="PROCESSED_TASK_LT_SCHEDULE_FK" Association="Self.PROCESSED_TASK_LT_SCHEDULE_FK">
+            <End Role="LOOP_TASK_SCHEDULE" EntitySet="LOOP_TASK_SCHEDULE" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_TASK_PROC_TASK_FK" Association="Self.ASSIGNED_TASK_PROC_TASK_FK">
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="ASSIGNED_TASK_TASK_FK" Association="Self.ASSIGNED_TASK_TASK_FK">
+            <End Role="TASK_STATUS" EntitySet="TASK_STATUS" />
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+          </AssociationSet>
+          <AssociationSet Name="TABLE_18_ASSIGNED_TASK_FK" Association="Self.TABLE_18_ASSIGNED_TASK_FK">
+            <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
+            <End Role="PROCESSED_TASK_HISTORY" EntitySet="PROCESSED_TASK_HISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="ATASK_CHANGE_HISTORY_USER_FK" Association="Self.ATASK_CHANGE_HISTORY_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="PROCESSED_TASK_HISTORY" EntitySet="PROCESSED_TASK_HISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="ID_REGION_FK" Association="Self.ID_REGION_FK">
+            <End Role="REGION" EntitySet="REGION" />
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_ASSIGNMENT_FK" Association="Self.TASK_ASSIGNMENT_FK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_TASK_FK" Association="Self.TASK_TASK_FK">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK1" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_TASK_FKV1" Association="Self.TASK_TASK_FKV1">
+            <End Role="TASK" EntitySet="TASK" />
+            <End Role="TASK1" EntitySet="TASK" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_ASSIGNMENT_USER_FK" Association="Self.TASK_ASSIGNMENT_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="TASK_RECEIVER_USER_FK" Association="Self.TASK_RECEIVER_USER_FK">
+            <End Role="USER_INFO" EntitySet="USER_INFO" />
+            <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="ROLE_PERMISSIONS" Association="Self.ROLE_PERMISSIONS">
+            <End Role="PERMISSION" EntitySet="PERMISSION" />
+            <End Role="ROLE" EntitySet="ROLE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProcessSAModelStoreContainer" CdmEntityContainer="ProcessSAEntities">
+          <EntitySetMapping Name="ASSIGNED_UNIT">
+            <EntityTypeMapping TypeName="ProcessSAModel.ASSIGNED_UNIT">
+              <MappingFragment StoreEntitySet="ASSIGNED_UNIT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_INTERNALUNIT" ColumnName="ID_INTERNALUNIT" />
+                <ScalarProperty Name="ID_COMPANY" ColumnName="ID_COMPANY" />
+                <ScalarProperty Name="ID_SUPERIOR_UNIT" ColumnName="ID_SUPERIOR_UNIT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMUNE">
+            <EntityTypeMapping TypeName="ProcessSAModel.COMMUNE">
+              <MappingFragment StoreEntitySet="COMMUNE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID_PROVINCE" ColumnName="ID_PROVINCE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPANY">
+            <EntityTypeMapping TypeName="ProcessSAModel.COMPANY">
+              <MappingFragment StoreEntitySet="COMPANY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+                <ScalarProperty Name="ID_WORKING_AREA" ColumnName="ID_WORKING_AREA" />
+                <ScalarProperty Name="ID_COMMUNE" ColumnName="ID_COMMUNE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DAY_OF_WEEK">
+            <EntityTypeMapping TypeName="ProcessSAModel.DAY_OF_WEEK">
+              <MappingFragment StoreEntitySet="DAY_OF_WEEK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENDER">
+            <EntityTypeMapping TypeName="ProcessSAModel.GENDER">
+              <MappingFragment StoreEntitySet="GENDER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INTERNAL_UNIT">
+            <EntityTypeMapping TypeName="ProcessSAModel.INTERNAL_UNIT">
+              <MappingFragment StoreEntitySet="INTERNAL_UNIT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID_ROLE" ColumnName="ID_ROLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOOP_TASK">
+            <EntityTypeMapping TypeName="ProcessSAModel.LOOP_TASK">
+              <MappingFragment StoreEntitySet="LOOP_TASK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_TASK_ASSIGNMENT" ColumnName="ID_TASK_ASSIGNMENT" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="ISACTIVE" ColumnName="ISACTIVE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOOP_TASK_SCHEDULE">
+            <EntityTypeMapping TypeName="ProcessSAModel.LOOP_TASK_SCHEDULE">
+              <MappingFragment StoreEntitySet="LOOP_TASK_SCHEDULE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_LOOP_TASK" ColumnName="ID_LOOP_TASK" />
+                <ScalarProperty Name="ID_DAYOFWEEK" ColumnName="ID_DAYOFWEEK" />
+                <ScalarProperty Name="DAYOFMONTH" ColumnName="DAYOFMONTH" />
+                <ScalarProperty Name="NUMBEROFWEEK" ColumnName="NUMBEROFWEEK" />
+                <ScalarProperty Name="ID_MONTH" ColumnName="ID_MONTH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONTH">
+            <EntityTypeMapping TypeName="ProcessSAModel.MONTH">
+              <MappingFragment StoreEntitySet="MONTH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERMISSION">
+            <EntityTypeMapping TypeName="ProcessSAModel.PERMISSION">
+              <MappingFragment StoreEntitySet="PERMISSION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROCESSED_TASK">
+            <EntityTypeMapping TypeName="ProcessSAModel.PROCESSED_TASK">
+              <MappingFragment StoreEntitySet="PROCESSED_TASK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COMMENTARY" ColumnName="COMMENTARY" />
+                <ScalarProperty Name="ASSIGNATIONDATE" ColumnName="ASSIGNATIONDATE" />
+                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+                <ScalarProperty Name="ID_TASKSTATUS" ColumnName="ID_TASKSTATUS" />
+                <ScalarProperty Name="ID_TASK_ASSIGNMENT" ColumnName="ID_TASK_ASSIGNMENT" />
+                <ScalarProperty Name="ID_SCHEDULED_LOOPTASK" ColumnName="ID_SCHEDULED_LOOPTASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROCESSED_TASK_HISTORY">
+            <EntityTypeMapping TypeName="ProcessSAModel.PROCESSED_TASK_HISTORY">
+              <MappingFragment StoreEntitySet="PROCESSED_TASK_HISTORY">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_ASSIGNEDTASK" ColumnName="ID_ASSIGNEDTASK" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="EVENTDATETIME" ColumnName="EVENTDATETIME" />
+                <ScalarProperty Name="JUSTIFICATION" ColumnName="JUSTIFICATION" />
+                <ScalarProperty Name="ID_USERJUSTIFICATOR" ColumnName="ID_USERJUSTIFICATOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVINCE">
+            <EntityTypeMapping TypeName="ProcessSAModel.PROVINCE">
+              <MappingFragment StoreEntitySet="PROVINCE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID_REGION" ColumnName="ID_REGION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGION">
+            <EntityTypeMapping TypeName="ProcessSAModel.REGION">
+              <MappingFragment StoreEntitySet="REGION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLE">
+            <EntityTypeMapping TypeName="ProcessSAModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TASK">
+            <EntityTypeMapping TypeName="ProcessSAModel.TASK">
+              <MappingFragment StoreEntitySet="TASK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ISPREDEFINIDED" ColumnName="ISPREDEFINIDED" />
+                <ScalarProperty Name="ISACTIVE" ColumnName="ISACTIVE" />
+                <ScalarProperty Name="ID_SUPERIOR_TASK" ColumnName="ID_SUPERIOR_TASK" />
+                <ScalarProperty Name="ID_DEPENDENT_TASK" ColumnName="ID_DEPENDENT_TASK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TASK_ASSIGNMENT">
+            <EntityTypeMapping TypeName="ProcessSAModel.TASK_ASSIGNMENT">
+              <MappingFragment StoreEntitySet="TASK_ASSIGNMENT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_TASK" ColumnName="ID_TASK" />
+                <ScalarProperty Name="ID_ASSIGNERUSER" ColumnName="ID_ASSIGNERUSER" />
+                <ScalarProperty Name="ID_RECEIVERUSER" ColumnName="ID_RECEIVERUSER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TASK_STATUS">
+            <EntityTypeMapping TypeName="ProcessSAModel.TASK_STATUS">
+              <MappingFragment StoreEntitySet="TASK_STATUS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_INFO">
+            <EntityTypeMapping TypeName="ProcessSAModel.USER_INFO">
+              <MappingFragment StoreEntitySet="USER_INFO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ID_COMMUNE" ColumnName="ID_COMMUNE" />
+                <ScalarProperty Name="ID_ASSIGNED_UNIT" ColumnName="ID_ASSIGNED_UNIT" />
+                <ScalarProperty Name="ID_COMPANY" ColumnName="ID_COMPANY" />
+                <ScalarProperty Name="ID_GENDER" ColumnName="ID_GENDER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WORKING_AREA">
+            <EntityTypeMapping TypeName="ProcessSAModel.WORKING_AREA">
+              <MappingFragment StoreEntitySet="WORKING_AREA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ROLE_PERMISSIONS" TypeName="ProcessSAModel.ROLE_PERMISSIONS" StoreEntitySet="ROLE_PERMISSIONS">
+            <EndProperty Name="PERMISSION">
+              <ScalarProperty Name="ID" ColumnName="ID_PERMISSION" />
+            </EndProperty>
+            <EndProperty Name="ROLE">
+              <ScalarProperty Name="ID" ColumnName="ID_ROLE" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

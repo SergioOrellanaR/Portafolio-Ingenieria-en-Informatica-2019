@@ -30,16 +30,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
+    <Reference Include="Oracle.VsDevTools.EntityFramework.15.0, Version=6.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,12 +60,109 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ASSIGNED_UNIT.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="COMMUNE.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMPANY.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAY_OF_WEEK.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GENDER.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="INTERNAL_UNIT.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LOOP_TASK.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LOOP_TASK_SCHEDULE.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MONTH.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PERMISSION.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PROCESSED_TASK.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PROCESSED_TASK_HISTORY.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessSADataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProcessSADataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessSADataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessSADataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProcessSADataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PROVINCE.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REGION.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROLE.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TASK.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TASK_ASSIGNMENT.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TASK_STATUS.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USER_INFO.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WORKING_AREA.cs">
+      <DependentUpon>ProcessSADataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="ProcessSADataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProcessSADataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ProcessSADataModel.edmx.diagram">
+      <DependentUpon>ProcessSADataModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProcessSADataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProcessSADataModel.edmx</DependentUpon>
+      <LastGenOutput>ProcessSADataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ProcessSADataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProcessSADataModel.edmx</DependentUpon>
+      <LastGenOutput>ProcessSADataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
