@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("TASKWebApp.Console")]
+[assembly: AssemblyTitle("TASKWebApp.ConsoleApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TASKWebApp.Console")]
+[assembly: AssemblyProduct("TASKWebApp.ConsoleApp")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("721d2e03-0af7-4e1d-882a-9a96d2645043")]
+[assembly: Guid("da17be6f-3da7-4aaf-89dc-aef7e7980f20")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
