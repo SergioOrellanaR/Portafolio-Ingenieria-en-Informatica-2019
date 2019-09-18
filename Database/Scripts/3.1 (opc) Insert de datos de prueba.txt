@@ -1,0 +1,4 @@
+Insert into Company (name, address, id_working_area, id_commune) values ('NovaSmart', 'Williams Rebolledo 2605', 10, 100);
+Insert into Internal_Unit (id_role, name) values (3,'CEO');
+Insert into Assigned_Unit (id_company, id_internalunit) values (1, 1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cGZ0MjAxOQ==', 100, 1, 1, 1);
