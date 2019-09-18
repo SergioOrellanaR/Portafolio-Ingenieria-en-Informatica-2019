@@ -97,8 +97,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AssignedUnit.cs" />
+    <Compile Include="Classes\LoopTask.cs" />
+    <Compile Include="Classes\LoopTaskSchedule.cs" />
+    <Compile Include="Classes\ProcessedTask.cs" />
+    <Compile Include="Classes\Task.cs" />
+    <Compile Include="Classes\TaskAssignment.cs" />
+    <Compile Include="Classes\User.cs" />
     <Compile Include="Helpers\ComboBoxDataLoader.cs" />
     <Compile Include="Helpers\Connection.cs" />
+    <Compile Include="Helpers\ReportHelper.cs" />
+    <Compile Include="Helpers\SMTPHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -111,8 +120,6 @@
       <Name>TASKWebApp.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
