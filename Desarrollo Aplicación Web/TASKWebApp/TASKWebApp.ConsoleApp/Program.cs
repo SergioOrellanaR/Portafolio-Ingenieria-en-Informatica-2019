@@ -10,11 +10,7 @@ namespace TASKWebApp.ConsoleApp
     {
         static void Main(string[] args)
         {
-            foreach(string val in Business.Helpers.ComboBoxDataLoader.Gender.Values.ToList())
-            {
-                Console.WriteLine(val);
-            }
-            Console.ReadKey();
+            
         }
     }
 }

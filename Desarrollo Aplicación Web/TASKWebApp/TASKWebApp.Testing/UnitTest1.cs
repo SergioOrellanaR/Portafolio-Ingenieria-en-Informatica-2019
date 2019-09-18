@@ -7,8 +7,9 @@ namespace TASKWebApp.Testing
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CountGenderShouldReturn3()
         {
+            Assert.AreEqual(3, Business.Helpers.ComboBoxDataLoader.Gender.Values.Count);
         }
     }
 }
