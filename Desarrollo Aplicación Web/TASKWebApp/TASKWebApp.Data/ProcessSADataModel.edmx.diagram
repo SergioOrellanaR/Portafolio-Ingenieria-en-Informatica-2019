@@ -4,54 +4,54 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="be2b34b8a1db46d2b36bdcc3ba7c05c7" Name="Diagram1" ZoomLevel="29">
-        <EntityTypeShape EntityType="ProcessSAModel.ASSIGNED_UNIT" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.COMMUNE" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.COMPANY" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.DAY_OF_WEEK" Width="1.5" PointX="19.5" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.GENDER" Width="1.5" PointX="9.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.INTERNAL_UNIT" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.LOOP_TASK" Width="1.5" PointX="19.5" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.LOOP_TASK_SCHEDULE" Width="1.5" PointX="21.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.MONTH" Width="1.5" PointX="19.5" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.PERMISSION" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.PROCESSED_TASK" Width="1.5" PointX="24" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.PROCESSED_TASK_HISTORY" Width="1.5" PointX="14.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.PROVINCE" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.REGION" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.ROLE" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.TASK" Width="1.5" PointX="15" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.TASK_ASSIGNMENT" Width="1.5" PointX="17.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.TASK_STATUS" Width="1.5" PointX="21.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.USER_INFO" Width="1.5" PointX="12" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProcessSAModel.WORKING_AREA" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_ASSIGNED_ROLE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_COMPANY_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_ROLE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.USER_ASSIGNED_ROLE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.COMMUNE_PROVINCE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.COMPANY_COMMUNE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.USER_COMMUNE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.COMPANY_WORKING_AREA_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.USER_COMPANY_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_DAY_OF_WEEK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.USER_GENDER_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ROLE_INTERNALUNIT_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.LOOP_TASK_MONTH_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_LOOP_TASK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_MONTH_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.PROCESSED_TASK_LT_SCHEDULE_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ASSIGNED_TASK_PROC_TASK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ASSIGNED_TASK_TASK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TABLE_18_ASSIGNED_TASK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ATASK_CHANGE_HISTORY_USER_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ID_REGION_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TASK_ASSIGNMENT_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TASK_TASK_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TASK_TASK_FKV1" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TASK_ASSIGNMENT_USER_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.TASK_RECEIVER_USER_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="ProcessSAModel.ROLE_PERMISSIONS" ManuallyRouted="false" />
+      <Diagram DiagramId="be2b34b8a1db46d2b36bdcc3ba7c05c7" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="ProcessSAModel.ASSIGNED_UNIT" Width="1.5" PointX="9.75" PointY="3.5" />
+        <EntityTypeShape EntityType="ProcessSAModel.COMMUNE" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="ProcessSAModel.COMPANY" Width="1.5" PointX="7.5" PointY="3.375" />
+        <EntityTypeShape EntityType="ProcessSAModel.DAY_OF_WEEK" Width="1.5" PointX="16.5" PointY="11.25" />
+        <EntityTypeShape EntityType="ProcessSAModel.GENDER" Width="1.5" PointX="9.75" PointY="1.125" />
+        <EntityTypeShape EntityType="ProcessSAModel.INTERNAL_UNIT" Width="1.5" PointX="7.5" PointY="7.875" />
+        <EntityTypeShape EntityType="ProcessSAModel.LOOP_TASK" Width="1.5" PointX="16.5" PointY="7.75" />
+        <EntityTypeShape EntityType="ProcessSAModel.LOOP_TASK_SCHEDULE" Width="1.5" PointX="18.75" PointY="7.375" />
+        <EntityTypeShape EntityType="ProcessSAModel.MONTH" Width="1.5" PointX="16.5" PointY="0.875" />
+        <EntityTypeShape EntityType="ProcessSAModel.PERMISSION" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="ProcessSAModel.PROCESSED_TASK" Width="1.5" PointX="21" PointY="5.25" />
+        <EntityTypeShape EntityType="ProcessSAModel.PROCESSED_TASK_HISTORY" Width="1.5" PointX="17.25" PointY="3.625" />
+        <EntityTypeShape EntityType="ProcessSAModel.PROVINCE" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="ProcessSAModel.REGION" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="ProcessSAModel.ROLE" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="ProcessSAModel.TASK" Width="1.5" PointX="12" PointY="9.25" />
+        <EntityTypeShape EntityType="ProcessSAModel.TASK_ASSIGNMENT" Width="1.5" PointX="14.25" PointY="3.5" />
+        <EntityTypeShape EntityType="ProcessSAModel.TASK_STATUS" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProcessSAModel.USER_INFO" Width="1.5" PointX="12" PointY="2.5" />
+        <EntityTypeShape EntityType="ProcessSAModel.WORKING_AREA" Width="1.5" PointX="5.25" PointY="1.125" />
+        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_ASSIGNED_ROLE_FK" />
+        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_COMPANY_FK" />
+        <AssociationConnector Association="ProcessSAModel.ASSIGNED_UNIT_ROLE_FK" />
+        <AssociationConnector Association="ProcessSAModel.USER_ASSIGNED_ROLE_FK" />
+        <AssociationConnector Association="ProcessSAModel.COMMUNE_PROVINCE_FK" />
+        <AssociationConnector Association="ProcessSAModel.COMPANY_COMMUNE_FK" />
+        <AssociationConnector Association="ProcessSAModel.USER_COMMUNE_FK" />
+        <AssociationConnector Association="ProcessSAModel.COMPANY_WORKING_AREA_FK" />
+        <AssociationConnector Association="ProcessSAModel.USER_COMPANY_FK" />
+        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_DAY_OF_WEEK_FK" />
+        <AssociationConnector Association="ProcessSAModel.USER_GENDER_FK" />
+        <AssociationConnector Association="ProcessSAModel.ROLE_INTERNALUNIT_FK" />
+        <AssociationConnector Association="ProcessSAModel.LOOP_TASK_MONTH_FK" />
+        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_LOOP_TASK_FK" />
+        <AssociationConnector Association="ProcessSAModel.LT_SCHEDULE_MONTH_FK" />
+        <AssociationConnector Association="ProcessSAModel.PROCESSED_TASK_LT_SCHEDULE_FK" />
+        <AssociationConnector Association="ProcessSAModel.ASSIGNED_TASK_PROC_TASK_FK" />
+        <AssociationConnector Association="ProcessSAModel.ASSIGNED_TASK_TASK_FK" />
+        <AssociationConnector Association="ProcessSAModel.TABLE_18_ASSIGNED_TASK_FK" />
+        <AssociationConnector Association="ProcessSAModel.ATASK_CHANGE_HISTORY_USER_FK" />
+        <AssociationConnector Association="ProcessSAModel.ID_REGION_FK" />
+        <AssociationConnector Association="ProcessSAModel.TASK_ASSIGNMENT_FK" />
+        <AssociationConnector Association="ProcessSAModel.TASK_TASK_FK" />
+        <AssociationConnector Association="ProcessSAModel.TASK_TASK_FKV1" />
+        <AssociationConnector Association="ProcessSAModel.TASK_ASSIGNMENT_USER_FK" />
+        <AssociationConnector Association="ProcessSAModel.TASK_RECEIVER_USER_FK" />
+        <AssociationConnector Association="ProcessSAModel.ROLE_PERMISSIONS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

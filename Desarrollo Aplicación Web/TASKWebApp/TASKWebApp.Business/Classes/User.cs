@@ -30,7 +30,46 @@ namespace TASKWebApp.Business.Classes
 
         }
 
-        
+        public User(int id)
+        {
+            Id = id;
+            if (!ReadById())
+            {
+                Id = -1;
+                log.Error("Error al inicializar Usuario por Id (No se pudo encontrar), Id parametrizado: " + id);
+            }
+        }
+
+        public bool ReadById()
+        {
+            try
+            {
+                Data.USER_INFO usr = Connection.ProcessSA_DB.USER_INFO.First(user => user.ID == Id);
+                Id = (int)usr.ID;
+                FirstName = usr.FIRSTNAME;
+                LastName = usr.LASTNAME;
+                Address = usr.ADDRESS;
+                Phone = usr.PHONE;
+                Birthdate = usr.BIRTHDATE;
+                Email = usr.EMAIL;
+                Commune = usr.COMMUNE.NAME;
+                Gender = usr.GENDER.NAME;
+                Company = usr.COMPANY.NAME;
+                AssignedUnit = new AssignedUnit() { Id = (int)usr.ASSIGNED_UNIT.ID };
+                if (AssignedUnit.ReadById() == false)
+                {
+                    log.Error(("Error al ir a buscar la unidad asignada del usuario con Id {0} a la DB", Id));
+                    throw new Exception();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                log.Error("Error al buscar usuario por Id: "+Id, e);
+                return false;
+            }
+        }
+
         public bool ReadByEmail()
         {
             try
@@ -49,14 +88,14 @@ namespace TASKWebApp.Business.Classes
                 AssignedUnit = new AssignedUnit() { Id = (int)usr.ASSIGNED_UNIT.ID };
                 if (AssignedUnit.ReadById() == false)
                 {
-                    log.Error("Error al ir a buscar la unidad asignada a la DB");
+                    log.Error(("Error al ir a buscar la unidad asignada del usuario con Id {0} a la DB", Id));
                     throw new Exception();
                 }
                 return true;
             }
             catch (Exception e)
             {
-                log.Error("Error al buscar usuario por email", e);
+                log.Error("Error al buscar usuario por email: "+Email, e);
                 return false;
             }
         }

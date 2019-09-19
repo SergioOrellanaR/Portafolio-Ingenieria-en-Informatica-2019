@@ -12,29 +12,21 @@ namespace TASKWebApp.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Pruebas de usuario!");
+            log4net.Config.XmlConfigurator.Configure();
+            Console.WriteLine("Se creará una tarea!");
             Console.WriteLine("");
-            User user = new User() { Email = "serorellanar@gmail.com" };
-            Console.WriteLine("Resultado de Leer datos = "+user.ReadByEmail());
-            Console.WriteLine("Id: "+user.Id);
-            Console.WriteLine("Email: "+user.Email);
-            Console.WriteLine("Nombres: "+user.FirstName);
-            Console.WriteLine("Apellidos: "+user.LastName);
-            Console.WriteLine("Fono: "+user.Phone);
-            Console.WriteLine("Dirección: "+user.Address);
-            Console.WriteLine("Comuna: "+user.Commune);
-            Console.WriteLine("Compañia: "+user.Company);
-            Console.WriteLine("Genero: "+user.Gender);
-            Console.WriteLine("Fecha de nacimiento: "+user.Birthdate.ToString());
-            Console.WriteLine("Unidad interna: " + user.AssignedUnit.InternalUnit + " en "+ user.AssignedUnit.Company);
-            Console.ReadKey();
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Se listarán todos los permisos del usuario: ");
-            foreach(string val in user.GetPermissions().Values.ToList())
+            Business.Classes.Task task = new Business.Classes.Task()
             {
-                Console.WriteLine(val);
-            }
+                DependentTask = null,
+                Description = "Tarea de prueba",
+                Name = "Test",
+                IsActive = false,
+                IsPredefined = false,
+                SuperiorTask = null
+            };
+
+            Console.WriteLine("Resultado de Crear tarea = "+task.Create());
+            Console.WriteLine("Id: " + task.Id);
             Console.ReadKey();
         }
     }
