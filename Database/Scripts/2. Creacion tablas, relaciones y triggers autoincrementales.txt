@@ -134,6 +134,7 @@ CREATE TABLE processed_task (
     id                      INTEGER NOT NULL,
     commentary              NVARCHAR2(1000),
     assignationdate         DATE NOT NULL,
+	startdate				DATE NOT NULL,
     enddate                 DATE NOT NULL,
     id_taskstatus           INTEGER NOT NULL,
     id_task_assignment      INTEGER NOT NULL,
