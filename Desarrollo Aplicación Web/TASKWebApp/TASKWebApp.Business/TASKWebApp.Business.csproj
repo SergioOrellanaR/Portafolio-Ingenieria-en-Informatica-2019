@@ -112,6 +112,7 @@
     <Compile Include="Helpers\PasswordEncryptor.cs" />
     <Compile Include="Helpers\ReportHelper.cs" />
     <Compile Include="Helpers\SMTPHelper.cs" />
+    <Compile Include="Helpers\StaticHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -24,8 +24,8 @@ namespace TASKWebApp.Data
         public decimal ID { get; set; }
         public string NAME { get; set; }
         public string DESCRIPTION { get; set; }
-        public string ISPREDEFINIDED { get; set; }
-        public string ISACTIVE { get; set; }
+        public short ISPREDEFINED { get; set; }
+        public Nullable<short> ISACTIVE { get; set; }
         public Nullable<decimal> ID_SUPERIOR_TASK { get; set; }
         public Nullable<decimal> ID_DEPENDENT_TASK { get; set; }
     

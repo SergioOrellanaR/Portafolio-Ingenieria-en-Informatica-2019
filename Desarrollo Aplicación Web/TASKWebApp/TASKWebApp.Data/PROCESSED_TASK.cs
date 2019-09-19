@@ -22,6 +22,7 @@ namespace TASKWebApp.Data
         public decimal ID { get; set; }
         public string COMMENTARY { get; set; }
         public System.DateTime ASSIGNATIONDATE { get; set; }
+        public System.DateTime STARTDATE { get; set; }
         public System.DateTime ENDDATE { get; set; }
         public decimal ID_TASKSTATUS { get; set; }
         public decimal ID_TASK_ASSIGNMENT { get; set; }
