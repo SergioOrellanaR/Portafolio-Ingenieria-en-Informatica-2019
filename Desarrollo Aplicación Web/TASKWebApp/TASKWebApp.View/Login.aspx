@@ -38,6 +38,7 @@
             <button type="submit" class="btn btn-primary btn-lg pull-right" name="btningresar">Ingresar</button>
         </div>		
     </form>
+    <div class="hint-text">Olvidaste tu contraseña? <a href="RecuperarContraseña.aspx">Recuperar</a></div>
 </div>
 <div class="footer">
   <p> By NOVA SMART Copyright © Todos los Derechos Reservados</p>
