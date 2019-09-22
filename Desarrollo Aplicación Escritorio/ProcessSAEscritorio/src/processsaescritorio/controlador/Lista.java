@@ -17,8 +17,32 @@ public class Lista {
     public Lista() {
     }
     
-     public ArrayList<RegionDTO> listarRegiones(){
+    public ArrayList<RegionDTO> listarRegiones(){
         ArrayList<RegionDTO> listaRegiones = new RegionDAO().obtenerRegionesBD();
         return listaRegiones;
     }   
+     
+    public ArrayList<ProvinciaDTO> listarProvincias(String region){
+        ArrayList<ProvinciaDTO> listarProvincias = new ProvinciaDAO().listarProvinciasPorRegion(region);
+        return listarProvincias;
+    }
+    
+    public ArrayList<ComunaDTO> listarComunasPorProvincia(String comuna){
+        ArrayList<ComunaDTO> listarComunas = new ComunaDAO().listarComunasPorProvincia(comuna);
+        return listarComunas;
+    }
+       
+    public ArrayList<AreaTrabajoDTO> listarAreasTrabajo(){
+        ArrayList<AreaTrabajoDTO> listarAreasTrabajo = new AreaTrabajoDAO().obtenerAreasTrabajo();
+        return listarAreasTrabajo;
+    }
+    
+    public ArrayList<CompaniaDTO> listarCompanias(){
+        ArrayList<CompaniaDTO> listarCompanias = new CompaniaDAO().obtenerCompanias();
+        return listarCompanias;
+    }   
+    
+    
+       
+       
 }
