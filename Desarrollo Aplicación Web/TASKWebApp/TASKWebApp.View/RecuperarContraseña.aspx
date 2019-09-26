@@ -20,25 +20,25 @@
       <img src="img/TASKlogo.png" /> Tareas empresariales en tiempo real</a>
 </div>
 <div class="signup-form">
-    <form  method="post">
+    <form  method="post" runat="server">
 		<h2>Recuperar Contraseña</h2>
 		<p>Por favor ingrese la información solicitada</p>
 		<hr>
         <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-				<input type="email" class="form-control" name="txtemail" placeholder="Email Address" required="required">
-			</div>
+                <asp:TextBox TextMode="Email" ID="txtCorreo" runat="server" CssClass="form-control" placeholder="Email" required="true" MaxLength="255"></asp:TextBox>
+           </div>
         </div>
 		<div class="form-group">
 			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-				<input type="date" class="form-control" name="dtfecha" required="required">
+				<span class="input-group-addon"><i class="fa fa-lock"></i></span>				
+                <asp:TextBox TextMode="Date" ID="txtFecha" runat="server" CssClass="form-control" required="true"></asp:TextBox><!--<input type="date" class="form-control" name="dtfecha" required="required">-->
 			</div>
         </div>
 		<div class="form-group">
-           
-            <button type="submit" class="btn btn-primary btn-lg">Aceptar</button>
+            <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" />
+
         </div>
     </form>
 	<div class="text-center">Ya tienes cuenta? <a href="Login.aspx">Ingresa aquí</a></div>

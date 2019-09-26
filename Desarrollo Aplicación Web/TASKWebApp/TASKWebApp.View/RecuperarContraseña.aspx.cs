@@ -13,5 +13,10 @@ namespace TASKWebApp.View
         {
 
         }
+
+        protected void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
