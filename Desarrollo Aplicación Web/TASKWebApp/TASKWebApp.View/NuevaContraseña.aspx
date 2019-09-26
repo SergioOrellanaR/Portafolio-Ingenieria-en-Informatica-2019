@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NuevaContraseña.aspx.cs" Inherits="TASKWebApp.View.NuevaContraseña" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

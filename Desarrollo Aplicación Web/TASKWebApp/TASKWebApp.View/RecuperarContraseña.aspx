@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="TASKWebApp.View.RecuperarContraseña" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

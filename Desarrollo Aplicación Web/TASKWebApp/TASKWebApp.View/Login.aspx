@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TASKWebApp.View.Login" %>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -34,13 +36,13 @@
                 </div>
                 <div class="form-group">
                     <!--     <input       type="password"      class="form-control input-lg"    name="txtpassword" placeholder="Contraseña" required="required" maxlength="50"> -->
-                    <asp:TextBox TextMode="Password" CssClass="form-control input-lg" ID="txtPassword" runat="server" placeholder="Contraseña" required="true" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox TextMode="Password" CssClass="form-control input-lg" ID="txtPassword" runat="server" placeholder="Contraseña" required="true" MaxLength="50" ></asp:TextBox>
                 </div>
                 <div class="form-group clearfix">
                     <label class="pull-left checkbox-inline">
                         <input type="checkbox" name="cbxrecuerdame">Recuérdame</label>
                     <!--     <button type="submit" class="btn btn-primary btn-lg pull-right" name="btningresar">Ingresar</button> -->
-                    <asp:Button ID="btnIngresar" CssClass="btn btn-primary btn-lg pull-right" runat="server" Text="Ingresar" />
+                    <asp:Button ID="btnLogin" CssClass="btn btn-primary btn-lg pull-right" runat="server" Text="Ingresar" OnClick="btnLogin_Click" />
                 </div>
             </form>
             <div class="hint-text">Olvidaste tu contraseña? <a href="RecuperarContraseña.aspx">Recuperar</a></div>
