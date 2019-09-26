@@ -98,4 +98,38 @@ public class CompaniaDAO {
             return listarCompanias;
         }
     } 
+        
+    public String registrarCompanias(){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("INSERT INTO COMPANY(NAME,ADDRESS,LOGO,ID_WORKING_AREA,ID_COMMUNE)VALUES ('"+this.getNombre()+"','"+this.getDireccion()+"',Null,"+this.getIdAreaTrabajo()+","+this.getIdComuna()+")");
+            //INSERT INTO COMPANY(NAME,ADDRESS,LOGO,ID_WORKING_AREA,ID_COMMUNE) VALUES ('Ironplat','Hugo Bravo ',NULL,2,2);
+            conexion.close();
+            return "El registro de compañia fue exitoso.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo registrar compañia : " + e;
+        }        
+    }
+
+     public String actualizarCompañia(int id,String nombre,String direccion,int idAreaTrabajo,int idComuna){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("UPDATE COMPANY SET NAME = '" + nombre+ "', ADDRESS = '" + direccion + "', ID_WORKING_AREA = " + idAreaTrabajo +",ID_COMMUNE "+idComuna + " WHERE ID = " + id +")");
+            conexion.close();
+            return "Actualización de compañia fue exitosa.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo actualizar compañia : " + e;
+        }    
+    }
+     
 }
+        
+        
+        
+

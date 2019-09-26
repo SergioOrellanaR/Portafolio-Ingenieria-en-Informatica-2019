@@ -25,6 +25,14 @@ public class CompaniaDTO {
         this.nombre = nombre;   
     }
 
+    public CompaniaDTO(int id, String nombre, String direccion, int idAreaTrabajo, int idComuna) {
+        this.id=id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.idAreaTrabajo = idAreaTrabajo;
+        this.idComuna = idComuna;
+    }
+
     public int getId() {
         return id;
     }
