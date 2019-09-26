@@ -26,9 +26,12 @@
         </div>
         <div class="login-form">
             <h2 class="text-center">Iniciar sesión T.A.S.K</h2>
-            <form action="/examples/actions/confirmation.php" method="post" runat="server">
+            <form method="post" runat="server">
                 <div class="avatar">
                     <img src="img/avatar.png" alt="Avatar">
+                </div>
+                <div id="message">
+                    <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
                 </div>
                 <div class="form-group">
                     <!--  <input type="email" class="form-control input-lg" name="txtemail" placeholder="Email" required="required" maxlength="250"> -->
@@ -40,7 +43,8 @@
                 </div>
                 <div class="form-group clearfix">
                     <label class="pull-left checkbox-inline">
-                        <input type="checkbox" name="cbxrecuerdame">Recuérdame</label>
+                    <!--    <input type="checkbox" name="cbxrecuerdame">Recuérdame</label> -->
+                    <asp:CheckBox ID="cbxrecuerdame" runat="server" Text="Recuérdame"/></label>
                     <!--     <button type="submit" class="btn btn-primary btn-lg pull-right" name="btningresar">Ingresar</button> -->
                     <asp:Button ID="btnLogin" CssClass="btn btn-primary btn-lg pull-right" runat="server" Text="Ingresar" OnClick="btnLogin_Click" />
                 </div>
