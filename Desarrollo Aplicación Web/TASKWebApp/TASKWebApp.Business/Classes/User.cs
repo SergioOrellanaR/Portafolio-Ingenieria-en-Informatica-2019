@@ -1,6 +1,7 @@
 ﻿using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -212,6 +213,43 @@ namespace TASKWebApp.Business.Classes
             }
 
             return dictionary;
+        }
+        /*Busca en todos los permisos existentes si el permiso en cuestión está en la DB,
+        en caso que no, es porque este permiso ha dejado de existir, en cuyo caso este
+        método devolverá el valor configurado en App Settings cuando los permisos no existen.
+        En caso de existir y el usuario poseer el permiso, devolverá true.
+        En caso de existir y el usuario no posee el permiso, devolverá false.*/
+        public bool HasPermission(int idPermission)
+        {
+            try
+            {
+                
+                Connection.ProcessSA_DB.PERMISSION.First(x => x.ID == idPermission);
+                if (GetPermissions().ContainsKey(idPermission))
+                {
+                    return true;
+                }
+                else
+                {
+                    log.Warn(("Se le ha denegado el acceso al usuario a un módulo al cual no estaba autorizado. Email: {0}, IdPermiso: {1}", Email, idPermission));
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error("Se ha ido a buscar un permiso que ya no existe en la base de datos, el ID de este permiso es el: " + idPermission);
+                bool val;
+                if (Boolean.TryParse(ConfigurationManager.AppSettings["AllowWhenPermissionDoesntExists"], out val))
+                {
+                    return val;
+                }
+                else
+                {
+                    log.Error("Error al parsear el valor AllowWhenPermissionDoesntExists, verifique que sea un boolean válido");
+                    return false;
+                }
+            }
+            
         }
     }
 }

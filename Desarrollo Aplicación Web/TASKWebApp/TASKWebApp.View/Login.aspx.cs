@@ -24,6 +24,7 @@ namespace TASKWebApp.View
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            int IdAccessWebPagePermission = 2;
             User user = new User()
             {
                 Email = txtEmail.Text,
@@ -32,10 +33,18 @@ namespace TASKWebApp.View
 
             if (user.Authenticate() == true)
             {
-                user.ReadByEmail();
-                Session["ses"] = user;
-                RememberMe();
-                Response.Redirect("Home.aspx");
+                if(user.HasPermission(IdAccessWebPagePermission))
+                {
+                    user.ReadByEmail();
+                    Session["ses"] = user;
+                    RememberMe();
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                {
+                    lblErrorMessage.Text = "Usted no tiene permiso para iniciar sesión en esta página";
+                }
+                
             }
             else
             {
