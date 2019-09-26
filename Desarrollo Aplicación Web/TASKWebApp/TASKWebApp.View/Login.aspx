@@ -30,11 +30,11 @@
                 </div>
                 <div class="form-group">
                     <!--  <input type="email" class="form-control input-lg" name="txtemail" placeholder="Email" required="required" maxlength="250"> -->
-                    <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control input-lg" MaxLength="250" required="true"></asp:TextBox>
+                    <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control input-lg" placeholder="Email" MaxLength="250" required="true" ></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <!--     <input       type="password"      class="form-control input-lg"    name="txtpassword" placeholder="Contraseña" required="required" maxlength="50"> -->
-                    <asp:TextBox TextMode="Password" CssClass="form-control input-lg" ID="txtPassword" runat="server" required="true" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox TextMode="Password" CssClass="form-control input-lg" ID="txtPassword" runat="server" placeholder="Contraseña" required="true" MaxLength="50"></asp:TextBox>
                 </div>
                 <div class="form-group clearfix">
                     <label class="pull-left checkbox-inline">
