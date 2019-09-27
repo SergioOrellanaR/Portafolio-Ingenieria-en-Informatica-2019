@@ -25,12 +25,12 @@ namespace TASKWebApp.View
         {
             string sesEmail;
             sesEmail = Session["Email"].ToString();
-            Session["Email"] = null;
             int minLength = 8;
             int maxLength = 50;
             //Entre 8 y 50 letras
             if(txtPass.Text == txtConfirmPass.Text && txtPass.Text.Length>= minLength && txtPass.Text.Length <= maxLength)
             {
+                Session["Email"] = null;
                 User user = new User() { Email = sesEmail, Password = txtPass.Text };
                 if (user.UpdatePassword())
                     Response.Redirect("Login.aspx");
