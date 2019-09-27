@@ -258,6 +258,8 @@ namespace TASKWebApp.Business.Classes
         public string Email { get; set; }
         public DateTime Birthdate { get; set; }
         public string Code { get; set; }
+        public DateTime LastTry { get; set; }
+        public int NumberOfTries { get; set; }
 
         public PassRecover()
         {

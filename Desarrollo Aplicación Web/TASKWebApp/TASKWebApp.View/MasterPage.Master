@@ -39,7 +39,8 @@
 			<li class="nav-item"><a href="#" class="nav-link"><i class="glyphicon glyphicon-tasks"></i><span>Tareas activas</span></a></li>
 			<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-briefcase"></i><span>Estado Tareas</span></a></li>		
 			<li class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"> Alan Brito <b class="caret"></b></a>
+				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                    <asp:Label ID="lblName" runat="server" Text=""></asp:Label><b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
 					<li class="divider dropdown-divider"></li>

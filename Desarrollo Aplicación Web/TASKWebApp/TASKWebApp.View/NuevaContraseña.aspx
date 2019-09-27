@@ -40,7 +40,6 @@
 			</div>
         </div>
 		<div class="form-group">
-            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn1 btn-primary btn-lg" OnClick="btnVolver_Click"/>
             <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />
         </div>
     </form>

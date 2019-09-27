@@ -1,7 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="TASKWebApp.View.RecuperarContraseña" %>
+<%@ Register Assembly="GoogleReCaptcha" Namespace="GoogleReCaptcha" TagPrefix="cc1" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,15 +32,16 @@
         <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-                <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" required="true" MaxLength="255"></asp:TextBox>
+                <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" MaxLength="255"></asp:TextBox>
            </div>
         </div>
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-lock"></i></span>				
-                <asp:TextBox TextMode="Date" ID="txtFecha" runat="server" CssClass="form-control" required="true"></asp:TextBox><!--<input type="date" class="form-control" name="dtfecha" required="required">-->
+                <asp:TextBox TextMode="Date" ID="txtFecha" runat="server" CssClass="form-control"></asp:TextBox><!--<input type="date" class="form-control" name="dtfecha" required="required">-->
 			</div>
         </div>
+        <cc1:GoogleReCaptcha ID="ctrlGoogleReCaptcha" runat="server" />
 		<div class="form-group">
             <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn1 btn-primary btn-lg" OnClick="btnVolver_Click"/>
             <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />

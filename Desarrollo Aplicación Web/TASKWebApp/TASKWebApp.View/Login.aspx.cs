@@ -76,9 +76,16 @@ namespace TASKWebApp.View
                     lblMessage.Text = "Su contraseña ha sido cambiada con éxito!";
                 }
 
-                if (Request.UrlReferrer.AbsolutePath == "/Home.aspx")
+                if (Session["CerrarSesion"] != null)
                 {
+                    Session["CerrarSesion"] = null;
                     lblMessage.Text = "Ha cerrado sesión";
+                }
+
+                if (Session["ExcessError"] != null)
+                {
+                    lblMessage.Text = Session["ExcessError"].ToString();
+                    Session["ExcessError"] = null;
                 }
             }
             catch (Exception)

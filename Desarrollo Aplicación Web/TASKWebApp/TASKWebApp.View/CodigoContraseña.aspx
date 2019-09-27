@@ -30,7 +30,7 @@
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" required="true" MaxLength="5" Style="text-transform: uppercase"></asp:TextBox>
+                <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" MaxLength="5" Style="text-transform: uppercase"></asp:TextBox>
 			</div>
         </div>
 		<div class="form-group">

@@ -12,6 +12,7 @@ namespace TASKWebApp.View
 
     public partial class CodigoContraseña : System.Web.UI.Page
     {
+        static int val;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -32,7 +33,7 @@ namespace TASKWebApp.View
         {
             PassRecover passRecover;
             passRecover = (PassRecover)Session["PassRecover"];
-            Session["PassRecover"] = null;
+            
             if (txtCodigo.Text.ToUpper() == passRecover.Code)
             {
                 Session["Email"] = passRecover.Email;
@@ -40,7 +41,18 @@ namespace TASKWebApp.View
             }
             else
             {
-                lblErrorMessage.Text= "Código incorrecto: Intentos restantes: X";
+                val++;
+                int result = 3 - val;
+                if (result > 0)
+                {
+                    lblErrorMessage.Text = "Código incorrecto: Intentos restantes: " + result;
+                }
+                else
+                {
+                    val = 0;
+                    Session["InternalPassSession"] = new PassRecover { NumberOfTries = 3, LastTry = DateTime.Now };
+                    Response.Redirect("RecuperarContraseña.aspx");
+                }
             }
         }
     }

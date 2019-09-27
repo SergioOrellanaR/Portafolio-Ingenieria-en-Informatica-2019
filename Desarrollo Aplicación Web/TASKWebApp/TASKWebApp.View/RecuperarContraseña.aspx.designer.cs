@@ -40,6 +40,15 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.TextBox txtFecha;
         
         /// <summary>
+        /// Control ctrlGoogleReCaptcha.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::GoogleReCaptcha.GoogleReCaptcha ctrlGoogleReCaptcha;
+        
+        /// <summary>
         /// Control btnVolver.
         /// </summary>
         /// <remarks>
