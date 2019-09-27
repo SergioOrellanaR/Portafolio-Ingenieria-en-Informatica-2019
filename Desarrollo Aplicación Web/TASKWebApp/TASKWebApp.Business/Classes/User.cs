@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace TASKWebApp.Business.Classes
         public AssignedUnit AssignedUnit { get; set; }
         public string Gender { get; set; }
         public string Company { get; set; }
-
+        
         public User()
         {
 
@@ -249,7 +250,37 @@ namespace TASKWebApp.Business.Classes
                     return false;
                 }
             }
-            
+        }
+    }
+
+    public class PassRecover
+    {
+        public string Email { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string Code { get; set; }
+
+        public PassRecover()
+        {
+
+        }
+
+        public bool IsEmailAndBirthdayCorrect()
+        {
+            try
+            {
+                Data.USER_INFO usr = Connection.ProcessSA_DB.USER_INFO.First(user => Email.Equals(user.EMAIL, StringComparison.InvariantCultureIgnoreCase) && EntityFunctions.TruncateTime(Birthdate) == EntityFunctions.TruncateTime(user.BIRTHDATE));
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool HasPermission(int idPermission)
+        {
+            User user = new User { Email = Email };
+            return user.HasPermission(idPermission);
         }
     }
 }

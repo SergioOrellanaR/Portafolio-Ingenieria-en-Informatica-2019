@@ -20,19 +20,22 @@
       <img src="img/TASKlogo.png" /> Tareas empresariales en tiempo real</a>
 </div>
 <div class="signup-form">
-    <form  method="post">
+    <form method="post" runat="server">
 		<h2>Ingresar código</h2>
 		<p>Se ha enviado un codigo a su correo para reestablecer la contraseña</p>
 		<hr>
+        <div id="message">
+            <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+        </div>
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-				<input type="text" class="form-control" name="txtCodigo" required="required">
+                <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" required="true" MaxLength="5" Style="text-transform: uppercase"></asp:TextBox>
 			</div>
         </div>
 		<div class="form-group">
-            <button type="submit" class="btn1 btn-primary btn-lg">Volver</button> 
-            <button type="submit" class="btn btn-primary btn-lg">Aceptar</button>
+            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn1 btn-primary btn-lg" OnClick="btnVolver_Click"/>
+            <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary btn-lg" OnClick="btnAceptar_Click"/>
         </div>
     </form>
 	<div class="text-center">Ya tienes cuenta? <a href="Login.aspx">Ingresa aquí</a></div>

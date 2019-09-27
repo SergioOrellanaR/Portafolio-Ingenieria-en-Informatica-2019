@@ -43,7 +43,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
 					<li class="divider dropdown-divider"></li>
-					<li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
+					<li><a href="CerrarSesion.aspx" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
 				</ul>
 			</li>
 		</ul>

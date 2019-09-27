@@ -24,10 +24,13 @@
 		<h2>Recuperar Contraseña</h2>
 		<p>Por favor ingrese la información solicitada</p>
 		<hr>
+        <div id="message">
+            <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+        </div>
         <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-                <asp:TextBox TextMode="Email" ID="txtCorreo" runat="server" CssClass="form-control" placeholder="Email" required="true" MaxLength="255"></asp:TextBox>
+                <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" required="true" MaxLength="255"></asp:TextBox>
            </div>
         </div>
 		<div class="form-group">
@@ -37,8 +40,8 @@
 			</div>
         </div>
 		<div class="form-group">
-            <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" />
-
+            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn1 btn-primary btn-lg" OnClick="btnVolver_Click"/>
+            <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />
         </div>
     </form>
 	<div class="text-center">Ya tienes cuenta? <a href="Login.aspx">Ingresa aquí</a></div>

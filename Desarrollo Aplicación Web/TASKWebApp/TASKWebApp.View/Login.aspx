@@ -31,7 +31,7 @@
                     <img src="img/avatar.png" alt="Avatar">
                 </div>
                 <div id="message">
-                    <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                    <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
                 </div>
                 <div class="form-group">
                     <!--  <input type="email" class="form-control input-lg" name="txtemail" placeholder="Email" required="required" maxlength="250"> -->

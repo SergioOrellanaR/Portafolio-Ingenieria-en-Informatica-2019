@@ -13,6 +13,7 @@ namespace TASKWebApp.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoadMessage();
             if (!IsPostBack)
             {
                 if (Session["ses"] != null)
@@ -42,17 +43,17 @@ namespace TASKWebApp.View
                 }
                 else
                 {
-                    lblErrorMessage.Text = "Usted no tiene permiso para iniciar sesión en esta página";
+                    lblMessage.Text = "Usted no tiene permiso para iniciar sesión en esta página";
                 }
                 
             }
             else
             {
-                lblErrorMessage.Text = "Ingrese credenciales válidas";
+                lblMessage.Text = "Ingrese credenciales válidas";
             }
         }
 
-        public void RememberMe()
+        private void RememberMe()
         {
             if (cbxrecuerdame != null && cbxrecuerdame.Checked == true)
             {
@@ -63,6 +64,25 @@ namespace TASKWebApp.View
                 cookie.Expires = System.DateTime.Now.AddMinutes(timeout);// Not my line
                 cookie.HttpOnly = true; // cookie not available in javascript.
                 Response.Cookies.Add(cookie);
+            }
+        }
+
+        private void LoadMessage()
+        {
+            try
+            {
+                if (Request.UrlReferrer.AbsolutePath == "/NuevaContrase%c3%b1a.aspx")
+                {
+                    lblMessage.Text = "Su contraseña ha sido cambiada con éxito!";
+                }
+
+                if (Request.UrlReferrer.AbsolutePath == "/Home.aspx")
+                {
+                    lblMessage.Text = "Ha cerrado sesión";
+                }
+            }
+            catch (Exception)
+            {
             }
         }
     }
