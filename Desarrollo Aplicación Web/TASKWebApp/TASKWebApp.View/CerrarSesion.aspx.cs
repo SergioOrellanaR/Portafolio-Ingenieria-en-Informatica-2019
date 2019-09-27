@@ -12,6 +12,7 @@ namespace TASKWebApp.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Session["ses"] = null;
+            Session["CerrarSesion"] = "Se ha cerrado sesión";
             Response.Redirect("Login.aspx");
         }
     }
