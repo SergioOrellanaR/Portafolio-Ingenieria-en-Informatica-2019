@@ -55,7 +55,9 @@
             </asp:ContentPlaceHolder>
         </div>
         <div class="footer">
-            <p>By NOVA SMART Copyright © Todos los Derechos Reservados</p>
+            <asp:ContentPlaceHolder ID="Footer" runat="server">
+                <p>By NOVA SMART Copyright © Todos los Derechos Reservados</p>
+            </asp:ContentPlaceHolder>            
         </div>
     </form>
 </body>
