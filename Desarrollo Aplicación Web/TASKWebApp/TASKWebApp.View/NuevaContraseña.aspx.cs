@@ -42,10 +42,5 @@ namespace TASKWebApp.View
                 lblErrorMessage.Text = "Verifique que las contraseñas coincidan y que la cantidad de caractéres es igual o mayor a 8";
             }
         }
-
-        protected void btnVolver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Login.aspx");
-        }
     }
 }
