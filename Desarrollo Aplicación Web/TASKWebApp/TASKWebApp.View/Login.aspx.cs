@@ -81,6 +81,12 @@ namespace TASKWebApp.View
                     Session["CerrarSesion"] = null;
                     lblMessage.Text = "Ha cerrado sesión";
                 }
+
+                if (Session["ExcessError"] != null)
+                {
+                    lblMessage.Text = Session["ExcessError"].ToString();
+                    Session["ExcessError"] = null;
+                }
             }
             catch (Exception)
             {
