@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NuevaContraseña.aspx.cs" Inherits="TASKWebApp.View.NuevaContraseña" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -19,25 +20,27 @@
       <img src="img/TASKlogo.png" /> Tareas empresariales en tiempo real</a>
 </div>
 <div class="signup-form">
-    <form  method="post">
+    <form  method="post" runat="server">
 		<h2>Recuperar Contraseña</h2>
 		<p>Ingrese su nueva contraseña</p>
 		<hr>
+        <div id="message">
+            <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+        </div>
         <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-				<input type="password" class="form-control" name="txtPass" placeholder="Nueva Contraseña" required="required">
+                <asp:TextBox TextMode="Password" CssClass="form-control" ID="txtPass" placeholder="Nueva Contraseña" runat="server" required="true" MaxLength="50"></asp:TextBox>
 			</div>
         </div>
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
-				<input type="password" class="form-control" name="txtPassConfirmed" placeholder="Confirmar contraseña" required="required">
+				<asp:TextBox TextMode="Password" CssClass="form-control" ID="txtConfirmPass" placeholder="Confirmar contraseña" runat="server" required="true" MaxLength="50"></asp:TextBox>
 			</div>
         </div>
 		<div class="form-group">
-           
-            <button type="submit" class="btn btn-primary btn-lg">Aceptar</button>
+            <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />
         </div>
     </form>
 	<div class="text-center">Ya tienes cuenta? <a href="Login.aspx">Ingresa aquí</a></div>

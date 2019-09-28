@@ -1,6 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="TASKWebApp.View.RecuperarContraseña" %>
+<%@ Register Assembly="GoogleReCaptcha" Namespace="GoogleReCaptcha" TagPrefix="cc1" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,25 +22,29 @@
       <img src="img/TASKlogo.png" /> Tareas empresariales en tiempo real</a>
 </div>
 <div class="signup-form">
-    <form  method="post">
+    <form  method="post" runat="server">
 		<h2>Recuperar Contraseña</h2>
 		<p>Por favor ingrese la información solicitada</p>
 		<hr>
+        <div id="message">
+            <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+        </div>
         <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-				<input type="email" class="form-control" name="txtemail" placeholder="Email Address" required="required">
-			</div>
+                <asp:TextBox TextMode="Email" ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" MaxLength="255"></asp:TextBox>
+           </div>
         </div>
 		<div class="form-group">
 			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-				<input type="date" class="form-control" name="dtfecha" required="required">
+				<span class="input-group-addon"><i class="fa fa-lock"></i></span>				
+                <asp:TextBox TextMode="Date" ID="txtFecha" runat="server" CssClass="form-control"></asp:TextBox><!--<input type="date" class="form-control" name="dtfecha" required="required">-->
 			</div>
         </div>
+        <cc1:GoogleReCaptcha ID="ctrlGoogleReCaptcha" runat="server" />
 		<div class="form-group">
-           
-            <button type="submit" class="btn btn-primary btn-lg">Aceptar</button>
+            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn1 btn-primary btn-lg" OnClick="btnVolver_Click"/>
+            <asp:Button ID="btnAceptar" CssClass="btn btn-primary btn-lg" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />
         </div>
     </form>
 	<div class="text-center">Ya tienes cuenta? <a href="Login.aspx">Ingresa aquí</a></div>
