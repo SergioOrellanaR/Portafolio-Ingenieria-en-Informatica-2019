@@ -1,4 +1,42 @@
+--Insert de empresas
 Insert into Company (name, address, id_working_area, id_commune) values ('NovaSmart', 'Williams Rebolledo 2605', 10, 100);
-Insert into Internal_Unit (id_role, name) values (3,'CEO');
+Insert into Company (name, address, id_working_area, id_commune) values ('ProcessSA', 'Hernán Cortés 2916', 10, 99);
+
+
+
+--Insert de internal unit
+Insert into Internal_Unit (id_role, name) values (3,'CEO'); 
+Insert into Internal_Unit (id_role, name) values (3,'Gerente de Informática'); 
+Insert into Internal_Unit (id_role, name) values (3,'Gerente comercial'); 
+Insert into Internal_Unit (id_role, name) values (3,'PMO'); 
+Insert into Internal_Unit (id_role, name) values (3,'Jefe de proyecto'); 
+Insert into Internal_Unit (id_role, name) values (3,'Desarrollador'); 
+Insert into Internal_Unit (id_role, name) values (3,'Analista QA');
+Insert into Internal_Unit (id_role, name) values (3,'Practicante informática'); 
+
+
+--Insert de Assigned_Unit
 Insert into Assigned_Unit (id_company, id_internalunit) values (1, 1);
-Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cGZ0MjAxOQ==', 100, 1, 1, 1);
+Insert into Assigned_Unit (id_company, id_internalunit) values (2, 1); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 2, 2); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 3, 2); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 4, 3); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 5, 5); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 6, 6); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 7, 6); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 8, 7); 
+
+--Insert de Usuarios
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 1, 1, 1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Matias','Plebeyo','Apolo Cuatro 1865','+56911111111',TO_DATE('16-05-1960', 'DD-MM-YYYY'),'plebeyomatias@gmail.com','cG9ydGFmb2xpbzIwMTk=',87,2,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Bastian','Ardilla','Benjamin 2919','+56922222222',TO_DATE('13-08-1955', 'DD-MM-YYYY'),'bastianardilla53@gmail.com','cG9ydGFmb2xpbzIwMTk=',105,3,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Mario','Neta','Callao 3860','+56933333333',TO_DATE('20-09-1970', 'DD-MM-YYYY'),'marioneta1879@gmail.com','cG9ydGFmb2xpbzIwMTk=',105,4,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Mario','Hugo','Francisco Meneses 1980','+56944444444',TO_DATE('11-09-1973', 'DD-MM-YYYY'),'mhugo6582@gmail.com','cG9ydGFmb2xpbzIwMTk=',99,5,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Florencia','Mariel','2 Pte. 571','+56955555555',TO_DATE('21-05-1980', 'DD-MM-YYYY'),'florenciamarie1996@gmail.com','cG9ydGFmb2xpbzIwMTk=',66,5,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Youchua','Mendez','Calle Once 1751','+56966666666',TO_DATE('01-02-1978', 'DD-MM-YYYY'),'youchuamendez1996@gmail.com','cG9ydGFmb2xpbzIwMTk=',99,6,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Elba','Zurita','11 Nte. 1008','+56977777777',TO_DATE('03-04-1985', 'DD-MM-YYYY'),'elbazurita1276@gmail.com','cG9ydGFmb2xpbzIwMTk=',66,6,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Elcon','Fort','Chiñihue 1021','+56988888888',TO_DATE('05-12-1990', 'DD-MM-YYYY'),'elconfort1313@gmail.com','cG9ydGFmb2xpbzIwMTk=',92,7,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Zolia','Cerda','Rivas Vicuña 1605','+56999999999',TO_DATE('14-11-1986', 'DD-MM-YYYY'),'zolia.cerda959@gmail.com','cG9ydGFmb2xpbzIwMTk=',93,7,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Esteban','Silva','Melipilla 5','+56912121212',TO_DATE('02-07-1994', 'DD-MM-YYYY'),'estaban.silva9587@gmail.com','cG9ydGFmb2xpbzIwMTk=',65,7,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Ingrid','Garrido','Atlántida 3471','+56913131313',TO_DATE('10-09-1993', 'DD-MM-YYYY'),'ingrid.garrido1234567@gmail.com','cG9ydGFmb2xpbzIwMTk=',92,8,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Valeria','Alegria','Los conquistadores 378','+56914141414',TO_DATE('12-03-1998', 'DD-MM-YYYY'),'valerialegria2000@gmail.com','cG9ydGFmb2xpbzIwMTk=',100,9,2,2);
