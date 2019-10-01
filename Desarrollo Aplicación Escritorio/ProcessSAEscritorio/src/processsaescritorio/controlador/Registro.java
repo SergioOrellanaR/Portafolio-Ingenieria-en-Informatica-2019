@@ -18,4 +18,5 @@ public class Registro {
     public String registrarCompania(String nombre, String direccion, int idAreaTrabajo, int idComuna){
        return new CompaniaDAO(0,nombre, direccion, idAreaTrabajo, idComuna).registrarCompanias();
     }
+    
 }

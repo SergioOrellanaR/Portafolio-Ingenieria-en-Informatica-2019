@@ -40,9 +40,12 @@ public class Lista {
     public ArrayList<CompaniaDTO> listarCompanias(){
         ArrayList<CompaniaDTO> listarCompanias = new CompaniaDAO().obtenerCompanias();
         return listarCompanias;
+    }
+    
+    public ArrayList<EstadoTareaDTO> listarEstadoTareas(){
+        ArrayList<EstadoTareaDTO> listarEstadosTareas = new EstadoTareaDAO().obtenerEstadoTarea();
+        return listarEstadosTareas;
     }   
-    
-    
        
        
 }
