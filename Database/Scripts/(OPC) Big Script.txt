@@ -1,0 +1,1374 @@
+--Este script son todas los script separados, y hace eliminación de tablas + creación + inserción.
+
+--Dropeo de todas las tablas (select 'drop table ', table_name, 'cascade constraints;' from user_tables;)
+
+drop table 	TASK	cascade constraints;
+drop table 	ROLE_PERMISSIONS	cascade constraints;
+drop table 	ROLE	cascade constraints;
+drop table 	REGION	cascade constraints;
+drop table 	PROVINCE	cascade constraints;
+drop table 	PROCESSED_TASK_HISTORY	cascade constraints;
+drop table 	PROCESSED_TASK	cascade constraints;
+drop table 	PERMISSION	cascade constraints;
+drop table 	MONTH	cascade constraints;
+drop table 	LOOP_TASK_SCHEDULE	cascade constraints;
+drop table 	LOOP_TASK	cascade constraints;
+drop table 	INTERNAL_UNIT	cascade constraints;
+drop table 	GENDER	cascade constraints;
+drop table 	DAY_OF_WEEK	cascade constraints;
+drop table 	COMPANY	cascade constraints;
+drop table 	COMMUNE	cascade constraints;
+drop table 	ASSIGNED_UNIT	cascade constraints;
+drop table 	WORKING_AREA	cascade constraints;
+drop table 	USER_INFO	cascade constraints;
+drop table 	TASK_STATUS	cascade constraints;
+drop table 	TASK_ASSIGNMENT	cascade constraints;
+
+--Eliminación de todas las secuencias (select 'drop sequence ' || sequence_name || ';' from user_sequences;)
+
+drop sequence ASSIGNED_UNIT_ID_SEQ;
+drop sequence COMMUNE_ID_SEQ;
+drop sequence COMPANY_ID_SEQ;
+drop sequence DAY_OF_WEEK_ID_SEQ;
+drop sequence GENDER_ID_SEQ;
+drop sequence INTERNAL_UNIT_ID_SEQ;
+drop sequence LOOP_TASK_ID_SEQ;
+drop sequence LOOP_TASK_SCHEDULE_ID_SEQ;
+drop sequence MONTH_ID_SEQ;
+drop sequence PERMISSION_ID_SEQ;
+drop sequence PROCESSED_TASK_ID_SEQ;
+drop sequence PROVINCE_ID_SEQ;
+drop sequence PT_HISTORY_ID_SEQ;
+drop sequence REGION_ID_SEQ;
+drop sequence ROLE_ID_SEQ;
+drop sequence TASK_ASSIGNMENT_ID_SEQ;
+drop sequence TASK_ID_SEQ;
+drop sequence TASK_STATUS_ID_SEQ;
+drop sequence USER_ID_SEQ;
+drop sequence WORKING_AREA_ID_SEQ;
+
+-- Generado por Oracle SQL Developer Data Modeler 19.2.0.182.1216
+--   en:        2019-08-26 08:11:50 GMT-04:00
+--   sitio:      Oracle Database 11g
+--   tipo:      Oracle Database 11g
+
+
+
+CREATE SEQUENCE assigned_unit_id_seq;
+
+CREATE SEQUENCE commune_id_seq;
+
+CREATE SEQUENCE company_id_seq;
+
+CREATE SEQUENCE day_of_week_id_seq;
+
+CREATE SEQUENCE gender_id_seq;
+
+CREATE SEQUENCE internal_unit_id_seq;
+
+CREATE SEQUENCE loop_task_id_seq;
+
+CREATE SEQUENCE loop_task_schedule_id_seq;
+
+CREATE SEQUENCE month_id_seq;
+
+CREATE SEQUENCE permission_id_seq;
+
+CREATE SEQUENCE processed_task_id_seq;
+
+CREATE SEQUENCE province_id_seq;
+
+CREATE SEQUENCE pt_history_id_seq;
+
+CREATE SEQUENCE region_id_seq;
+
+CREATE SEQUENCE role_id_seq;
+
+CREATE SEQUENCE task_assignment_id_seq;
+
+CREATE SEQUENCE task_id_seq;
+
+CREATE SEQUENCE task_status_id_seq;
+
+CREATE SEQUENCE user_id_seq;
+
+CREATE SEQUENCE working_area_id_seq;
+
+CREATE TABLE assigned_unit (
+    id                 INTEGER NOT NULL,
+    id_internalunit    INTEGER NOT NULL,
+    id_company         INTEGER NOT NULL,
+    id_superior_unit   INTEGER
+);
+
+ALTER TABLE assigned_unit ADD CONSTRAINT assigned_unit_pk PRIMARY KEY ( id );
+
+CREATE TABLE commune (
+    id            INTEGER NOT NULL,
+    name          VARCHAR2(255) NOT NULL,
+    id_province   INTEGER NOT NULL
+);
+
+ALTER TABLE commune ADD CONSTRAINT commune_pk PRIMARY KEY ( id );
+
+CREATE TABLE company (
+    id                INTEGER NOT NULL,
+    name              VARCHAR2(255) NOT NULL,
+    address           NVARCHAR2(255) NOT NULL,
+    logo              BLOB,
+    id_working_area   INTEGER NOT NULL,
+    id_commune        INTEGER NOT NULL
+);
+
+ALTER TABLE company ADD CONSTRAINT company_pk PRIMARY KEY ( id );
+
+CREATE TABLE day_of_week (
+    id     INTEGER NOT NULL,
+    name   NVARCHAR2(12) NOT NULL
+);
+
+ALTER TABLE day_of_week ADD CONSTRAINT day_of_week_pk PRIMARY KEY ( id );
+
+CREATE TABLE gender (
+    id     INTEGER NOT NULL,
+    name   VARCHAR2(20) NOT NULL
+);
+
+ALTER TABLE gender ADD CONSTRAINT gender_pk PRIMARY KEY ( id );
+
+CREATE TABLE internal_unit (
+    id        INTEGER NOT NULL,
+    name      NVARCHAR2(255) NOT NULL,
+    id_role   INTEGER NOT NULL
+);
+
+ALTER TABLE internal_unit ADD CONSTRAINT internal_unit_pk PRIMARY KEY ( id );
+
+CREATE TABLE loop_task (
+    id                   INTEGER NOT NULL,
+    id_task_assignment   INTEGER NOT NULL,
+    time                 DATE NOT NULL,
+    isactive             NUMBER(1) NOT NULL
+);
+
+ALTER TABLE loop_task ADD CONSTRAINT loop_task_pk PRIMARY KEY ( id );
+
+CREATE TABLE loop_task_schedule (
+    id             INTEGER NOT NULL,
+    id_loop_task   INTEGER NOT NULL,
+    id_dayofweek   INTEGER,
+    dayofmonth     INTEGER,
+    numberofweek   INTEGER,
+    id_month       INTEGER
+);
+
+ALTER TABLE loop_task_schedule ADD CONSTRAINT loop_task_schedule_pk PRIMARY KEY ( id );
+
+CREATE TABLE month (
+    id     INTEGER NOT NULL,
+    name   NVARCHAR2(12) NOT NULL
+);
+
+ALTER TABLE month ADD CONSTRAINT month_pk PRIMARY KEY ( id );
+
+CREATE TABLE permission (
+    id            INTEGER NOT NULL,
+    name          NVARCHAR2(250) NOT NULL,
+    description   NVARCHAR2(500)
+);
+
+ALTER TABLE permission ADD CONSTRAINT permissions_pk PRIMARY KEY ( id );
+
+CREATE TABLE processed_task (
+    id                      INTEGER NOT NULL,
+    commentary              NVARCHAR2(1000),
+    assignationdate         DATE NOT NULL,
+	startdate				DATE NOT NULL,
+    enddate                 DATE NOT NULL,
+    id_taskstatus           INTEGER NOT NULL,
+    id_task_assignment      INTEGER NOT NULL,
+    id_scheduled_looptask   INTEGER
+);
+
+CREATE UNIQUE INDEX processed_task__idx ON
+    processed_task (
+        id_scheduled_looptask
+    ASC );
+
+ALTER TABLE processed_task ADD CONSTRAINT assigned_task_pk PRIMARY KEY ( id );
+
+CREATE TABLE processed_task_history (
+    id                    INTEGER NOT NULL,
+    id_assignedtask       INTEGER NOT NULL,
+    description           NVARCHAR2(1000) NOT NULL,
+    eventdatetime         DATE NOT NULL,
+    justification         NVARCHAR2(1000),
+    id_userjustificator   INTEGER
+);
+
+ALTER TABLE processed_task_history ADD CONSTRAINT atask_change_history_pk PRIMARY KEY ( id );
+
+CREATE TABLE province (
+    id          INTEGER NOT NULL,
+    name        NVARCHAR2(255) NOT NULL,
+    id_region   INTEGER NOT NULL
+);
+
+ALTER TABLE province ADD CONSTRAINT province_pk PRIMARY KEY ( id );
+
+CREATE TABLE region (
+    id     INTEGER NOT NULL,
+    name   NVARCHAR2(255) NOT NULL
+);
+
+ALTER TABLE region ADD CONSTRAINT region_pk PRIMARY KEY ( id );
+
+CREATE TABLE role (
+    id     INTEGER NOT NULL,
+    name   NVARCHAR2(64) NOT NULL
+);
+
+ALTER TABLE role ADD CONSTRAINT role_pk PRIMARY KEY ( id );
+
+CREATE TABLE role_permissions (
+    id_role         INTEGER NOT NULL,
+    id_permission   INTEGER NOT NULL
+);
+
+ALTER TABLE role_permissions ADD CONSTRAINT role_permissions_pk PRIMARY KEY ( id_role,
+                                                                              id_permission );
+
+CREATE TABLE task (
+    id                  INTEGER NOT NULL,
+    name                NVARCHAR2(255) NOT NULL,
+    description         NVARCHAR2(1000) NOT NULL,
+    ispredefined      	NUMBER(1) NOT NULL,
+    isactive            NUMBER(1),
+    id_superior_task    INTEGER,
+    id_dependent_task   INTEGER
+);
+
+ALTER TABLE task ADD CONSTRAINT tasks_pk PRIMARY KEY ( id );
+
+CREATE TABLE task_assignment (
+    id                INTEGER NOT NULL,
+    id_task           INTEGER NOT NULL,
+    id_assigneruser   INTEGER NOT NULL,
+    id_receiveruser   INTEGER
+);
+
+ALTER TABLE task_assignment ADD CONSTRAINT task_assignment_pk PRIMARY KEY ( id );
+
+CREATE TABLE task_status (
+    id       INTEGER NOT NULL,
+    status   NVARCHAR2(255) NOT NULL
+);
+
+ALTER TABLE task_status ADD CONSTRAINT task_status_pk PRIMARY KEY ( id );
+
+CREATE TABLE user_info (
+    id                 INTEGER NOT NULL,
+    firstname          NVARCHAR2(255) NOT NULL,
+    lastname           NVARCHAR2(255) NOT NULL,
+    address            NVARCHAR2(255) NOT NULL,
+    phone              VARCHAR2(20) NOT NULL,
+    birthdate          DATE NOT NULL,
+    email              NVARCHAR2(255) NOT NULL,
+    password           NVARCHAR2(255) NOT NULL,
+    id_commune         INTEGER NOT NULL,
+    id_assigned_unit   INTEGER NOT NULL,
+    id_company         INTEGER,
+    id_gender          INTEGER NOT NULL
+);
+
+CREATE UNIQUE INDEX email__idx ON
+    user_info (
+        email
+    ASC );
+
+ALTER TABLE user_info ADD CONSTRAINT user_pk PRIMARY KEY ( id );
+
+CREATE TABLE working_area (
+    id     INTEGER NOT NULL,
+    name   NVARCHAR2(255) NOT NULL
+);
+
+ALTER TABLE working_area ADD CONSTRAINT working_area_pk PRIMARY KEY ( id );
+
+ALTER TABLE processed_task
+    ADD CONSTRAINT assigned_task_proc_task_fk FOREIGN KEY ( id_task_assignment )
+        REFERENCES task_assignment ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE processed_task
+    ADD CONSTRAINT assigned_task_task_fk FOREIGN KEY ( id_taskstatus )
+        REFERENCES task_status ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE assigned_unit
+    ADD CONSTRAINT assigned_unit_assigned_role_fk FOREIGN KEY ( id_superior_unit )
+        REFERENCES assigned_unit ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE assigned_unit
+    ADD CONSTRAINT assigned_unit_company_fk FOREIGN KEY ( id_company )
+        REFERENCES company ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE assigned_unit
+    ADD CONSTRAINT assigned_unit_role_fk FOREIGN KEY ( id_internalunit )
+        REFERENCES internal_unit ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE processed_task_history
+    ADD CONSTRAINT atask_change_history_user_fk FOREIGN KEY ( id_userjustificator )
+        REFERENCES user_info ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE commune
+    ADD CONSTRAINT commune_province_fk FOREIGN KEY ( id_province )
+        REFERENCES province ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE company
+    ADD CONSTRAINT company_commune_fk FOREIGN KEY ( id_commune )
+        REFERENCES commune ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE company
+    ADD CONSTRAINT company_working_area_fk FOREIGN KEY ( id_working_area )
+        REFERENCES working_area ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE province
+    ADD CONSTRAINT id_region_fk FOREIGN KEY ( id_region )
+        REFERENCES region ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE loop_task
+    ADD CONSTRAINT loop_task_month_fk FOREIGN KEY ( id_task_assignment )
+        REFERENCES task_assignment ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE loop_task_schedule
+    ADD CONSTRAINT lt_schedule_day_of_week_fk FOREIGN KEY ( id_dayofweek )
+        REFERENCES day_of_week ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE loop_task_schedule
+    ADD CONSTRAINT lt_schedule_loop_task_fk FOREIGN KEY ( id_loop_task )
+        REFERENCES loop_task ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE loop_task_schedule
+    ADD CONSTRAINT lt_schedule_month_fk FOREIGN KEY ( id_month )
+        REFERENCES month ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE processed_task
+    ADD CONSTRAINT processed_task_lt_schedule_fk FOREIGN KEY ( id_scheduled_looptask )
+        REFERENCES loop_task_schedule ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE internal_unit
+    ADD CONSTRAINT role_internalunit_fk FOREIGN KEY ( id_role )
+        REFERENCES role ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE role_permissions
+    ADD CONSTRAINT rtype_permission_p_fk FOREIGN KEY ( id_permission )
+        REFERENCES permission ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE role_permissions
+    ADD CONSTRAINT rtype_permission_rt_fk FOREIGN KEY ( id_role )
+        REFERENCES role ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE processed_task_history
+    ADD CONSTRAINT table_18_assigned_task_fk FOREIGN KEY ( id_assignedtask )
+        REFERENCES processed_task ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE task_assignment
+    ADD CONSTRAINT task_assignment_fk FOREIGN KEY ( id_task )
+        REFERENCES task ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE task_assignment
+    ADD CONSTRAINT task_assignment_user_fk FOREIGN KEY ( id_assigneruser )
+        REFERENCES user_info ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE task_assignment
+    ADD CONSTRAINT task_receiver_user_fk FOREIGN KEY ( id_receiveruser )
+        REFERENCES user_info ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE task
+    ADD CONSTRAINT task_task_fk FOREIGN KEY ( id_superior_task )
+        REFERENCES task ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE task
+    ADD CONSTRAINT task_task_fkv1 FOREIGN KEY ( id_dependent_task )
+        REFERENCES task ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE user_info
+    ADD CONSTRAINT user_assigned_role_fk FOREIGN KEY ( id_assigned_unit )
+        REFERENCES assigned_unit ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE user_info
+    ADD CONSTRAINT user_commune_fk FOREIGN KEY ( id_commune )
+        REFERENCES commune ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE user_info
+    ADD CONSTRAINT user_company_fk FOREIGN KEY ( id_company )
+        REFERENCES company ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE user_info
+    ADD CONSTRAINT user_gender_fk FOREIGN KEY ( id_gender )
+        REFERENCES gender ( id )
+    NOT DEFERRABLE;
+
+CREATE OR REPLACE TRIGGER assigned_unit_ai 
+    BEFORE INSERT ON assigned_unit 
+    FOR EACH ROW 
+BEGIN
+  SELECT assigned_unit_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER commune_ai 
+    BEFORE INSERT ON commune 
+    FOR EACH ROW 
+BEGIN
+  SELECT commune_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER company_ai 
+    BEFORE INSERT ON company 
+    FOR EACH ROW 
+BEGIN
+  SELECT company_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER day_of_week_ai 
+    BEFORE INSERT ON day_of_week 
+    FOR EACH ROW 
+BEGIN
+  SELECT day_of_week_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER gender_ai 
+    BEFORE INSERT ON gender 
+    FOR EACH ROW 
+BEGIN
+  SELECT gender_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER internal_unit_ai 
+    BEFORE INSERT ON internal_unit 
+    FOR EACH ROW 
+BEGIN
+  SELECT internal_unit_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER loop_task_ai 
+    BEFORE INSERT ON loop_task 
+    FOR EACH ROW 
+BEGIN
+  SELECT loop_task_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER loop_task_schedule_ai 
+    BEFORE INSERT ON loop_task_schedule 
+    FOR EACH ROW 
+BEGIN
+  SELECT loop_task_schedule_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER month_ai 
+    BEFORE INSERT ON month 
+    FOR EACH ROW 
+BEGIN
+  SELECT month_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER permission_ai 
+    BEFORE INSERT ON permission 
+    FOR EACH ROW 
+BEGIN
+  SELECT permission_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER processed_task_ai 
+    BEFORE INSERT ON processed_task 
+    FOR EACH ROW 
+BEGIN
+  SELECT processed_task_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER processed_task_history_ai 
+    BEFORE INSERT ON processed_task_history 
+    FOR EACH ROW 
+BEGIN
+  SELECT pt_history_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER province_ai 
+    BEFORE INSERT ON province 
+    FOR EACH ROW 
+BEGIN
+  SELECT province_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER region_ai 
+    BEFORE INSERT ON region 
+    FOR EACH ROW 
+BEGIN
+  SELECT region_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER role_ai 
+    BEFORE INSERT ON role 
+    FOR EACH ROW 
+BEGIN
+  SELECT role_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER task_ai 
+    BEFORE INSERT ON task 
+    FOR EACH ROW 
+BEGIN
+  SELECT task_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER task_assignment_ai 
+    BEFORE INSERT ON task_assignment 
+    FOR EACH ROW 
+BEGIN
+  SELECT task_assignment_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER task_status_ai 
+    BEFORE INSERT ON task_status 
+    FOR EACH ROW 
+BEGIN
+  SELECT task_status_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER user_ai 
+    BEFORE INSERT ON user_info 
+    FOR EACH ROW 
+BEGIN
+  SELECT user_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+CREATE OR REPLACE TRIGGER working_area_ai 
+    BEFORE INSERT ON working_area 
+    FOR EACH ROW 
+BEGIN
+  SELECT working_area_id_seq.nextval
+  INTO :new.id
+  FROM dual;
+END; 
+/
+
+--INSERT de Regiones
+
+INSERT INTO region(name) VALUES('Arica y Parinacota');
+INSERT INTO region(name) VALUES('Tarapacá');
+INSERT INTO region(name) VALUES('Antofagasta');
+INSERT INTO region(name) VALUES('Atacama');
+INSERT INTO region(name) VALUES('Coquimbo');
+INSERT INTO region(name) VALUES('Valparaiso');
+INSERT INTO region(name) VALUES('Metropolitana de Santiago');
+INSERT INTO region(name) VALUES('Libertador General Bernardo O''Higgins');
+INSERT INTO region(name) VALUES('Maule');
+INSERT INTO region(name) VALUES('Ñuble');
+INSERT INTO region(name) VALUES('Biobío');
+INSERT INTO region(name) VALUES('La Araucanía');
+INSERT INTO region(name) VALUES('Los Ríos');
+INSERT INTO region(name) VALUES('Los Lagos');
+INSERT INTO region(name) VALUES('Aysén del General Carlos Ibáñez del Campo');
+INSERT INTO region(name) VALUES('Magallanes y de la Antártica Chilena');
+
+
+--Insert de Provincias
+
+
+INSERT INTO province(name, Id_region) VALUES ('Arica',1);
+INSERT INTO province(name, Id_region) VALUES ('Parinacota',1);
+INSERT INTO province(name, Id_region) VALUES ('Iquique',2);
+INSERT INTO province(name, Id_region) VALUES ('El Tamarugal',2);
+INSERT INTO province(name, Id_region) VALUES ('Tocopilla',3);
+INSERT INTO province(name, Id_region) VALUES ('El Loa',3);
+INSERT INTO province(name, Id_region) VALUES ('Antofagasta',3);
+INSERT INTO province(name, Id_region) VALUES ('Chañaral',4);
+INSERT INTO province(name, Id_region) VALUES ('Copiapó',4);
+INSERT INTO province(name, Id_region) VALUES ('Huasco',4);
+INSERT INTO province(name, Id_region) VALUES ('Elqui',5);
+INSERT INTO province(name, Id_region) VALUES ('Limarí',5);
+INSERT INTO province(name, Id_region) VALUES ('Choapa',5);
+INSERT INTO province(name, Id_region) VALUES ('Petorca',6);
+INSERT INTO province(name, Id_region) VALUES ('Los Andes',6);
+INSERT INTO province(name, Id_region) VALUES ('San Felipe de Aconcagua',6);
+INSERT INTO province(name, Id_region) VALUES ('Quillota',6);
+INSERT INTO province(name, Id_region) VALUES ('Valparaiso',6);
+INSERT INTO province(name, Id_region) VALUES ('San Antonio',6);
+INSERT INTO province(name, Id_region) VALUES ('Isla de Pascua',6);
+INSERT INTO province(name, Id_region) VALUES ('Marga Marga',6);
+INSERT INTO province(name, Id_region) VALUES ('Chacabuco',7);
+INSERT INTO province(name, Id_region) VALUES ('Santiago',7);
+INSERT INTO province(name, Id_region) VALUES ('Cordillera',7);
+INSERT INTO province(name, Id_region) VALUES ('Maipo',7);
+INSERT INTO province(name, Id_region) VALUES ('Melipilla',7);
+INSERT INTO province(name, Id_region) VALUES ('Talagante',7);
+INSERT INTO province(name, Id_region) VALUES ('Cachapoal',8);
+INSERT INTO province(name, Id_region) VALUES ('Colchagua',8);
+INSERT INTO province(name, Id_region) VALUES ('Cardenal Caro',8);
+INSERT INTO province(name, Id_region) VALUES ('Curicó',9);
+INSERT INTO province(name, Id_region) VALUES ('Talca',9);
+INSERT INTO province(name, Id_region) VALUES ('Linares',9);
+INSERT INTO province(name, Id_region) VALUES ('Cauquenes',9);
+INSERT INTO province(name, Id_region) VALUES ('Diguillín',10);
+INSERT INTO province(name, Id_region) VALUES ('Itata',10);
+INSERT INTO province(name, Id_region) VALUES ('Punilla',10);
+INSERT INTO province(name, Id_region) VALUES ('Bio Bío',11);
+INSERT INTO province(name, Id_region) VALUES ('Concepción',11);
+INSERT INTO province(name, Id_region) VALUES ('Arauco',11);
+INSERT INTO province(name, Id_region) VALUES ('Malleco',12);
+INSERT INTO province(name, Id_region) VALUES ('Cautín',12);
+INSERT INTO province(name, Id_region) VALUES ('Valdivia',13);
+INSERT INTO province(name, Id_region) VALUES ('Ranco',13);
+INSERT INTO province(name, Id_region) VALUES ('Osorno',14);
+INSERT INTO province(name, Id_region) VALUES ('Llanquihue',14);
+INSERT INTO province(name, Id_region) VALUES ('Chiloé',14);
+INSERT INTO province(name, Id_region) VALUES ('Palena',14);
+INSERT INTO province(name, Id_region) VALUES ('Coyhaique',15);
+INSERT INTO province(name, Id_region) VALUES ('Aysén',15);
+INSERT INTO province(name, Id_region) VALUES ('General Carrera',15);
+INSERT INTO province(name, Id_region) VALUES ('Capitán Prat',15);
+INSERT INTO province(name, Id_region) VALUES ('Última Esperanza',16);
+INSERT INTO province(name, Id_region) VALUES ('Magallanes',16);
+INSERT INTO province(name, Id_region) VALUES ('Tierra del Fuego',16);
+INSERT INTO province(name, Id_region) VALUES ('Antártica Chilena',16);
+
+--Insert de comunas
+
+INSERT INTO commune(name, Id_province) VALUES ('Arica',1);
+INSERT INTO commune(name, Id_province) VALUES ('Camarones',1);
+INSERT INTO commune(name, Id_province) VALUES ('General Lagos',2);
+INSERT INTO commune(name, Id_province) VALUES ('Putre',2);
+INSERT INTO commune(name, Id_province) VALUES ('Alto Hospicio',3);
+INSERT INTO commune(name, Id_province) VALUES ('Iquique',3);
+INSERT INTO commune(name, Id_province) VALUES ('Camiña',4);
+INSERT INTO commune(name, Id_province) VALUES ('Colchane',4);
+INSERT INTO commune(name, Id_province) VALUES ('Huara',4);
+INSERT INTO commune(name, Id_province) VALUES ('Pica',4);
+INSERT INTO commune(name, Id_province) VALUES ('Pozo Almonte',4);
+INSERT INTO commune(name, Id_province) VALUES ('Tocopilla',5);
+INSERT INTO commune(name, Id_province) VALUES ('María Elena',5);
+INSERT INTO commune(name, Id_province) VALUES ('Calama',6);
+INSERT INTO commune(name, Id_province) VALUES ('Ollague',6);
+INSERT INTO commune(name, Id_province) VALUES ('San Pedro de Atacama',6);
+INSERT INTO commune(name, Id_province) VALUES ('Antofagasta',7);
+INSERT INTO commune(name, Id_province) VALUES ('Mejillones',7);
+INSERT INTO commune(name, Id_province) VALUES ('Sierra Gorda',7);
+INSERT INTO commune(name, Id_province) VALUES ('Taltal',7);
+INSERT INTO commune(name, Id_province) VALUES ('Chañaral',8);
+INSERT INTO commune(name, Id_province) VALUES ('Diego de Almagro',8);
+INSERT INTO commune(name, Id_province) VALUES ('Copiapó',9);
+INSERT INTO commune(name, Id_province) VALUES ('Caldera',9);
+INSERT INTO commune(name, Id_province) VALUES ('Tierra Amarilla',9);
+INSERT INTO commune(name, Id_province) VALUES ('Vallenar',10);
+INSERT INTO commune(name, Id_province) VALUES ('Alto del Carmen',10);
+INSERT INTO commune(name, Id_province) VALUES ('Freirina',10);
+INSERT INTO commune(name, Id_province) VALUES ('Huasco',10);
+INSERT INTO commune(name, Id_province) VALUES ('La Serena',11);
+INSERT INTO commune(name, Id_province) VALUES ('Coquimbo',11);
+INSERT INTO commune(name, Id_province) VALUES ('Andacollo',11);
+INSERT INTO commune(name, Id_province) VALUES ('La Higuera',11);
+INSERT INTO commune(name, Id_province) VALUES ('Paihuano',11);
+INSERT INTO commune(name, Id_province) VALUES ('Vicuña',11);
+INSERT INTO commune(name, Id_province) VALUES ('Ovalle',12);
+INSERT INTO commune(name, Id_province) VALUES ('Combarbalá',12);
+INSERT INTO commune(name, Id_province) VALUES ('Monte Patria',12);
+INSERT INTO commune(name, Id_province) VALUES ('Punitaqui',12);
+INSERT INTO commune(name, Id_province) VALUES ('Río Hurtado',12);
+INSERT INTO commune(name, Id_province) VALUES ('Illapel',13);
+INSERT INTO commune(name, Id_province) VALUES ('Canela',13);
+INSERT INTO commune(name, Id_province) VALUES ('Los Vilos',13);
+INSERT INTO commune(name, Id_province) VALUES ('Salamanca',13);
+INSERT INTO commune(name, Id_province) VALUES ('La Ligua',14);
+INSERT INTO commune(name, Id_province) VALUES ('Cabildo',14);
+INSERT INTO commune(name, Id_province) VALUES ('Zapallar',14);
+INSERT INTO commune(name, Id_province) VALUES ('Papudo',14);
+INSERT INTO commune(name, Id_province) VALUES ('Petorca',14);
+INSERT INTO commune(name, Id_province) VALUES ('Los Andes',15);
+INSERT INTO commune(name, Id_province) VALUES ('San Esteban',15);
+INSERT INTO commune(name, Id_province) VALUES ('Calle Larga',15);
+INSERT INTO commune(name, Id_province) VALUES ('Rinconada',15);
+INSERT INTO commune(name, Id_province) VALUES ('San Felipe',16);
+INSERT INTO commune(name, Id_province) VALUES ('Llaillay',16);
+INSERT INTO commune(name, Id_province) VALUES ('Putaendo',16);
+INSERT INTO commune(name, Id_province) VALUES ('Santa María',16);
+INSERT INTO commune(name, Id_province) VALUES ('Catemu',16);
+INSERT INTO commune(name, Id_province) VALUES ('Panquehue',16);
+INSERT INTO commune(name, Id_province) VALUES ('Quillota',17);
+INSERT INTO commune(name, Id_province) VALUES ('La Cruz',17);
+INSERT INTO commune(name, Id_province) VALUES ('La Calera',17);
+INSERT INTO commune(name, Id_province) VALUES ('Nogales',17);
+INSERT INTO commune(name, Id_province) VALUES ('Hijuelas',17);
+INSERT INTO commune(name, Id_province) VALUES ('Valparaíso',18);	
+INSERT INTO commune(name, Id_province) VALUES ('Viña del Mar',18);
+INSERT INTO commune(name, Id_province) VALUES ('Concón',18);
+INSERT INTO commune(name, Id_province) VALUES ('Quintero',18);
+INSERT INTO commune(name, Id_province) VALUES ('Puchuncaví',18);
+INSERT INTO commune(name, Id_province) VALUES ('Casablanca',18);
+INSERT INTO commune(name, Id_province) VALUES ('Juan Fernández',18);
+INSERT INTO commune(name, Id_province) VALUES ('San Antonio',19);
+INSERT INTO commune(name, Id_province) VALUES ('Cartagena',19);
+INSERT INTO commune(name, Id_province) VALUES ('El Tabo',19);
+INSERT INTO commune(name, Id_province) VALUES ('El Quisco',19);
+INSERT INTO commune(name, Id_province) VALUES ('Algarrobo',19);
+INSERT INTO commune(name, Id_province) VALUES ('Santo Domingo',19);
+INSERT INTO commune(name, Id_province) VALUES ('Isla de Pascua',20);
+INSERT INTO commune(name, Id_province) VALUES ('Quilpué',21);
+INSERT INTO commune(name, Id_province) VALUES ('Limache',21);
+INSERT INTO commune(name, Id_province) VALUES ('Olmué',21);
+INSERT INTO commune(name, Id_province) VALUES ('Villa Alemana',21);
+INSERT INTO commune(name, Id_province) VALUES ('Colina',22);
+INSERT INTO commune(name, Id_province) VALUES ('Lampa',22);
+INSERT INTO commune(name, Id_province) VALUES ('Tiltil',22);
+INSERT INTO commune(name, Id_province) VALUES ('Santiago',23);
+INSERT INTO commune(name, Id_province) VALUES ('Vitacura',23);
+INSERT INTO commune(name, Id_province) VALUES ('San Ramón',23);
+INSERT INTO commune(name, Id_province) VALUES ('San Miguel',23);
+INSERT INTO commune(name, Id_province) VALUES ('San Joaquín',23);
+INSERT INTO commune(name, Id_province) VALUES ('Renca',23);
+INSERT INTO commune(name, Id_province) VALUES ('Recoleta',23);
+INSERT INTO commune(name, Id_province) VALUES ('Quinta Normal',23);
+INSERT INTO commune(name, Id_province) VALUES ('Quilicura',23);
+INSERT INTO commune(name, Id_province) VALUES ('Pudahuel',23);
+INSERT INTO commune(name, Id_province) VALUES ('Providencia',23);
+INSERT INTO commune(name, Id_province) VALUES ('Peñalolén',23);
+INSERT INTO commune(name, Id_province) VALUES ('Pedro Aguirre Cerda',23);
+INSERT INTO commune(name, Id_province) VALUES ('Ñuñoa',23);
+INSERT INTO commune(name, Id_province) VALUES ('Maipú',23);
+INSERT INTO commune(name, Id_province) VALUES ('Macul',23);
+INSERT INTO commune(name, Id_province) VALUES ('Lo Prado',23);
+INSERT INTO commune(name, Id_province) VALUES ('Lo Espejo',23);
+INSERT INTO commune(name, Id_province) VALUES ('Lo Barnechea',23);
+INSERT INTO commune(name, Id_province) VALUES ('Las Condes',23);
+INSERT INTO commune(name, Id_province) VALUES ('La Reina',23);
+INSERT INTO commune(name, Id_province) VALUES ('La Pintana',23);
+INSERT INTO commune(name, Id_province) VALUES ('La Granja',23);
+INSERT INTO commune(name, Id_province) VALUES ('La Florida',23);
+INSERT INTO commune(name, Id_province) VALUES ('La Cisterna',23);
+INSERT INTO commune(name, Id_province) VALUES ('Independencia',23);
+INSERT INTO commune(name, Id_province) VALUES ('Huechuraba',23);
+INSERT INTO commune(name, Id_province) VALUES ('Estación Central',23);
+INSERT INTO commune(name, Id_province) VALUES ('El Bosque',23);
+INSERT INTO commune(name, Id_province) VALUES ('Conchalí',23);
+INSERT INTO commune(name, Id_province) VALUES ('Cerro Navia',23);
+INSERT INTO commune(name, Id_province) VALUES ('Cerrillos',23);
+INSERT INTO commune(name, Id_province) VALUES ('Puente Alto',24);
+INSERT INTO commune(name, Id_province) VALUES ('San José de Maipo',24);
+INSERT INTO commune(name, Id_province) VALUES   ('Pirque',24);
+INSERT INTO commune(name, Id_province) VALUES ('San Bernardo',25);
+INSERT INTO commune(name, Id_province) VALUES ('Buin',25);
+INSERT INTO commune(name, Id_province) VALUES   ('Paine',25);
+INSERT INTO commune(name, Id_province) VALUES ('Calera de Tango',25);
+INSERT INTO commune(name, Id_province) VALUES ('Melipilla',26);
+INSERT INTO commune(name, Id_province) VALUES ('Alhué',26);
+INSERT INTO commune(name, Id_province) VALUES ('Curacaví',26);
+INSERT INTO commune(name, Id_province) VALUES ('María Pinto',26);
+INSERT INTO commune(name, Id_province) VALUES ('San Pedro',26);
+INSERT INTO commune(name, Id_province) VALUES ('Isla de Maipo',27);
+INSERT INTO commune(name, Id_province) VALUES   ('El Monte',27);
+INSERT INTO commune(name, Id_province) VALUES ('Padre Hurtado',27);
+INSERT INTO commune(name, Id_province) VALUES ('Peñaflor',27);
+INSERT INTO commune(name, Id_province) VALUES ('Talagante',27);
+INSERT INTO commune(name, Id_province) VALUES ('Codegua',28);
+INSERT INTO commune(name, Id_province) VALUES ('Coínco',28);
+INSERT INTO commune(name, Id_province) VALUES ('Coltauco',28);
+INSERT INTO commune(name, Id_province) VALUES ('Doñihue',28);
+INSERT INTO commune(name, Id_province) VALUES ('Graneros',28);
+INSERT INTO commune(name, Id_province) VALUES ('Las Cabras',28);
+INSERT INTO commune(name, Id_province) VALUES ('Machalí',28);
+INSERT INTO commune(name, Id_province) VALUES ('Malloa',28);
+INSERT INTO commune(name, Id_province) VALUES ('Mostazal',28);
+INSERT INTO commune(name, Id_province) VALUES ('Olivar',28);
+INSERT INTO commune(name, Id_province) VALUES ('Peumo',28);
+INSERT INTO commune(name, Id_province) VALUES ('Pichidegua',28);
+INSERT INTO commune(name, Id_province) VALUES ('Quinta de Tilcoco',28);
+INSERT INTO commune(name, Id_province) VALUES ('Rancagua',28);
+INSERT INTO commune(name, Id_province) VALUES ('Rengo',28);
+INSERT INTO commune(name, Id_province) VALUES ('Requínoa',28);
+INSERT INTO commune(name, Id_province) VALUES ('San Vicente de Tagua Tagua',28);
+INSERT INTO commune(name, Id_province) VALUES ('Chépica',29);
+INSERT INTO commune(name, Id_province) VALUES ('Chimbarongo',29);
+INSERT INTO commune(name, Id_province) VALUES ('Lolol',29);
+INSERT INTO commune(name, Id_province) VALUES ('Nancagua',29);
+INSERT INTO commune(name, Id_province) VALUES ('Palmilla',29);
+INSERT INTO commune(name, Id_province) VALUES ('Peralillo',29);
+INSERT INTO commune(name, Id_province) VALUES ('Placilla',29);
+INSERT INTO commune(name, Id_province) VALUES ('Pumanque',29);
+INSERT INTO commune(name, Id_province) VALUES ('San Fernando',29);
+INSERT INTO commune(name, Id_province) VALUES ('Santa Cruz',29);
+INSERT INTO commune(name, Id_province) VALUES ('La Estrella',30);
+INSERT INTO commune(name, Id_province) VALUES ('Litueche',30);
+INSERT INTO commune(name, Id_province) VALUES ('Marchigüe',30);
+INSERT INTO commune(name, Id_province) VALUES ('Navidad',30);
+INSERT INTO commune(name, Id_province) VALUES ('Paredones',30);
+INSERT INTO commune(name, Id_province) VALUES ('Pichilemu',30);
+INSERT INTO commune(name, Id_province) VALUES ('Curicó',31);
+INSERT INTO commune(name, Id_province) VALUES ('Hualañé',31);
+INSERT INTO commune(name, Id_province) VALUES ('Licantén',31);
+INSERT INTO commune(name, Id_province) VALUES ('Molina',31);
+INSERT INTO commune(name, Id_province) VALUES ('Rauco',31);
+INSERT INTO commune(name, Id_province) VALUES ('Romeral',31);
+INSERT INTO commune(name, Id_province) VALUES ('Sagrada Familia',31);
+INSERT INTO commune(name, Id_province) VALUES ('Teno',31);
+INSERT INTO commune(name, Id_province) VALUES ('Vichuquén',31);
+INSERT INTO commune(name, Id_province) VALUES ('Talca',32);
+INSERT INTO commune(name, Id_province) VALUES ('San Clemente',32);
+INSERT INTO commune(name, Id_province) VALUES ('Pelarco',32);
+INSERT INTO commune(name, Id_province) VALUES ('Pencahue',32);
+INSERT INTO commune(name, Id_province) VALUES ('Maule',32);
+INSERT INTO commune(name, Id_province) VALUES ('San Rafael',32);
+INSERT INTO commune(name, Id_province) VALUES ('Curepto',33);
+INSERT INTO commune(name, Id_province) VALUES ('Constitución',32);
+INSERT INTO commune(name, Id_province) VALUES ('Empedrado',32);
+INSERT INTO commune(name, Id_province) VALUES ('Río Claro',32);
+INSERT INTO commune(name, Id_province) VALUES  ('Linares',33);
+INSERT INTO commune(name, Id_province) VALUES ('San Javier',33);
+INSERT INTO commune(name, Id_province) VALUES ('Parral',33);
+INSERT INTO commune(name, Id_province) VALUES ('Villa Alegre',33);
+INSERT INTO commune(name, Id_province) VALUES ('Longaví',33);
+INSERT INTO commune(name, Id_province) VALUES ('Colbún',33);
+INSERT INTO commune(name, Id_province) VALUES ('Retiro',33);
+INSERT INTO commune(name, Id_province) VALUES ('Yerbas Buenas',33);
+INSERT INTO commune(name, Id_province) VALUES  ('Cauquenes',34);
+INSERT INTO commune(name, Id_province) VALUES ('Chanco',34);
+INSERT INTO commune(name, Id_province) VALUES ('Pelluhue',34);
+INSERT INTO commune(name, Id_province) VALUES ('Bulnes',35);
+INSERT INTO commune(name, Id_province) VALUES ('Chillán',35);
+INSERT INTO commune(name, Id_province) VALUES ('Chillán Viejo',35);
+INSERT INTO commune(name, Id_province) VALUES ('El Carmen',35);
+INSERT INTO commune(name, Id_province) VALUES ('Pemuco',35);
+INSERT INTO commune(name, Id_province) VALUES ('Pinto',35);
+INSERT INTO commune(name, Id_province) VALUES ('Quillón',35);
+INSERT INTO commune(name, Id_province) VALUES ('San Ignacio',35);
+INSERT INTO commune(name, Id_province) VALUES ('Yungay',35);
+INSERT INTO commune(name, Id_province) VALUES ('Cobquecura',36);
+INSERT INTO commune(name, Id_province) VALUES ('Coelemu',36);
+INSERT INTO commune(name, Id_province) VALUES ('Ninhue',36);
+INSERT INTO commune(name, Id_province) VALUES ('Portezuelo',36);
+INSERT INTO commune(name, Id_province) VALUES ('Quirihue',36);
+INSERT INTO commune(name, Id_province) VALUES ('Ránquil',36);
+INSERT INTO commune(name, Id_province) VALUES ('Treguaco',36);
+INSERT INTO commune(name, Id_province) VALUES ('San Carlos',37);
+INSERT INTO commune(name, Id_province) VALUES ('Coihueco',37);
+INSERT INTO commune(name, Id_province) VALUES ('San Nicolás',37);
+INSERT INTO commune(name, Id_province) VALUES ('Ñiquén',37);
+INSERT INTO commune(name, Id_province) VALUES ('San Fabián',37);
+INSERT INTO commune(name, Id_province) VALUES ('Alto Biobío',38);
+INSERT INTO commune(name, Id_province) VALUES ('Antuco',38);
+INSERT INTO commune(name, Id_province) VALUES ('Cabrero',38);
+INSERT INTO commune(name, Id_province) VALUES ('Laja',38);
+INSERT INTO commune(name, Id_province) VALUES ('Los Ángeles',38);
+INSERT INTO commune(name, Id_province) VALUES ('Mulchén',38);
+INSERT INTO commune(name, Id_province) VALUES ('Nacimiento',38);
+INSERT INTO commune(name, Id_province) VALUES ('Negrete',38);
+INSERT INTO commune(name, Id_province) VALUES ('Quilaco',38);
+INSERT INTO commune(name, Id_province) VALUES ('Quilleco',38);
+INSERT INTO commune(name, Id_province) VALUES ('San Rosendo',38);
+INSERT INTO commune(name, Id_province) VALUES ('Santa Bárbara',38);
+INSERT INTO commune(name, Id_province) VALUES ('Tucapel',38);
+INSERT INTO commune(name, Id_province) VALUES ('Yumbel',38);
+INSERT INTO commune(name, Id_province) VALUES ('Concepción',39);
+INSERT INTO commune(name, Id_province) VALUES ('Coronel',39);
+INSERT INTO commune(name, Id_province) VALUES ('Chiguayante',39);
+INSERT INTO commune(name, Id_province) VALUES ('Florida',39);
+INSERT INTO commune(name, Id_province) VALUES ('Hualpén',39);
+INSERT INTO commune(name, Id_province) VALUES ('Hualqui',39);
+INSERT INTO commune(name, Id_province) VALUES ('Lota',39);
+INSERT INTO commune(name, Id_province) VALUES ('Penco',39);
+INSERT INTO commune(name, Id_province) VALUES ('San Pedro de La Paz',39);
+INSERT INTO commune(name, Id_province) VALUES ('Santa Juana',39);
+INSERT INTO commune(name, Id_province) VALUES ('Talcahuano',39);
+INSERT INTO commune(name, Id_province) VALUES ('Tomé',39);
+INSERT INTO commune(name, Id_province) VALUES ('Arauco',40);
+INSERT INTO commune(name, Id_province) VALUES ('Cañete',40);
+INSERT INTO commune(name, Id_province) VALUES ('Contulmo',40);
+INSERT INTO commune(name, Id_province) VALUES ('Curanilahue',40);
+INSERT INTO commune(name, Id_province) VALUES ('Lebu',40);
+INSERT INTO commune(name, Id_province) VALUES ('Los Álamos',40);
+INSERT INTO commune(name, Id_province) VALUES ('Tirúa',40);
+INSERT INTO commune(name, Id_province) VALUES ('Angol',41);
+INSERT INTO commune(name, Id_province) VALUES ('Collipulli',41);
+INSERT INTO commune(name, Id_province) VALUES ('Curacautín',41);
+INSERT INTO commune(name, Id_province) VALUES ('Ercilla',41);
+INSERT INTO commune(name, Id_province) VALUES ('Lonquimay',41);
+INSERT INTO commune(name, Id_province) VALUES ('Los Sauces',41);
+INSERT INTO commune(name, Id_province) VALUES ('Lumaco',41);
+INSERT INTO commune(name, Id_province) VALUES ('Purén',41);
+INSERT INTO commune(name, Id_province) VALUES ('Renaico',41);
+INSERT INTO commune(name, Id_province) VALUES ('Traiguén',41);
+INSERT INTO commune(name, Id_province) VALUES ('Victoria',41);
+INSERT INTO commune(name, Id_province) VALUES ('Temuco',42);
+INSERT INTO commune(name, Id_province) VALUES ('Carahue',42);
+INSERT INTO commune(name, Id_province) VALUES ('Cholchol',42);
+INSERT INTO commune(name, Id_province) VALUES ('Cunco',42);
+INSERT INTO commune(name, Id_province) VALUES ('Curarrehue',42);
+INSERT INTO commune(name, Id_province) VALUES ('Freire',42);
+INSERT INTO commune(name, Id_province) VALUES ('Galvarino',42);
+INSERT INTO commune(name, Id_province) VALUES ('Gorbea',42);
+INSERT INTO commune(name, Id_province) VALUES ('Lautaro',42);
+INSERT INTO commune(name, Id_province) VALUES ('Loncoche',42);
+INSERT INTO commune(name, Id_province) VALUES ('Melipeuco',42);
+INSERT INTO commune(name, Id_province) VALUES ('Nueva Imperial',42);
+INSERT INTO commune(name, Id_province) VALUES ('Padre Las Casas',42);
+INSERT INTO commune(name, Id_province) VALUES ('Perquenco',42);
+INSERT INTO commune(name, Id_province) VALUES ('Pitrufquén',42);
+INSERT INTO commune(name, Id_province) VALUES ('Pucón',42);
+INSERT INTO commune(name, Id_province) VALUES ('Saavedra',42);
+INSERT INTO commune(name, Id_province) VALUES ('Teodoro Schmidt',42);
+INSERT INTO commune(name, Id_province) VALUES ('Toltén',42);
+INSERT INTO commune(name, Id_province) VALUES ('Vilcún',42);
+INSERT INTO commune(name, Id_province) VALUES ('Villarrica',42);
+INSERT INTO commune(name, Id_province) VALUES ('Valdivia',43);
+INSERT INTO commune(name, Id_province) VALUES ('Corral',43);
+INSERT INTO commune(name, Id_province) VALUES ('Lanco',43);
+INSERT INTO commune(name, Id_province) VALUES ('Los Lagos',43);
+INSERT INTO commune(name, Id_province) VALUES ('Máfil',43);
+INSERT INTO commune(name, Id_province) VALUES ('Mariquina',43);
+INSERT INTO commune(name, Id_province) VALUES ('Paillaco',43);
+INSERT INTO commune(name, Id_province) VALUES ('Panguipulli',43);
+INSERT INTO commune(name, Id_province) VALUES ('La Unión',44);
+INSERT INTO commune(name, Id_province) VALUES ('Futrono',44);
+INSERT INTO commune(name, Id_province) VALUES ('Lago Ranco',44);
+INSERT INTO commune(name, Id_province) VALUES ('Río Bueno',44);
+INSERT INTO commune(name, Id_province) VALUES ('Osorno',45);
+INSERT INTO commune(name, Id_province) VALUES ('Puerto Octay',45);
+INSERT INTO commune(name, Id_province) VALUES ('Purranque',45);
+INSERT INTO commune(name, Id_province) VALUES ('Puyehue',45);
+INSERT INTO commune(name, Id_province) VALUES ('Río Negro',45);
+INSERT INTO commune(name, Id_province) VALUES ('San Juan de la Costa',45);
+INSERT INTO commune(name, Id_province) VALUES ('San Pablo',45);
+INSERT INTO commune(name, Id_province) VALUES ('Calbuco',46);
+INSERT INTO commune(name, Id_province) VALUES ('Cochamó',46);
+INSERT INTO commune(name, Id_province) VALUES ('Fresia',46);
+INSERT INTO commune(name, Id_province) VALUES ('Frutillar',46);
+INSERT INTO commune(name, Id_province) VALUES ('Llanquihue',46);
+INSERT INTO commune(name, Id_province) VALUES ('Los Muermos',46);
+INSERT INTO commune(name, Id_province) VALUES ('Maullín',46);
+INSERT INTO commune(name, Id_province) VALUES ('Puerto Montt',46);
+INSERT INTO commune(name, Id_province) VALUES ('Puerto Varas',46);
+INSERT INTO commune(name, Id_province) VALUES ('Ancud',47);
+INSERT INTO commune(name, Id_province) VALUES ('Castro',47);
+INSERT INTO commune(name, Id_province) VALUES ('Chonchi',47);
+INSERT INTO commune(name, Id_province) VALUES ('Curaco de Vélez',47);
+INSERT INTO commune(name, Id_province) VALUES ('Dalcahue',47);
+INSERT INTO commune(name, Id_province) VALUES ('Puqueldón',47);
+INSERT INTO commune(name, Id_province) VALUES ('Queilén',47);
+INSERT INTO commune(name, Id_province) VALUES ('Quellón',47);
+INSERT INTO commune(name, Id_province) VALUES ('Quemchi',47);
+INSERT INTO commune(name, Id_province) VALUES ('Quinchao',47);
+INSERT INTO commune(name, Id_province) VALUES ('Chaitén',48);
+INSERT INTO commune(name, Id_province) VALUES ('Futaleufú',48);
+INSERT INTO commune(name, Id_province) VALUES ('Hualaihué',48);
+INSERT INTO commune(name, Id_province) VALUES ('Palena',48);
+INSERT INTO commune(name, Id_province) VALUES ('Lago Verde',49);
+INSERT INTO commune(name, Id_province) VALUES ('Coihaique',49);
+INSERT INTO commune(name, Id_province) VALUES ('Aysén',50);
+INSERT INTO commune(name, Id_province) VALUES ('Cisnes',50);
+INSERT INTO commune(name, Id_province) VALUES ('Guaitecas',50);
+INSERT INTO commune(name, Id_province) VALUES ('Río Ibáñez',51);
+INSERT INTO commune(name, Id_province) VALUES ('Chile Chico',51);
+INSERT INTO commune(name, Id_province) VALUES ('Cochrane',52);
+INSERT INTO commune(name, Id_province) VALUES ('O''Higgins',52);
+INSERT INTO commune(name, Id_province) VALUES ('Tortel',52);
+INSERT INTO commune(name, Id_province) VALUES ('Natales',53);
+INSERT INTO commune(name, Id_province) VALUES ('Torres del Paine',53);
+INSERT INTO commune(name, Id_province) VALUES ('Laguna Blanca',54);
+INSERT INTO commune(name, Id_province) VALUES ('Punta Arenas',54);
+INSERT INTO commune(name, Id_province) VALUES ('Río Verde',54);
+INSERT INTO commune(name, Id_province) VALUES ('San Gregorio',54);
+INSERT INTO commune(name, Id_province) VALUES ('Porvenir',55);
+INSERT INTO commune(name, Id_province) VALUES ('Primavera',55);
+INSERT INTO commune(name, Id_province) VALUES ('Timaukel',55);
+INSERT INTO commune(name, Id_province) VALUES ('Cabo de Hornos',56);
+INSERT INTO commune(name, Id_province) VALUES ('Antártica',56);
+
+--Insert de Working_Areas (Rubros)
+INSERT INTO working_area(name) VALUES ('Agricultura, ganaderia, caza y silvicultura');
+INSERT INTO working_area(name) VALUES ('Pesca');
+INSERT INTO working_area(name) VALUES ('Explotacion de minas y canteras');
+INSERT INTO working_area(name) VALUES ('Industrias manufactureras no metalicas');
+INSERT INTO working_area(name) VALUES ('Industrias manufactureras metalicas');
+INSERT INTO working_area(name) VALUES ('Suministro de electricidad, gas y agua');
+INSERT INTO working_area(name) VALUES ('Construccion' );
+INSERT INTO working_area(name) VALUES ('Comercio al por mayor y menor, rep. Veh.Automotores/enseres domesticos' );
+INSERT INTO working_area(name) VALUES ('Hoteles y restaurantes' );
+INSERT INTO working_area(name) VALUES ('Transporte, almacenamiento y comunicaciones' );
+INSERT INTO working_area(name) VALUES ('Intermediacion financiera' );
+INSERT INTO working_area(name) VALUES ('Actividades inmobiliarias, empresariales y de alquiler' );
+INSERT INTO working_area(name) VALUES ('Adm. Publica y defensa, planes de seg. Social afiliacion obligatoria' );
+INSERT INTO working_area(name) VALUES ('Enseñanza' );
+INSERT INTO working_area(name) VALUES ('Servicios sociales y de salud' );
+INSERT INTO working_area(name) VALUES ('Otras actividades de servicios comunitarias, sociales y personales' );
+INSERT INTO working_area(name) VALUES ('Consejo de administracion de edificios y condominios' );
+INSERT INTO working_area(name) VALUES ('Organizaciones y organos extraterritoriales');
+
+--Insert de Roles
+
+INSERT INTO role(name) VALUES ('Administrador');
+INSERT INTO role(name) VALUES ('Diseñador de procesos');
+INSERT INTO role(name) VALUES ('Funcionario');
+
+--Insert de Gender
+
+INSERT INTO gender(name) VALUES ('Masculino');
+INSERT INTO gender(name) VALUES ('Femenino');
+INSERT INTO gender(name) VALUES ('Undefined');
+
+--Insert de Day of week
+
+INSERT INTO day_of_week(name) VALUES ('Lunes');
+INSERT INTO day_of_week(name) VALUES ('Martes');
+INSERT INTO day_of_week(name) VALUES ('Miercoles');
+INSERT INTO day_of_week(name) VALUES ('Jueves');
+INSERT INTO day_of_week(name) VALUES ('Viernes');
+INSERT INTO day_of_week(name) VALUES ('Sabado');
+INSERT INTO day_of_week(name) VALUES ('Domingo');
+
+--Insert de Month
+
+INSERT INTO month(name) VALUES ('Enero');
+INSERT INTO month(name) VALUES ('Febrero');
+INSERT INTO month(name) VALUES ('Marzo');
+INSERT INTO month(name) VALUES ('Abril');
+INSERT INTO month(name) VALUES ('Mayo');
+INSERT INTO month(name) VALUES ('Junio');
+INSERT INTO month(name) VALUES ('Julio');
+INSERT INTO month(name) VALUES ('Agosto');
+INSERT INTO month(name) VALUES ('Septiembre');
+INSERT INTO month(name) VALUES ('Octubre');
+INSERT INTO month(name) VALUES ('Noviembre');
+INSERT INTO month(name) VALUES ('Diciembre');
+
+--Insert de Task_Status
+
+INSERT INTO task_status(status) VALUES ('Asignado');
+INSERT INTO task_status(status) VALUES ('En proceso');
+INSERT INTO task_status(status) VALUES ('Completado');
+INSERT INTO task_status(status) VALUES ('Reasignado');
+INSERT INTO task_status(status) VALUES ('Rechazado');
+INSERT INTO task_status(status) VALUES ('Cerrado');
+INSERT INTO task_status(status) VALUES ('Fallido');
+INSERT INTO task_status(status) VALUES ('Vencido');
+INSERT INTO task_status(status) VALUES ('Suspendido');
+
+--Insert de permission (Pendiente)
+
+INSERT INTO permission (name,description) VALUES ('Iniciar sesión en aplicación de escritorio','Permite el inicio de sesión en aplicación de escritorio');
+INSERT INTO permission (name,description) VALUES ('Iniciar sesión en aplicación web','Permite el inicio de sesión en sitio web');
+INSERT INTO permission (name,description) VALUES ('Ver todas las empresas', 'Permite visualizar todas las empresas');
+INSERT INTO permission (name,description) VALUES ('Ver información de empresa', 'Permite consultar la información de una empresa');
+INSERT INTO permission (name,description) VALUES ('Crear empresa', 'Permite crear empresa');
+INSERT INTO permission (name,description) VALUES ('Modificar empresa', 'Permite modificar empresa');
+INSERT INTO permission (name,description) VALUES ('Eliminar empresa', 'Permite eliminar empresa y sus unidades internas asociadas');
+INSERT INTO permission (name,description) VALUES ('Ver todos los permisos', 'Permite ver todos los permisos existentes');
+INSERT INTO permission (name,description) VALUES ('Ver información de permiso', 'Permite ver detalles de un permiso');
+INSERT INTO permission (name,description) VALUES ('Crear permiso', 'Permite crear permisos');
+INSERT INTO permission (name,description) VALUES ('Modificar permiso', 'Permite modificar permisos');
+INSERT INTO permission (name,description) VALUES ('Eliminar permiso', 'Permite elminar permisos');
+INSERT INTO permission (name,description) VALUES ('Ver todos los roles', 'Permite ver todos los roles existentes en el sistema');
+INSERT INTO permission (name,description) VALUES ('Ver información de rol', 'Permite ver detalles de un rol');
+INSERT INTO permission (name,description) VALUES ('Crear rol', 'Permite creal rol');
+INSERT INTO permission (name,description) VALUES ('Modificar rol', 'Permite modificar rol');
+INSERT INTO permission (name,description) VALUES ('Eliminar rol', 'Permite eliminar rol');
+INSERT INTO permission (name,description) VALUES ('Ver todas las unidades internas', 'Permite ver todas las unidades internas del sistema');
+INSERT INTO permission (name,description) VALUES ('Ver unidades internas asociadas a una empresa', 'Permite ver todas las unidades internas asociadas al sistema');
+INSERT INTO permission (name,description) VALUES ('Crear unidad interna', 'Permite crear unidad interna');
+INSERT INTO permission (name,description) VALUES ('Modificar unidad interna', 'Permite modificar la información de una unidad interna');
+INSERT INTO permission (name,description) VALUES ('Eliminar unidad interna', 'Permite eliminar una unidad interna');
+INSERT INTO permission (name,description) VALUES ('Ver todos los usuarios','Permite ver todos los usuarios registrados en el sistema');
+INSERT INTO permission (name,description) VALUES ('Ver todos los usuarios asociados a una empresa','Permite ver todos los usuarios registrados asociados a una empresa');
+INSERT INTO permission (name,description) VALUES ('Ver detalles de usuario','Permite ver los detalles de un usuario');
+INSERT INTO permission (name,description) VALUES ('Crear usuario','Permite crear usuarios');
+INSERT INTO permission (name,description) VALUES ('Modificar usuario','Permite modificar la información de los usuarios');
+INSERT INTO permission (name,description) VALUES ('Eliminar usuario','Permite eliminar usuario');
+INSERT INTO permission (name,description) VALUES ('Ver todas las tareas principales predeterminadas','Permite ver todas las tareas principales');
+INSERT INTO permission (name,description) VALUES ('Ver detalle de tarea principal predeterminadas','Permite ver el detalle de una tarea principal con sus sub-tareas y dependencias asociadas');
+INSERT INTO permission (name,description) VALUES ('Crear tareas predeterminadas','Permite crear tareas predeterminadas (Tanto principales como sub-tareas y dependencias asociadas)');
+INSERT INTO permission (name,description) VALUES ('Modificar tareas predeterminadas','Permite modificar tareas predeterminadas (Tanto principales como sub-tareas y dependencias asociadas)');
+INSERT INTO permission (name,description) VALUES ('Eliminar tareas predeterminadas','Permite eliminar tareas predeterminadas (Tanto principales como sub-tareas y dependencias asociadas)');
+INSERT INTO permission (name,description) VALUES ('Recuperar contraseña','Permite solicitar recuperación de contraseña');
+INSERT INTO permission (name,description) VALUES ('Ver detalles de perfil propio','Permite ver información del perfil actual');
+INSERT INTO permission (name,description) VALUES ('Modificar teléfono propio','Permite modificar telefono propio');
+INSERT INTO permission (name,description) VALUES ('Modificar contraseña propia','Permite modificar contraseña propia');
+INSERT INTO permission (name,description) VALUES ('Crear y asignar tarea única no predeterminada','Permite la creación y asignación de tareas únicas no predeterminadas(Incluye tareas principales, sub-tareas asociadas y dependencias)');
+INSERT INTO permission (name,description) VALUES ('Crear y asignar tarea repetitiva no predeterminada','Permite la creación y asignación de tareas repetitivas no predeterminada (Incluye tareas principales, sub-tareas asociadas y dependencias)');
+INSERT INTO permission (name,description) VALUES ('Asignar tareas predeterminadas únicas','Permite la asignación de tareas predeterminadas (Incluye tareas principales, sub-tareas asociadas y dependencias)');
+INSERT INTO permission (name,description) VALUES ('Asignar tareas predeterminadas repetitivas ','Permite la asignación de tareas unicas (Incluye tareas principales, sub-tareas asociadas y dependencias)');
+INSERT INTO permission (name,description) VALUES ('Modificar tareas repetitivas asignadas','Permite modificar la información de las tareas repetitivas asignadas y su información (Incluye tareas principales, sub-tareas asociadas y dependencias)');
+INSERT INTO permission (name,description) VALUES ('Eliminar tareas repetitivas asignadas','Permite la eliminación de las tareas repetitivas asignadas');
+INSERT INTO permission (name,description) VALUES ('Ver tareas asignadas a mi usuario','Permite ver las tareas asignadas a mi usuario');
+INSERT INTO permission (name,description) VALUES ('Aceptar tareas asignadas a mi usuario','Permite aceptar tareas asignadas a mi usuario');
+INSERT INTO permission (name,description) VALUES ('Rechazar tareas asignadas a mi usuario','Permite rechazar tareas asignadas a mi usuario (Debe ingresar justificación)');
+INSERT INTO permission (name,description) VALUES ('Completar tarea','Permite marcar como terminada tarea asignada');
+INSERT INTO permission (name,description) VALUES ('Reportar problema en realización de tarea','Permite informar problema en la realización de la tarea (Podría ser imposibilitante)');
+INSERT INTO permission (name,description) VALUES ('Ver la información de todas mis tareas','Permite ver el estado de mis tareas');
+INSERT INTO permission (name,description) VALUES ('Filtrar información de mis tareas por mes','Permite ver el estado de las tareas realizadas en el mes');
+INSERT INTO permission (name,description) VALUES ('Filtrar información de mis tareas por estado','Permite ver mis tareas en un estado determinado');
+INSERT INTO permission (name,description) VALUES ('Ver la información de todas las tareas que he asignado','Permite ver el estado de todas las tareas que he asignado');
+INSERT INTO permission (name,description) VALUES ('Filtrar información de las tarea que he asignado por departamento','Permite ver el estado de todas las tareas que he asignado por departamento');
+INSERT INTO permission (name,description) VALUES ('Filtrar información de las tarea que he asignado por mes','Permite ver el estado de todas las tareas que he asignado por mes');
+INSERT INTO permission (name,description) VALUES ('Filtrar información de las tarea que he asignado por estado','Permite ver el estado de todas las tareas que he asignado por estado');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas mis tareas','Permite generar un reporte en PDF de todas mis tareas');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas mis tareas filtradas por mes','Permite generar un reporte en PDF de todas mis tareas filtradas por mes');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas mis tareas filtradas por año','Permite generar un reporte en PDF de todas mis tareas filtradas por año');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas mis tareas filtradas por estado','Permite generar un reporte en PDF de todas mis tareas filtradas por estado');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas las tareas que he asignado','Permite generar un reporte en PDF de todas las tareas que he asignado');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas las tareas que he asignado filtradas por departamento','Permite generar un reporte en PDF de todas las tareas que he asignado filtradas por departamento');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas las tareas que he asignado filtradas por mes','Permite generar un reporte en PDF de todas las tareas que he asignado filtradas por mes');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas las tareas que he asignado filtradas por año','Permite generar un reporte en PDF de todas las tareas que he asignado filtradas por año');
+INSERT INTO permission (name,description) VALUES ('Generar reporte de información de todas las tareas que he asignado filtradas por estado','Permite generar un reporte en PDF de todas las tareas que he asignado filtradas por estado');
+INSERT INTO permission (name,description) VALUES ('Reasignar responsable de tarea ùnica rechazada asignada por mi usuario','Permite reasignar el responsable de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar nombre de tarea ùnica rechazada asignada por mi usuario','Permite reasignar el nombre de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar descripción de tarea ùnica rechazada asignada por mi usuario','Permite reasignar la descripción de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar fecha de tarea ùnica rechazada asignada por mi usuario','Permite reasignar la fecha de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Agregar sub-tareas de tarea ùnica rechazada asignada por mi usuario','Permite agregar sub-tareas de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Modificar sub-tareas de tarea ùnica rechazada asignada por mi usuario','Permite modificar sub-tareas de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Eliminar sub-tareas de tarea ùnica rechazada asignada por mi usuario','Permite eliminar sub-tareas el responsable de la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Cerrar tarea rechazada asignada por mi usuario','Permite cerrar la tarea única rechazada por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar responsable de tarea supendida asignada por mi usuario','Permite reasignar el responsable de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar nombre de tarea supendida asignada por mi usuario','Permite reasignar el nombre de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar descripción de tarea supendida asignada por mi usuario','Permite reasignar la descripción de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Reasignar fecha de tarea supendida asignada por mi usuario','Permite reasignar la fecha de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Agregar sub-tareas de tarea supendida asignada por mi usuario','Permite agregar sub-tareas de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Modificar sub-tareas de tarea supendida asignada por mi usuario','Permite modificar sub-tareas de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Eliminar sub-tareas de tarea supendida asignada por mi usuario','Permite eliminar sub-tareas de la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Cerrar tarea supendida asignada por mi usuario','Permite cerrar la tarea única supendida por un funcionario al que se le fue asignada una tarea por el funcionario actual');
+INSERT INTO permission (name,description) VALUES ('Recibir email de información de adevertencia de vencimiento de tarea','Recibe emails en la bandeja de entrada del usuario cuando una tarea esté pronto a vencer');
+INSERT INTO permission (name,description) VALUES ('Recibir email de cambios de estado o información de tareas asignadas al usuario','Recibe emails en la bandeja de entrada cuando una tarea asignada al usuario cambie su estado o su información');
+INSERT INTO permission (name,description) VALUES ('Recibir email de cambios de estado de tareas asignadas por el usuario','Recibe emails en la bandeja de entrada cuando una tarea asignada por el usuario cambie su estado o su información');
+
+
+--Insert de role_permissions (Pendiente)
+
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 1);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 3);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 4);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 5);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 6);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 7);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 8);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 9);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 10);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 11);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 12);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 13);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 14);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 15);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 16);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 17);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 18);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 19);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 20);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 21);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 22);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 23);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 24);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 25);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 26);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 27);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 28);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 29);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 30);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 31);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 32);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 33);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (1, 34);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 1);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 29);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 30);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 31);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 32);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 33);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (2, 34);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 2);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 34);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 35);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 36);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 37);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 38);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 39);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 40);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 41);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 42);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 43);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 44);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 45);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 46);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 47);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 48);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 49);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 50);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 51);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 52);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 53);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 54);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 55);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 56);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 57);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 58);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 59);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 60);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 61);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 62);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 63);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 64);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 65);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 66);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 67);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 68);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 69);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 70);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 71);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 72);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 73);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 74);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 75);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 76);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 77);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 78);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 79);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 80);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 81);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 82);
+INSERT INTO role_permissions (id_role, id_permission) VALUES (3, 83);
+
+
+--Insert de tareas por default
+
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Organizar tiempos del proyecto', 'Se deben realizar documentos para la organizacion del tiempo del proyecto', 1,null,null,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar Carta Gantt', 'Se debe realizar carta gantt acorde a los tiempos del proyecto', 1,1,1,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar EDT', 'Se debe realizar EDT acorde a Carta Gantt', 1,1,1,2);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Realizar BPMN', 'Realización de análisis de negocio del sistema', 1,1,1,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Conteo y Estados de equipos', 'Revisión del estado de los equipos de la oficina', 1,null,null,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Asignacion de Responsabilidades', 'Asignación de roles a profesionales involucrado en el proyecto', 1,null,null,1);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Analisis del personal', 'Se debe realizar un analisis de las cualidades del personal', 1,1,6,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Entrevistas Psicologicas', 'Se debe realizar entrevista con una psicologa y ver el estado mental de los profesionales', 1,1,7,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Entrevistas Medicas', 'Se debe realizar entrevista con una medico y ver el estado de salud de los profesionales', 1,1,7,null);
+INSERT INTO task(name, description, ispredefined, isactive, id_superior_task, id_dependent_task) VALUES ('Reunión asignacion de roles', 'Reunion para informar acerca de las reponsabilidades que tendran cada profesional', 1,1,6,7);
+
+--Insert de empresas
+Insert into Company (name, address, id_working_area, id_commune) values ('NovaSmart', 'Williams Rebolledo 2605', 10, 100);
+Insert into Company (name, address, id_working_area, id_commune) values ('ProcessSA', 'Hernán Cortés 2916', 10, 99);
+
+--Insert de internal unit
+Insert into Internal_Unit (id_role, name) values (3,'CEO'); 
+Insert into Internal_Unit (id_role, name) values (3,'Gerente de Informática'); 
+Insert into Internal_Unit (id_role, name) values (3,'Gerente comercial'); 
+Insert into Internal_Unit (id_role, name) values (3,'PMO'); 
+Insert into Internal_Unit (id_role, name) values (3,'Jefe de proyecto'); 
+Insert into Internal_Unit (id_role, name) values (3,'Desarrollador'); 
+Insert into Internal_Unit (id_role, name) values (3,'Analista QA');
+Insert into Internal_Unit (id_role, name) values (3,'Practicante informática'); 
+
+
+--Insert de Assigned_Unit
+Insert into Assigned_Unit (id_company, id_internalunit) values (1, 1);
+Insert into Assigned_Unit (id_company, id_internalunit) values (2, 1); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 2, 2); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 3, 2); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 4, 3); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 5, 5); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 6, 6); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 7, 6); 
+Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 8, 7); 
+
+--Insert de Usuarios
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 1, 1, 1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Matias','Plebeyo','Apolo Cuatro 1865','+56911111111',TO_DATE('16-05-1960', 'DD-MM-YYYY'),'plebeyomatias@gmail.com','cG9ydGFmb2xpbzIwMTk=',87,2,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Bastian','Ardilla','Benjamin 2919','+56922222222',TO_DATE('13-08-1955', 'DD-MM-YYYY'),'bastianardilla53@gmail.com','cG9ydGFmb2xpbzIwMTk=',105,3,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Mario','Neta','Callao 3860','+56933333333',TO_DATE('20-09-1970', 'DD-MM-YYYY'),'marioneta1879@gmail.com','cG9ydGFmb2xpbzIwMTk=',105,4,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Mario','Hugo','Francisco Meneses 1980','+56944444444',TO_DATE('11-09-1973', 'DD-MM-YYYY'),'mhugo6582@gmail.com','cG9ydGFmb2xpbzIwMTk=',99,5,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Florencia','Mariel','2 Pte. 571','+56955555555',TO_DATE('21-05-1980', 'DD-MM-YYYY'),'florenciamarie1996@gmail.com','cG9ydGFmb2xpbzIwMTk=',66,5,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Youchua','Mendez','Calle Once 1751','+56966666666',TO_DATE('01-02-1978', 'DD-MM-YYYY'),'youchuamendez1996@gmail.com','cG9ydGFmb2xpbzIwMTk=',99,6,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Elba','Zurita','11 Nte. 1008','+56977777777',TO_DATE('03-04-1985', 'DD-MM-YYYY'),'elbazurita1276@gmail.com','cG9ydGFmb2xpbzIwMTk=',66,6,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Elcon','Fort','Chiñihue 1021','+56988888888',TO_DATE('05-12-1990', 'DD-MM-YYYY'),'elconfort1313@gmail.com','cG9ydGFmb2xpbzIwMTk=',92,7,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Zolia','Cerda','Rivas Vicuña 1605','+56999999999',TO_DATE('14-11-1986', 'DD-MM-YYYY'),'zolia.cerda959@gmail.com','cG9ydGFmb2xpbzIwMTk=',93,7,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Esteban','Silva','Melipilla 5','+56912121212',TO_DATE('02-07-1994', 'DD-MM-YYYY'),'estaban.silva9587@gmail.com','cG9ydGFmb2xpbzIwMTk=',65,7,2,1);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Ingrid','Garrido','Atlántida 3471','+56913131313',TO_DATE('10-09-1993', 'DD-MM-YYYY'),'ingrid.garrido1234567@gmail.com','cG9ydGFmb2xpbzIwMTk=',92,8,2,2);
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Valeria','Alegria','Los conquistadores 378','+56914141414',TO_DATE('12-03-1998', 'DD-MM-YYYY'),'valerialegria2000@gmail.com','cG9ydGFmb2xpbzIwMTk=',100,9,2,2);
+
+COMMIT;
+
+
