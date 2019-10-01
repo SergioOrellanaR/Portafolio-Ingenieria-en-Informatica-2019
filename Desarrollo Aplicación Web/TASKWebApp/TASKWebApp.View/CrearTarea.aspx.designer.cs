@@ -31,22 +31,22 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
-        /// Control cbxTareaPropia.
+        /// Control rbtTareaPropia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxTareaPropia;
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaPropia;
         
         /// <summary>
-        /// Control cbxTareaPredeterminada.
+        /// Control rbtTareaPredeterminada.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxTareaPredeterminada;
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaPredeterminada;
         
         /// <summary>
         /// Control ddlTareaPredet.
@@ -58,22 +58,22 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.DropDownList ddlTareaPredet;
         
         /// <summary>
-        /// Control cbxTareaunica.
+        /// Control rbtTareaUnica.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxTareaunica;
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaUnica;
         
         /// <summary>
-        /// Control cbxTarearepetitiva.
+        /// Control rbtTareaRepetitiva.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxTarearepetitiva;
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaRepetitiva;
         
         /// <summary>
         /// Control Label1.
@@ -139,13 +139,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// Control TextBox2.
+        /// Control txtDescription.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
         /// Control Label4.
@@ -202,66 +202,66 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
-        /// Control Label8.
+        /// Control Label10.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
-        /// Control cbxSidependencia.
+        /// Control rbtSiDependencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSidependencia;
+        protected global::System.Web.UI.WebControls.RadioButton rbtSiDependencia;
         
         /// <summary>
-        /// Control cbxNodependencia.
+        /// Control rbtNoDependencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxNodependencia;
+        protected global::System.Web.UI.WebControls.RadioButton rbtNoDependencia;
         
         /// <summary>
-        /// Control Label9.
+        /// Control Label11.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
-        /// Control ddlTareaDependiente.
+        /// Control DropDownList2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTareaDependiente;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
         
         /// <summary>
-        /// Control btnCrearflujo.
+        /// Control btnCrearTarea.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCrearflujo;
+        protected global::System.Web.UI.WebControls.Button btnCrearTarea;
         
         /// <summary>
-        /// Control btnAceptar.
+        /// Control btnCrearFlujoTarea.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Button btnCrearFlujoTarea;
     }
 }
