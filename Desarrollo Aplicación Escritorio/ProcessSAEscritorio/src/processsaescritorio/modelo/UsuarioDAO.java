@@ -5,10 +5,7 @@
  */
 package processsaescritorio.modelo;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -182,14 +179,43 @@ public class UsuarioDAO implements DatosConexion{
                 this.getPassword(), this.getIdCommune(), this.getIdAssignedUnit(), this.getIdCompany(), this.getIdGender());
     }    
     
+    public UsuarioDTO obtenerUsuarioPorIdBD(String email, String clave){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USUARIO.PASSWORD, "
+                    + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_EMAIL = '" + email + "'AND USER_PASSWORD = '"+ clave +"'");
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setFirstname(resultado.getString(2));
+                this.setLastname(resultado.getString(3));
+                this.setAddress(resultado.getString(4));
+                this.setPhone(resultado.getString(5));
+                this.setBirthdate(LocalDate.parse(resultado.getString(6)));
+                this.setEmail(resultado.getString(7));
+                this.setPassword(resultado.getString(8));
+                this.setIdCommune(resultado.getInt(9));
+                this.setIdAssignedUnit(resultado.getInt(10));
+                this.setIdCompany(resultado.getInt(11));               
+                this.setIdGender(resultado.getInt(12));
+            }
+            conexion.close();
+        }catch(Exception e){
+            System.out.println("Error en obtención de usuario desde BD: " + e);
+        }
+        return new UsuarioDTO(this.getId(), this.getFirstname(), this.getLastname(), this.getAddress(), this.getPhone(), this.getBirthdate(), this.getEmail(), 
+                this.getPassword(), this.getIdCommune(), this.getIdAssignedUnit(), this.getIdCompany(), this.getIdGender());
+    }    
+    
     public int validarUsuarioBD(String email, String clave){
         int validacion = 0;
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
-            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USUARIO WHERE NOMBRE = '" + email + "' AND CLAVE = '" + encoded + "'");
+            //String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
+            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + clave + "'");
             while (resultado.next()) {
                 validacion = resultado.getInt(1);
             }
