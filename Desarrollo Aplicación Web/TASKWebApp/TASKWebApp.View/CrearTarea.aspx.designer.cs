@@ -31,22 +31,31 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Panel Panel4;
         
         /// <summary>
-        /// Control rbtTareaPropia.
+        /// Control ScriptManager.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaPropia;
+        protected global::System.Web.UI.ScriptManager ScriptManager;
         
         /// <summary>
-        /// Control rbtTareaPredeterminada.
+        /// Control udpTipoCargaTarea.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaPredeterminada;
+        protected global::System.Web.UI.UpdatePanel udpTipoCargaTarea;
+        
+        /// <summary>
+        /// Control rbtlTipoCargaTarea.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtlTipoCargaTarea;
         
         /// <summary>
         /// Control ddlTareasPredeterminadas.
@@ -56,24 +65,6 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTareasPredeterminadas;
-        
-        /// <summary>
-        /// Control rbtTareaUnica.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaUnica;
-        
-        /// <summary>
-        /// Control rbtTareaRepetitiva.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaRepetitiva;
         
         /// <summary>
         /// Control Label8.
@@ -110,6 +101,33 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
+        
+        /// <summary>
+        /// Control udpTipoTarea.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpTipoTarea;
+        
+        /// <summary>
+        /// Control rbtTareaUnica.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaUnica;
+        
+        /// <summary>
+        /// Control rbtTareaRepetitiva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtTareaRepetitiva;
         
         /// <summary>
         /// Control Label14.
@@ -346,6 +364,15 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
         
         /// <summary>
+        /// Control udpDependencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpDependencia;
+        
+        /// <summary>
         /// Control Label17.
         /// </summary>
         /// <remarks>
@@ -389,6 +416,15 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTareaDependiente;
+        
+        /// <summary>
+        /// Control updButtons.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updButtons;
         
         /// <summary>
         /// Control btnCrearTarea.

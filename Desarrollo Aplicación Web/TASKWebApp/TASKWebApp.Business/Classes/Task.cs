@@ -146,5 +146,17 @@ namespace TASKWebApp.Business.Classes
             }
         }
 
+        public bool HaveChilds()
+        {
+            try
+            {
+                Data.TASK task = Connection.ProcessSA_DB.TASK.First(tsk => tsk.ID_SUPERIOR_TASK == Id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
