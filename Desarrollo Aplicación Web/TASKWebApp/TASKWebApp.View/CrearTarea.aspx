@@ -34,7 +34,7 @@
                     </asp:DropDownList>
                     <br />
                     <asp:Label ID="Label8" runat="server" Text="Nombre Tarea*:"></asp:Label>
-                    <asp:TextBox ID="txtNombreTarea" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtNombreTarea" runat="server" Font-Size="Smaller" Width="300px"></asp:TextBox>
                     <br />
                     <asp:Label ID="Label13" runat="server" Text="Descripcion"></asp:Label>
                     &nbsp&nbsp&nbsp&nbsp<asp:TextBox ID="txtDescripcion" TextMode="multiline" Columns="50" Rows="5" runat="server" MaxLength="500" />
@@ -44,13 +44,12 @@
 
         <asp:UpdatePanel ID="udpTipoTarea" runat="server">
             <ContentTemplate>
+                <asp:RadioButtonList ID="rbtlTipoTarea" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="rbtlTipoTarea_SelectedIndexChanged" >
+                     <asp:ListItem Value="TareaUnica" Text="Tarea unica" Selected="True"></asp:ListItem>
+                     <asp:ListItem Value="TareaRepetitiva" Text="Tarea repetitiva"></asp:ListItem>
+                </asp:RadioButtonList>
 
-
-                <div style="width: 50%; float: right;">
-                    <asp:RadioButton ID="rbtTareaUnica" runat="server" Text="Tarea única" GroupName="TipoTarea" Checked="true" />
-                    <asp:RadioButton ID="rbtTareaRepetitiva" runat="server" Text="Tarea repetitiva" GroupName="TipoTarea" />
-                </div>
-                <div style="width: 50%; float: right;">
+                <div id="divTareaUnica" style="width: 50%; float: right;" runat="server" >
                     <div style="width: 50%; float: left;">
                         <asp:Label ID="Label14" runat="server" Text="Inicio:"></asp:Label>
                         <asp:TextBox ID="txtFechaInicio" runat="server" TextMode="DateTimeLocal"></asp:TextBox>
@@ -60,31 +59,32 @@
                         <asp:TextBox ID="txtFechaFin" runat="server" TextMode="DateTimeLocal"></asp:TextBox>
                     </div>
                 </div>
-                <div style="float: left;">
+
+                <div id="divTareaRepetitiva" style="width: 50%; float: right;" runat="server" visible="false">
                     <h4>Opciones de repetición</h4>
-                    <div>
-                        <asp:Label ID="Label9" runat="server" Text="Hora inicio"></asp:Label>
-                        &nbsp
-                   <asp:TextBox ID="txtHoraInicio" runat="server" TextMode="Time"></asp:TextBox>
+                    <div style="width: 50%; float: left;">
+                        <asp:Label ID="Label9" runat="server" Text="Hora inicio"></asp:Label>   
+                        <asp:TextBox ID="txtHoraInicio" runat="server" TextMode="Time"></asp:TextBox>
+                    </div>
+                    <div style="width: 50%; float: right;">
                         <asp:Label ID="Label12" runat="server" Text="Hora fin"></asp:Label>
-                        &nbsp
-                    <asp:TextBox ID="txtHoraFin" runat="server" TextMode="Time"></asp:TextBox>
+                        <asp:TextBox ID="txtHoraFin" runat="server" TextMode="Time"></asp:TextBox>
                     </div>
                     <div style="width: 100%;">
-                        <asp:CheckBox ID="cbxLunes" runat="server" Text="Lunes" />
-                        <asp:CheckBox ID="cbxMartes" runat="server" Text="Martes" />
-                        <asp:CheckBox ID="cbxMiercoles" runat="server" Text="Miercoles" />
-                        <asp:CheckBox ID="cbxJueves" runat="server" Text="Jueves" />
-                        <asp:CheckBox ID="cbxViernes" runat="server" Text="Viernes" />
-                        <asp:CheckBox ID="cbxSabado" runat="server" Text="Sábado" />
-                        <asp:CheckBox ID="cbxDomingo" runat="server" Text="Domingo" />
+                        <asp:Label ID="Label1" runat="server" Text="Dia de semana: "></asp:Label>
+                        <asp:CheckBoxList ID="cbxDiaSemana" runat="server" RepeatDirection="Horizontal">
+                        </asp:CheckBoxList>
                     </div>
                     <div style="width: 100%;">
-                        <asp:CheckBox ID="cbxSemana1" runat="server" Text="Semana 1 " />
-                        <asp:CheckBox ID="cbxSemana2" runat="server" Text="Semana 2 " />
-                        <asp:CheckBox ID="cbxSemana3" runat="server" Text="Semana 3 " />
-                        <asp:CheckBox ID="cbxSemana4" runat="server" Text="Semana 4 " />
-                        <asp:CheckBox ID="cbxSemana5" runat="server" Text="Semana 5 " />
+                        <asp:Label ID="Label2" runat="server" Text="Número de semana: "></asp:Label>
+                        <asp:CheckBoxList ID="cbxNumeroSemana" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="1" Text ="Semana 1"></asp:ListItem>
+                            <asp:ListItem Value="2" Text ="Semana 2"></asp:ListItem>
+                            <asp:ListItem Value="3" Text ="Semana 3"></asp:ListItem>
+                            <asp:ListItem Value="4" Text ="Semana 4"></asp:ListItem>
+                            <asp:ListItem Value="5" Text ="Semana 5"></asp:ListItem>
+                            <asp:ListItem Value="6" Text ="Semana 6"></asp:ListItem>
+                        </asp:CheckBoxList>
                     </div>
                     <div style="width: 100%;">
                         <asp:CheckBox ID="cbxDiadelmes" runat="server" Text="Por día del mes " />
@@ -145,15 +145,17 @@
         </asp:UpdatePanel>
         <div style="width: 50%; float: left">
             <asp:Label ID="Label16" runat="server" Text="Responsable*:"></asp:Label>
-            &nbsp&nbsp&nbsp<asp:DropDownList ID="DropDownList4" runat="server"></asp:DropDownList>
+            &nbsp&nbsp&nbsp<asp:DropDownList ID="ddlResponsable" runat="server"></asp:DropDownList>
+            <br />
             <br />
             <asp:UpdatePanel ID="udpDependencia" runat="server">
                 <ContentTemplate>
-                    <div>
-                        <asp:Label ID="Label17" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
-                        <asp:RadioButton ID="rbtNoDependencia" runat="server" Text="No" GroupName="Dependencia" Checked="true" />
-                        <asp:RadioButton ID="rbtSiDependencia" runat="server" Text="Si" GroupName="Dependencia" />
-                        <asp:Label ID="Label18" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
+                    <div id="divDependencia" runat="server">
+                        <asp:Label ID="Label17" runat="server" Text="¿Esta tarea tiene dependencia?" RepeatLayout="Flow"></asp:Label>
+                        <asp:RadioButtonList ID="rbtDependencia" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rbtDependencia_SelectedIndexChanged" >
+                            <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                            <asp:ListItem Value="Si" Text="Si"></asp:ListItem>
+                        </asp:RadioButtonList>
                         <asp:DropDownList ID="ddlTareaDependiente" runat="server">
                         </asp:DropDownList>
                     </div>

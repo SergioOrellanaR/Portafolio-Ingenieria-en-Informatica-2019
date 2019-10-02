@@ -112,22 +112,22 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.UpdatePanel udpTipoTarea;
         
         /// <summary>
-        /// Control rbtTareaUnica.
+        /// Control rbtlTipoTarea.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaUnica;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtlTipoTarea;
         
         /// <summary>
-        /// Control rbtTareaRepetitiva.
+        /// Control divTareaUnica.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtTareaRepetitiva;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTareaUnica;
         
         /// <summary>
         /// Control Label14.
@@ -166,6 +166,15 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.TextBox txtFechaFin;
         
         /// <summary>
+        /// Control divTareaRepetitiva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTareaRepetitiva;
+        
+        /// <summary>
         /// Control Label9.
         /// </summary>
         /// <remarks>
@@ -202,112 +211,40 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.TextBox txtHoraFin;
         
         /// <summary>
-        /// Control cbxLunes.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxLunes;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Control cbxMartes.
+        /// Control cbxDiaSemana.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxMartes;
+        protected global::System.Web.UI.WebControls.CheckBoxList cbxDiaSemana;
         
         /// <summary>
-        /// Control cbxMiercoles.
+        /// Control Label2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxMiercoles;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Control cbxJueves.
+        /// Control cbxNumeroSemana.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxJueves;
-        
-        /// <summary>
-        /// Control cbxViernes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxViernes;
-        
-        /// <summary>
-        /// Control cbxSabado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSabado;
-        
-        /// <summary>
-        /// Control cbxDomingo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxDomingo;
-        
-        /// <summary>
-        /// Control cbxSemana1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSemana1;
-        
-        /// <summary>
-        /// Control cbxSemana2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSemana2;
-        
-        /// <summary>
-        /// Control cbxSemana3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSemana3;
-        
-        /// <summary>
-        /// Control cbxSemana4.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSemana4;
-        
-        /// <summary>
-        /// Control cbxSemana5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxSemana5;
+        protected global::System.Web.UI.WebControls.CheckBoxList cbxNumeroSemana;
         
         /// <summary>
         /// Control cbxDiadelmes.
@@ -355,13 +292,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label16;
         
         /// <summary>
-        /// Control DropDownList4.
+        /// Control ddlResponsable.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
+        protected global::System.Web.UI.WebControls.DropDownList ddlResponsable;
         
         /// <summary>
         /// Control udpDependencia.
@@ -373,6 +310,15 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.UpdatePanel udpDependencia;
         
         /// <summary>
+        /// Control divDependencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDependencia;
+        
+        /// <summary>
         /// Control Label17.
         /// </summary>
         /// <remarks>
@@ -382,31 +328,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label17;
         
         /// <summary>
-        /// Control rbtNoDependencia.
+        /// Control rbtDependencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtNoDependencia;
-        
-        /// <summary>
-        /// Control rbtSiDependencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtSiDependencia;
-        
-        /// <summary>
-        /// Control Label18.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label18;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtDependencia;
         
         /// <summary>
         /// Control ddlTareaDependiente.

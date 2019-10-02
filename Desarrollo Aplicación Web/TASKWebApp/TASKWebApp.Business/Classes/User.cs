@@ -167,7 +167,7 @@ namespace TASKWebApp.Business.Classes
         {
             Dictionary<int, User> dictionary = new Dictionary<int, User>();
 
-            foreach(Data.USER_INFO user in Connection.ProcessSA_DB.USER_INFO.ToList().Where(users => (int)users.ASSIGNED_UNIT.ID_SUPERIOR_UNIT == AssignedUnit.Id))
+            foreach(Data.USER_INFO user in Connection.ProcessSA_DB.USER_INFO.ToList().Where(users => (int?)users.ASSIGNED_UNIT.ID_SUPERIOR_UNIT == AssignedUnit.Id))
             {
                 User usr = new User() { Email = user.EMAIL };
                 usr.ReadByEmail();
@@ -201,6 +201,16 @@ namespace TASKWebApp.Business.Classes
             return dictionary;
             
         }
+
+        public Dictionary<int, string> GetEqualsAndSubordinatedString()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            GetEqualsAndSubordinated().ToList().ForEach(x => dictionary.Add(x.Key, string.Format("{0} {1} ({2})", x.Value.FirstName, x.Value.LastName, x.Value.AssignedUnit.InternalUnit)));
+            var sortedDict = from entry in dictionary orderby entry.Value ascending select entry;
+            dictionary = sortedDict.ToDictionary(pair => pair.Key, pair => pair.Value);
+            return dictionary;
+        }
+
 
         public Dictionary<int, User> GetSuperiors()
         {

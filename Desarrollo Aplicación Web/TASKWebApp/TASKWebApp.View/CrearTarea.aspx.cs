@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,7 +20,9 @@ namespace TASKWebApp.View
 
         private void LoadDefaultData()
         {
+            LoadResponsibles();
             LoadDefaultHours();
+            LoadWeekDays();
         }
 
         private void LoadDefaultHours()
@@ -28,7 +31,7 @@ namespace TASKWebApp.View
             txtFechaFin.Text = DateTime.Now.AddDays(1).ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
         }
 
-        #region Métodos tarea única y predeterminada
+        #region Métodos tarea propia y predeterminada
 
         private void LoadPredefinedTask()
         {
@@ -65,8 +68,9 @@ namespace TASKWebApp.View
                 ddlTareasPredeterminadas.Visible = true;
                 LoadPredefinedTask();
                 LoadPredefinedTaskInformation();
+                ShowDivDependencies(false);
             }
-            else
+            else if (rbtlTipoCargaTarea.SelectedValue == "TareaPropia")
             {
                 EnableButtons();
                 ddlTareasPredeterminadas.Enabled = false;
@@ -74,6 +78,19 @@ namespace TASKWebApp.View
                 ddlTareasPredeterminadas.Visible = false;
                 EnableTaskTextbox(true);
                 CleanTaskTextbox();
+
+                if(rbtlTipoTarea.SelectedValue == "TareaUnica")
+                {
+                    ShowDivDependencies(true);
+                }
+                else
+                {
+                    ShowDivDependencies(false);
+                }
+            }
+            else
+            {
+                throw new Exception();
             }
         }
 
@@ -105,6 +122,10 @@ namespace TASKWebApp.View
                 }
                 txtDescripcion.Text = description;
             }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         private void EnableButtons()
@@ -113,6 +134,78 @@ namespace TASKWebApp.View
             btnCrearFlujoTarea.Visible = true;
         }
 
+
         #endregion
+
+        #region Métodos tarea única y repetitiva
+        protected void rbtlTipoTarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rbtlTipoTarea.SelectedValue == "TareaUnica")
+            {
+                LoadUniqueTaskTypeDiv(true);
+                if (rbtlTipoCargaTarea.SelectedValue == "TareaPropia")
+                {
+                    ShowDivDependencies(true);
+                }
+                else
+                {
+                    ShowDivDependencies(false);
+                }
+            }
+            else if (rbtlTipoTarea.SelectedValue == "TareaRepetitiva")
+            {
+                LoadUniqueTaskTypeDiv(false);
+                ShowDivDependencies(false);
+            }
+            else
+            {
+                Response.Redirect("CrearTarea.aspx");
+            }
+        }
+
+        private void LoadUniqueTaskTypeDiv(bool val)
+        {
+            divTareaUnica.Visible = val;
+            divTareaRepetitiva.Visible = !val;
+        }
+
+        private void LoadWeekDays()
+        {
+
+            cbxDiaSemana.Items.Clear();
+            cbxDiaSemana.DataSource = ComboBoxDataLoader.DayOfWeek;
+            cbxDiaSemana.DataTextField = "Value";
+            cbxDiaSemana.DataValueField = "Key";
+            cbxDiaSemana.DataBind();
+        }
+
+        #endregion
+
+        private void LoadResponsibles()
+        {
+            ddlResponsable.Items.Clear();
+            User user = (User)Session["ses"];
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(user.Id, string.Format("{0} {1} (Yo mismo)", user.FirstName, user.LastName));
+            user.GetEqualsAndSubordinatedString().ToList().ForEach(x => dictionary.Add(x.Key, x.Value));
+            ddlResponsable.DataSource = dictionary;
+            ddlResponsable.DataTextField = "Value";
+            ddlResponsable.DataValueField = "Key";
+            ddlResponsable.DataBind();
+        }
+
+        protected void rbtDependencia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void ShowDivDependencies(bool value)
+        {
+            divDependencia.Visible = value;
+        }
+
+        
     }
 }
