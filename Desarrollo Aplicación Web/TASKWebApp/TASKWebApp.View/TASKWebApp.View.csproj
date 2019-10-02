@@ -87,6 +87,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CrearTarea.aspx" />
+    <Content Include="Creartareaprueba.aspx" />
     <Content Include="CSS\StyleSheet.css" />
     <Content Include="CSS\StyleSheetMP.css" />
     <Content Include="CSS\StyleSheetRC.css" />
@@ -133,7 +134,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CerrarSesion.aspx.cs">
@@ -156,6 +159,13 @@
     </Compile>
     <Compile Include="CrearTarea.aspx.designer.cs">
       <DependentUpon>CrearTarea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Creartareaprueba.aspx.cs">
+      <DependentUpon>Creartareaprueba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Creartareaprueba.aspx.designer.cs">
+      <DependentUpon>Creartareaprueba.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
