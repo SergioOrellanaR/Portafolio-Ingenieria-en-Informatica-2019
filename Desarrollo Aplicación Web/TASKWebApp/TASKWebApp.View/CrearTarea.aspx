@@ -25,11 +25,13 @@
         <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="udpTipoCargaTarea" runat="server">
             <ContentTemplate>
-                <div style="width: 50%; float: left;">
+                <div style="width: 50%; float: left;">                      
+                    <asp:Label ID="Label16" runat="server" Text="Responsable*:"></asp:Label>
+                    &nbsp&nbsp&nbsp<asp:DropDownList ID="ddlResponsable" runat="server"></asp:DropDownList><br />
                     <asp:RadioButtonList ID="rbtlTipoCargaTarea" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="rbtlTipoCargaTarea_SelectedIndexChanged">
                         <asp:ListItem Value="TareaPropia" Text="Tarea propia" Selected="True"></asp:ListItem>
                         <asp:ListItem Value="TareaPredeterminada" Text="Tarea predeterminada"></asp:ListItem>
-                    </asp:RadioButtonList>
+                    </asp:RadioButtonList>                    
                     <asp:DropDownList ID="ddlTareasPredeterminadas" runat="server" OnSelectedIndexChanged="ddlTareasPredeterminadas_SelectedIndexChanged" AutoPostBack="True" Enabled="false" Visible = "false" AppendDataBoundItems="true">
                     </asp:DropDownList>
                     <br />
@@ -44,6 +46,7 @@
 
         <asp:UpdatePanel ID="udpTipoTarea" runat="server">
             <ContentTemplate>
+                <br />
                 <asp:RadioButtonList ID="rbtlTipoTarea" runat="server" RepeatLayout="Flow" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="rbtlTipoTarea_SelectedIndexChanged" >
                      <asp:ListItem Value="TareaUnica" Text="Tarea unica" Selected="True"></asp:ListItem>
                      <asp:ListItem Value="TareaRepetitiva" Text="Tarea repetitiva"></asp:ListItem>
@@ -143,9 +146,8 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-        <div style="width: 50%; float: left">
-            <asp:Label ID="Label16" runat="server" Text="Responsable*:"></asp:Label>
-            &nbsp&nbsp&nbsp<asp:DropDownList ID="ddlResponsable" runat="server"></asp:DropDownList>
+        <div style="width: 50%; ">
+
             <br />
             <br />
             <asp:UpdatePanel ID="udpDependencia" runat="server">
