@@ -52,6 +52,7 @@ namespace TASKWebApp.Business.Classes
                     loopTaskSchedule.ID_MONTH = IdMonth;
                     Connection.ProcessSA_DB.LOOP_TASK_SCHEDULE.Add(loopTaskSchedule);
                     Connection.ProcessSA_DB.SaveChanges();
+                    Id = (int)loopTaskSchedule.ID;
                     return true;
                 }
             }

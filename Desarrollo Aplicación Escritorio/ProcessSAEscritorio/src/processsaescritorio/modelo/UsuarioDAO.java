@@ -155,7 +155,7 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USUARIO.PASSWORD, "
+            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USER_INFO.PASSWORD, "
                     + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_INFO.ID = " + id);
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
@@ -184,8 +184,8 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USUARIO.PASSWORD, "
-                    + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_EMAIL = '" + email + "'AND USER_PASSWORD = '"+ clave +"'");
+            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USER_INFO.PASSWORD, "
+                    + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "'AND USER_INFO.PASSWORD = '"+ clave +"'");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setFirstname(resultado.getString(2));
@@ -214,8 +214,8 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            //String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
-            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + clave + "'");
+            String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
+            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + encoded + "'");
             while (resultado.next()) {
                 validacion = resultado.getInt(1);
             }

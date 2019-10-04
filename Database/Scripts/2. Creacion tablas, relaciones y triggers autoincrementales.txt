@@ -98,7 +98,8 @@ ALTER TABLE internal_unit ADD CONSTRAINT internal_unit_pk PRIMARY KEY ( id );
 CREATE TABLE loop_task (
     id                   INTEGER NOT NULL,
     id_task_assignment   INTEGER NOT NULL,
-    time                 DATE NOT NULL,
+    starttime            DATE,
+	endtime				 DATE NOT NULL,
     isactive             NUMBER(1) NOT NULL
 );
 
@@ -117,7 +118,7 @@ ALTER TABLE loop_task_schedule ADD CONSTRAINT loop_task_schedule_pk PRIMARY KEY 
 
 CREATE TABLE month (
     id     INTEGER NOT NULL,
-    name   NVARCHAR2(12) NOT NULL
+    name   NVARCHAR2(16) NOT NULL
 );
 
 ALTER TABLE month ADD CONSTRAINT month_pk PRIMARY KEY ( id );

@@ -14,7 +14,8 @@ namespace TASKWebApp.Business.Classes
 
         public int Id { get; set; }
         public TaskAssignment TaskAssignment { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public bool Isactive { get; set; }
 
         public LoopTask()
@@ -45,10 +46,12 @@ namespace TASKWebApp.Business.Classes
                 {
                     Data.LOOP_TASK loopTask = new Data.LOOP_TASK();
                     loopTask.ID_TASK_ASSIGNMENT = TaskAssignment.Id;
-                    loopTask.TIME = Time;
+                    loopTask.STARTTIME = StartTime;
+                    loopTask.ENDTIME = EndTime;
                     loopTask.ISACTIVE = StaticHelper.BoolToShort(Isactive);
                     Connection.ProcessSA_DB.LOOP_TASK.Add(loopTask);
                     Connection.ProcessSA_DB.SaveChanges();
+                    Id = (int)loopTask.ID;
                     return true;
                 }
             }
@@ -66,7 +69,8 @@ namespace TASKWebApp.Business.Classes
                 Data.LOOP_TASK loopTask = Connection.ProcessSA_DB.LOOP_TASK.First(lt => lt.ID == Id);
                 Id = (int)loopTask.ID;
                 TaskAssignment = new TaskAssignment((int)loopTask.ID_TASK_ASSIGNMENT);
-                Time = loopTask.TIME;
+                StartTime = loopTask.STARTTIME;
+                EndTime = loopTask.ENDTIME;
                 Isactive = StaticHelper.ShortToBool(loopTask.ISACTIVE);
                 return true;
             }
@@ -84,7 +88,8 @@ namespace TASKWebApp.Business.Classes
                 Data.LOOP_TASK loopTask = Connection.ProcessSA_DB.LOOP_TASK.First(lt => lt.ID == Id);
                 Id = (int)loopTask.ID;
                 loopTask.ID_TASK_ASSIGNMENT = TaskAssignment.Id;
-                loopTask.TIME = Time;
+                loopTask.STARTTIME = StartTime;
+                loopTask.ENDTIME = EndTime;
                 loopTask.ISACTIVE = StaticHelper.BoolToShort(Isactive);
                 Connection.ProcessSA_DB.SaveChanges();
                 return true;
