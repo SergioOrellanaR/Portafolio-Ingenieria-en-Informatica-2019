@@ -159,6 +159,7 @@ namespace TASKWebApp.View
             else if (rbtlTipoTarea.SelectedValue == "TareaRepetitiva")
             {
                 LoadUniqueTaskTypeDiv(false);
+                LoadDayWeekOrMonthInfo();
                 //ShowDivDependencies(false);
             }
             else
@@ -280,7 +281,76 @@ namespace TASKWebApp.View
             }
         }
 
-        private void createRepetitiveTask(User user)
+        private List<LoopTaskSchedule> CreateRepetitiveTask(User user)
+        {
+            LoopTask loopTask = createLoopTask(user);
+            List<LoopTaskSchedule> ltsList = new List<LoopTaskSchedule>();
+            if (loopTask.TaskAssignment.Task.Create() && loopTask.TaskAssignment.Create() && loopTask.Create())
+            {
+                int month = int.Parse(ddlMeses.SelectedValue);
+                if (rbtlTipoRepeticion.SelectedValue == "diaSemana")
+                {
+                    List<string> selectedDaysOfWeek = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+                    List<string> selectedWeeks = cbxNumeroSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+
+
+                    if (selectedWeeks.Count > 0)
+                    {
+                        foreach (string dayOfWeek in selectedDaysOfWeek)
+                        {
+                            foreach (string numberOfWeek in selectedWeeks)
+                            {
+                                LoopTaskSchedule lts = new LoopTaskSchedule()
+                                {
+                                    LoopTask = loopTask,
+                                    DayOfMonth = null,
+                                    DayOfWeek = int.Parse(dayOfWeek),
+                                    NumberOfWeek = int.Parse(numberOfWeek),
+                                    IdMonth = month
+                                };
+                                ltsList.Add(lts);
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        foreach (string dayOfWeek in selectedDaysOfWeek)
+                        {
+                            LoopTaskSchedule lts = new LoopTaskSchedule()
+                            {
+                                LoopTask = loopTask,
+                                DayOfMonth = null,
+                                DayOfWeek = int.Parse(dayOfWeek),
+                                NumberOfWeek = null, 
+                                IdMonth = month
+                            };
+
+                            ltsList.Add(lts);
+                        }
+                    }
+                    
+                }
+                else if (rbtlTipoRepeticion.SelectedValue == "diaMes")
+                {
+                    string SelectedDay = ddlDiaDelMes.SelectedValue;
+                    LoopTaskSchedule lts = new LoopTaskSchedule()
+                    {
+                        LoopTask = loopTask,
+                        DayOfWeek = null,
+                        NumberOfWeek = null,
+                        DayOfMonth = int.Parse(SelectedDay),
+                        IdMonth = int.Parse(ddlMeses.SelectedValue)
+                    };
+                    ltsList.Add(lts);
+                }
+
+                
+            }
+            return ltsList;
+        }
+
+        private LoopTask createLoopTask(User user)
         {
             TaskAssignment taskAssignment = CreateTaskAssignment(user);
             string defaultDate = "1900-01-01";
@@ -295,36 +365,80 @@ namespace TASKWebApp.View
                 Isactive = true
             };
 
-            //ToDo
-            List<string> SelectedDaysOfWeek = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
-            List<string> SelectedWeeks = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
-            string SelectedDay = ddlDiaDelMes.SelectedValue;
-            int? month = int.Parse(ddlMeses.SelectedValue);
-
-
-
-
-
+            return loopTask;
         }
 
         protected void btnCrearTarea_Click(object sender, EventArgs e)
         {
-            User user = (User)Session["ses"];
-            if(rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
+            try
             {
-                if (CreateUniqueTask(user))
+                User user = (User)Session["ses"];
+                if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
                 {
-                    Response.Redirect("CreacionTareaExitosa.aspx");
+                    if (CreateUniqueTask(user))
+                    {
+                        Response.Redirect("CreacionTareaExitosa.aspx");
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
                 }
-                else
+                else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
                 {
-                    Response.Redirect("CrearTarea.aspx");
-                }
-            }
-            else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
-            {
+                    List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTask(user);
 
+                    if (loopTaskScheduleList.Count > 0)
+                    {
+                        foreach (LoopTaskSchedule loopTaskSchedule in loopTaskScheduleList)
+                        {
+                            if (!loopTaskSchedule.Create())
+                                throw new Exception();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                    
+
+                    Response.Redirect("CreacionTareaExitosa.aspx", false);
+                }
             }
+            catch (Exception exce)
+            {
+                string mes = exce.Message;
+                Response.Redirect("CrearTarea.aspx");
+            }
+        }
+
+        protected void rbtlTipoRepeticion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDayWeekOrMonthInfo();
+        }
+
+        private void LoadDayWeekOrMonthInfo()
+        {
+            if (rbtlTipoRepeticion.SelectedValue == "diaSemana" && rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
+            {
+                VisibilizeDayWeek(true);
+            }
+            else if (rbtlTipoRepeticion.SelectedValue == "diaMes" && rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
+            {
+                VisibilizeDayWeek(false);
+            }
+            else
+            {
+                Response.Redirect("CrearTarea.aspx");
+            }
+        }
+
+        private void VisibilizeDayWeek(bool val)
+        {
+            divDiaSemana.Visible = val;
+            divDiaMes.Visible = !val;
+            divNumeroSemana.Visible = val;
+            divMes.Visible = true;
         }
         /*
 protected void rbtDependencia_SelectedIndexChanged(object sender, EventArgs e)

@@ -167,7 +167,7 @@ ALTER TABLE loop_task_schedule ADD CONSTRAINT loop_task_schedule_pk PRIMARY KEY 
 
 CREATE TABLE month (
     id     INTEGER NOT NULL,
-    name   NVARCHAR2(12) NOT NULL
+    name   NVARCHAR2(16) NOT NULL
 );
 
 ALTER TABLE month ADD CONSTRAINT month_pk PRIMARY KEY ( id );
@@ -1121,6 +1121,7 @@ INSERT INTO month(name) VALUES ('Septiembre');
 INSERT INTO month(name) VALUES ('Octubre');
 INSERT INTO month(name) VALUES ('Noviembre');
 INSERT INTO month(name) VALUES ('Diciembre');
+INSERT INTO month(name) VALUES ('Todos los meses');
 
 --Insert de Task_Status
 
