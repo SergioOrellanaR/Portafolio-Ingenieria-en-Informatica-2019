@@ -17,14 +17,22 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentBody" runat="server">
+    <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
     <asp:Panel ID="Panel1" runat="server">
         <div style="text-align: center">
             <h1>Crear Tarea</h1>
         </div>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div id="message">
+                    <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </asp:Panel>
     <asp:Panel ID="Panel4" runat="server" Height="350px">
-        <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
-                            <asp:Label ID="Label16" runat="server" Text="Responsable*:"></asp:Label>
+
+                  <asp:Label ID="Label16" runat="server" Text="Responsable*:"></asp:Label>
                     &nbsp&nbsp&nbsp<asp:DropDownList ID="ddlResponsable" runat="server" AppendDataBoundItems="true"></asp:DropDownList><br />
         <asp:UpdatePanel ID="udpTipoCargaTarea" runat="server">
             <ContentTemplate>
@@ -67,11 +75,11 @@
                     <h4>Opciones de repetición</h4>
                     <div style="width: 50%; float: left;">
                         <asp:Label ID="Label9" runat="server" Text="Hora inicio"></asp:Label>   
-                        <asp:TextBox ID="txtHoraInicio" runat="server" TextMode="Time"></asp:TextBox>
+                        <asp:TextBox ID="txtHoraInicio" runat="server" TextMode="Time" Text="00:01"></asp:TextBox>
                     </div>
                     <div style="width: 50%; float: right;">
                         <asp:Label ID="Label12" runat="server" Text="Hora fin"></asp:Label>
-                        <asp:TextBox ID="txtHoraFin" runat="server" TextMode="Time"></asp:TextBox>
+                        <asp:TextBox ID="txtHoraFin" runat="server" TextMode="Time" Text="23:59"></asp:TextBox>
                     </div>
                     <div>
                         <asp:Label ID="Label3" runat="server" Text="Repetir por: "></asp:Label>

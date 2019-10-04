@@ -294,7 +294,7 @@ namespace TASKWebApp.View
                     List<string> selectedWeeks = cbxNumeroSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
 
 
-                    if (selectedWeeks.Count > 0)
+                    if (selectedWeeks.Count > 0 && selectedWeeks.Count < 6)
                     {
                         foreach (string dayOfWeek in selectedDaysOfWeek)
                         {
@@ -370,46 +370,113 @@ namespace TASKWebApp.View
 
         protected void btnCrearTarea_Click(object sender, EventArgs e)
         {
+            string validateMessage = validate();
             try
             {
-                User user = (User)Session["ses"];
-                if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
+                if (validateMessage == null)
                 {
-                    if (CreateUniqueTask(user))
+                    User user = (User)Session["ses"];
+                    if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
                     {
-                        Response.Redirect("CreacionTareaExitosa.aspx");
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
-                }
-                else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
-                {
-                    List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTask(user);
-
-                    if (loopTaskScheduleList.Count > 0)
-                    {
-                        foreach (LoopTaskSchedule loopTaskSchedule in loopTaskScheduleList)
+                        if (CreateUniqueTask(user))
                         {
-                            if (!loopTaskSchedule.Create())
-                                throw new Exception();
+                            Response.Redirect("CreacionTareaExitosa.aspx", false);
+                        }
+                        else
+                        {
+                            throw new Exception();
                         }
                     }
-                    else
+                    else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
                     {
-                        throw new Exception();
-                    }
-                    
+                        List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTask(user);
 
-                    Response.Redirect("CreacionTareaExitosa.aspx", false);
+                        if (loopTaskScheduleList.Count > 0)
+                        {
+                            foreach (LoopTaskSchedule loopTaskSchedule in loopTaskScheduleList)
+                            {
+                                if (!loopTaskSchedule.Create())
+                                    throw new Exception();
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                        Response.Redirect("CreacionTareaExitosa.aspx", false);
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = validateMessage;
                 }
             }
             catch (Exception exce)
             {
                 string mes = exce.Message;
                 Response.Redirect("CrearTarea.aspx");
+                lblMessage.Text = "Error inesperado, contacte al administrador";
             }
+        }
+
+        private string validate()
+        {
+            string value = null;
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text) || string.IsNullOrWhiteSpace(txtNombreTarea.Text))
+            {
+                value = "Error: Verifique que el nombre de la tarea y la descripción no esté vacío";
+            }
+
+            if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
+            {
+                DateTime datetimeInicio;
+                DateTime datetimeFin;
+                string fechaInicio = txtFechaInicio.Text;
+                string fechaFin = txtFechaFin.Text;
+
+                if (string.IsNullOrWhiteSpace(fechaInicio) || string.IsNullOrWhiteSpace(fechaFin) || !DateTime.TryParse(fechaInicio, out datetimeInicio) || !DateTime.TryParse(fechaFin, out datetimeFin))
+                {
+                    value = "Las fechas ingresadas son inválidas, o bien, estas vienen vacías";
+                }
+                else
+                {
+                    if (datetimeInicio > datetimeFin)
+                    {
+                        value = "La fecha de inicio no puede ser mayor que la fecha de fin";
+                    }
+                }
+            }
+            else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
+            {
+                DateTime horaInicio;
+                DateTime horaFin;
+                string horaInicial = txtHoraInicio.Text;
+                string horaFinal = txtHoraFin.Text;
+                string initialDay = "1900-01-01";
+                if (string.IsNullOrWhiteSpace(horaInicial) || string.IsNullOrWhiteSpace(horaFinal) || !DateTime.TryParse(initialDay +" "+ horaInicial, out horaInicio) || !DateTime.TryParse(initialDay + " " + horaFinal, out horaFin))
+                {
+                    value = "Hora de inicio y fin no pueden ser vacíos, o bien los datos ingresados son inválidos";
+                }
+                else
+                {
+                    if (horaInicio > horaFin)
+                    {
+                        value = "La hora de inicio no puede ser mayor que la hora de fin";
+                    }
+                }
+
+                if(rbtlTipoRepeticion.SelectedValue == "diaSemana")
+                {
+                    if(cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList().Count == 0)
+                    {
+                        value = "Debe marcar al menos 1 día de semana";
+                    }
+                }
+            }
+
+            return value;
+
         }
 
         protected void rbtlTipoRepeticion_SelectedIndexChanged(object sender, EventArgs e)
