@@ -214,8 +214,8 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            //String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
-            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + clave + "'");
+            String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
+            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + encoded + "'");
             while (resultado.next()) {
                 validacion = resultado.getInt(1);
             }
