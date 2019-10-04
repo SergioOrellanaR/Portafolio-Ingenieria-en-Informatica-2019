@@ -70,7 +70,6 @@ namespace TASKWebApp.Business.Classes
                         task.ID_DEPENDENT_TASK = null;
                     }
                     
-
                     Connection.ProcessSA_DB.TASK.Add(task);
                     Connection.ProcessSA_DB.SaveChanges();
                     Id = (int)task.ID;
@@ -146,5 +145,17 @@ namespace TASKWebApp.Business.Classes
             }
         }
 
+        public bool HaveChilds()
+        {
+            try
+            {
+                Data.TASK task = Connection.ProcessSA_DB.TASK.First(tsk => tsk.ID_SUPERIOR_TASK == Id);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

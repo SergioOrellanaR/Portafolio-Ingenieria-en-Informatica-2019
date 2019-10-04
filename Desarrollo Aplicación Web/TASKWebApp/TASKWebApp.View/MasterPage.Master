@@ -20,6 +20,7 @@
     <link href="CSS/StyleSheetMP.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -33,7 +34,7 @@
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
 		<ul class="nav navbar-nav navbar-right ml-auto">
-			<li class="nav-item"><a href="#" class="nav-link"><i class="glyphicon glyphicon-calendar"></i><span>Crear Tarea</span></a></li>
+			<li class="nav-item"><a href="CrearTarea.aspx" class="nav-link"><i class="glyphicon glyphicon-calendar"></i><span>Crear Tarea</span></a></li>
 			<li class="nav-item"><a href="#" class="nav-link"><i class="glyphicon glyphicon-folder-open"></i><span>Administrar Tareas</span></a></li>
 			<li class="nav-item"><a href="#" class="nav-link"><i class="glyphicon glyphicon-exclamation-sign"></i><span>Tareas pendientes de revisión</span></a></li>
 			<li class="nav-item"><a href="#" class="nav-link"><i class="glyphicon glyphicon-tasks"></i><span>Tareas activas</span></a></li>

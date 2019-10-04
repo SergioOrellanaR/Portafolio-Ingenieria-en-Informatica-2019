@@ -55,6 +55,7 @@ namespace TASKWebApp.Business.Classes
                     }
                     Connection.ProcessSA_DB.TASK_ASSIGNMENT.Add(taskAssignment);
                     Connection.ProcessSA_DB.SaveChanges();
+                    Id = (int)taskAssignment.ID;
                     return true;
                 }
             }

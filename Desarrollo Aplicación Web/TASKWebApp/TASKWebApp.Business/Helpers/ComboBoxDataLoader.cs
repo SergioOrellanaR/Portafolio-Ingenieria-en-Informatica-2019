@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TASKWebApp.Business.Classes;
 
 namespace TASKWebApp.Business.Helpers
 {
@@ -97,6 +98,22 @@ namespace TASKWebApp.Business.Helpers
                 communeDictionary.Add((int)commune.ID, commune.NAME);
             }
             return communeDictionary;
+        }
+
+        //Conversar sobre .IsActive() y averiguar si hay que validar
+        public static Dictionary<int, string> GetPredefinedTasks()
+        {
+            int invalidTaskId = -1;
+            Dictionary<int, string> predefinedTasks = new Dictionary<int, string>();
+            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == null && x.ISPREDEFINED == 1 && x.ID_DEPENDENT_TASK == null))
+            {
+                Task tsk = new Task((int)task.ID);
+                if (tsk.Id!=invalidTaskId)
+                {
+                    predefinedTasks.Add(tsk.Id, tsk.Name);
+                }
+            }
+            return predefinedTasks;
         }
 
         /*

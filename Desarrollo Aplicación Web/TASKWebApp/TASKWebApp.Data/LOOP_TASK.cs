@@ -21,8 +21,9 @@ namespace TASKWebApp.Data
     
         public decimal ID { get; set; }
         public decimal ID_TASK_ASSIGNMENT { get; set; }
-        public System.DateTime TIME { get; set; }
         public short ISACTIVE { get; set; }
+        public Nullable<System.DateTime> STARTTIME { get; set; }
+        public System.DateTime ENDTIME { get; set; }
     
         public virtual TASK_ASSIGNMENT TASK_ASSIGNMENT { get; set; }
         public virtual ICollection<LOOP_TASK_SCHEDULE> LOOP_TASK_SCHEDULE { get; set; }
