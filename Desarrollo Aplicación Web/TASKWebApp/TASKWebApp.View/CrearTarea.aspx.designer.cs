@@ -40,15 +40,6 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.ScriptManager ScriptManager;
         
         /// <summary>
-        /// Control udpTipoCargaTarea.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpTipoCargaTarea;
-        
-        /// <summary>
         /// Control Label16.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,15 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlResponsable;
+        
+        /// <summary>
+        /// Control udpTipoCargaTarea.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpTipoCargaTarea;
         
         /// <summary>
         /// Control rbtlTipoCargaTarea.
@@ -274,13 +274,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.CheckBox cbxDiadelmes;
         
         /// <summary>
-        /// Control DropDownList1.
+        /// Control ddlDiaDelMes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDiaDelMes;
         
         /// <summary>
         /// Control cbxMeses.
@@ -299,51 +299,6 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMeses;
-        
-        /// <summary>
-        /// Control udpDependencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpDependencia;
-        
-        /// <summary>
-        /// Control divDependencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDependencia;
-        
-        /// <summary>
-        /// Control Label17.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label17;
-        
-        /// <summary>
-        /// Control rbtDependencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rbtDependencia;
-        
-        /// <summary>
-        /// Control ddlTareaDependiente.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTareaDependiente;
         
         /// <summary>
         /// Control updButtons.
