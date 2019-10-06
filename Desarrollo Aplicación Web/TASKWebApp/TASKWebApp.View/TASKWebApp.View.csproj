@@ -88,10 +88,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CreacionTareaExitosa.aspx" />
     <Content Include="CrearTarea.aspx" />
-    <Content Include="Creartareaprueba.aspx" />
+
     <Content Include="CSS\StyleSheet.css" />
     <Content Include="CSS\StyleSheetMP.css" />
     <Content Include="CSS\StyleSheetRC.css" />
+    <Content Include="Flujodetareaunica.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\avatar.png" />
     <Content Include="img\grafico.png" />
@@ -135,6 +136,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="TareaUnicaFT.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -168,12 +170,12 @@
     <Compile Include="CrearTarea.aspx.designer.cs">
       <DependentUpon>CrearTarea.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Creartareaprueba.aspx.cs">
-      <DependentUpon>Creartareaprueba.aspx</DependentUpon>
+    <Compile Include="Flujodetareaunica.aspx.cs">
+      <DependentUpon>Flujodetareaunica.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Creartareaprueba.aspx.designer.cs">
-      <DependentUpon>Creartareaprueba.aspx</DependentUpon>
+    <Compile Include="Flujodetareaunica.aspx.designer.cs">
+      <DependentUpon>Flujodetareaunica.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -210,6 +212,13 @@
     </Compile>
     <Compile Include="RecuperarContraseña.aspx.designer.cs">
       <DependentUpon>RecuperarContraseña.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TareaUnicaFT.aspx.cs">
+      <DependentUpon>TareaUnicaFT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TareaUnicaFT.aspx.designer.cs">
+      <DependentUpon>TareaUnicaFT.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

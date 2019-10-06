@@ -39,41 +39,49 @@ namespace TASKWebApp.Business.Classes
         {
             try
             {
-                if (Id != 0)
+                if (Id == -1)
                 {
-                    log.Error("Se intentó crear Tarea con Id ya existente. ID: " +Id);
+                    log.Error("Se intentó crear Tarea inválida. ID: " +Id);
                     throw new Exception();
                 }
                 else
                 {
-                    Data.TASK task = new Data.TASK();
-                    task.NAME = Name;
-                    task.DESCRIPTION = Description;
-                    task.ISPREDEFINED = StaticHelper.BoolToShort(IsPredefined);
-                    task.ISACTIVE = StaticHelper.BoolToShort(IsActive);
-
-                    if (SuperiorTask != null)
+                    if(Id > 0 && IsPredefined)
                     {
-                        task.ID_SUPERIOR_TASK = SuperiorTask.Id;
+                        //En caso que esté intentando crear una predeterminada
+                        return true;
                     }
                     else
                     {
-                        task.ID_SUPERIOR_TASK = null;
-                    }
+                        Data.TASK task = new Data.TASK();
+                        task.NAME = Name;
+                        task.DESCRIPTION = Description;
+                        task.ISPREDEFINED = StaticHelper.BoolToShort(IsPredefined);
+                        task.ISACTIVE = StaticHelper.BoolToShort(IsActive);
 
-                    if (DependentTask != null)
-                    {
-                        task.ID_DEPENDENT_TASK = DependentTask.Id;
+                        if (SuperiorTask != null)
+                        {
+                            task.ID_SUPERIOR_TASK = SuperiorTask.Id;
+                        }
+                        else
+                        {
+                            task.ID_SUPERIOR_TASK = null;
+                        }
+
+                        if (DependentTask != null)
+                        {
+                            task.ID_DEPENDENT_TASK = DependentTask.Id;
+                        }
+                        else
+                        {
+                            task.ID_DEPENDENT_TASK = null;
+                        }
+
+                        Connection.ProcessSA_DB.TASK.Add(task);
+                        Connection.ProcessSA_DB.SaveChanges();
+                        Id = (int)task.ID;
+                        return true;
                     }
-                    else
-                    {
-                        task.ID_DEPENDENT_TASK = null;
-                    }
-                    
-                    Connection.ProcessSA_DB.TASK.Add(task);
-                    Connection.ProcessSA_DB.SaveChanges();
-                    Id = (int)task.ID;
-                    return true;
                 } 
             }
             catch (Exception e)
