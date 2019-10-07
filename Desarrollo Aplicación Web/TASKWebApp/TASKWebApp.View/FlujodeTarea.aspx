@@ -205,60 +205,57 @@
                     <asp:Button ID="Button5" runat="server" Text="Crear Flujo de Tareas" class="btn btn-info btn-lg btn-block" />
                 </div>
             </div>
+            <br />
 
             <div class="col-md-12 mb-5 element-animate">
                 <div class="row">
-                    <asp:Label ID="Label12" CssClass="col-sm-2 " runat="server" Text="Hora inicio"></asp:Label>
+                    <asp:Label ID="Label12" CssClass="col-sm-2 " runat="server" Text="Hora Inicio"></asp:Label>
                     <div class="col-md-2 form-group">
-                        <asp:TextBox ID="txtHoraInicio" class="form-control" runat="server" TextMode="Time" Text="00:01"></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBox5" TextMode="Time" runat="server" placeholder="Hora Inicio" Text="00:01"></asp:TextBox>
+                    </div>
+                    <asp:Label ID="Label13" CssClass="col-sm-2 " runat="server" Text="Hora Fin"></asp:Label>
+                    <div class="col-md-2 form-group">
+                        <asp:TextBox class="form-control" ID="TextBox6" TextMode="Time" runat="server" placeholder="Hora Fin" Text="23:59"></asp:TextBox>
                     </div>
                 </div>
-
-                <div class="row">
-                    <asp:Label ID="Label19" CssClass="col-sm-2 " runat="server" Text="Hora Fin"></asp:Label>
-                    <div class="col-md-2 form-group">
-                        <asp:TextBox ID="txtHoraFin" class="form-control" runat="server" TextMode="Time" Text="23:59"></asp:TextBox>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-sm-2">
                         <asp:Label ID="Label20" runat="server" Text="Repetir por:"></asp:Label>
                     </div>
                     <div class="col-sm-3">
                         <asp:RadioButtonList ID="rbtlTipoRepeticion" runat="server" RepeatDirection="Horizontal">
-                            <asp:ListItem Text="Dia de semana" Selected="True" Value="diaSemana"></asp:ListItem>
+                            <asp:ListItem Text="Dia de semana" Selected="True" Value="diaSemana">Dia de Semana &nbsp&nbsp</asp:ListItem>
                             <asp:ListItem Text="Dia de mes" Value="diaMes"></asp:ListItem>
                         </asp:RadioButtonList>
                     </div>
                 </div>
-
+                <br />
                 <div class="row">
-                    <div id="divDiaSemana" class="row" runat="server" style="width: 100%;">
+                    <div id="divDiaSemana" runat="server">
                         <div class="col-sm-2">
                             <asp:Label ID="Label9" runat="server" Text="Repetir en días: "></asp:Label>
                         </div>
                         <div class="col-sm-10">
                             <asp:CheckBoxList ID="cbxDiaSemana" runat="server" RepeatDirection="Horizontal" AppendDataBoundItems="true">
-                                <asp:ListItem Value="1" Text="Lunes"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="Martes"></asp:ListItem>
-                                <asp:ListItem Value="3" Text="Miercoles"></asp:ListItem>
-                                <asp:ListItem Value="4" Text="Jueves"></asp:ListItem>
-                                <asp:ListItem Value="5" Text="Viernes"></asp:ListItem>
-                                <asp:ListItem Value="6" Text="Sábado"></asp:ListItem>
-                                <asp:ListItem Value="7" Text="Domingo"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="Lunes">&nbsp Lunes &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="2" Text="Martes">&nbsp Martes &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="3" Text="Miercoles">&nbsp Miercoles &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="4" Text="Jueves">&nbsp Jueves &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="5" Text="Viernes">&nbsp Viernes &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="6" Text="Sábado">&nbsp Sábado &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="7" Text="Domingo">&nbsp Domingo &nbsp&nbsp</asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
                 </div>
-
+                <br />
                 <div class="row">
-                    <div id="divDiaMes" runat="server" style="width: 100%;">
+                    <div id="divDiaMes" runat="server">
                         <div class="col-sm-2">
                             <asp:Label ID="Label21" runat="server" Text="Repetir los días: "></asp:Label>
                         </div>
                         <div class="col-sm-5">
-                            <asp:DropDownList ID="ddlDiaDelMes" runat="server">
+                            <asp:DropDownList ID="ddlDiaDelMes" runat="server" CssClass="btn btn-info dropdown-toggle">
                                 <asp:ListItem Text="1" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="2" Value="2"></asp:ListItem>
                                 <asp:ListItem Text="3" Value="3"></asp:ListItem>
@@ -295,6 +292,7 @@
                         </div>
                     </div>
                 </div>
+                <br />
                 <div class="row">
                     <div id="divNumeroSemana" runat="server" style="width: 100%;">
                         <div class="col-sm-2">
@@ -302,23 +300,24 @@
                         </div>
                         <div class="col-sm-10">
                             <asp:CheckBoxList ID="cbxNumeroSemana" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem Value="1" Text="Semana 1"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="Semana 2"></asp:ListItem>
-                                <asp:ListItem Value="3" Text="Semana 3"></asp:ListItem>
-                                <asp:ListItem Value="4" Text="Semana 4"></asp:ListItem>
-                                <asp:ListItem Value="5" Text="Semana 5"></asp:ListItem>
-                                <asp:ListItem Value="6" Text="Semana 6"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="Semana 1">&nbsp Semana 1 &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="2" Text="Semana 2">&nbsp Semana 2 &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="3" Text="Semana 3">&nbsp Semana 3 &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="4" Text="Semana 4">&nbsp Semana 4 &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="5" Text="Semana 5">&nbsp Semana 5 &nbsp&nbsp</asp:ListItem>
+                                <asp:ListItem Value="6" Text="Semana 6">&nbsp Semana 6 &nbsp&nbsp</asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
                 </div>
+                <br />
                 <div class="row">
                     <div id="divMes" runat="server" style="width: 100%;">
                         <div class="col-sm-2">
                             <asp:Label ID="Label23" runat="server" Text="De: "></asp:Label>
                         </div>
                         <div class="col-sm-10">
-                            <asp:DropDownList ID="ddlMeses" runat="server">
+                            <asp:DropDownList ID="ddlMeses" runat="server" CssClass="btn btn-info dropdown-toggle">
                                 <asp:ListItem Text="Todos los meses" Value="13"></asp:ListItem>
                                 <asp:ListItem Text="Enero" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="Febrero" Value="2"></asp:ListItem>
@@ -336,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-
+                <br />
                 <div class="row">
                     <div class="col-sm-3">
                         <asp:Label ID="Label24" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
@@ -349,7 +348,7 @@
                         </div>
                     </div>
                 </div>
-
+                <br />
                 <div class="row">
                     <div class="col-sm-3">
                         <asp:Label ID="Label25" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
@@ -362,8 +361,9 @@
                         </div>
                     </div>
                 </div>
+                <br />
             </div>
-            <br />
+
             <div class="row">
                 <div class="col-md-5 form-group">
                     <asp:Button ID="Button1" runat="server" Text="Agregar Tareas" class="btn btn-info btn-lg btn-block" />
