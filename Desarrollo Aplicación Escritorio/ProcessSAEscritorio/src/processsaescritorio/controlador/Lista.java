@@ -46,6 +46,11 @@ public class Lista {
         ArrayList<EstadoTareaDTO> listarEstadosTareas = new EstadoTareaDAO().obtenerEstadoTarea();
         return listarEstadosTareas;
     }   
-       
+    
+    public ArrayList<UsuarioDTO> listarUsuarios(){
+        ArrayList<UsuarioDTO> listaUsuarios = new UsuarioDAO().obtenerTodosLosUsuariosBD();
+        return listaUsuarios;
+    }
+    
        
 }

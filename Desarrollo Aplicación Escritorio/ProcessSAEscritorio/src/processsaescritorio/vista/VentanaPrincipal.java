@@ -33,8 +33,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelEscritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuAdminstracion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -44,7 +45,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 204, 255));
 
-        jMenu1.setText("Administración");
+        panelEscritorio.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
+        panelEscritorio.setLayout(panelEscritorioLayout);
+        panelEscritorioLayout.setHorizontalGroup(
+            panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 654, Short.MAX_VALUE)
+        );
+        panelEscritorioLayout.setVerticalGroup(
+            panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 335, Short.MAX_VALUE)
+        );
+
+        menuAdminstracion.setText("Administración");
 
         jMenuItem1.setText("Usuarios");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,13 +66,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuAdminstracion.add(jMenuItem1);
 
         jMenuItem2.setText("Roles");
-        jMenu1.add(jMenuItem2);
+        menuAdminstracion.add(jMenuItem2);
 
         jMenuItem3.setText("Unidades Internas");
-        jMenu1.add(jMenuItem3);
+        menuAdminstracion.add(jMenuItem3);
 
         jMenuItem4.setText("Flujo de Tareas");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -66,9 +80,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        menuAdminstracion.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuAdminstracion);
 
         jMenu2.setText("Reportes");
         jMenuBar1.add(jMenu2);
@@ -79,18 +93,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addComponent(panelEscritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addComponent(panelEscritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        ManejadorUsuarios mantenedorUsuario = new ManejadorUsuarios();
+        panelEscritorio.add(mantenedorUsuario);
+        mantenedorUsuario.setVisible(true); 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -99,12 +115,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenu menuAdminstracion;
+    private javax.swing.JDesktopPane panelEscritorio;
     // End of variables declaration//GEN-END:variables
 }
