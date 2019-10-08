@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package processsaescritorio.vista;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -57,6 +59,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuario = new javax.swing.JTable();
+        btnGrabar = new javax.swing.JButton();
 
         tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,27 +74,67 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblUsuario);
 
+        btnGrabar.setText("Grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(330, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addContainerGap(371, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGrabar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 33, Short.MAX_VALUE)
+                .addComponent(btnGrabar)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+      
+        String name="Prueba";
+        String lastName="ApellidoPrueba";
+        String address="AV Pruebas";
+        LocalDate birthdate= LocalDate.of(2017, Month.MAY, 15);
+        String phone="+5699812345";
+        String email="prueba@gmail.com";
+        String pass="1234";
+        int id_unitAssig=1;
+        int id_commune=2;
+        int id_company=1;
+        int id_gender=1;
+        
+        new UsuarioDAO(0,name,lastName,address,phone,birthdate,email,pass,id_commune,id_unitAssig,id_company,id_gender).crearUsuario(); 
+        /*
+        Insert into User_info (firstname, 
+        lastname, address, phone, 
+        birthdate, email, password, 
+        id_commune, id_assigned_unit, 
+        id_company, id_gender) values ('Esteban',
+        'Silva','Melipilla 5','+56912121212',TO_DATE('02-07-1994', 'DD-MM-YYYY'),
+        'estaban.silva9587@gmail.com','cG9ydGFmb2xpbzIwMTk=',65,7,2,1);
+        
+        */
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGrabar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuario;
     // End of variables declaration//GEN-END:variables
