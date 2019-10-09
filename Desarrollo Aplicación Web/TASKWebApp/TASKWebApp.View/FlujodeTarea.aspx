@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="divDetalleTareaUnica" runat="server" class="container">
+                    <div id="divTareaUnica" runat="server" class="container">
                         <div class="row">
                             <asp:Label ID="Label2" CssClass="col-sm-2 " runat="server" Text="Inicio:"></asp:Label>
                             <div class="col-md-2 form-group">
@@ -96,7 +96,7 @@
                         </div>
                     </div>
 
-                    <div id="divDetalleTareaRepetitiva" runat="server" class="container">
+                    <div id="divTareaRepetitiva" runat="server" class="container">
                         <div class="col-md-12 mb-5 element-animate">
                             <div class="row">
                                 <asp:Label ID="Label12" CssClass="col-sm-2 " runat="server" Text="Hora Inicio"></asp:Label>
@@ -228,29 +228,30 @@
                             <br />
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <asp:Label ID="Label10" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-check">
-                                <asp:RadioButtonList ID="rbtDependencia" runat="server" AutoPostBack="true">
-                                    <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Value="Si" Text="Si"></asp:ListItem>
-                                </asp:RadioButtonList>
+                    <div id="divDependencia" runat="server">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <asp:Label ID="Label10" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-check">
+                                    <asp:RadioButtonList ID="rbtDependencia" runat="server" AutoPostBack="true">
+                                        <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Value="Si" Text="Si"></asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <asp:Label ID="Label11" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
-                        </div>
-                        <div class="col-sm-1">
-                            <div class="form-check">
-                                <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server">
-                                    <asp:ListItem Value="">¿Cual es el nombre de tu primera mascota?</asp:ListItem>
-                                </asp:DropDownList>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <asp:Label ID="Label11" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-check">
+                                    <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server">
+                                        <asp:ListItem Value="">¿Cual es el nombre de tu primera mascota?</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,6 +261,27 @@
                             <asp:Button ID="btnAgregarAFlujo" runat="server" Text="Agregar al flujo de tareas" class="btn btn-info btn-lg btn-block" />
                         </div>
                     </div>
+                </div>
+
+                <div runat="server" id="Div1">
+                </div>
+                <div runat="server" id="Div2">
+                </div>
+                <div runat="server" id="Div3">
+                </div>
+                <div runat="server" id="Div4">
+                </div>
+                <div runat="server" id="Div5">
+                </div>
+                <div runat="server" id="Div6">
+                </div>
+                <div runat="server" id="Div7">
+                </div>
+                <div runat="server" id="Div8">
+                </div>
+                <div runat="server" id="Div9">
+                </div>
+                <div runat="server" id="Div10">
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -272,6 +294,8 @@
             </div>
         </div>
     </section>
+
+    <asp:Label ID="lblMeme" runat="server" Text="Label"></asp:Label>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Footer" runat="server">
 </asp:Content>
