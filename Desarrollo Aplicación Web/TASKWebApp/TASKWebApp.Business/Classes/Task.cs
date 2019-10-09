@@ -166,4 +166,14 @@ namespace TASKWebApp.Business.Classes
             }
         }
     }
+
+    public class TaskFlowInfo
+    {
+        public bool IsRepetitive { get; set; }
+        public bool IsPredefined { get; set; }
+        public bool? IsDayOfWeek { get; set; }
+        public ProcessedTask ProcessedTask { get; set; }
+        public LoopTask LoopTask { get; set; }
+        public List<LoopTaskSchedule> LoopTaskScheduleList { get; set; }
+    }
 }

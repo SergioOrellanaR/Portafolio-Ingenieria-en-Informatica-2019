@@ -11,7 +11,15 @@ namespace TASKWebApp.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ValidateTaskFlowInfoExists();
+        }
 
+        private void ValidateTaskFlowInfoExists()
+        {
+            if (Session["TaskFlowInfo"] == null)
+            {
+                Response.Redirect("CrearTarea.aspx");
+            }
         }
     }
 }

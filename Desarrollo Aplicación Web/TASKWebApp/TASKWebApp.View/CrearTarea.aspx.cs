@@ -255,6 +255,32 @@ namespace TASKWebApp.View
             }
         }
 
+        private ProcessedTask CreateUniqueFlowTask(User user)
+        {
+            try
+            {
+                int AssignedTaskStatusCode = 1;
+                TaskAssignment taskAssignment = CreateTaskAssignment(user);
+                ProcessedTask processedTask = new ProcessedTask()
+                {
+                    AssignationDate = DateTime.Now,
+                    Commentary = null,
+                    StartDate = DateTime.Parse(txtFechaInicio.Text),
+                    EndDate = DateTime.Parse(txtFechaFin.Text),
+                    LoopTaskSchedule = null,
+                    TaskAssignment = taskAssignment,
+                    IdTaskStatus = AssignedTaskStatusCode
+                };
+
+                return processedTask;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
         private bool ValidateTaskCreation (ProcessedTask processedTask)
         {
             if (processedTask.TaskAssignment.Task.Id > 0)
@@ -278,6 +304,70 @@ namespace TASKWebApp.View
                 {
                     return false;
                 }
+            }
+        }
+
+        private List<LoopTaskSchedule> CreateRepetitiveTaskFlow(User user)
+        {
+            List<LoopTaskSchedule> ltsList = new List<LoopTaskSchedule>();
+            int month = int.Parse(ddlMeses.SelectedValue);
+            if (rbtlTipoRepeticion.SelectedValue == "diaSemana")
+            {
+                List<string> selectedDaysOfWeek = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+                List<string> selectedWeeks = cbxNumeroSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+
+
+                if (selectedWeeks.Count > 0 && selectedWeeks.Count < 6)
+                {
+                    foreach (string dayOfWeek in selectedDaysOfWeek)
+                    {
+                        foreach (string numberOfWeek in selectedWeeks)
+                        {
+                            LoopTaskSchedule lts = new LoopTaskSchedule()
+                            {
+                                LoopTask = null,
+                                DayOfMonth = null,
+                                DayOfWeek = int.Parse(dayOfWeek),
+                                NumberOfWeek = int.Parse(numberOfWeek),
+                                IdMonth = month
+                            };
+                            ltsList.Add(lts);
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach (string dayOfWeek in selectedDaysOfWeek)
+                    {
+                        LoopTaskSchedule lts = new LoopTaskSchedule()
+                        {
+                            LoopTask = null,
+                            DayOfMonth = null,
+                            DayOfWeek = int.Parse(dayOfWeek),
+                            NumberOfWeek = null,
+                            IdMonth = month
+                        };
+
+                        ltsList.Add(lts);
+                    }
+                }
+
+                return ltsList;
+
+            }
+            else if (rbtlTipoRepeticion.SelectedValue == "diaMes")
+            {
+                string SelectedDay = ddlDiaDelMes.SelectedValue;
+                LoopTaskSchedule lts = new LoopTaskSchedule()
+                {
+                    LoopTask = null,
+                    DayOfWeek = null,
+                    NumberOfWeek = null,
+                    DayOfMonth = int.Parse(SelectedDay),
+                    IdMonth = int.Parse(ddlMeses.SelectedValue)
+                };
+                ltsList.Add(lts);
             }
         }
 
@@ -368,56 +458,7 @@ namespace TASKWebApp.View
             return loopTask;
         }
 
-        protected void btnCrearTarea_Click(object sender, EventArgs e)
-        {
-            string validateMessage = validate();
-            try
-            {
-                if (validateMessage == null)
-                {
-                    User user = (User)Session["ses"];
-                    if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
-                    {
-                        if (CreateUniqueTask(user))
-                        {
-                            Response.Redirect("CreacionTareaExitosa.aspx", false);
-                        }
-                        else
-                        {
-                            throw new Exception();
-                        }
-                    }
-                    else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
-                    {
-                        List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTask(user);
-
-                        if (loopTaskScheduleList.Count > 0)
-                        {
-                            foreach (LoopTaskSchedule loopTaskSchedule in loopTaskScheduleList)
-                            {
-                                if (!loopTaskSchedule.Create())
-                                    throw new Exception();
-                            }
-                        }
-                        else
-                        {
-                            throw new Exception();
-                        }
-                        Response.Redirect("CreacionTareaExitosa.aspx", false);
-                    }
-                }
-                else
-                {
-                    lblMessage.Text = validateMessage;
-                }
-            }
-            catch (Exception exce)
-            {
-                string mes = exce.Message;
-                Response.Redirect("CrearTarea.aspx");
-                lblMessage.Text = "Error inesperado, contacte al administrador";
-            }
-        }
+        
 
         private string validate()
         {
@@ -507,19 +548,149 @@ namespace TASKWebApp.View
             divNumeroSemana.Visible = val;
             divMes.Visible = true;
         }
-        /*
-protected void rbtDependencia_SelectedIndexChanged(object sender, EventArgs e)
-{
 
-}
+        protected void btnCrearTarea_Click(object sender, EventArgs e)
+        {
+            string validateMessage = validate();
+            try
+            {
+                if (validateMessage == null)
+                {
+                    User user = (User)Session["ses"];
+                    if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
+                    {
+                        if (CreateUniqueTask(user))
+                        {
+                            Response.Redirect("CreacionTareaExitosa.aspx", false);
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
+                    {
+                        List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTask(user);
+
+                        if (loopTaskScheduleList.Count > 0)
+                        {
+                            foreach (LoopTaskSchedule loopTaskSchedule in loopTaskScheduleList)
+                            {
+                                if (!loopTaskSchedule.Create())
+                                    throw new Exception();
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                        Response.Redirect("CreacionTareaExitosa.aspx", false);
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = validateMessage;
+                }
+            }
+            catch (Exception exce)
+            {
+                string mes = exce.Message;
+                Response.Redirect("CrearTarea.aspx");
+                lblMessage.Text = "Error inesperado, contacte al administrador";
+            }
+        }
+
+        protected void btnCrearFlujoTarea_Click(object sender, EventArgs e)
+        {
+            string validateMessage = validate();
+            try
+            {
+                if (validateMessage == null)
+                {
+                    TaskFlowInfo taskFlowInfo = SelectedOptions();
+                    
+                    User user = (User)Session["ses"];
 
 
+                    if (rbtlTipoTarea.SelectedItem.Value == "TareaUnica")
+                    {
+                        ProcessedTask processedTask = CreateUniqueFlowTask(user);
+                        if (processedTask != null)
+                        {
+                            taskFlowInfo.ProcessedTask = processedTask;
+                            Response.Redirect("FlujodeTarea.aspx", false);
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    else if (rbtlTipoTarea.SelectedItem.Value == "TareaRepetitiva")
+                    {
+                        LoopTask loopTask = createLoopTask(user);
+                        List<LoopTaskSchedule> loopTaskScheduleList = CreateRepetitiveTaskFlow(user);
 
-private void ShowDivDependencies(bool value)
-{
-divDependencia.Visible = value;
-}
-*/
+                        if (loopTaskScheduleList.Count > 0)
+                        {
+                            taskFlowInfo.LoopTask = loopTask;
+                            taskFlowInfo.LoopTaskScheduleList = loopTaskScheduleList;
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
 
+                        Session["TaskFlowInfo"] = taskFlowInfo;
+                        Response.Redirect("FlujodeTarea.aspx", false);
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = validateMessage;
+                }
+            }
+            catch (Exception exce)
+            {
+                string mes = exce.Message;
+                Response.Redirect("CrearTarea.aspx", false);
+                lblMessage.Text = "Error inesperado, contacte al administrador";
+            }
+            
+        }
+
+        private TaskFlowInfo SelectedOptions()
+        {
+            TaskFlowInfo tfi = new TaskFlowInfo();
+
+            switch(rbtlTipoTarea.SelectedValue)
+            {
+                case "TareaRepetitiva":
+                    tfi.IsRepetitive = true;
+                    if (rbtlTipoRepeticion.SelectedValue == "diaSemana")
+                    {
+                        tfi.IsDayOfWeek = true;
+                    }
+                    else if (rbtlTipoRepeticion.SelectedValue == "diaMes")
+                    {
+                        tfi.IsDayOfWeek = false;
+                    }
+                    break;
+                case "TareaUnica":
+                    tfi.IsRepetitive = false;
+                    break;
+            }
+
+            switch (rbtlTipoCargaTarea.SelectedValue)
+            {
+                case "TareaPredeterminada":
+                    tfi.IsPredefined = true;
+                    break;
+                case "TareaPropia":
+                    tfi.IsPredefined = false;
+                    break;
+            }
+
+            return tfi;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace TASKWebApp.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            createUserQA();
             LoadMessage();
             if (!IsPostBack)
             {
@@ -91,6 +92,15 @@ namespace TASKWebApp.View
             catch (Exception)
             {
             }
+        }
+
+        private void createUserQA()
+        {
+            User user = new User() {
+                Email = "plebeyomatias@gmail.com"
+            };
+            user.ReadByEmail();
+            Session["ses"] = user;
         }
     }
 }
