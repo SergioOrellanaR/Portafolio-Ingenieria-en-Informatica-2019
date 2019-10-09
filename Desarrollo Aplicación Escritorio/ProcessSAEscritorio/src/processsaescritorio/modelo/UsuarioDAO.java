@@ -155,7 +155,7 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USER_INFO.PASSWORD, "
+            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE,TO_CHAR(USER_INFO.BIRTHDATE, 'YYYY-MM-DD'), USER_INFO.EMAIL, USER_INFO.PASSWORD, "
                     + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_INFO.ID = " + id);
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
@@ -226,4 +226,20 @@ public class UsuarioDAO implements DatosConexion{
         return validacion;
     }
     
+    public String crearUsuario(){
+        try{
+          Class.forName(DRIVER);
+          Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+          Statement declaracion = conexion.createStatement();
+          declaracion.executeUpdate("INSERT INTO User_info(firstname,lastname,address,phone,birthdate,email,password,id_commune,id_assigned_unit,id_company,id_gender)VALUES "
+                  + "('"+this.getFirstname()+"','"+this.getLastname()+"','"+this.getAddress()+"','"+this.getPhone()+"',TO_DATE('"+this.getBirthdate()+"','YYYY-MM-DD:HH24:MI:SS'),'"+this.getEmail()+"','"+this.getPassword()+"',"+this.getIdCommune()+","+this.getIdAssignedUnit()+","+this.getIdCompany()+","+this.getIdGender()+")");
+          return "El registro de compañia fue exitoso.";
+        }catch(Exception e){
+         System.out.println("Error : " + e);
+          return "No se pudo registrar compañia : " + e;
+    }
+    }
+    //Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 
+    //'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 1, 1, 1);
+    //TO_DATE('" + fechaFormateada + "', 'YYYY-MM-DD:HH24:MI:SS'),
 }
