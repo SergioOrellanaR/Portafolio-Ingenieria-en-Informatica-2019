@@ -200,7 +200,7 @@
         <ContentTemplate>
             <div style="text-align: center">
                 <asp:Button ID="btnCrearTarea" runat="server" Text="Crear Tarea" OnClick="btnCrearTarea_Click" />
-                <asp:Button ID="btnCrearFlujoTarea" runat="server" Text="Crear flujo de tareas" />
+                <asp:Button ID="btnCrearFlujoTarea" runat="server" Text="Crear flujo de tareas" OnClick="btnCrearFlujoTarea_Click" />
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

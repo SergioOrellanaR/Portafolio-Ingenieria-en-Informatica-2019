@@ -352,9 +352,6 @@ namespace TASKWebApp.View
                         ltsList.Add(lts);
                     }
                 }
-
-                return ltsList;
-
             }
             else if (rbtlTipoRepeticion.SelectedValue == "diaMes")
             {
@@ -369,6 +366,8 @@ namespace TASKWebApp.View
                 };
                 ltsList.Add(lts);
             }
+
+            return ltsList;
         }
 
         private List<LoopTaskSchedule> CreateRepetitiveTask(User user)
@@ -618,7 +617,6 @@ namespace TASKWebApp.View
                         if (processedTask != null)
                         {
                             taskFlowInfo.ProcessedTask = processedTask;
-                            Response.Redirect("FlujodeTarea.aspx", false);
                         }
                         else
                         {
@@ -639,10 +637,9 @@ namespace TASKWebApp.View
                         {
                             throw new Exception();
                         }
-
-                        Session["TaskFlowInfo"] = taskFlowInfo;
-                        Response.Redirect("FlujodeTarea.aspx", false);
                     }
+                    Session["TaskFlowInfo"] = taskFlowInfo;
+                    Response.Redirect("FlujodeTarea.aspx", false);
                 }
                 else
                 {
