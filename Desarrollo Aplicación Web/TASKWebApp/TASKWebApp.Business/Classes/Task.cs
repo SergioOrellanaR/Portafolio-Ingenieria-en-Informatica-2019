@@ -165,6 +165,18 @@ namespace TASKWebApp.Business.Classes
                 return false;
             }
         }
+
+        public Dictionary<int, Task> LoadChildTasks()
+        {
+            Dictionary<int, Task> childTasks = new Dictionary<int, Task>();
+            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == Id))
+            {
+                int taskId = (int)task.ID;
+                Task taskReaded = new Task(taskId);
+                childTasks.Add(taskId, taskReaded);
+            }
+            return childTasks;
+        }
     }
 
     public class TaskFlowInfo
@@ -175,5 +187,6 @@ namespace TASKWebApp.Business.Classes
         public ProcessedTask ProcessedTask { get; set; }
         public LoopTask LoopTask { get; set; }
         public List<LoopTaskSchedule> LoopTaskScheduleList { get; set; }
+        public Task OriginalTask { get; set; }
     }
 }

@@ -617,6 +617,7 @@ namespace TASKWebApp.View
                         if (processedTask != null)
                         {
                             taskFlowInfo.ProcessedTask = processedTask;
+                            taskFlowInfo.OriginalTask = processedTask.TaskAssignment.Task;
                         }
                         else
                         {
@@ -632,6 +633,7 @@ namespace TASKWebApp.View
                         {
                             taskFlowInfo.LoopTask = loopTask;
                             taskFlowInfo.LoopTaskScheduleList = loopTaskScheduleList;
+                            taskFlowInfo.OriginalTask = loopTask.TaskAssignment.Task;
                         }
                         else
                         {

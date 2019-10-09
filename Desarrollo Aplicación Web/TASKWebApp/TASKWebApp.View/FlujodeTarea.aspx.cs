@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using TASKWebApp.Business.Classes;
 
@@ -27,39 +28,65 @@ namespace TASKWebApp.View
 
         private void LoadSubTaskInformation(TaskFlowInfo taskFlowInfo)
         {
-            if(taskFlowInfo.IsPredefined)
+            LoadSubTaskDiv(taskFlowInfo);
+            List<Task> taskList = (List<Task>)repSubTask.DataSource;
+            LoadDivInformation(taskFlowInfo, taskList);
+            if (taskFlowInfo.IsPredefined)
             {
-                
-                //ToDo: Cargar N Divs
+                SetPredefinidedSubTaskInformation(taskList);
             }
             else
             {
-                LoadDivInformation(taskFlowInfo);
                 LoadFirstTaskDiv();
             }
         }
 
-        private void LoadDivInformation(TaskFlowInfo taskFlowInfo)
+        private void LoadDivInformation(TaskFlowInfo taskFlowInfo, List<Task> taskList)
         {
             if(taskFlowInfo.IsRepetitive)
             {
-                LoadUniqueTaskTypeDiv(false);
+                EnableUniqueTaskControls(false, taskList);
+                LoadRepetitiveSubTaskDetailInformation(taskFlowInfo, taskList);
             }
             else
             {
-                LoadUniqueTaskTypeDiv(true);
+                EnableUniqueTaskControls(true, taskList);
+            }
+        }
+
+        private void LoadRepetitiveSubTaskDetailInformation (TaskFlowInfo taskFlowInfo, List<Task> taskList)
+        {
+            if (taskFlowInfo.IsDayOfWeek == true)
+            {
+                VisibilizeDayWeek(true);
+            }
+            else if (taskFlowInfo.IsDayOfWeek == false)
+            {
+                VisibilizeDayWeek(false);
+            }
+        }
+
+        private void VisibilizeDayWeek(bool val)
+        {
+            for (int i = 0; i < repSubTask.Items.Count; i++)
+            {
+                RepeaterItem item = repSubTask.Items[i];
+                EnableVisibleDiv(val, "divDiaSemana", item);
+                EnableVisibleDiv(!val, "divDiaMes", item);
+                EnableVisibleDiv(val, "divNumeroSemana", item);
+                EnableVisibleDiv(true, "divMes", item);
             }
         }
 
         private void LoadUniqueTaskTypeDiv(bool val)
         {
-            divTareaUnica.Visible = val;
-            divTareaRepetitiva.Visible = !val;
+            //divTareaUnica.Visible = val;
+            //divTareaRepetitiva.Visible = !val;
         }
 
         private void LoadDependenciesDiv(bool val)
         {
-            divDependencia.Visible = val;
+            //divDependencia.Visible = val;
         }
 
         //ToDo: Si arreglo de tareas > 0, LoadDependenciesDiv(true), else LoadDependenciesDiv(false);
@@ -77,11 +104,88 @@ namespace TASKWebApp.View
             }
         }
 
-        private void LoadNDiv()
+        private void LoadSubTaskDiv(TaskFlowInfo taskFlowInfo)
         {
-            Div1.InnerHtml = "";
-            string htmlDivTarea = divTarea.InnerHtml;
-            lblMeme.Text = htmlDivTarea;
+            List<Task> taskList = new List<Task>();
+            if (taskFlowInfo.IsPredefined)
+            {
+                taskList = taskFlowInfo.OriginalTask.LoadChildTasks().Values.ToList();
+            }
+            else
+            {
+                taskList.Add(taskFlowInfo.OriginalTask);
+            }
+            repSubTask.DataSource = taskList;
+            repSubTask.DataBind();
         }
+
+        private void SetPredefinidedSubTaskInformation(List<Task> taskList)
+        {
+            for (int i = 0; i < repSubTask.Items.Count; i++)
+            {
+                RepeaterItem item = repSubTask.Items[i];
+
+                TextBox txtName = (TextBox)item.FindControl("txtNombre");
+                TextBox txtDescription = (TextBox)item.FindControl("txtDescription");
+                Task task = taskList[i];
+
+                txtName.Text = task.Name;
+                txtDescription.Text = task.Description;
+
+                txtName.Enabled = false;
+                txtDescription.Enabled = false;
+
+                EnableCreateFlowButton(false, taskList, item);
+                EnableDependenciesDiv(false, taskList, item);
+            }
+        }
+
+        private void EnableCreateFlowButton (bool val, List<Task> taskList, RepeaterItem item)
+        {
+                Button createFlow = (Button)item.FindControl("btnAgregarAFlujo");
+                createFlow.Visible = val;
+        }
+
+        private void EnableDependenciesDiv(bool val, List<Task> taskList, RepeaterItem item)
+        {
+                EnableVisibleDiv(val, "divDependencia", item);                
+        }
+
+        private void EnableUniqueTaskControls(bool val, List<Task> taskList)
+        {
+            for (int i = 0; i < repSubTask.Items.Count; i++)
+            {
+                RepeaterItem item = repSubTask.Items[i];
+                EnableVisibleDiv(val, "divTareaUnica", item);
+                EnableVisibleDiv(!val, "divTareaRepetitiva", item);
+            }
+        }
+
+
+        private void EnableVisibleDiv (bool val, string divName, RepeaterItem item)
+        {
+            HtmlGenericControl div = (HtmlGenericControl)item.FindControl(divName);
+            div.Visible = val;
+        }
+
+
+
+
+
+        /*
+         * foreach (RepeaterItem item in Repeater1.Items)
+            {
+                  TextBox txtName= (TextBox)item.FindControl("txtName");
+                  if(txtName!=null)
+                  {
+                  //do something with txtName.Text
+                  }
+                  Image img= (Image)item.FindControl("Img");
+                  if(img!=null)
+                  {
+                  //do something with img
+                  }
+            }
+         */
     }
 }

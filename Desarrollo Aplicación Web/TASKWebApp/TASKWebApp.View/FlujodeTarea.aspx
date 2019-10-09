@@ -66,8 +66,12 @@
 
         <asp:UpdatePanel ID="upTarea" runat="server">
             <ContentTemplate>
-
-                <div id="divTarea" runat="server">
+<asp:Repeater ID="repSubTask" runat="server">
+    <HeaderTemplate>
+        Contenido de repeater
+    </HeaderTemplate>
+    <ItemTemplate>
+        <div id="divTarea" runat="server">
 
                     <div id="InformacionTarea" runat="server">
                         <div class="row">
@@ -106,17 +110,6 @@
                                 <asp:Label ID="Label13" CssClass="col-sm-2 " runat="server" Text="Hora Fin"></asp:Label>
                                 <div class="col-md-2 form-group">
                                     <asp:TextBox class="form-control" ID="txtHoraFin" TextMode="Time" runat="server" placeholder="Hora Fin" Text="23:59"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <asp:Label ID="Label20" runat="server" Text="Repetir por:"></asp:Label>
-                                </div>
-                                <div class="col-sm-3">
-                                    <asp:RadioButtonList ID="rbtlTipoRepeticion" runat="server" RepeatDirection="Horizontal">
-                                        <asp:ListItem Text="Dia de semana" Selected="True" Value="diaSemana">Dia de Semana &nbsp&nbsp</asp:ListItem>
-                                        <asp:ListItem Text="Dia de mes" Value="diaMes"></asp:ListItem>
-                                    </asp:RadioButtonList>
                                 </div>
                             </div>
                             <br />
@@ -262,27 +255,14 @@
                         </div>
                     </div>
                 </div>
-
-                <div runat="server" id="Div1">
-                </div>
-                <div runat="server" id="Div2">
-                </div>
-                <div runat="server" id="Div3">
-                </div>
-                <div runat="server" id="Div4">
-                </div>
-                <div runat="server" id="Div5">
-                </div>
-                <div runat="server" id="Div6">
-                </div>
-                <div runat="server" id="Div7">
-                </div>
-                <div runat="server" id="Div8">
-                </div>
-                <div runat="server" id="Div9">
-                </div>
-                <div runat="server" id="Div10">
-                </div>
+    </ItemTemplate>
+    <SeparatorTemplate>
+        <br />
+        <br />
+        <br />
+    </SeparatorTemplate>
+</asp:Repeater>
+               
             </ContentTemplate>
         </asp:UpdatePanel>
         <div class="row">
