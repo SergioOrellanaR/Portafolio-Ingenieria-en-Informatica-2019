@@ -105,7 +105,7 @@ namespace TASKWebApp.Business.Helpers
         {
             int invalidTaskId = -1;
             Dictionary<int, string> predefinedTasks = new Dictionary<int, string>();
-            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == null && x.ISPREDEFINED == 1 && x.ID_DEPENDENT_TASK == null))
+            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == null && x.ISPREDEFINED == 1 /*&& x.ID_DEPENDENT_TASK == null*/))
             {
                 Task tsk = new Task((int)task.ID);
                 if (tsk.Id!=invalidTaskId)

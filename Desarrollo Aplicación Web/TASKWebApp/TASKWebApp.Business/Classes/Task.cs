@@ -190,10 +190,13 @@ namespace TASKWebApp.Business.Classes
         public Task OriginalTask { get; set; }
     }
 
+    //Recursividad Mindblowing, trae la tarea con sus hijas.
     public class ChildTaskContainer
     {
+        //public int VirtualId { get; set; }
         public Task Task { get; set; }
         public List<ChildTaskContainer> ChildTasks { get; set; }
+        public int Level { get; set; }
 
         public ChildTaskContainer(Task task)
         {
@@ -206,8 +209,63 @@ namespace TASKWebApp.Business.Classes
                     ChildTaskContainer ctc = new ChildTaskContainer(child);
                     ChildTasks.Add(ctc);
                 }
-
             }
+        }
+
+        //Carga los niveles, estos deben ser cargados DESDE LA RAIZ.
+        public void LoadLevel(int paramVal)
+        {
+            Level = paramVal;
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.LoadLevel(paramVal + 1);
+                }
+            }
+        }
+
+        public List<TaskWithLevel> TransformToListPlainWithLevels(List<TaskWithLevel> list)
+        {
+            TaskWithLevel twl = new TaskWithLevel { Task = Task, Level = Level };
+            list.Add(twl);
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.TransformToListPlainWithLevels(list);
+                }
+            }
+            return list;
+        }
+        /*
+        public int GetNumberOfTasksInFamily(int val)
+        {
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                val += ChildTasks.Count;
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.GetNumberOfTasksInFamily(val);
+                }
+            }
+            else
+            {
+                val++;
+            }
+            return val;
+        }
+        */
+    }
+
+    public class TaskWithLevel
+    {
+        public Task Task { get; set; }
+        public int Level { get; set; }
+
+        public TaskWithLevel()
+        {
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace TASKWebApp.View
 {
     public partial class FlujodeTarea : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidateTaskFlowInfoExists();
@@ -34,6 +36,7 @@ namespace TASKWebApp.View
             if (taskFlowInfo.IsPredefined)
             {
                 SetPredefinidedSubTaskInformation(taskList);
+                ListInformationDataBind(taskFlowInfo.OriginalTask);
             }
             else
             {
@@ -47,6 +50,7 @@ namespace TASKWebApp.View
             {
                 EnableUniqueTaskControls(false, taskList);
                 LoadRepetitiveSubTaskDetailInformation(taskFlowInfo, taskList);
+               
             }
             else
             {
@@ -168,10 +172,119 @@ namespace TASKWebApp.View
             div.Visible = val;
         }
 
+        //ToDo: Comentar tarea dura.
+        private void ListInformationDataBind(Task task)
+        {
+            ChildTaskContainer ctc = new ChildTaskContainer(task);
+            //ChildTaskContainer ctc = new ChildTaskContainer(new Task(6));
+            //ConfigureTreeView(ctc);
+            LoadTableDivs(ctc);
+            /*gvDatosTarea.DataSource = ctc.ChildTasks;
+            gvDatosTarea.DataBind();*/
 
+        }
 
+        private void LoadTableDivs(ChildTaskContainer ctc)
+        {
+            ctc.LoadLevel(0);
+            List<TaskWithLevel> tasksWithLevels = new List<TaskWithLevel>();
+            ctc.TransformToListPlainWithLevels(tasksWithLevels);
 
+            /*
+            if (taskFlowInfo.IsPredefined)
+            {
+                taskList = taskFlowInfo.OriginalTask.LoadChildTasks().Values.ToList();
+            }
+            else
+            {
+                taskList.Add(taskFlowInfo.OriginalTask);
+            }
+            */
 
+            repTabla.DataSource = tasksWithLevels;
+            repTabla.DataBind();
+            LoadTableInfo();
+        }
+
+        private void LoadTableInfo ()
+        {
+            List<TaskWithLevel> tlwl = (List<TaskWithLevel>)repTabla.DataSource;
+            
+            for (int i = 0; i < repTabla.Items.Count; i++)
+            {
+                RepeaterItem item = repTabla.Items[i];
+                TaskWithLevel twl = tlwl[i];
+                SetRowInTableInformation(item, twl);
+            }
+        }
+
+        private void SetRowInTableInformation(RepeaterItem item, TaskWithLevel taskWithLevel)
+        {
+            Task task = taskWithLevel.Task;
+            string separator = String.Concat(Enumerable.Repeat("---", taskWithLevel.Level));
+            SetTableindividualLabelInformation("lblSubSeparator", separator, item);
+            SetTableindividualLabelInformation("lblSubNombre", task.Name, item);
+            SetTableindividualLabelInformation("lblSubDescripcion",task.Description, item);
+            SetTableindividualLabelInformation("lblSubFechaInicio","-", item);
+            SetTableindividualLabelInformation("lblSubFechaFin","-", item);
+
+            string depTaskName = string.Empty;
+            if (task.DependentTask != null)
+            {
+                depTaskName = task.DependentTask.Name;
+            }
+            SetTableindividualLabelInformation("lblSubDependencia", depTaskName, item);
+        }
+
+        private void SetTableindividualLabelInformation(string labelName, string information, RepeaterItem item)
+        {
+            Label label = (Label)item.FindControl(labelName);
+            label.Text = information;
+        }
+        /*
+        private void ConfigureTreeView(ChildTaskContainer ctc)
+        {
+            
+            TreeNode originalTaskNode = new TreeNode();
+
+            originalTaskNode.Text = ctc.Task.Name;
+            originalTaskNode.Value = ctc.Task.Id.ToString();
+            trvTarea.Nodes.Add(originalTaskNode);
+            if (ctc.ChildTasks != null)
+            {
+                foreach(ChildTaskContainer ctchild in ctc.ChildTasks)
+                {
+                    TreeNode childNode = new TreeNode();
+                    childNode.Text = ctchild.Task.Name;
+                    childNode.Value = ctc.Task.Id.ToString();
+                    originalTaskNode.ChildNodes.Add(childNode);
+                    ConfigureTreeView(ctchild, childNode);
+                }
+            }
+        }
+
+        private void ConfigureTreeView(ChildTaskContainer ctc, TreeNode node)
+        {
+            if (ctc.ChildTasks != null)
+            {
+                foreach (ChildTaskContainer ctchild in ctc.ChildTasks)
+                {
+                    TreeNode childNode = new TreeNode();
+                    childNode.Text = ctchild.Task.Name;
+                    childNode.Value = ctc.Task.Id.ToString();
+                    node.ChildNodes.Add(childNode);
+                    ConfigureTreeView(ctchild, childNode);
+                }
+            }
+        }
+        */
+
+       /* private void TreeListViewTest ()
+        {
+            TreeListView tlv = new TreeListView();
+            tlv.add
+            
+        }*/
         /*
          * foreach (RepeaterItem item in Repeater1.Items)
             {
