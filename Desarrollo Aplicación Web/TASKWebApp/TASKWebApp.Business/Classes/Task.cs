@@ -189,4 +189,25 @@ namespace TASKWebApp.Business.Classes
         public List<LoopTaskSchedule> LoopTaskScheduleList { get; set; }
         public Task OriginalTask { get; set; }
     }
+
+    public class ChildTaskContainer
+    {
+        public Task Task { get; set; }
+        public List<ChildTaskContainer> ChildTasks { get; set; }
+
+        public ChildTaskContainer(Task task)
+        {
+            Task = task;
+            if (Task.HaveChilds())
+            {
+                ChildTasks = new List<ChildTaskContainer>();
+                foreach (Task child in Task.LoadChildTasks().Values)
+                {
+                    ChildTaskContainer ctc = new ChildTaskContainer(child);
+                    ChildTasks.Add(ctc);
+                }
+
+            }
+        }
+    }
 }
