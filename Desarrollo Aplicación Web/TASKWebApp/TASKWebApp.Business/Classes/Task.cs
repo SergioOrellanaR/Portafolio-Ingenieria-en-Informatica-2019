@@ -283,7 +283,7 @@ namespace TASKWebApp.Business.Classes
         public DateTime End { get; set; }
 
         public List<string> SelectedDaysOfWeek { get; set; }
-        public List<string> SelectedMonth { get; set; }
+        public List<string> SelectedWeeks { get; set; }
         public string SelectedDay { get; set; }
         public int? IdMonth { get; set; }
 
@@ -292,6 +292,9 @@ namespace TASKWebApp.Business.Classes
             string defaultDate = "1900-01-01";
             DateTime startTime = DateTime.Parse(defaultDate + " " + StartTime);
             DateTime endTime = DateTime.Parse(defaultDate + " " + EndTime);
+
+            Start = startTime;
+            End = endTime;
         }
     }
 }

@@ -21,8 +21,8 @@
                                 <tr>
                                     <th scope="col">Nombre Tarea</th>
                                     <th scope="col">Descripcion</th>
-                                    <th scope="col">Fecha Inicio</th>
-                                    <th scope="col">Fecha Fin</th>
+                                    <th scope="col"><asp:Label ID="hdlblFechaInicio" runat="server" Text="Fecha Inicio"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblFechaFin" runat="server" Text="Fecha Fin"></asp:Label></th>
                                     <th scope="col">Dependencia de</th>
                                     <th scope="col"><asp:Label ID="hdlblAgregar" runat="server" Text="Agregar"></asp:Label></th>
                                     <th scope="col"><asp:Label ID="hdlblEliminar" runat="server" Text="Eliminar"></asp:Label></th>
@@ -213,11 +213,6 @@
                         </div>
                     </div>
                     <div id="divDependencia" runat="server">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <asp:Label ID="Label10" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-3">
                                 <asp:Label ID="Label11" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
