@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using TASKWebApp.Business.Classes;
+using TASKWebApp.Business.Helpers;
 
 namespace TASKWebApp.View
 {
@@ -75,7 +76,7 @@ namespace TASKWebApp.View
                 LoadRepetitiveSubTaskDetailInformation(taskFlowInfo);
             }
 
-            EnableEditTaskControls(true, false, selectedTask, tasksWithLevels);
+            EnableEditTaskControls(val, false, selectedTask, tasksWithLevels);
         }
 
         private void LoadRepetitiveSubTaskDetailInformation (TaskFlowInfo taskFlowInfo)
@@ -185,6 +186,16 @@ namespace TASKWebApp.View
         {
             DropDownList ddlDep = (DropDownList)item.FindControl("ddlTareaDependiente");
             Dictionary<int?, string> dict = GetBrotherTasks(twl, twlist);
+            if (dict.Count > 0)
+            {
+                EnableDependenciesDiv(true, item);
+                ddlDep.Visible = true;
+            }
+            else
+            {
+                EnableDependenciesDiv(false, item);
+                ddlDep.Visible = false;
+            }
             ddlDep.DataSource = dict;
             ddlDep.DataTextField = "Value";
             ddlDep.DataValueField = "Key";
@@ -251,7 +262,8 @@ namespace TASKWebApp.View
             {
                 detail.Start = taskFlowInfo.LoopTask.StartTime;
                 detail.End = taskFlowInfo.LoopTask.EndTime;
-                if(taskFlowInfo.IsDayOfWeek == true)
+                detail.IdMonth = taskFlowInfo.LoopTaskScheduleList[0].IdMonth;
+                if (taskFlowInfo.IsDayOfWeek == true)
                 {
                     List<string> dayOfWeekList = new List<string>();
                     List<string> NumberOfWeekList = new List<string>();
@@ -260,10 +272,12 @@ namespace TASKWebApp.View
                         dayOfWeekList.Add(lts.DayOfWeek.ToString());
                         NumberOfWeekList.Add(lts.NumberOfWeek.ToString());
                     }
+
+                    detail.SelectedDaysOfWeek = dayOfWeekList;
+                    detail.SelectedWeeks = NumberOfWeekList;
                 }
                 else if (taskFlowInfo.IsDayOfWeek == false)
                 {
-                    detail.IdMonth = taskFlowInfo.LoopTaskScheduleList[0].IdMonth;
                     detail.SelectedDay = taskFlowInfo.LoopTaskScheduleList[0].DayOfMonth.ToString();
                 }
             }
@@ -278,6 +292,7 @@ namespace TASKWebApp.View
 
         private void LoadTableDivs(ChildTaskContainer ctc)
         {
+            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
             int rootLevel = 0;
             ctc.LoadLevel(rootLevel);
             List<TaskWithLevel> tasksWithLevels;
@@ -353,7 +368,9 @@ namespace TASKWebApp.View
                     break;
 
                 case "Update":
+
                     TaskWithLevel selectedTaskWithLevel = tasksWithLevels[index];
+
                     selectedTaskWithLevel.OperationId = 3;
                     List<TaskWithLevel> temp = new List<TaskWithLevel>();
                     temp.Add(selectedTaskWithLevel);
@@ -361,6 +378,9 @@ namespace TASKWebApp.View
                     repSubTask.DataBind();
                     Session["repSubTask"] = temp;
                     LoadEditInformation(taskFlowInfo, selectedTaskWithLevel, tasksWithLevels);
+
+                    LoadDdlDependencia(selectedTaskWithLevel, tasksWithLevels, repSubTask.Items[0]);
+
                     break;
 
                 case "Save":
@@ -422,13 +442,40 @@ namespace TASKWebApp.View
             bool isUnique = !taskFlowInfo.IsRepetitive;
             EnableHeaderLabelForButtons(isOwnTask);
 
+
+
             for (int i = 0; i < repTabla.Items.Count; i++)
             {
                 RepeaterItem item = repTabla.Items[i];
                 TaskWithLevel twl = tlwl[i];
+
+                //twl.Detail = new TaskLevelDetail();
+                
+
+
+
+
                 SetRowInTableInformation(item, twl);
                 EnableSubButtons(item, isOwnTask, twl.Level);
                 LoadUniqueFatherTaskInformation(item, taskFlowInfo, twl.Level);
+                EnableUniqueHeaderInformation(isUnique);
+            }
+        }
+
+        private void EnableUniqueHeaderInformation(bool val)
+        {
+            Label lblInformacionInicio = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblFechaInicio");
+            Label lblInformacionFinHora = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblFechaFin"); 
+
+            if (val)
+            {
+                lblInformacionInicio.Text = "Inicio";
+                lblInformacionFinHora.Text = "Fin";
+            }
+            else
+            {
+                lblInformacionInicio.Text = "Repetir durante";
+                lblInformacionFinHora.Text = "Horario";
             }
         }
 
@@ -471,14 +518,41 @@ namespace TASKWebApp.View
 
         private void SetRowInTableInformation(RepeaterItem item, TaskWithLevel taskWithLevel)
         {
+            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
             List<TaskWithLevel> twl = (List<TaskWithLevel>)Session["TaskWithLevels"];
+
             Task task = taskWithLevel.Task;
             string separator = String.Concat(Enumerable.Repeat("---", taskWithLevel.Level));
             SetTableindividualLabelInformation("lblSubSeparator", separator, item);
             SetTableindividualLabelInformation("lblSubNombre", task.Name, item);
             SetTableindividualLabelInformation("lblSubDescripcion",task.Description, item);
-            SetTableindividualLabelInformation("lblSubFechaInicio", taskWithLevel.Detail.Start.ToString(), item);
-            SetTableindividualLabelInformation("lblSubFechaFin", taskWithLevel.Detail.End.ToString(), item);
+
+            if(taskFlowInfo.IsPredefined && taskWithLevel.Detail == null)
+            {
+                SetTableindividualLabelInformation("lblSubFechaInicio", "Por definir", item);
+                SetTableindividualLabelInformation("lblSubFechaFin", "Por definir", item);
+            }
+            else
+            {
+                if (taskFlowInfo.IsRepetitive)
+                {
+                    if (taskFlowInfo.IsDayOfWeek == true)
+                    {
+                        SetTableindividualLabelInformation("lblSubFechaInicio", SelectedDaysFormatter(taskWithLevel), item);
+                    }
+                    else if (taskFlowInfo.IsDayOfWeek == false)
+                    {
+                        SetTableindividualLabelInformation("lblSubFechaInicio", SelectedDayOfMonthFormatter(taskWithLevel), item);
+                    }
+
+                    SetTableindividualLabelInformation("lblSubFechaFin", SelectedHoursFormatter(taskWithLevel), item);
+                }
+                else
+                {
+                    SetTableindividualLabelInformation("lblSubFechaInicio", taskWithLevel.Detail.Start.ToString(), item);
+                    SetTableindividualLabelInformation("lblSubFechaFin", taskWithLevel.Detail.End.ToString(), item);
+                }
+            }
 
             string depTaskName = string.Empty;
 
@@ -492,6 +566,74 @@ namespace TASKWebApp.View
             }
 
             SetTableindividualLabelInformation("lblSubDependencia", depTaskName, item);
+        }
+
+        private string SelectedDaysFormatter(TaskWithLevel taskWithLevel)
+        {
+            string daysOfWeek = "días";
+            Dictionary<int,string> dayOfWeek = ComboBoxDataLoader.DayOfWeek;
+
+            if(taskWithLevel.Detail.SelectedDaysOfWeek != null)
+            {
+                List<string> days = taskWithLevel.Detail.SelectedDaysOfWeek.Distinct().ToList();
+
+                if (days.Count > 0 && days.Count < 7)
+                {
+                    daysOfWeek = string.Empty;
+                    for (int i = 0; i < days.Count; i++)
+                    {
+                        daysOfWeek += dayOfWeek[int.Parse(days[i])];
+
+                        if (i < days.Count - 1)
+                        {
+                            daysOfWeek += ", ";
+                        }
+                    }
+                }
+            }
+            
+            string numberOfWeeks = string.Empty;
+            if(taskWithLevel.Detail.SelectedDaysOfWeek != null && taskWithLevel.Detail.SelectedDaysOfWeek.Count > 0)
+            {
+                List<string> weeks = taskWithLevel.Detail.SelectedWeeks.Distinct().ToList();
+                numberOfWeeks = "De la/s semana/s ";
+                for (int i = 0; i < weeks.Count; i++)
+                {
+                    numberOfWeeks += weeks[i];
+                    if (i < weeks.Count - 1)
+                    {
+                        numberOfWeeks += ", ";
+                    }
+                }
+            }
+
+            Dictionary<int, string> months = ComboBoxDataLoader.Month;
+            int idMonth = taskWithLevel.Detail.IdMonth ?? 13;
+            string month = months[idMonth];
+            string returnValue = string.Format("Todos los {0} {1} durante {2}", daysOfWeek, numberOfWeeks,month);
+
+            return returnValue;
+        }
+
+        private string SelectedDayOfMonthFormatter(TaskWithLevel taskWithLevel)
+        {
+            string dayOfMonth = taskWithLevel.Detail.SelectedDay;
+            
+            Dictionary<int, string> months = ComboBoxDataLoader.Month;
+            int idMonth = taskWithLevel.Detail.IdMonth ?? 13;
+            string month = months[idMonth];
+            string returnValue = string.Format("Todos los {0} de {1}", dayOfMonth, month);
+
+            return returnValue;
+        }
+
+        private string SelectedHoursFormatter(TaskWithLevel taskWithLevel)
+        {
+            DateTime datetime = (DateTime)taskWithLevel.Detail.Start;
+            string startTime = datetime.ToString("HH:mm"); 
+            string endTime = taskWithLevel.Detail.End.ToString("HH:mm");
+            string returnValue = string.Format("De {0} a {1}", startTime, endTime);
+            return returnValue;
         }
 
         private void SetTableIndividualButtonInformation(string buttonName, RepeaterItem item, bool val)
@@ -553,7 +695,34 @@ namespace TASKWebApp.View
 
             if (taskFlowInfo.IsRepetitive)
             {
-                //ToDo
+                TextBox txtHoraInicio = (TextBox)item.FindControl("txtHoraInicio");
+                TextBox txtHoraFin = (TextBox)item.FindControl("txtHoraFin");
+                twl.Detail.LoadTimeForRepetitive(txtHoraInicio.Text, txtHoraFin.Text);
+                DropDownList month = (DropDownList)item.FindControl("ddlMeses");
+                twl.Detail.IdMonth = int.Parse(month.SelectedValue);
+
+                if(taskFlowInfo.IsDayOfWeek == true)
+                {
+
+                    CheckBoxList cbxDiaSemana = (CheckBoxList)item.FindControl("cbxDiaSemana");
+                    CheckBoxList cbxNumeroSemana = (CheckBoxList)item.FindControl("cbxNumeroSemana");
+
+                    List<string> selectedDaysOfWeek = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+                    List<string> selectedWeeks = cbxNumeroSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+
+                    if (selectedWeeks.Distinct().Count() == 6)
+                    {
+                        selectedWeeks = null;
+                    }
+
+                    twl.Detail.SelectedDaysOfWeek = selectedDaysOfWeek;
+                    twl.Detail.SelectedWeeks = selectedWeeks;
+                }
+                else if (taskFlowInfo.IsDayOfWeek == false)
+                {
+                    DropDownList ddlDiaDelMes = (DropDownList)item.FindControl("ddlDiaDelMes");
+                    twl.Detail.SelectedDay = ddlDiaDelMes.SelectedValue;
+                }
             }
             else if (!taskFlowInfo.IsRepetitive)
             {
@@ -702,4 +871,6 @@ namespace TASKWebApp.View
             Response.Redirect("CrearTarea.aspx");
         }
     }
+
+    
 }
