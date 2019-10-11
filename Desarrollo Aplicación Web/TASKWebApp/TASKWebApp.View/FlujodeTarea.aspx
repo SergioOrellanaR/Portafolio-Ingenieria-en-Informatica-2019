@@ -246,7 +246,7 @@
                 <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
             </div>
             <div class="col-md-3 form-group">
-                <asp:Button ID="btnCrearFlujo" runat="server" Text="Crear Flujo de Tareas" class="btn btn-info btn-lg btn-block" />
+                <asp:Button ID="btnCrearFlujo" runat="server" Text="Crear Flujo de Tareas" class="btn btn-info btn-lg btn-block" OnClick="btnCrearFlujo_Click" />
             </div>
         </div>
     </section>

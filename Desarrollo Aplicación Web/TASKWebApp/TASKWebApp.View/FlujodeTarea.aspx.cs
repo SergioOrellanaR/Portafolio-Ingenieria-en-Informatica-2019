@@ -1,5 +1,4 @@
-﻿using BrightIdeasSoftware;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +19,7 @@ namespace TASKWebApp.View
         {
             ValidateTaskFlowInfoExists();
             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
-            
+
             if (!IsPostBack)
             {
                 Session["TaskWithLevels"] = null;
@@ -56,7 +55,7 @@ namespace TASKWebApp.View
 
         private void LoadDivInformation(TaskFlowInfo taskFlowInfo, bool haveBrothers)
         {
-            if(taskFlowInfo.IsRepetitive)
+            if (taskFlowInfo.IsRepetitive)
             {
                 EnableUniqueTaskControls(false, haveBrothers);
                 LoadRepetitiveSubTaskDetailInformation(taskFlowInfo);
@@ -79,7 +78,7 @@ namespace TASKWebApp.View
             EnableEditTaskControls(val, false, selectedTask, tasksWithLevels);
         }
 
-        private void LoadRepetitiveSubTaskDetailInformation (TaskFlowInfo taskFlowInfo)
+        private void LoadRepetitiveSubTaskDetailInformation(TaskFlowInfo taskFlowInfo)
         {
             if (taskFlowInfo.IsDayOfWeek == true)
             {
@@ -107,7 +106,7 @@ namespace TASKWebApp.View
         {
             List<TaskWithLevel> taskList = new List<TaskWithLevel>();
 
-            
+
 
             if (taskFlowInfo.IsPredefined)
             {
@@ -145,15 +144,15 @@ namespace TASKWebApp.View
             }
         }
 
-        private void EnableCreateFlowButton (bool val, RepeaterItem item)
+        private void EnableCreateFlowButton(bool val, RepeaterItem item)
         {
-                Button createFlow = (Button)item.FindControl("btnGuardar");
-                createFlow.Visible = val;
+            Button createFlow = (Button)item.FindControl("btnGuardar");
+            createFlow.Visible = val;
         }
 
         private void EnableDependenciesDiv(bool val, RepeaterItem item)
         {
-                EnableVisibleDiv(val, "divDependencia", item);                
+            EnableVisibleDiv(val, "divDependencia", item);
         }
 
         private void EnableUniqueTaskControls(bool val, bool haveBrothers)
@@ -175,7 +174,7 @@ namespace TASKWebApp.View
                 EnableVisibleDiv(val, "divTareaUnica", item);
                 EnableVisibleDiv(!val, "divTareaRepetitiva", item);
                 EnableVisibleDiv(haveBrothers, "divDependencia", item);
-                
+
                 //Val = tarea unica
 
                 LoadEditInformation(val, item, twl);
@@ -209,7 +208,7 @@ namespace TASKWebApp.View
             txtNombre.Text = twl.Task.Name;
             txtDescripcion.Text = twl.Task.Description;
 
-            
+
             if (val)
             {
                 TextBox txtInicio = (TextBox)item.FindControl("txtFechaInicio");
@@ -221,20 +220,20 @@ namespace TASKWebApp.View
 
         }
 
-        private void EnableVisibleDiv (bool val, string divName, RepeaterItem item)
+        private void EnableVisibleDiv(bool val, string divName, RepeaterItem item)
         {
-            if(val && divName == "divTareaUnica")
+            if (val && divName == "divTareaUnica")
             {
                 TextBox txtInicio = (TextBox)item.FindControl("txtFechaInicio");
                 TextBox txtFin = (TextBox)item.FindControl("txtFechaFin");
-                txtInicio.Text = DateTime.Now.ToLocalTime().ToString("yyyy-MM-ddTHH:mm"); 
+                txtInicio.Text = DateTime.Now.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
                 txtFin.Text = DateTime.Now.AddDays(1).ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
             }
             HtmlGenericControl div = (HtmlGenericControl)item.FindControl(divName);
             div.Visible = val;
         }
-        
-        private Dictionary<int?,string> GetBrotherTasks(TaskWithLevel twl, List<TaskWithLevel> twlist)
+
+        private Dictionary<int?, string> GetBrotherTasks(TaskWithLevel twl, List<TaskWithLevel> twlist)
         {
             Dictionary<int?, string> brotherTasks = new Dictionary<int?, string>();
             brotherTasks.Add(-1, "Ninguna");
@@ -257,7 +256,7 @@ namespace TASKWebApp.View
             TaskLevelDetail detail = new TaskLevelDetail();
             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
             detail.IsRepetitive = taskFlowInfo.IsRepetitive;
-            
+
             if (taskFlowInfo.IsRepetitive)
             {
                 detail.Start = taskFlowInfo.LoopTask.StartTime;
@@ -267,7 +266,7 @@ namespace TASKWebApp.View
                 {
                     List<string> dayOfWeekList = new List<string>();
                     List<string> NumberOfWeekList = new List<string>();
-                    foreach(LoopTaskSchedule lts in taskFlowInfo.LoopTaskScheduleList)
+                    foreach (LoopTaskSchedule lts in taskFlowInfo.LoopTaskScheduleList)
                     {
                         dayOfWeekList.Add(lts.DayOfWeek.ToString());
                         NumberOfWeekList.Add(lts.NumberOfWeek.ToString());
@@ -312,7 +311,7 @@ namespace TASKWebApp.View
                 tasksWithLevels = (List<TaskWithLevel>)Session["TaskWithLevels"];
             }
 
-            
+
             /*
             if (taskFlowInfo.IsPredefined)
             {
@@ -326,7 +325,7 @@ namespace TASKWebApp.View
             Session["TaskWithLevels"] = UpdateTableInformation(tasksWithLevels, null, 0);
         }
 
-        private List<TaskWithLevel> UpdateTableInformation (List<TaskWithLevel> tasksWithLevels, string operation, int index)
+        private List<TaskWithLevel> UpdateTableInformation(List<TaskWithLevel> tasksWithLevels, string operation, int index)
         {
             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
             switch (operation)
@@ -353,14 +352,14 @@ namespace TASKWebApp.View
                     repSubTask.DataBind();
                     Session["repSubTask"] = tempList;
                     LoadDivInformation(taskFlowInfo, haveVirtualChilds);
-                    if(haveVirtualChilds)
+                    if (haveVirtualChilds)
                     {
                         LoadDdlDependencia(twl, tasksWithLevels, repSubTask.Items[0]);
                     }
                     break;
 
                 case "Delete":
-                    foreach(TaskWithLevel twlChild in tasksWithLevels.FindAll(x=> x.virtualParentId == tasksWithLevels[index].virtualId))
+                    foreach (TaskWithLevel twlChild in tasksWithLevels.FindAll(x => x.virtualParentId == tasksWithLevels[index].virtualId))
                     {
                         tasksWithLevels.Remove(twlChild);
                     }
@@ -388,10 +387,20 @@ namespace TASKWebApp.View
                     int addOperation = 1;
                     int editOperation = 3;
                     TaskWithLevel stwl = ((List<TaskWithLevel>)Session["repSubTask"])[0];
+
+                    int parentIndex;
+                    if (stwl.virtualDependentid != null)
+                    {
+                        parentIndex = tasksWithLevels.FindIndex(x => x.virtualId == stwl.virtualDependentid);
+                    }
+                    else
+                    {
+                        parentIndex = tasksWithLevels.FindIndex(x => x.virtualId == stwl.virtualParentId);
+                    }
+
                     if (stwl.OperationId == addOperation)
                     {
                         stwl = SaveOperation(stwl, taskFlowInfo, repSubTask.Items[0]);
-                        int parentIndex = tasksWithLevels.FindIndex(x => x.virtualId == stwl.virtualParentId);
                         tasksWithLevels.Insert(parentIndex + 1, stwl);
                     }
                     else if (stwl.OperationId == editOperation)
@@ -405,7 +414,7 @@ namespace TASKWebApp.View
                     break;
             }
 
-            
+
             repTabla.DataSource = tasksWithLevels;
             repTabla.DataBind();
             LoadTableInfo(tasksWithLevels);
@@ -414,14 +423,14 @@ namespace TASKWebApp.View
 
 
 
-        private List<TaskWithLevel> SortTaskWithLevelsList(List<TaskWithLevel> tasksWithLevels)
+       /* private List<TaskWithLevel> SortByLevelAndDependants(List<TaskWithLevel> tasksWithLevels)
         {
-            return tasksWithLevels.OrderBy(x => x.virtualParentId).ThenBy(c => c.Level).ToList();
-        }
+            return tasksWithLevels.OrderBy(c => c.Level).ThenBy(x => x.virtualParentId).ToList();
+        }*/
 
         private bool HaveVirtualChilds(int? virtualId, List<TaskWithLevel> twlist)
         {
-            if(twlist.Count(x => x.virtualId!= null && x.virtualParentId == virtualId) > 0)
+            if (twlist.Count(x => x.virtualId != null && x.virtualParentId == virtualId) > 0)
             {
                 return true;
             }
@@ -435,26 +444,18 @@ namespace TASKWebApp.View
 
 
 
-        private void LoadTableInfo (List<TaskWithLevel> tlwl)
+        private void LoadTableInfo(List<TaskWithLevel> tlwl)
         {
             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
             bool isOwnTask = !taskFlowInfo.IsPredefined;
             bool isUnique = !taskFlowInfo.IsRepetitive;
             EnableHeaderLabelForButtons(isOwnTask);
 
-
-
             for (int i = 0; i < repTabla.Items.Count; i++)
             {
                 RepeaterItem item = repTabla.Items[i];
                 TaskWithLevel twl = tlwl[i];
-
                 //twl.Detail = new TaskLevelDetail();
-                
-
-
-
-
                 SetRowInTableInformation(item, twl);
                 EnableSubButtons(item, isOwnTask, twl.Level);
                 LoadUniqueFatherTaskInformation(item, taskFlowInfo, twl.Level);
@@ -465,7 +466,7 @@ namespace TASKWebApp.View
         private void EnableUniqueHeaderInformation(bool val)
         {
             Label lblInformacionInicio = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblFechaInicio");
-            Label lblInformacionFinHora = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblFechaFin"); 
+            Label lblInformacionFinHora = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblFechaFin");
 
             if (val)
             {
@@ -492,7 +493,7 @@ namespace TASKWebApp.View
         }
 
 
-        private void EnableSubButtons (RepeaterItem item, bool val, int level)
+        private void EnableSubButtons(RepeaterItem item, bool val, int level)
         {
             SetTableIndividualButtonInformation("btnSubAdd", item, val);
             SetTableIndividualButtonInformation("btnSubEdit", item, val);
@@ -525,9 +526,9 @@ namespace TASKWebApp.View
             string separator = String.Concat(Enumerable.Repeat("---", taskWithLevel.Level));
             SetTableindividualLabelInformation("lblSubSeparator", separator, item);
             SetTableindividualLabelInformation("lblSubNombre", task.Name, item);
-            SetTableindividualLabelInformation("lblSubDescripcion",task.Description, item);
+            SetTableindividualLabelInformation("lblSubDescripcion", task.Description, item);
 
-            if(taskFlowInfo.IsPredefined && taskWithLevel.Detail == null)
+            if (taskFlowInfo.IsPredefined && taskWithLevel.Detail == null)
             {
                 SetTableindividualLabelInformation("lblSubFechaInicio", "Por definir", item);
                 SetTableindividualLabelInformation("lblSubFechaFin", "Por definir", item);
@@ -571,9 +572,9 @@ namespace TASKWebApp.View
         private string SelectedDaysFormatter(TaskWithLevel taskWithLevel)
         {
             string daysOfWeek = "días";
-            Dictionary<int,string> dayOfWeek = ComboBoxDataLoader.DayOfWeek;
+            Dictionary<int, string> dayOfWeek = ComboBoxDataLoader.DayOfWeek;
 
-            if(taskWithLevel.Detail.SelectedDaysOfWeek != null)
+            if (taskWithLevel.Detail.SelectedDaysOfWeek != null)
             {
                 List<string> days = taskWithLevel.Detail.SelectedDaysOfWeek.Distinct().ToList();
 
@@ -591,9 +592,9 @@ namespace TASKWebApp.View
                     }
                 }
             }
-            
+
             string numberOfWeeks = string.Empty;
-            if(taskWithLevel.Detail.SelectedDaysOfWeek != null && taskWithLevel.Detail.SelectedDaysOfWeek.Count > 0)
+            if (taskWithLevel.Detail.SelectedDaysOfWeek != null && taskWithLevel.Detail.SelectedDaysOfWeek.Count > 0)
             {
                 List<string> weeks = taskWithLevel.Detail.SelectedWeeks.Distinct().ToList();
                 numberOfWeeks = "De la/s semana/s ";
@@ -610,7 +611,7 @@ namespace TASKWebApp.View
             Dictionary<int, string> months = ComboBoxDataLoader.Month;
             int idMonth = taskWithLevel.Detail.IdMonth ?? 13;
             string month = months[idMonth];
-            string returnValue = string.Format("Todos los {0} {1} durante {2}", daysOfWeek, numberOfWeeks,month);
+            string returnValue = string.Format("Todos los {0} {1} durante {2}", daysOfWeek, numberOfWeeks, month);
 
             return returnValue;
         }
@@ -618,7 +619,7 @@ namespace TASKWebApp.View
         private string SelectedDayOfMonthFormatter(TaskWithLevel taskWithLevel)
         {
             string dayOfMonth = taskWithLevel.Detail.SelectedDay;
-            
+
             Dictionary<int, string> months = ComboBoxDataLoader.Month;
             int idMonth = taskWithLevel.Detail.IdMonth ?? 13;
             string month = months[idMonth];
@@ -630,7 +631,7 @@ namespace TASKWebApp.View
         private string SelectedHoursFormatter(TaskWithLevel taskWithLevel)
         {
             DateTime datetime = (DateTime)taskWithLevel.Detail.Start;
-            string startTime = datetime.ToString("HH:mm"); 
+            string startTime = datetime.ToString("HH:mm");
             string endTime = taskWithLevel.Detail.End.ToString("HH:mm");
             string returnValue = string.Format("De {0} a {1}", startTime, endTime);
             return returnValue;
@@ -691,7 +692,7 @@ namespace TASKWebApp.View
             {
                 twl.virtualDependentid = int.Parse(ddlDep.SelectedValue);
             }
-            
+
 
             if (taskFlowInfo.IsRepetitive)
             {
@@ -701,7 +702,7 @@ namespace TASKWebApp.View
                 DropDownList month = (DropDownList)item.FindControl("ddlMeses");
                 twl.Detail.IdMonth = int.Parse(month.SelectedValue);
 
-                if(taskFlowInfo.IsDayOfWeek == true)
+                if (taskFlowInfo.IsDayOfWeek == true)
                 {
 
                     CheckBoxList cbxDiaSemana = (CheckBoxList)item.FindControl("cbxDiaSemana");
@@ -746,7 +747,334 @@ namespace TASKWebApp.View
             return twl;
         }
 
-/*
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CrearTarea.aspx");
+        }
+
+        protected void btnCrearFlujo_Click(object sender, EventArgs e)
+        {
+            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
+            List<TaskWithLevel> twList = (List<TaskWithLevel>)Session["TaskWithLevels"];
+            List<TaskWithLevel> rSubTask = (List<TaskWithLevel>)Session["repSubTask"];
+
+            try
+            {
+                if (taskFlowInfo.IsPredefined)
+                {
+                    for (int i = 0; i < repSubTask.Items.Count; i++)
+                    {
+                        RepeaterItem item = repSubTask.Items[i];
+
+                        Task task = twList[i].Task;
+                        if (task.Create())
+                        {
+                            if (taskFlowInfo.IsRepetitive)
+                            {
+                                TaskAssignment taskAssignment = new TaskAssignment()
+                                {
+                                    AssignerUser = taskFlowInfo.LoopTask.TaskAssignment.AssignerUser,
+                                    ReceiverUser = taskFlowInfo.LoopTask.TaskAssignment.ReceiverUser,
+                                    Task = task
+                                };
+                                if (taskAssignment.Create())
+                                {
+                                    TextBox txtHoraInicio = (TextBox)item.FindControl("txtHoraInicio");
+                                    TextBox txtHoraFin = (TextBox)item.FindControl("txtHoraFin");
+                                    string defaultDate = "1900-01-01";
+                                    DateTime startTime = DateTime.Parse(defaultDate + " " + txtHoraInicio.Text);
+                                    DateTime endTime = DateTime.Parse(defaultDate + " " + txtHoraFin.Text);
+
+                                    LoopTask loopTask = new LoopTask()
+                                    {
+                                        Isactive = true,
+                                        TaskAssignment = taskAssignment,
+                                        StartTime = startTime,
+                                        EndTime = endTime
+                                    };
+
+                                    if (loopTask.Create())
+                                    {
+                                        List<LoopTaskSchedule> ltsList = new List<LoopTaskSchedule>();
+                                        DropDownList ddlMonth = (DropDownList)item.FindControl("ddlMeses");
+                                        int month = int.Parse(ddlMonth.SelectedValue);
+
+                                        if (taskFlowInfo.IsDayOfWeek == true)
+                                        {
+                                            CheckBoxList cbxDiaSemana = (CheckBoxList)item.FindControl("cbxDiaSemana");
+                                            CheckBoxList cbxNumeroSemana = (CheckBoxList)item.FindControl("cbxNumeroSemana");
+                                            List<string> selectedDaysOfWeek = cbxDiaSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+                                            List<string> selectedWeeks = cbxNumeroSemana.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
+
+                                            if (selectedWeeks.Count > 0 && selectedWeeks.Count < 6)
+                                            {
+                                                foreach (string dayOfWeek in selectedDaysOfWeek)
+                                                {
+                                                    foreach (string numberOfWeek in selectedWeeks)
+                                                    {
+                                                        LoopTaskSchedule lts = new LoopTaskSchedule()
+                                                        {
+                                                            LoopTask = loopTask,
+                                                            DayOfMonth = null,
+                                                            DayOfWeek = int.Parse(dayOfWeek),
+                                                            NumberOfWeek = int.Parse(numberOfWeek),
+                                                            IdMonth = month
+                                                        };
+                                                        ltsList.Add(lts);
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (string dayOfWeek in selectedDaysOfWeek)
+                                                {
+                                                    LoopTaskSchedule lts = new LoopTaskSchedule()
+                                                    {
+                                                        LoopTask = loopTask,
+                                                        DayOfMonth = null,
+                                                        DayOfWeek = int.Parse(dayOfWeek),
+                                                        NumberOfWeek = null,
+                                                        IdMonth = month
+                                                    };
+                                                    ltsList.Add(lts);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (taskFlowInfo.IsDayOfWeek == false)
+                                            {
+                                                DropDownList ddlDiaDelMes = (DropDownList)item.FindControl("ddlDiaDelMes");
+                                                string SelectedDay = ddlDiaDelMes.SelectedValue;
+                                                LoopTaskSchedule lts = new LoopTaskSchedule()
+                                                {
+                                                    LoopTask = loopTask,
+                                                    DayOfWeek = null,
+                                                    NumberOfWeek = null,
+                                                    DayOfMonth = int.Parse(SelectedDay),
+                                                    IdMonth = month
+                                                };
+                                                ltsList.Add(lts);
+                                            }
+                                        }
+                                        if (ltsList.Count > 0)
+                                        {
+                                            foreach (LoopTaskSchedule loopTaskSchedule in ltsList)
+                                            {
+                                                if (!loopTaskSchedule.Create())
+                                                    throw new Exception();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new Exception();
+                                    }
+                                }
+                                else
+                                {
+                                    throw new Exception();
+                                }
+
+                            }
+                            else
+                            {
+                                int AssignedTaskStatusCode = 1;
+                                TextBox txtInicio = (TextBox)item.FindControl("txtFechaInicio");
+                                TextBox txtFin = (TextBox)item.FindControl("txtFechaFin");
+                                TaskAssignment assignment = new TaskAssignment()
+                                {
+                                    Task = task,
+                                    AssignerUser = taskFlowInfo.ProcessedTask.TaskAssignment.AssignerUser,
+                                    ReceiverUser = taskFlowInfo.ProcessedTask.TaskAssignment.ReceiverUser
+                                };
+
+                                ProcessedTask processedTask = new ProcessedTask()
+                                {
+                                    AssignationDate = DateTime.Now,
+                                    Commentary = null,
+                                    StartDate = DateTime.Parse(txtInicio.Text),
+                                    EndDate = DateTime.Parse(txtFin.Text),
+                                    LoopTaskSchedule = null,
+                                    TaskAssignment = assignment,
+                                    IdTaskStatus = AssignedTaskStatusCode
+                                };
+
+                                if (!processedTask.Create())
+                                {
+                                    throw new Exception();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (TaskWithLevel twl in twList)
+                    {
+                        if (twl.Level == 0 && twl.virtualParentId == null)
+                        {
+                            twl.Task.SuperiorTask = null;
+                            twl.Task.DependentTask = null;
+                        }
+                        else
+                        {
+                            if (twl.virtualParentId != null)
+                            {
+                                int parentTaskId = twList.First(x => x.virtualId == twl.virtualParentId).Task.Id;
+                                twl.Task.SuperiorTask = new Task(parentTaskId);
+                            }
+                            if (twl.virtualDependentid != null)
+                            {
+                                int dependentTaskId = twList.First(x => x.virtualId == twl.virtualDependentid).Task.Id;
+                                twl.Task.DependentTask = new Task(dependentTaskId);
+                            }
+                        }
+
+                        if (!twl.Task.Create())
+                            throw new Exception();
+
+
+                        if (taskFlowInfo.IsRepetitive)
+                        {
+                            TaskAssignment taskAssignment = new TaskAssignment()
+                            {
+                                Task = twl.Task,
+                                AssignerUser = taskFlowInfo.LoopTask.TaskAssignment.AssignerUser,
+                                ReceiverUser = taskFlowInfo.LoopTask.TaskAssignment.ReceiverUser
+                            };
+
+                            if (!taskAssignment.Create())
+                            {
+                                throw new Exception();
+                            }
+
+                            LoopTask loopt = new LoopTask
+                            {
+                                Isactive = true,
+                                TaskAssignment = taskAssignment,
+                                StartTime = twl.Detail.Start,
+                                EndTime = twl.Detail.End
+                            };
+
+                            if (!loopt.Create())
+                            {
+                                throw new Exception();
+                            }
+
+                            List<LoopTaskSchedule> ltsList = new List<LoopTaskSchedule>();
+                            int idMonth = (int)twl.Detail.IdMonth;
+                            if (taskFlowInfo.IsDayOfWeek == true)
+                            {
+                                List<string> selectedDaysOfWeek = twl.Detail.SelectedDaysOfWeek;
+                                List<string> selectedWeeks = twl.Detail.SelectedWeeks;
+
+                                if (selectedWeeks.Count > 0 && selectedWeeks.Count < 6)
+                                {
+                                    foreach (string dayOfWeek in selectedDaysOfWeek)
+                                    {
+                                        foreach (string numberOfWeek in selectedWeeks)
+                                        {
+                                            LoopTaskSchedule ltsch = new LoopTaskSchedule()
+                                            {
+                                                LoopTask = null,
+                                                DayOfMonth = null,
+                                                DayOfWeek = int.Parse(dayOfWeek),
+                                                NumberOfWeek = int.Parse(numberOfWeek),
+                                                IdMonth = idMonth
+                                            };
+                                            ltsList.Add(ltsch);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (string dayOfWeek in selectedDaysOfWeek)
+                                    {
+                                        LoopTaskSchedule ltsch = new LoopTaskSchedule()
+                                        {
+                                            LoopTask = null,
+                                            DayOfMonth = null,
+                                            DayOfWeek = int.Parse(dayOfWeek),
+                                            NumberOfWeek = null,
+                                            IdMonth = idMonth
+                                        };
+
+                                        ltsList.Add(ltsch);
+                                    }
+                                }
+                            }
+                            else if (taskFlowInfo.IsDayOfWeek == false)
+                            {
+                                int selectedDay = int.Parse(twl.Detail.SelectedDay);
+                                LoopTaskSchedule ltsch = new LoopTaskSchedule()
+                                {
+                                    LoopTask = null,
+                                    DayOfWeek = null,
+                                    NumberOfWeek = null,
+                                    DayOfMonth = selectedDay,
+                                    IdMonth = idMonth
+                                };
+                                ltsList.Add(ltsch);
+                            }
+                            if (ltsList.Count > 0)
+                            {
+                                foreach (LoopTaskSchedule loopTaskSchedule in ltsList)
+                                {
+                                    if (!loopTaskSchedule.Create())
+                                        throw new Exception();
+                                }
+                            }
+                            LoopTaskSchedule lts = new LoopTaskSchedule
+                            {
+
+                                LoopTask = loopt,
+                            };
+                        }
+                        else
+                        {
+                            TaskAssignment taskAssignment = new TaskAssignment()
+                            {
+                                Task = twl.Task,
+                                AssignerUser = taskFlowInfo.ProcessedTask.TaskAssignment.AssignerUser,
+                                ReceiverUser = taskFlowInfo.ProcessedTask.TaskAssignment.ReceiverUser
+                            };
+
+                            if (taskAssignment.Create())
+                            {
+                                int assignedTaskStatusCode = 1;
+                                ProcessedTask prt = new ProcessedTask()
+                                {
+                                    AssignationDate = DateTime.Now,
+                                    Commentary = null,
+                                    StartDate = (DateTime)twl.Detail.Start,
+                                    EndDate = twl.Detail.End,
+                                    LoopTaskSchedule = null,
+                                    TaskAssignment = taskAssignment,
+                                    IdTaskStatus = assignedTaskStatusCode
+                                };
+                                prt.Create();
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
+                        }
+                    }
+                }
+                Response.Redirect("CreacionTareaExitosa.aspx");
+            }
+            catch (Exception exc)
+            {
+                Response.Redirect("FlujodeTarea.aspx");
+            }
+        }
+
+        /*
         private string Validate()
         {
             string value = null;
@@ -865,12 +1193,5 @@ namespace TASKWebApp.View
                   }
             }
          */
-
-        protected void btnVolver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CrearTarea.aspx");
-        }
     }
-
-    
 }
