@@ -190,10 +190,13 @@ namespace TASKWebApp.Business.Classes
         public Task OriginalTask { get; set; }
     }
 
+    //Recursividad Mindblowing, trae la tarea con sus hijas.
     public class ChildTaskContainer
     {
+        //public int VirtualId { get; set; }
         public Task Task { get; set; }
         public List<ChildTaskContainer> ChildTasks { get; set; }
+        public int Level { get; set; }
 
         public ChildTaskContainer(Task task)
         {
@@ -206,8 +209,92 @@ namespace TASKWebApp.Business.Classes
                     ChildTaskContainer ctc = new ChildTaskContainer(child);
                     ChildTasks.Add(ctc);
                 }
-
             }
+        }
+
+        //Carga los niveles, estos deben ser cargados DESDE LA RAIZ.
+        public void LoadLevel(int paramVal)
+        {
+            Level = paramVal;
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.LoadLevel(paramVal + 1);
+                }
+            }
+        }
+
+        public List<TaskWithLevel> TransformToListPlainWithLevels(List<TaskWithLevel> list)
+        {
+            TaskWithLevel twl = new TaskWithLevel { Task = Task, Level = Level};
+            list.Add(twl);
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.TransformToListPlainWithLevels(list);
+                }
+            }
+            return list;
+        }
+        /*
+        public int GetNumberOfTasksInFamily(int val)
+        {
+            if (ChildTasks != null && ChildTasks.Count > 0)
+            {
+                val += ChildTasks.Count;
+                foreach (ChildTaskContainer ctc in ChildTasks)
+                {
+                    ctc.GetNumberOfTasksInFamily(val);
+                }
+            }
+            else
+            {
+                val++;
+            }
+            return val;
+        }
+        */
+    }
+
+    public class TaskWithLevel
+    {
+        public Task Task { get; set; }
+        public int Level { get; set; }
+        public int? virtualId { get; set; }
+        public int? virtualParentId { get; set; }
+        public int? virtualDependentid { get; set; }
+        public int OperationId { get; set; }
+        public TaskLevelDetail Detail { get; set; }
+
+        public TaskWithLevel()
+        {
+
+        }
+
+    }
+
+    public class TaskLevelDetail
+    {
+        public bool IsRepetitive { get; set; }
+
+        public DateTime? Start { get; set; }
+        public DateTime End { get; set; }
+
+        public List<string> SelectedDaysOfWeek { get; set; }
+        public List<string> SelectedWeeks { get; set; }
+        public string SelectedDay { get; set; }
+        public int? IdMonth { get; set; }
+
+        public void LoadTimeForRepetitive(string StartTime, string EndTime)
+        {
+            string defaultDate = "1900-01-01";
+            DateTime startTime = DateTime.Parse(defaultDate + " " + StartTime);
+            DateTime endTime = DateTime.Parse(defaultDate + " " + EndTime);
+
+            Start = startTime;
+            End = endTime;
         }
     }
 }

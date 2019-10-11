@@ -56,6 +56,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ObjectListView, Version=2.9.1.25410, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.2-alpha2\lib\net20\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="System.Data.Entity" />
@@ -78,6 +81,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ActualizarDatos.aspx" />
     <Content Include="CerrarSesion.aspx" />
     <Content Include="CodigoContraseña.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -93,6 +97,7 @@
     <Content Include="CSS\StyleSheetRC.css" />
     <Content Include="FlujodeTarea.aspx" />
     <Content Include="Flujodetareaunica.aspx" />
+    <Content Include="FormularioPrueba.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\avatar.png" />
     <Content Include="img\grafico.png" />
@@ -142,6 +147,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActualizarDatos.aspx.cs">
+      <DependentUpon>ActualizarDatos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ActualizarDatos.aspx.designer.cs">
+      <DependentUpon>ActualizarDatos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CerrarSesion.aspx.cs">
       <DependentUpon>CerrarSesion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -183,6 +195,13 @@
     </Compile>
     <Compile Include="Flujodetareaunica.aspx.designer.cs">
       <DependentUpon>Flujodetareaunica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioPrueba.aspx.cs">
+      <DependentUpon>FormularioPrueba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioPrueba.aspx.designer.cs">
+      <DependentUpon>FormularioPrueba.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

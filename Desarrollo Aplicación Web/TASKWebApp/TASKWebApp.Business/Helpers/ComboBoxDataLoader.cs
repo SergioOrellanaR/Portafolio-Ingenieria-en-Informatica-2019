@@ -105,7 +105,7 @@ namespace TASKWebApp.Business.Helpers
         {
             int invalidTaskId = -1;
             Dictionary<int, string> predefinedTasks = new Dictionary<int, string>();
-            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == null && x.ISPREDEFINED == 1 && x.ID_DEPENDENT_TASK == null))
+            foreach (Data.TASK task in Connection.ProcessSA_DB.TASK.ToList().Where(x => x.ID_SUPERIOR_TASK == null && x.ISPREDEFINED == 1 /*&& x.ID_DEPENDENT_TASK == null*/))
             {
                 Task tsk = new Task((int)task.ID);
                 if (tsk.Id!=invalidTaskId)
@@ -121,5 +121,22 @@ namespace TASKWebApp.Business.Helpers
          * Agregar busqueda de tareas asignadas
          * Agregar busqueda de tareas asignadas por mi.
          */
+    }
+
+    enum Meses
+    {
+        Enero = 1,
+        Febrero = 2,
+        Marzo = 3,
+        Abril = 4,
+        Mayo = 5,
+        Junio = 6,
+        Julio = 7,
+        Agosto = 8,
+        Septiembre = 9,
+        Octubre = 10,
+        Noviembre = 11,
+        Diciembre = 12,
+        Todos = 13
     }
 }

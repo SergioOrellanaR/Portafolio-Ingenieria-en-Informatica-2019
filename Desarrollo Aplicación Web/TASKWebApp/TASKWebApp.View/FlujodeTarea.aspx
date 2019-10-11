@@ -13,53 +13,42 @@
                     <asp:Label ID="Label7" runat="server"><h2>Crear Flujo de Tareas - Tareas Unicas</h2></asp:Label>
                     <br />
                 </div>
-                <asp:GridView ID="gvDatosTareaUnica" CssClass="table table-hover" runat="server">
-                </asp:GridView>
+
                 <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre Tarea</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Fecha Inicio</th>
-                            <th scope="col">Fecha Fin</th>
-                            <th scope="col">Dependendia de</th>
-                            <th scope="col">Agregar</th>
-                            <th scope="col">Eliminar</th>
-                            <th scope="col">Editar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                    </tbody>
+                <asp:Repeater ID="repTabla" runat="server">
+                    <HeaderTemplate>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre Tarea</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col"><asp:Label ID="hdlblFechaInicio" runat="server" Text="Fecha Inicio"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblFechaFin" runat="server" Text="Fecha Fin"></asp:Label></th>
+                                    <th scope="col">Dependencia de</th>
+                                    <th scope="col"><asp:Label ID="hdlblAgregar" runat="server" Text="Agregar"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblEliminar" runat="server" Text="Eliminar"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblEditar" runat="server" Text="Editar"></asp:Label></th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        
+                            <tr>
+                                <td><asp:Label ID="lblSubSeparator" runat="server" Text=""></asp:Label><asp:Label ID="lblSubNombre" runat="server" Text=""></asp:Label></td>
+                                <td><asp:Label ID="lblSubDescripcion" runat="server" Text=""></asp:Label></td>
+                                <td><asp:Label ID="lblSubFechaInicio" runat="server" Text=""></asp:Label></td>
+                                <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
+                                <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
+                                <td><asp:Button ID="btnSubAdd" runat="server" Text="+" OnClick="btnSubAdd_Click" UseSubmitBehavior="false" /></td>
+                                <td><asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false"/></td>
+                                <td><asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false"/></td>
+                            </tr>
+                         
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </tbody>
+                    </FooterTemplate>
+                </asp:Repeater>
                 </table>
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -72,7 +61,9 @@
     </HeaderTemplate>
     <ItemTemplate>
         <div id="divTarea" runat="server">
-
+                    <div id="message">
+                        <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                    </div>
                     <div id="InformacionTarea" runat="server">
                         <div class="row">
                             <asp:Label ID="Label1" runat="server" CssClass="col-sm-2 " Text="Nombre Tarea"></asp:Label>
@@ -224,25 +215,11 @@
                     <div id="divDependencia" runat="server">
                         <div class="row">
                             <div class="col-sm-3">
-                                <asp:Label ID="Label10" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-check">
-                                    <asp:RadioButtonList ID="rbtDependencia" runat="server" AutoPostBack="true">
-                                        <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Value="Si" Text="Si"></asp:ListItem>
-                                    </asp:RadioButtonList>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
                                 <asp:Label ID="Label11" runat="server" Text="Seleccionar tarea dependiente"></asp:Label>
                             </div>
                             <div class="col-sm-1">
                                 <div class="form-check">
-                                    <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server">
-                                        <asp:ListItem Value="">¿Cual es el nombre de tu primera mascota?</asp:ListItem>
+                                    <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server" AutoPostBack="True" AppendDataBoundItems="true">
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -251,7 +228,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-5 form-group">
-                            <asp:Button ID="btnAgregarAFlujo" runat="server" Text="Agregar al flujo de tareas" class="btn btn-info btn-lg btn-block" />
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-info btn-lg btn-block" OnClick="btnSave_Click"     UseSubmitBehavior="false" />
                         </div>
                     </div>
                 </div>
@@ -262,12 +239,11 @@
         <br />
     </SeparatorTemplate>
 </asp:Repeater>
-               
             </ContentTemplate>
         </asp:UpdatePanel>
         <div class="row">
             <div class="col-md-3 form-group">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" />
+                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
             </div>
             <div class="col-md-3 form-group">
                 <asp:Button ID="btnCrearFlujo" runat="server" Text="Crear Flujo de Tareas" class="btn btn-info btn-lg btn-block" />
@@ -275,7 +251,7 @@
         </div>
     </section>
 
-    <asp:Label ID="lblMeme" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="lblMeme" runat="server" Text=""></asp:Label>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Footer" runat="server">
 </asp:Content>
