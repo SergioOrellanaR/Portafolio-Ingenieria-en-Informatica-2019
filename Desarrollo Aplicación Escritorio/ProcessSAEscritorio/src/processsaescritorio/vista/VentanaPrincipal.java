@@ -21,6 +21,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     VentanaPrincipal(UsuarioDTO usuarioSesion, Login aThis) {
         initComponents();
+         this.setExtendedState(MAXIMIZED_BOTH);
         this.usuarioSesion = usuarioSesion;
         this.ventanaPadre = ventanaPadre;
     }
@@ -51,11 +52,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelEscritorio.setLayout(panelEscritorioLayout);
         panelEscritorioLayout.setHorizontalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 836, Short.MAX_VALUE)
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 428, Short.MAX_VALUE)
         );
 
         menuAdminstracion.setText("Administración");

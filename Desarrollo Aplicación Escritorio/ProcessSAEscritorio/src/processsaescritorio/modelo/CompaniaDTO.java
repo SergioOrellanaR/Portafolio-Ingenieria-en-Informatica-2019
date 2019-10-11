@@ -73,6 +73,9 @@ public class CompaniaDTO {
         this.idComuna = idComuna;
     }
 
-
+    @Override
+    public String toString() {
+        return "CompaniaDTO{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
 
 }

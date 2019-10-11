@@ -21,17 +21,29 @@ import static processsaescritorio.modelo.DatosConexion.USUARIO;
  */
 public class ComunaDAO implements DatosConexion {
 
+    private int id;
+
+   
     private String nombre;
     private int Provincia;
 
     public ComunaDAO() {
     }
 
-    public ComunaDAO(String nombre, int Provincia) {
+    public ComunaDAO(int id,String nombre, int Provincia) {
+        this.id=id;
         this.nombre = nombre;
         this.Provincia = Provincia;
     }
 
+     public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -48,18 +60,21 @@ public class ComunaDAO implements DatosConexion {
         this.Provincia = Provincia;
     }
     
-       public ArrayList<ComunaDTO> listarComunasPorProvincia(String nombre){
+       public ArrayList<ComunaDTO> listarComunasPorProvincia(int id){
         ArrayList<ComunaDTO> listarComuna = new ArrayList<ComunaDTO>();
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT commune.name,province.id from commune JOIN province ON (province.ID = commune.id_province ) WHERE province.name=" + nombre);
+            ResultSet resultado = declaracion.executeQuery("SELECT commune.name,province.id,commune.id from commune JOIN province ON (province.ID = commune.id_province ) WHERE province.id=" + id);
             while (resultado.next()) {
                 this.setNombre(resultado.getString(1));     
                 this.setProvincia(resultado.getInt(2));
+                this.setId(resultado.getInt(3));
+
+                
   
-                listarComuna.add(new ComunaDTO(this.getNombre(),this.getProvincia()));
+                listarComuna.add(new ComunaDTO(this.getId(),this.getNombre(),this.getProvincia()));
             }  
             conexion.close();
             return listarComuna;

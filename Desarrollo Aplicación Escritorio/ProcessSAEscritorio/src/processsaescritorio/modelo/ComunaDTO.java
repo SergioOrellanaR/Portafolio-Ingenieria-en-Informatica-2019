@@ -11,15 +11,25 @@ package processsaescritorio.modelo;
  */
 public class ComunaDTO {
     
+    private int id;
     private String nombre;
     private int provincia;
 
     public ComunaDTO() {
     }
 
-    public ComunaDTO(String nombre, int provincia) {
+    public ComunaDTO(int id,String nombre, int provincia) {
+        this.id=id;
         this.nombre = nombre;
         this.provincia = provincia;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
