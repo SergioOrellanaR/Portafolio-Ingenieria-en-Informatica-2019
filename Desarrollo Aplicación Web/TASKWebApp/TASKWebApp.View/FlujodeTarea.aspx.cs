@@ -13,11 +13,15 @@ namespace TASKWebApp.View
     public partial class FlujodeTarea : System.Web.UI.Page
     {
 
+        public static int virtualIdGenerator;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-             ValidateTaskFlowInfoExists();
-             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
-             LoadSubTaskInformation(taskFlowInfo);
+            ValidateTaskFlowInfoExists();
+            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
+            LoadSubTaskInformation(taskFlowInfo);
+            if (!IsPostBack)
+                Session["TaskWithLevels"] = null;
 
         }
 
@@ -87,14 +91,16 @@ namespace TASKWebApp.View
         private void LoadSubTaskDiv(TaskFlowInfo taskFlowInfo)
         {
             List<Task> taskList = new List<Task>();
+
             if (taskFlowInfo.IsPredefined)
             {
                 taskList = taskFlowInfo.OriginalTask.LoadChildTasks().Values.ToList();
             }
             else
             {
-                taskList.Add(taskFlowInfo.OriginalTask);
+                //taskList.Add(taskFlowInfo.OriginalTask);
             }
+
             repSubTask.DataSource = taskList;
             repSubTask.DataBind();
         }
@@ -144,6 +150,13 @@ namespace TASKWebApp.View
 
         private void EnableVisibleDiv (bool val, string divName, RepeaterItem item)
         {
+            if(val && divName == "divTareaUnica")
+            {
+                TextBox txtInicio = (TextBox)item.FindControl("txtFechaInicio");
+                TextBox txtFin = (TextBox)item.FindControl("txtFechaFin");
+                txtInicio.Text = DateTime.Now.ToLocalTime().ToString("yyyy-MM-ddTHH:mm"); 
+                txtFin.Text = DateTime.Now.AddDays(1).ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
+            }
             HtmlGenericControl div = (HtmlGenericControl)item.FindControl(divName);
             div.Visible = val;
         }
@@ -153,15 +166,28 @@ namespace TASKWebApp.View
         {
             ChildTaskContainer ctc = new ChildTaskContainer(task);
             LoadTableDivs(ctc);
-
         }
 
         private void LoadTableDivs(ChildTaskContainer ctc)
         {
             int rootLevel = 0;
             ctc.LoadLevel(rootLevel);
-            List<TaskWithLevel> tasksWithLevels = new List<TaskWithLevel>();
-            ctc.TransformToListPlainWithLevels(tasksWithLevels);
+            List<TaskWithLevel> tasksWithLevels;
+
+            if (Session["TaskWithLevels"] == null)
+            {
+                tasksWithLevels = new List<TaskWithLevel>();
+                ctc.TransformToListPlainWithLevels(tasksWithLevels);
+                foreach(TaskWithLevel twl in tasksWithLevels)
+                {
+                    twl.virtualId = virtualIdGenerator++;
+                }
+            }
+            else
+            {
+                tasksWithLevels = (List<TaskWithLevel>)Session["TaskWithLevels"];
+            }
+
 
             /*
             if (taskFlowInfo.IsPredefined)
@@ -173,7 +199,7 @@ namespace TASKWebApp.View
                 taskList.Add(taskFlowInfo.OriginalTask);
             }
             */
-            UpdateTableInformation(tasksWithLevels, null, 0);
+            Session["TaskWithLevels"] = UpdateTableInformation(tasksWithLevels, null, 0);
         }
 
         private List<TaskWithLevel> UpdateTableInformation (List<TaskWithLevel> tasksWithLevels, string operation, int index)
@@ -181,17 +207,36 @@ namespace TASKWebApp.View
             switch (operation)
             {
                 case "Add":
+                    TaskWithLevel parentTaskWithLevel = tasksWithLevels[index];
+                    int level = parentTaskWithLevel.Level + 1;
+                    int operationIdAdd = 1;
+
+                    TaskWithLevel twl = new TaskWithLevel()
+                    {
+                        virtualId = virtualIdGenerator++,
+                        Level = level,
+                        virtualParentId = parentTaskWithLevel.virtualId,
+                        OperationId = operationIdAdd
+                    };
+
+                    List<TaskWithLevel> tempList = new List<TaskWithLevel>();
+                    tempList.Add(twl);
+                    /*
+                    repSubTask.DataSource = tempList;
+                    */
+                    List<Task> temp = new List<Task>();
+                    temp.Add(twl.Task);
+                    repSubTask.DataSource = temp;
+                    repSubTask.DataBind();
                     break;
                 case "Delete":
                     tasksWithLevels.Remove(tasksWithLevels[index]);
-                    TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
                     break;
                 case "Update":
                     break;
                 default:
                     break;
             }
-
 
             repTabla.DataSource = tasksWithLevels;
             repTabla.DataBind();
@@ -201,7 +246,7 @@ namespace TASKWebApp.View
 
         private List<TaskWithLevel> GetTableDataSource()
         {
-            return (List<TaskWithLevel>) repTabla.DataSource;
+            return (List<TaskWithLevel>)Session["TaskWithLevels"];
         }
 
 
@@ -295,16 +340,26 @@ namespace TASKWebApp.View
         {
             Button button = (Button)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
-            UpdateTableInformation(GetTableDataSource(), "Delete", item.ItemIndex);
-            //UpdateTableInformation(GetTableDataSource(), null, 0);
-            string meme = "asd";
+            Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Delete", item.ItemIndex);
         }
 
+        protected void btnSubAdd_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            RepeaterItem item = (RepeaterItem)button.NamingContainer;
+            Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Add", item.ItemIndex);
+        }
 
+        protected void btnSubEdit_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            RepeaterItem item = (RepeaterItem)button.NamingContainer;
+            Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Edit", item.ItemIndex);
+        }
 
-            #region ToDO
-            //ToDo.
-            private void LoadUniqueTaskTypeDiv(bool val)
+        #region ToDO
+        //ToDo.
+        private void LoadUniqueTaskTypeDiv(bool val)
         {
             //divTareaUnica.Visible = val;
             //divTareaRepetitiva.Visible = !val;

@@ -39,9 +39,9 @@
                                 <td><asp:Label ID="lblSubFechaInicio" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
-                                <td><asp:Button ID="btnSubAdd" runat="server" Text="+"  /></td>
+                                <td><asp:Button ID="btnSubAdd" runat="server" Text="+" OnClick="btnSubAdd_Click" UseSubmitBehavior="false" /></td>
                                 <td><asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false"/></td>
-                                <td><asp:Button ID="btnSubEdit" runat="server" Text="Editar" /></td>
+                                <td><asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false"/></td>
                             </tr>
                          
                     </ItemTemplate>
@@ -240,7 +240,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-5 form-group">
-                            <asp:Button ID="btnAgregarAFlujo" runat="server" Text="Agregar al flujo de tareas" class="btn btn-info btn-lg btn-block" />
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-info btn-lg btn-block" />
                         </div>
                     </div>
                 </div>

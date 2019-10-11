@@ -227,7 +227,7 @@ namespace TASKWebApp.Business.Classes
 
         public List<TaskWithLevel> TransformToListPlainWithLevels(List<TaskWithLevel> list)
         {
-            TaskWithLevel twl = new TaskWithLevel { Task = Task, Level = Level };
+            TaskWithLevel twl = new TaskWithLevel { Task = Task, Level = Level};
             list.Add(twl);
             if (ChildTasks != null && ChildTasks.Count > 0)
             {
@@ -262,10 +262,10 @@ namespace TASKWebApp.Business.Classes
     {
         public Task Task { get; set; }
         public int Level { get; set; }
-        public int virtualId { get; set; }
-        public int virtualParentId { get; set; }
-        public int virtualDependentid { get; set; }
-
+        public int? virtualId { get; set; }
+        public int? virtualParentId { get; set; }
+        public int? virtualDependentid { get; set; }
+        public int OperationId { get; set; }
 
 
         public TaskWithLevel()
