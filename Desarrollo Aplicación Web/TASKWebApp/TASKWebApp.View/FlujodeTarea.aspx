@@ -24,9 +24,9 @@
                                     <th scope="col">Fecha Inicio</th>
                                     <th scope="col">Fecha Fin</th>
                                     <th scope="col">Dependendia de</th>
-                                    <th scope="col">Agregar</th>
-                                    <th scope="col">Eliminar</th>
-                                    <th scope="col">Editar</th>
+                                    <th scope="col"><asp:Label ID="hdlblAgregar" runat="server" Text="Agregar"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblEliminar" runat="server" Text="Eliminar"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblEditar" runat="server" Text="Editar"></asp:Label></th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -39,9 +39,9 @@
                                 <td><asp:Label ID="lblSubFechaInicio" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
-                                <td><asp:Button ID="btnAdd" runat="server" Text="+" /></td>
-                                <td><asp:Button ID="btnDelete" runat="server" Text="-" /></td>
-                                <td><asp:Button ID="btnEdit" runat="server" Text="Editar" /></td>
+                                <td><asp:Button ID="btnSubAdd" runat="server" Text="+"  /></td>
+                                <td><asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false"/></td>
+                                <td><asp:Button ID="btnSubEdit" runat="server" Text="Editar" /></td>
                             </tr>
                          
                     </ItemTemplate>

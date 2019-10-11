@@ -15,9 +15,10 @@ namespace TASKWebApp.View
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ValidateTaskFlowInfoExists();
-            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
-            LoadSubTaskInformation(taskFlowInfo);
+             ValidateTaskFlowInfoExists();
+             TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
+             LoadSubTaskInformation(taskFlowInfo);
+
         }
 
         private void ValidateTaskFlowInfoExists()
@@ -33,14 +34,15 @@ namespace TASKWebApp.View
             LoadSubTaskDiv(taskFlowInfo);
             List<Task> taskList = (List<Task>)repSubTask.DataSource;
             LoadDivInformation(taskFlowInfo, taskList);
+            ListInformationDataBind(taskFlowInfo.OriginalTask);
+
             if (taskFlowInfo.IsPredefined)
             {
                 SetPredefinidedSubTaskInformation(taskList);
-                ListInformationDataBind(taskFlowInfo.OriginalTask);
             }
             else
             {
-                LoadFirstTaskDiv();
+                //LoadFirstTaskDiv();
             }
         }
 
@@ -79,32 +81,6 @@ namespace TASKWebApp.View
                 EnableVisibleDiv(!val, "divDiaMes", item);
                 EnableVisibleDiv(val, "divNumeroSemana", item);
                 EnableVisibleDiv(true, "divMes", item);
-            }
-        }
-
-        private void LoadUniqueTaskTypeDiv(bool val)
-        {
-            //divTareaUnica.Visible = val;
-            //divTareaRepetitiva.Visible = !val;
-        }
-
-        private void LoadDependenciesDiv(bool val)
-        {
-            //divDependencia.Visible = val;
-        }
-
-        //ToDo: Si arreglo de tareas > 0, LoadDependenciesDiv(true), else LoadDependenciesDiv(false);
-        private void LoadFirstTaskDiv()
-        {
-            int val = 0; //Cambiar por array.length
-
-            if (val > 0)
-            {
-                LoadDependenciesDiv(true);
-            }
-            else
-            {
-                LoadDependenciesDiv(false);
             }
         }
 
@@ -171,22 +147,19 @@ namespace TASKWebApp.View
             HtmlGenericControl div = (HtmlGenericControl)item.FindControl(divName);
             div.Visible = val;
         }
-
-        //ToDo: Comentar tarea dura.
+        
+        
         private void ListInformationDataBind(Task task)
         {
             ChildTaskContainer ctc = new ChildTaskContainer(task);
-            //ChildTaskContainer ctc = new ChildTaskContainer(new Task(6));
-            //ConfigureTreeView(ctc);
             LoadTableDivs(ctc);
-            /*gvDatosTarea.DataSource = ctc.ChildTasks;
-            gvDatosTarea.DataBind();*/
 
         }
 
         private void LoadTableDivs(ChildTaskContainer ctc)
         {
-            ctc.LoadLevel(0);
+            int rootLevel = 0;
+            ctc.LoadLevel(rootLevel);
             List<TaskWithLevel> tasksWithLevels = new List<TaskWithLevel>();
             ctc.TransformToListPlainWithLevels(tasksWithLevels);
 
@@ -200,21 +173,90 @@ namespace TASKWebApp.View
                 taskList.Add(taskFlowInfo.OriginalTask);
             }
             */
+            UpdateTableInformation(tasksWithLevels, null, 0);
+        }
+
+        private List<TaskWithLevel> UpdateTableInformation (List<TaskWithLevel> tasksWithLevels, string operation, int index)
+        {
+            switch (operation)
+            {
+                case "Add":
+                    break;
+                case "Delete":
+                    tasksWithLevels.Remove(tasksWithLevels[index]);
+                    TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
+                    break;
+                case "Update":
+                    break;
+                default:
+                    break;
+            }
+
 
             repTabla.DataSource = tasksWithLevels;
             repTabla.DataBind();
-            LoadTableInfo();
+            LoadTableInfo(tasksWithLevels);
+            return tasksWithLevels;
         }
 
-        private void LoadTableInfo ()
+        private List<TaskWithLevel> GetTableDataSource()
         {
-            List<TaskWithLevel> tlwl = (List<TaskWithLevel>)repTabla.DataSource;
-            
+            return (List<TaskWithLevel>) repTabla.DataSource;
+        }
+
+
+
+        private void LoadTableInfo (List<TaskWithLevel> tlwl)
+        {
+            TaskFlowInfo taskFlowInfo = (TaskFlowInfo)Session["TaskFlowInfo"];
+            bool isOwnTask = !taskFlowInfo.IsPredefined;
+            bool isUnique = !taskFlowInfo.IsRepetitive;
+            EnableHeaderLabelForButtons(isOwnTask);
+
             for (int i = 0; i < repTabla.Items.Count; i++)
             {
                 RepeaterItem item = repTabla.Items[i];
                 TaskWithLevel twl = tlwl[i];
                 SetRowInTableInformation(item, twl);
+                EnableSubButtons(item, isOwnTask, twl.Level);
+                LoadUniqueFatherTaskInformation(item, taskFlowInfo, twl.Level);
+            }
+        }
+
+        private void EnableHeaderLabelForButtons(bool val)
+        {
+            Label lblAdd = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblAgregar");
+            Label lblDelete = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblEliminar");
+            Label lblEdit = (Label)repTabla.Controls[0].Controls[0].FindControl("hdlblEditar");
+
+            lblAdd.Visible = val;
+            lblDelete.Visible = val;
+            lblEdit.Visible = val;
+
+        }
+
+
+        private void EnableSubButtons (RepeaterItem item, bool val, int level)
+        {
+            SetTableIndividualButtonInformation("btnSubAdd", item, val);
+            SetTableIndividualButtonInformation("btnSubEdit", item, val);
+
+            if (level == 0)
+            {
+                SetTableIndividualButtonInformation("btnSubDelete", item, false);
+            }
+            else
+            {
+                SetTableIndividualButtonInformation("btnSubDelete", item, val);
+            }
+        }
+
+        private void LoadUniqueFatherTaskInformation(RepeaterItem item, TaskFlowInfo taskFlowInfo, int level)
+        {
+            if (!taskFlowInfo.IsRepetitive && level == 0)
+            {
+                SetTableindividualLabelInformation("lblSubFechaInicio", taskFlowInfo.ProcessedTask.StartDate.ToString(), item);
+                SetTableindividualLabelInformation("lblSubFechaFin", taskFlowInfo.ProcessedTask.EndDate.ToString(), item);
             }
         }
 
@@ -236,11 +278,58 @@ namespace TASKWebApp.View
             SetTableindividualLabelInformation("lblSubDependencia", depTaskName, item);
         }
 
+        private void SetTableIndividualButtonInformation(string buttonName, RepeaterItem item, bool val)
+        {
+            Button button = (Button)item.FindControl(buttonName);
+            button.Enabled = val;
+            button.Visible = val;
+        }
+
         private void SetTableindividualLabelInformation(string labelName, string information, RepeaterItem item)
         {
             Label label = (Label)item.FindControl(labelName);
             label.Text = information;
         }
+
+        protected void btnSubDelete_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            RepeaterItem item = (RepeaterItem)button.NamingContainer;
+            UpdateTableInformation(GetTableDataSource(), "Delete", item.ItemIndex);
+            //UpdateTableInformation(GetTableDataSource(), null, 0);
+            string meme = "asd";
+        }
+
+
+
+            #region ToDO
+            //ToDo.
+            private void LoadUniqueTaskTypeDiv(bool val)
+        {
+            //divTareaUnica.Visible = val;
+            //divTareaRepetitiva.Visible = !val;
+        }
+
+        private void LoadDependenciesDiv(bool val)
+        {
+            //divDependencia.Visible = val;
+        }
+
+        //ToDo: Si arreglo de tareas > 0, LoadDependenciesDiv(true), else LoadDependenciesDiv(false);
+        private void LoadFirstTaskDiv()
+        {
+            int val = 0; //Cambiar por array.length
+
+            if (val > 0)
+            {
+                LoadDependenciesDiv(true);
+            }
+            else
+            {
+                LoadDependenciesDiv(false);
+            }
+        }
+
         /*
         private void ConfigureTreeView(ChildTaskContainer ctc)
         {
@@ -279,12 +368,12 @@ namespace TASKWebApp.View
         }
         */
 
-       /* private void TreeListViewTest ()
-        {
-            TreeListView tlv = new TreeListView();
-            tlv.add
-            
-        }*/
+        /* private void TreeListViewTest ()
+         {
+             TreeListView tlv = new TreeListView();
+             tlv.add
+
+         }*/
         /*
          * foreach (RepeaterItem item in Repeater1.Items)
             {
@@ -300,5 +389,7 @@ namespace TASKWebApp.View
                   }
             }
          */
+        #endregion
+
     }
 }

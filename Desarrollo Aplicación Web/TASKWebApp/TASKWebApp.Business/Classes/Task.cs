@@ -262,6 +262,11 @@ namespace TASKWebApp.Business.Classes
     {
         public Task Task { get; set; }
         public int Level { get; set; }
+        public int virtualId { get; set; }
+        public int virtualParentId { get; set; }
+        public int virtualDependentid { get; set; }
+
+
 
         public TaskWithLevel()
         {
