@@ -26,8 +26,6 @@ namespace TASKWebApp.View
                 Session["repSubTask"] = null;
                 LoadSubTaskInformation(taskFlowInfo);
             }
-                
-
         }
 
         private void ValidateTaskFlowInfoExists()
@@ -68,17 +66,16 @@ namespace TASKWebApp.View
             }
         }
 
-        private void LoadEditInformation(TaskFlowInfo taskFlowInfo, TaskWithLevel selectedTask)
+        private void LoadEditInformation(TaskFlowInfo taskFlowInfo, TaskWithLevel selectedTask, List<TaskWithLevel> tasksWithLevels)
         {
+            bool val = true;
             if (taskFlowInfo.IsRepetitive)
             {
-                EnableEditTaskControls(false, false, selectedTask);
+                val = false;
                 LoadRepetitiveSubTaskDetailInformation(taskFlowInfo);
             }
-            else
-            {
-                EnableEditTaskControls(true, false, selectedTask);
-            }
+
+            EnableEditTaskControls(true, false, selectedTask, tasksWithLevels);
         }
 
         private void LoadRepetitiveSubTaskDetailInformation (TaskFlowInfo taskFlowInfo)
@@ -165,12 +162,11 @@ namespace TASKWebApp.View
                 RepeaterItem item = repSubTask.Items[i];
                 EnableVisibleDiv(val, "divTareaUnica", item);
                 EnableVisibleDiv(!val, "divTareaRepetitiva", item);
-
                 EnableVisibleDiv(haveBrothers, "divDependencia", item);
             }
         }
 
-        private void EnableEditTaskControls(bool val, bool haveBrothers, TaskWithLevel twl)
+        private void EnableEditTaskControls(bool val, bool haveBrothers, TaskWithLevel twl, List<TaskWithLevel> twlist)
         {
             for (int i = 0; i < repSubTask.Items.Count; i++)
             {
@@ -178,11 +174,21 @@ namespace TASKWebApp.View
                 EnableVisibleDiv(val, "divTareaUnica", item);
                 EnableVisibleDiv(!val, "divTareaRepetitiva", item);
                 EnableVisibleDiv(haveBrothers, "divDependencia", item);
-
+                
                 //Val = tarea unica
 
-                    LoadEditInformation(val, item, twl);
+                LoadEditInformation(val, item, twl);
             }
+        }
+
+        private void LoadDdlDependencia(TaskWithLevel twl, List<TaskWithLevel> twlist, RepeaterItem item)
+        {
+            DropDownList ddlDep = (DropDownList)item.FindControl("ddlTareaDependiente");
+            Dictionary<int?, string> dict = GetBrotherTasks(twl, twlist);
+            ddlDep.DataSource = dict;
+            ddlDep.DataTextField = "Value";
+            ddlDep.DataValueField = "Key";
+            ddlDep.DataBind();
         }
 
         private void LoadEditInformation(bool val, RepeaterItem item, TaskWithLevel twl)
@@ -217,7 +223,18 @@ namespace TASKWebApp.View
             div.Visible = val;
         }
         
-        
+        private Dictionary<int?,string> GetBrotherTasks(TaskWithLevel twl, List<TaskWithLevel> twlist)
+        {
+            Dictionary<int?, string> brotherTasks = new Dictionary<int?, string>();
+            brotherTasks.Add(-1, "Ninguna");
+            foreach (TaskWithLevel tw in twlist.FindAll(x => twl.virtualId != x.virtualId && x.virtualParentId == twl.virtualParentId).ToList())
+            {
+                brotherTasks.Add(tw.virtualId, tw.Task.Name);
+            }
+
+            return brotherTasks;
+        }
+
         private void ListInformationDataBind(Task task)
         {
             ChildTaskContainer ctc = new ChildTaskContainer(task);
@@ -321,10 +338,17 @@ namespace TASKWebApp.View
                     repSubTask.DataBind();
                     Session["repSubTask"] = tempList;
                     LoadDivInformation(taskFlowInfo, haveVirtualChilds);
-                   
+                    if(haveVirtualChilds)
+                    {
+                        LoadDdlDependencia(twl, tasksWithLevels, repSubTask.Items[0]);
+                    }
                     break;
 
                 case "Delete":
+                    foreach(TaskWithLevel twlChild in tasksWithLevels.FindAll(x=> x.virtualParentId == tasksWithLevels[index].virtualId))
+                    {
+                        tasksWithLevels.Remove(twlChild);
+                    }
                     tasksWithLevels.Remove(tasksWithLevels[index]);
                     break;
 
@@ -336,34 +360,44 @@ namespace TASKWebApp.View
                     repSubTask.DataSource = temp;
                     repSubTask.DataBind();
                     Session["repSubTask"] = temp;
-                    LoadEditInformation(taskFlowInfo, selectedTaskWithLevel);
+                    LoadEditInformation(taskFlowInfo, selectedTaskWithLevel, tasksWithLevels);
                     break;
 
                 case "Save":
+
                     int addOperation = 1;
                     int editOperation = 3;
                     TaskWithLevel stwl = ((List<TaskWithLevel>)Session["repSubTask"])[0];
                     if (stwl.OperationId == addOperation)
                     {
-                        tasksWithLevels.Add(SaveOperation(stwl, taskFlowInfo, repSubTask.Items[0]));
+                        stwl = SaveOperation(stwl, taskFlowInfo, repSubTask.Items[0]);
+                        int parentIndex = tasksWithLevels.FindIndex(x => x.virtualId == stwl.virtualParentId);
+                        tasksWithLevels.Insert(parentIndex + 1, stwl);
                     }
                     else if (stwl.OperationId == editOperation)
                     {
                         TaskWithLevel updateTwl = tasksWithLevels.Find(x => x.virtualId == stwl.virtualId);
                         updateTwl = SaveOperation(stwl, taskFlowInfo, repSubTask.Items[0]);
                     }
-
+                    stwl.OperationId = 0;
                     break;
                 default:
                     break;
             }
 
+            
             repTabla.DataSource = tasksWithLevels;
             repTabla.DataBind();
             LoadTableInfo(tasksWithLevels);
             return tasksWithLevels;
         }
 
+
+
+        private List<TaskWithLevel> SortTaskWithLevelsList(List<TaskWithLevel> tasksWithLevels)
+        {
+            return tasksWithLevels.OrderBy(x => x.virtualParentId).ThenBy(c => c.Level).ToList();
+        }
 
         private bool HaveVirtualChilds(int? virtualId, List<TaskWithLevel> twlist)
         {
@@ -437,19 +471,26 @@ namespace TASKWebApp.View
 
         private void SetRowInTableInformation(RepeaterItem item, TaskWithLevel taskWithLevel)
         {
+            List<TaskWithLevel> twl = (List<TaskWithLevel>)Session["TaskWithLevels"];
             Task task = taskWithLevel.Task;
             string separator = String.Concat(Enumerable.Repeat("---", taskWithLevel.Level));
             SetTableindividualLabelInformation("lblSubSeparator", separator, item);
             SetTableindividualLabelInformation("lblSubNombre", task.Name, item);
             SetTableindividualLabelInformation("lblSubDescripcion",task.Description, item);
-            SetTableindividualLabelInformation("lblSubFechaInicio","-", item);
-            SetTableindividualLabelInformation("lblSubFechaFin","-", item);
+            SetTableindividualLabelInformation("lblSubFechaInicio", taskWithLevel.Detail.Start.ToString(), item);
+            SetTableindividualLabelInformation("lblSubFechaFin", taskWithLevel.Detail.End.ToString(), item);
 
             string depTaskName = string.Empty;
+
             if (task.DependentTask != null)
             {
                 depTaskName = task.DependentTask.Name;
             }
+            else if (taskWithLevel.virtualDependentid != null && taskWithLevel.virtualDependentid != -1)
+            {
+                depTaskName = twl.First(x => x.virtualId == taskWithLevel.virtualDependentid).Task.Name;
+            }
+
             SetTableindividualLabelInformation("lblSubDependencia", depTaskName, item);
         }
 
@@ -496,10 +537,19 @@ namespace TASKWebApp.View
 
         private TaskWithLevel SaveOperation(TaskWithLevel twl, TaskFlowInfo taskFlowInfo, RepeaterItem item)
         {
+            int noDependantCode = -1;
             TextBox txtName = (TextBox)item.FindControl("txtNombre");
             TextBox txtDescription = (TextBox)item.FindControl("txtDescription");
             twl.Task = new Task() { Name = txtName.Text, Description = txtDescription.Text };
             twl.Detail = new TaskLevelDetail();
+
+            DropDownList ddlDep = (DropDownList)item.FindControl("ddlTareaDependiente");
+
+            if (ddlDep.Visible && ddlDep.SelectedValue != noDependantCode.ToString())
+            {
+                twl.virtualDependentid = int.Parse(ddlDep.SelectedValue);
+            }
+            
 
             if (taskFlowInfo.IsRepetitive)
             {
@@ -512,7 +562,7 @@ namespace TASKWebApp.View
                 twl.Detail.Start = DateTime.Parse(txtInicio.Text);
                 twl.Detail.End = DateTime.Parse(txtFin.Text);
 
-                if (twl.OperationId == 3)
+                if (twl.OperationId == 3 && twl.Level == 0)
                 {
                     taskFlowInfo.OriginalTask.Name = twl.Task.Name;
                     taskFlowInfo.OriginalTask.Description = twl.Task.Description;
@@ -521,9 +571,6 @@ namespace TASKWebApp.View
                     Session["TaskFlowInfo"] = taskFlowInfo;
                 }
             }
-
-
-            
 
             txtName.Text = "";
             txtDescription.Text = "";
@@ -590,17 +637,6 @@ namespace TASKWebApp.View
             return value;
         }
 */
-
-
-        #region ToDO
-        //ToDo.
-        private void LoadUniqueTaskTypeDiv(bool val)
-        {
-            //divTareaUnica.Visible = val;
-            //divTareaRepetitiva.Visible = !val;
-        }
-
-
         /*
         private void ConfigureTreeView(ChildTaskContainer ctc)
         {
@@ -660,7 +696,6 @@ namespace TASKWebApp.View
                   }
             }
          */
-        #endregion
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {

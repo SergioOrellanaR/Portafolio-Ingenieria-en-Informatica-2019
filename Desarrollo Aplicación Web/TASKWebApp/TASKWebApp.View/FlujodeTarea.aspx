@@ -217,14 +217,6 @@
                             <div class="col-sm-3">
                                 <asp:Label ID="Label10" runat="server" Text="¿Esta tarea tiene dependencia?"></asp:Label>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-check">
-                                    <asp:RadioButtonList ID="rbtDependencia" runat="server" AutoPostBack="true">
-                                        <asp:ListItem Value="No" Text="No" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Value="Si" Text="Si"></asp:ListItem>
-                                    </asp:RadioButtonList>
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
@@ -232,8 +224,7 @@
                             </div>
                             <div class="col-sm-1">
                                 <div class="form-check">
-                                    <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server">
-                                        <asp:ListItem Value="">¿Cual es el nombre de tu primera mascota?</asp:ListItem>
+                                    <asp:DropDownList CssClass="btn btn-info dropdown-toggle" ID="ddlTareaDependiente" runat="server" AutoPostBack="True" AppendDataBoundItems="true">
                                     </asp:DropDownList>
                                 </div>
                             </div>
