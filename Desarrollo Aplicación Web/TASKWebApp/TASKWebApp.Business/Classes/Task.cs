@@ -266,11 +266,32 @@ namespace TASKWebApp.Business.Classes
         public int? virtualParentId { get; set; }
         public int? virtualDependentid { get; set; }
         public int OperationId { get; set; }
-
+        public TaskLevelDetail Detail { get; set; }
 
         public TaskWithLevel()
         {
 
+        }
+
+    }
+
+    public class TaskLevelDetail
+    {
+        public bool IsRepetitive { get; set; }
+
+        public DateTime? Start { get; set; }
+        public DateTime End { get; set; }
+
+        public List<string> SelectedDaysOfWeek { get; set; }
+        public List<string> SelectedMonth { get; set; }
+        public string SelectedDay { get; set; }
+        public int? IdMonth { get; set; }
+
+        public void LoadTimeForRepetitive(string StartTime, string EndTime)
+        {
+            string defaultDate = "1900-01-01";
+            DateTime startTime = DateTime.Parse(defaultDate + " " + StartTime);
+            DateTime endTime = DateTime.Parse(defaultDate + " " + EndTime);
         }
     }
 }

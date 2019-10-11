@@ -23,7 +23,7 @@
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Fecha Inicio</th>
                                     <th scope="col">Fecha Fin</th>
-                                    <th scope="col">Dependendia de</th>
+                                    <th scope="col">Dependencia de</th>
                                     <th scope="col"><asp:Label ID="hdlblAgregar" runat="server" Text="Agregar"></asp:Label></th>
                                     <th scope="col"><asp:Label ID="hdlblEliminar" runat="server" Text="Eliminar"></asp:Label></th>
                                     <th scope="col"><asp:Label ID="hdlblEditar" runat="server" Text="Editar"></asp:Label></th>
@@ -61,7 +61,9 @@
     </HeaderTemplate>
     <ItemTemplate>
         <div id="divTarea" runat="server">
-
+                    <div id="message">
+                        <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                    </div>
                     <div id="InformacionTarea" runat="server">
                         <div class="row">
                             <asp:Label ID="Label1" runat="server" CssClass="col-sm-2 " Text="Nombre Tarea"></asp:Label>
@@ -240,7 +242,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-5 form-group">
-                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-info btn-lg btn-block" />
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar" class="btn btn-info btn-lg btn-block" OnClick="btnSave_Click"     UseSubmitBehavior="false" />
                         </div>
                     </div>
                 </div>
@@ -251,12 +253,11 @@
         <br />
     </SeparatorTemplate>
 </asp:Repeater>
-               
             </ContentTemplate>
         </asp:UpdatePanel>
         <div class="row">
             <div class="col-md-3 form-group">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" />
+                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
             </div>
             <div class="col-md-3 form-group">
                 <asp:Button ID="btnCrearFlujo" runat="server" Text="Crear Flujo de Tareas" class="btn btn-info btn-lg btn-block" />
