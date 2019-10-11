@@ -11,18 +11,31 @@ package processsaescritorio.modelo;
  * @author yo
  */
 public class ProvinciaDTO {
-    
+    private int id;
+
+  
     private String nombre;
     private int region;
 
     public ProvinciaDTO() {
     }
 
-    public ProvinciaDTO(String nombre,int region) {
+    public ProvinciaDTO(int id,String nombre,int region) {
+        this.id=id;
         this.nombre = nombre;
         this.region = region;
     }
 
+     
+      public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+   
     public String getNombre() {
         return nombre;
     }

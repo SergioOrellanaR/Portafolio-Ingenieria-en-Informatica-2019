@@ -22,12 +22,12 @@ public class Lista {
         return listaRegiones;
     }   
      
-    public ArrayList<ProvinciaDTO> listarProvincias(String region){
+    public ArrayList<ProvinciaDTO> listarProvincias(int region){
         ArrayList<ProvinciaDTO> listarProvincias = new ProvinciaDAO().listarProvinciasPorRegion(region);
         return listarProvincias;
     }
     
-    public ArrayList<ComunaDTO> listarComunasPorProvincia(String comuna){
+    public ArrayList<ComunaDTO> listarComunasPorProvincia(int comuna){
         ArrayList<ComunaDTO> listarComunas = new ComunaDAO().listarComunasPorProvincia(comuna);
         return listarComunas;
     }

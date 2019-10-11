@@ -77,7 +77,12 @@ public class CompaniaDAO {
         this.idComuna = idComuna;
     }
     
-        public ArrayList<CompaniaDTO> obtenerCompanias(){
+     @Override
+    public String toString() {
+        return "CompaniaDTO{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+    
+    public ArrayList<CompaniaDTO> obtenerCompanias(){
         
         ArrayList<CompaniaDTO> listarCompanias = new ArrayList<CompaniaDTO>();
         try{
