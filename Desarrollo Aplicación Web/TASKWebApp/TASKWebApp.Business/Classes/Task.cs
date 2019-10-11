@@ -238,24 +238,6 @@ namespace TASKWebApp.Business.Classes
             }
             return list;
         }
-        /*
-        public int GetNumberOfTasksInFamily(int val)
-        {
-            if (ChildTasks != null && ChildTasks.Count > 0)
-            {
-                val += ChildTasks.Count;
-                foreach (ChildTaskContainer ctc in ChildTasks)
-                {
-                    ctc.GetNumberOfTasksInFamily(val);
-                }
-            }
-            else
-            {
-                val++;
-            }
-            return val;
-        }
-        */
     }
 
     public class TaskWithLevel
