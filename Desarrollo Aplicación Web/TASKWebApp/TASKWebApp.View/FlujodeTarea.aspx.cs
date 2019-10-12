@@ -369,7 +369,6 @@ namespace TASKWebApp.View
                 case "Update":
 
                     TaskWithLevel selectedTaskWithLevel = tasksWithLevels[index];
-
                     selectedTaskWithLevel.OperationId = 3;
                     List<TaskWithLevel> temp = new List<TaskWithLevel>();
                     temp.Add(selectedTaskWithLevel);
@@ -889,6 +888,9 @@ namespace TASKWebApp.View
                                     ReceiverUser = taskFlowInfo.ProcessedTask.TaskAssignment.ReceiverUser
                                 };
 
+                                if (!assignment.Create())
+                                    throw new Exception();
+
                                 ProcessedTask processedTask = new ProcessedTask()
                                 {
                                     AssignationDate = DateTime.Now,
@@ -1066,11 +1068,11 @@ namespace TASKWebApp.View
                         }
                     }
                 }
-                Response.Redirect("CreacionTareaExitosa.aspx");
+                Response.Redirect("CreacionTareaExitosa.aspx", false);
             }
             catch (Exception exc)
             {
-                Response.Redirect("FlujodeTarea.aspx");
+                Response.Redirect("FlujodeTarea.aspx", false);
             }
         }
 

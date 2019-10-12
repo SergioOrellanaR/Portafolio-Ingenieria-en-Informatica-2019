@@ -10,7 +10,7 @@
 namespace TASKWebApp.View {
     
     
-    public partial class FormularioPrueba {
+    public partial class AdministrarTareaRepetitiva {
         
         /// <summary>
         /// Control ScriptManager.
