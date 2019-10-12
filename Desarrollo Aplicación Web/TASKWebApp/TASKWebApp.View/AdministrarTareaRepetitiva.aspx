@@ -48,9 +48,9 @@
                                 <td>
                                     <asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:Button ID="btnSubEdit" runat="server" Text="Editar"  UseSubmitBehavior="false" /></td>
                                 <td>
-                                    <asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:Button ID="btnSubDelete" runat="server" Text="-" UseSubmitBehavior="false" /></td>
 
                             </tr>
 
@@ -65,7 +65,7 @@
 
         <div class="row">
             <div class="col-md-3 form-group">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
+                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" />
 
             </div>
         </div>
