@@ -10,7 +10,7 @@
 namespace TASKWebApp.View {
     
     
-    public partial class FormularioPrueba {
+    public partial class TareasAsignadas {
         
         /// <summary>
         /// Control ScriptManager.
@@ -47,6 +47,15 @@ namespace TASKWebApp.View {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repTabla;
+        
+        /// <summary>
+        /// Control upTarea.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTarea;
         
         /// <summary>
         /// Control btnVolver.
