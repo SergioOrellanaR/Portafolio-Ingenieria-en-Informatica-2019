@@ -85,7 +85,6 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentBody" runat="server">
     <div class="signup-form">
-    <form runat="server" method="post">
 		<h2>Datos Usuario</h2>
 		<p>Por favor, complete este formulario para actualizar sus datos</p>
 		<hr>
@@ -114,7 +113,6 @@
         <asp:Button ID="btnVolver" CssClass="btn btn-primary btn-lg" runat="server" Text="Volver" />
         <asp:Button ID="btnActualizar" CssClass="btn btn-primary btn-lg" runat="server" Text="Actualizar Datos" />
         </div>
-     </form>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Footer" runat="server">

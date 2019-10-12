@@ -205,8 +205,8 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if(new Consulta().validarUsuario(txtEmailUsuario.getText(), txtClaveUsuario.getText()) == 1){
-            UsuarioDTO usuarioSesion = new UsuarioDAO().obtenerUsuarioPorIdBD(txtEmailUsuario.getText(), txtClaveUsuario.getText());
+        if(new Consulta().validarUsuario(txtEmailUsuario.getText(),String.valueOf(txtClaveUsuario.getPassword())) == 1){
+            UsuarioDTO usuarioSesion = new UsuarioDAO().obtenerUsuarioPorIdBD(txtEmailUsuario.getText(),String.valueOf(txtClaveUsuario.getPassword()) );
             new VentanaPrincipal(usuarioSesion, this).show();
             this.setVisible(false);
             txtEmailUsuario.setText("");
