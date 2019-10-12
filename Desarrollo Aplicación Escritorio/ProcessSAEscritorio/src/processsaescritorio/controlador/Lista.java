@@ -52,5 +52,11 @@ public class Lista {
         return listaUsuarios;
     }
     
+    public ArrayList<UnidadAsignadaDTO> listarUnidadAsignada(){
+        ArrayList<UnidadAsignadaDTO> listaUnidadAsignada = new UnidadAsignadaDAO().obtenerUnidadAsignada();
+        return listaUnidadAsignada;
+    }
+    
+    
        
 }
