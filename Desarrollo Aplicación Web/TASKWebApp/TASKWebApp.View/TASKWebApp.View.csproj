@@ -98,8 +98,6 @@
     <Content Include="CSS\StyleSheetMP.css" />
     <Content Include="CSS\StyleSheetRC.css" />
     <Content Include="FlujodeTarea.aspx" />
-    <Content Include="Flujodetareaunica.aspx" />
-    <Content Include="FormularioPrueba.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\avatar.png" />
     <Content Include="img\grafico.png" />
@@ -144,7 +142,6 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="TareasAsignadas.aspx" />
-    <Content Include="TareaUnicaFT.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -206,20 +203,6 @@
     <Compile Include="FlujodeTarea.aspx.designer.cs">
       <DependentUpon>FlujodeTarea.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Flujodetareaunica.aspx.cs">
-      <DependentUpon>Flujodetareaunica.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Flujodetareaunica.aspx.designer.cs">
-      <DependentUpon>Flujodetareaunica.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FormularioPrueba.aspx.cs">
-      <DependentUpon>FormularioPrueba.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormularioPrueba.aspx.designer.cs">
-      <DependentUpon>FormularioPrueba.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -262,13 +245,6 @@
     </Compile>
     <Compile Include="TareasAsignadas.aspx.designer.cs">
       <DependentUpon>TareasAsignadas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TareaUnicaFT.aspx.cs">
-      <DependentUpon>TareaUnicaFT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TareaUnicaFT.aspx.designer.cs">
-      <DependentUpon>TareaUnicaFT.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

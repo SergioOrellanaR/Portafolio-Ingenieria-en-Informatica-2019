@@ -104,7 +104,8 @@
             <asp:Label ID="Label3" runat="server" Text="Ingrese su nuevo numero telefonico +569"></asp:Label>
         	<asp:TextBox CssClass="form-control" ID="txtCelular" runat="server" Enabled="True" TextMode="Number"></asp:TextBox></div>
             <div class="form-group">
-                <asp:Button ID="btnContraseña" CssClass="btn btn-primary btn-lg" runat="server" Text="Cambiar Contraseña" />
+                <asp:Button ID="btnContraseña" CssClass="btn btn-primary btn-lg" runat="server" Text="Cambiar Contraseña" /></div>
+            <div class="form-group">
                 <asp:Label ID="Label1" runat="server" Text="Ingrese su actual contraseña:"></asp:Label>
         	<asp:TextBox CssClass="form-control" ID="txtActualContraseña" runat="server" Enabled="True" TextMode="Password">Ingrese actual contraseña</asp:TextBox></div>
           <div class="form-group">
