@@ -35,13 +35,13 @@
                         
                             <tr>
                                 <td><asp:Label ID="lblSubSeparator" runat="server" Text=""></asp:Label><asp:Label ID="lblSubNombre" runat="server" Text=""></asp:Label></td>
-                                <td><asp:Label ID="lblAsignada por runat="server" Text=""></asp:Label></td>
+                                <td><asp:Label ID="lblAsignadaPor" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDescripcion" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubFechaInicio" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
-                                <td><asp:Button ID="btnSubAceptar" runat="server" Text="+" OnClick="btnSubAceptar_Click" UseSubmitBehavior="false" /></td>
-                                <td><asp:Button ID="btnSubRechazar" runat="server" Text="-" OnClick="btnSubRechazar_Click" UseSubmitBehavior="false"/></td>
+                                <td><asp:Button ID="btnSubAceptar" runat="server" Text="+"  UseSubmitBehavior="false" /></td>
+                                <td><asp:Button ID="btnSubRechazar" runat="server" Text="-"  UseSubmitBehavior="false"/></td>
                             </tr>
                          
                     </ItemTemplate>
@@ -54,19 +54,32 @@
         </asp:UpdatePanel>
 
         <asp:UpdatePanel ID="upTarea" runat="server">
-           
-        <br />
-        <br />
-        <br />
-    </SeparatorTemplate>
-</asp:Repeater>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-        <div class="row">
+            <ContentTemplate>
+<asp:Repeater ID="repSubTask" runat="server">
+    <HeaderTemplate>
+        Contenido de repeater
+    </HeaderTemplate>
+    <ItemTemplate>
+        <div id="divTarea" runat="server">
+                    <div id="InformacionRechazo" runat="server">
+                        <div class="row">
+                            <asp:Label ID="Label3" CssClass="col-sm-2 " runat="server" Text="Motivo de Rechazo"></asp:Label>
+                            <div class="col-md-4 form-group">
+                                <asp:TextBox ID="txtDescription" TextMode="multiline" Columns="50" Rows="5" runat="server" MaxLength="500" Style="margin: 0px; width: 539px; height: 190px;" />
+                            </div>
+                        </div>
+                        <div class="row">
             <div class="col-md-3 form-group">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
-    
+                <asp:Button ID="btnEnviar" runat="server" Text="Enviar" class="btn btn-info btn-lg btn-block" />
+            </div>
         </div>
+                    </div>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        
     </section>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Footer" runat="server">

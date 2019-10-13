@@ -49,7 +49,7 @@
                                 <td>
                                     <asp:Label ID="lblResponsable" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:Label ID="lblMotivo Rechazo" runat="server" Text=""></asp:Label></td>
+                                    <asp:Label ID="lblMotivoRechazo" runat="server" Text=""></asp:Label></td>
                                 <td>
                                     <asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" /></td>
                                 <td>
@@ -66,12 +66,6 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
-        <div class="row">
-            <div class="col-md-3 form-group">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" class="btn btn-info btn-lg btn-block" OnClick="btnVolver_Click" />
-
-            </div>
-        </div>
 
     </section>
 </asp:Content>
