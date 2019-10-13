@@ -104,11 +104,16 @@
             <asp:Label ID="Label3" runat="server" Text="Ingrese su nuevo numero telefonico +569"></asp:Label>
         	<asp:TextBox CssClass="form-control" ID="txtCelular" runat="server" Enabled="True" TextMode="Number"></asp:TextBox></div>
             <div class="form-group">
+                <asp:Button ID="btnContraseña" CssClass="btn btn-primary btn-lg" runat="server" Text="Cambiar Contraseña" />
                 <asp:Label ID="Label1" runat="server" Text="Ingrese su actual contraseña:"></asp:Label>
         	<asp:TextBox CssClass="form-control" ID="txtActualContraseña" runat="server" Enabled="True" TextMode="Password">Ingrese actual contraseña</asp:TextBox></div>
           <div class="form-group">
               <asp:Label ID="Label2" runat="server" Text="Ingrese su nueva contraseña"></asp:Label>
               <asp:TextBox CssClass="form-control" ID="txtNuevaContraseña" runat="server" Enabled="True" TextMode="Password">Nueva contraseña</asp:TextBox></div>
+        <div class="form-group" >
+            <div class="form-group">
+              <asp:Label ID="lblNuevaContraseña" runat="server" Text="Repita su nueva contraseña"></asp:Label>
+              <asp:TextBox CssClass="form-control" ID="TextBox1" runat="server" Enabled="True" TextMode="Password">Nueva contraseña</asp:TextBox></div>
         <div class="form-group" >
         <asp:Button ID="btnVolver" CssClass="btn btn-primary btn-lg" runat="server" Text="Volver" />
         <asp:Button ID="btnActualizar" CssClass="btn btn-primary btn-lg" runat="server" Text="Actualizar Datos" />

@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ActualizarDatos.aspx" />
+    <Content Include="AdministrarTareaRechazada.aspx" />
     <Content Include="AdministrarTareaRepetitiva.aspx" />
     <Content Include="CerrarSesion.aspx" />
     <Content Include="CodigoContraseña.aspx" />
@@ -155,6 +156,13 @@
     </Compile>
     <Compile Include="ActualizarDatos.aspx.designer.cs">
       <DependentUpon>ActualizarDatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarTareaRechazada.aspx.cs">
+      <DependentUpon>AdministrarTareaRechazada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarTareaRechazada.aspx.designer.cs">
+      <DependentUpon>AdministrarTareaRechazada.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdministrarTareaRepetitiva.aspx.cs">
       <DependentUpon>AdministrarTareaRepetitiva.aspx</DependentUpon>
