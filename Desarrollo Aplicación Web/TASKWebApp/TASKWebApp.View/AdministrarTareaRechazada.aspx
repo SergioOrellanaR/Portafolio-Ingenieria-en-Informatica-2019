@@ -51,9 +51,9 @@
                                 <td>
                                     <asp:Label ID="lblMotivoRechazo" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:Button ID="btnSubEdit"  Text="Editar" " UseSubmitBehavior="false" /></td>
                                 <td>
-                                    <asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:Button ID="btnSubDelete"  Text="-"  UseSubmitBehavior="false" /></td>
 
                             </tr>
 
