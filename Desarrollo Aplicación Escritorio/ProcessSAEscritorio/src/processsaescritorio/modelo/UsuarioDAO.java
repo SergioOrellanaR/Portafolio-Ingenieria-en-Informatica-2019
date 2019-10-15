@@ -210,14 +210,37 @@ public class UsuarioDAO implements DatosConexion{
     
     public int validarUsuarioBD(String email, String clave){
         int validacion = 0;
+        int getAssignedUnit = 0;
+        int getInternalUnit = 0;
+        int getIdRole = 0;
+        int getPermisoValido = 0;
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
             String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
-            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + encoded + "'");
-            while (resultado.next()) {
+            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + encoded + "'");            
+            while (resultado.next()) {    
                 validacion = resultado.getInt(1);
+                ResultSet id_assigned_unit = declaracion.executeQuery("SELECT ID_ASSIGNED_UNIT FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "' AND USER_INFO.PASSWORD = '" + encoded + "'");                
+                if (id_assigned_unit.next()) {
+                    getAssignedUnit = id_assigned_unit.getInt(1);
+                }
+                ResultSet id_internal_unit = declaracion.executeQuery("SELECT ID_INTERNALUNIT FROM ASSIGNED_UNIT WHERE ID = '"+ getAssignedUnit +"'");
+                if (id_internal_unit.next()) {
+                    getInternalUnit= id_internal_unit.getInt(1);
+                }                
+                ResultSet id_role = declaracion.executeQuery("SELECT ID_ROLE FROM INTERNAL_UNIT WHERE ID = '"+ getInternalUnit +"'");
+                if (id_role.next()) {
+                    getIdRole= id_role.getInt(1);
+                }                
+                ResultSet permisoValido = declaracion.executeQuery("SELECT ID_PERMISSION FROM ROLE_PERMISSIONS WHERE ID_ROLE = '"+ getIdRole + "' AND ID_PERMISSION = 1");
+                if (permisoValido.next()) {
+                    if (true) {
+                        getPermisoValido = permisoValido.getInt(1);
+                        validacion=validacion+1;
+                    }
+                }
             }
             conexion.close();
         }catch(Exception e){
