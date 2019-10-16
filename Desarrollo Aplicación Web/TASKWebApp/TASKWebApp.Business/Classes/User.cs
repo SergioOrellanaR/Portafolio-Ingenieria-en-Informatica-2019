@@ -261,6 +261,22 @@ namespace TASKWebApp.Business.Classes
                 }
             }
         }
+
+        public string GetInternalUnitName()
+        {
+            string value;
+            try
+            {
+                Data.USER_INFO usr = Connection.ProcessSA_DB.USER_INFO.First(user => user.ID == Id);
+                value = usr.ASSIGNED_UNIT.INTERNAL_UNIT.NAME;
+            }
+            catch (Exception e)
+            {
+                value = null;
+            }
+
+            return value;
+        }
     }
 
     public class PassRecover

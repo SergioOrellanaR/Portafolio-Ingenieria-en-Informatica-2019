@@ -13,6 +13,24 @@ namespace TASKWebApp.View {
     public partial class ActualizarDatos {
         
         /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// Control lblMessage.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
         /// Control txtNombre.
         /// </summary>
         /// <remarks>
@@ -76,13 +94,31 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.TextBox txtCelular;
         
         /// <summary>
-        /// Control btnContraseña.
+        /// Control upPassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnContraseña;
+        protected global::System.Web.UI.UpdatePanel upPassword;
+        
+        /// <summary>
+        /// Control btnEnablePassChange.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEnablePassChange;
+        
+        /// <summary>
+        /// Control divCambiarPass.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCambiarPass;
         
         /// <summary>
         /// Control Label1.
@@ -94,13 +130,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Control txtActualContraseña.
+        /// Control txtActualPass.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtActualContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtActualPass;
         
         /// <summary>
         /// Control Label2.
@@ -112,13 +148,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Control txtNuevaContraseña.
+        /// Control txtNuevaPass.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNuevaContraseña;
+        protected global::System.Web.UI.WebControls.TextBox txtNuevaPass;
         
         /// <summary>
         /// Control lblNuevaContraseña.
@@ -130,13 +166,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label lblNuevaContraseña;
         
         /// <summary>
-        /// Control TextBox1.
+        /// Control txtRepeticionNuevaPass.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtRepeticionNuevaPass;
         
         /// <summary>
         /// Control btnVolver.
