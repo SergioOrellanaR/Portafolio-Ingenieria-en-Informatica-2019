@@ -208,6 +208,10 @@ public class UsuarioDAO implements DatosConexion{
                 this.getPassword(), this.getIdCommune(), this.getIdAssignedUnit(), this.getIdCompany(), this.getIdGender());
     }    
     
+    public String codificarClave(String clave){
+    return Base64.getEncoder().encodeToString(clave.getBytes());
+    }
+    
     public int validarUsuarioBD(String email, String clave){
         int validacion = 0;
         int getAssignedUnit = 0;
@@ -255,7 +259,7 @@ public class UsuarioDAO implements DatosConexion{
           Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
           Statement declaracion = conexion.createStatement();
           declaracion.executeUpdate("INSERT INTO User_info(firstname,lastname,address,phone,birthdate,email,password,id_commune,id_assigned_unit,id_company,id_gender)VALUES "
-                  + "('"+this.getFirstname()+"','"+this.getLastname()+"','"+this.getAddress()+"','"+this.getPhone()+"',TO_DATE('"+this.getBirthdate()+"','YYYY-MM-DD:HH24:MI:SS'),'"+this.getEmail()+"','"+this.getPassword()+"',"+this.getIdCommune()+","+this.getIdAssignedUnit()+","+this.getIdCompany()+","+this.getIdGender()+")");
+                  + "('"+this.getFirstname()+"','"+this.getLastname()+"','"+this.getAddress()+"','"+this.getPhone()+"',TO_DATE('"+this.getBirthdate()+"','YYYY-MM-DD:HH24:MI:SS'),'"+this.getEmail()+"','"+codificarClave(this.getPassword())+"',"+this.getIdCommune()+","+this.getIdAssignedUnit()+","+this.getIdCompany()+","+this.getIdGender()+")");
           return "El registro de compañia fue exitoso.";
         }catch(Exception e){
          System.out.println("Error : " + e);

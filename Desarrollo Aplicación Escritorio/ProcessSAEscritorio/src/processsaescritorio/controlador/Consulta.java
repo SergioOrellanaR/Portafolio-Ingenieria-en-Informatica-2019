@@ -5,8 +5,8 @@
  */
 package processsaescritorio.controlador;
 
-import processsaescritorio.modelo.UsuarioDAO;
-import processsaescritorio.modelo.UsuarioDTO;
+import processsaescritorio.modelo.*;
+import processsaescritorio.modelo.*;
 
 /**
  *
@@ -14,12 +14,16 @@ import processsaescritorio.modelo.UsuarioDTO;
  */
 public class Consulta {
 
-     public UsuarioDTO obtenerUsuarioPorNombreClave(String email, String clave){
+    public UsuarioDTO obtenerUsuarioPorNombreClave(String email, String clave){
         return new UsuarioDAO().obtenerUsuarioPorIdBD(email, clave);
     }
     
     public int validarUsuario(String email, String clave){
         return new UsuarioDAO().validarUsuarioBD(email, clave);
     }  
+    
+    public String buscarunidad(int id){
+        return new UnidadInternaDAO().nombreUnidad(id);
+    } 
     
 }
