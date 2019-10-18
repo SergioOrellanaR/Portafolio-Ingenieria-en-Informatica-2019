@@ -114,21 +114,26 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
+                    <asp:Label ID="Label4" runat="server" Text="Nombre:"></asp:Label>
                     <asp:TextBox CssClass="form-control" ID="txtNombre" runat="server" Enabled="False">Nombre</asp:TextBox>
                 </div>
                 <div class="col-xs-6">
+                    <asp:Label ID="Label5" runat="server" Text="Apellido"></asp:Label>
                     <asp:TextBox CssClass="form-control" ID="txtApellido" runat="server" Enabled="False">Apellido</asp:TextBox>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
+            <asp:Label ID="Label6" runat="server" Text="Email"></asp:Label>
             <asp:TextBox CssClass="form-control" ID="txtEmail" runat="server" Enabled="False" TextMode="Email">Email</asp:TextBox>
         </div>
         <div class="form-group">
+            <asp:Label ID="Label7" runat="server" Text="Empresa"></asp:Label>
             <asp:TextBox CssClass="form-control" ID="txtEmpresa" runat="server" Enabled="False">Empresa</asp:TextBox>
         </div>
         <div class="form-group">
+            <asp:Label ID="Label8" runat="server" Text="Cargo"></asp:Label>
             <asp:TextBox CssClass="form-control" ID="txtCargo" runat="server" Enabled="False">Cargo</asp:TextBox>
         </div>
         <div class="form-group">
