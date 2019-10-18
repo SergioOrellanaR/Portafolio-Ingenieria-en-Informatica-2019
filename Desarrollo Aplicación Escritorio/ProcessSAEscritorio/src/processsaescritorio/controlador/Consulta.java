@@ -14,7 +14,7 @@ import processsaescritorio.modelo.UsuarioDTO;
  */
 public class Consulta {
 
-     public UsuarioDTO obtenerUsuarioPorNombreClave(String email, String clave){
+    public UsuarioDTO obtenerUsuarioPorNombreClave(String email, String clave){
         return new UsuarioDAO().obtenerUsuarioPorIdBD(email, clave);
     }
     

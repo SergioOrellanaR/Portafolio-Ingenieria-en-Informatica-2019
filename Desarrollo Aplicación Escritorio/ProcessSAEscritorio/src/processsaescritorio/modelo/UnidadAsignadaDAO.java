@@ -108,7 +108,7 @@ public class UnidadAsignadaDAO {
         }        
     }
 
-     public String actualizarUnidadAsignada(int id,int id_internalUnit, int id_company,int id_superior_unit){
+    public String actualizarUnidadAsignada(int id,int id_internalUnit, int id_company,int id_superior_unit){
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
@@ -120,5 +120,29 @@ public class UnidadAsignadaDAO {
             System.out.println("Error : " + e);
             return "No se pudo actualizar Unidad Asignada : " + e;
         }    
+    }
+    
+    public  ArrayList<UnidadAsignadaDTO> listarPorCompania(int compania){
+        
+         ArrayList<UnidadAsignadaDTO> listarUnidadAsignada = new ArrayList<UnidadAsignadaDTO>();
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT id ,ID_INTERNALUNIT, ID_COMPANY, ID_SUPERIOR_UNIT  FROM ASSIGNED_UNIT where id_company ="+compania+"");
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setId_internalUnit(resultado.getInt(2));
+                this.setId_company(resultado.getInt(3));
+                this.setId_superior_unit(resultado.getInt(4));
+                listarUnidadAsignada.add(new UnidadAsignadaDTO(this.getId(),this.getId_internalUnit(), this.getId_company(), this.getId_superior_unit()));
+                       
+            }  
+            conexion.close();
+            return listarUnidadAsignada;
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return listarUnidadAsignada;
+        } 
     }
 }

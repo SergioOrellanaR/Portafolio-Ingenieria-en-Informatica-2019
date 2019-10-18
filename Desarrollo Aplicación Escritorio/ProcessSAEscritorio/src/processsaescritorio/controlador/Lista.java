@@ -57,6 +57,16 @@ public class Lista {
         return listaUnidadAsignada;
     }
     
+    public ArrayList<GeneroDTO> listarGeneroPersona(){
+        ArrayList<GeneroDTO> listaGenero = new GeneroDAO().listarGenerosPersona();
+        return listaGenero;
+    }
+    
+     public ArrayList<UnidadAsignadaDTO> listarUnidadAsignadaPorCompania(int compania){
+        ArrayList<UnidadAsignadaDTO> listaUnidadAsignada = new UnidadAsignadaDAO().listarPorCompania(compania);
+        return listaUnidadAsignada;
+    }
+    
     
        
 }
