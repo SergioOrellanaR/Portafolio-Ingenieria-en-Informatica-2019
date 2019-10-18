@@ -135,6 +135,10 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         cbxProvince = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximizable(true);
+        setTitle("Manejo de Usuarios");
+
         tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
