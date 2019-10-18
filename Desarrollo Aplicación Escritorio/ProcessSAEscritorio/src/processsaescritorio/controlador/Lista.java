@@ -67,6 +67,10 @@ public class Lista {
         return listaUnidadAsignada;
     }
     
+     public ArrayList<UnidadInternaDTO> listarUnidadInterna(){
+        ArrayList<UnidadInternaDTO> lista = new UnidadInternaDAO().listar();
+        return lista;
+    }
     
        
 }

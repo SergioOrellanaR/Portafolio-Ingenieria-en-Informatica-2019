@@ -119,7 +119,7 @@ public class CompaniaDAO {
         }        
     }
 
-     public String actualizarCompañia(int id,String nombre,String direccion,int idAreaTrabajo,int idComuna){
+    public String actualizarCompañia(int id,String nombre,String direccion,int idAreaTrabajo,int idComuna){
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);

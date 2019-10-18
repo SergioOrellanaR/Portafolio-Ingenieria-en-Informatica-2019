@@ -7,7 +7,9 @@ package processsaescritorio.modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import static processsaescritorio.modelo.DatosConexion.CLAVE;
 import static processsaescritorio.modelo.DatosConexion.DRIVER;
 import static processsaescritorio.modelo.DatosConexion.URL;
@@ -71,4 +73,46 @@ public class UnidadInternaDAO implements DatosConexion {
             return "No se pudo registrar la unidad interna : " + e;
         }        
     }
+    
+        
+    public  ArrayList<UnidadInternaDTO> listar(){
+        
+         ArrayList<UnidadInternaDTO> listar = new ArrayList<UnidadInternaDTO>();
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT id ,id_role,name from Internal_unit ");
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setIdRol(resultado.getInt(2));
+                this.setNombre(resultado.getString(3));
+                
+                listar.add(new UnidadInternaDTO(this.getId(),this.getIdRol(),this.getNombre()));                    
+            }  
+            conexion.close();
+            return listar;
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return listar;
+        } 
+    }
+    
+    public String nombreUnidad(int id){
+     try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT name from Internal_unit where id="+id+"");
+            while (resultado.next()) {
+                this.setNombre(resultado.getString(1));                 
+            }  
+            conexion.close();
+            return this.getNombre();
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return " ";
+        } 
+    }
+    
 }
