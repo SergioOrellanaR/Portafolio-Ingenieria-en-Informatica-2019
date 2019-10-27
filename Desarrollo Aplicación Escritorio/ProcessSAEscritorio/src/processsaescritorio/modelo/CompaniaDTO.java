@@ -75,7 +75,7 @@ public class CompaniaDTO {
 
     @Override
     public String toString() {
-        return "CompaniaDTO{" + "id=" + id + ", nombre=" + nombre + '}';
+        return id+"-"+nombre;
     }
 
 }

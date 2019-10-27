@@ -51,6 +51,11 @@ public class ProvinciaDTO {
     public void setRegion(int region) {
         this.region = region;
     }
+
+    @Override
+    public String toString() {
+        return id +"-"+ nombre;
+    }
     
     
     

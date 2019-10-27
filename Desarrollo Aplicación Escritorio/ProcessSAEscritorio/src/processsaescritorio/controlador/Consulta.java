@@ -24,6 +24,10 @@ public class Consulta {
     
     public String buscarunidad(int id){
         return new UnidadInternaDAO().nombreUnidad(id);
+    }
+    
+     public String[] listarPorComuna(int id){
+        return new ComunaDAO().listarProporComuna(id);
     } 
     
 }
