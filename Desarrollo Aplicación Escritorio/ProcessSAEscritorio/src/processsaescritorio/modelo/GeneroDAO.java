@@ -47,6 +47,12 @@ public class GeneroDAO implements DatosConexion {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "GeneroDAO{" + "nombre=" + nombre + '}';
+    }
+    
     
      public ArrayList<GeneroDTO> listarGenerosPersona(){
         

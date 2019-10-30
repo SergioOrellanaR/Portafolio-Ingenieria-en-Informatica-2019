@@ -8,6 +8,7 @@ package processsaescritorio.modelo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import static processsaescritorio.modelo.DatosConexion.CLAVE;
@@ -60,7 +61,7 @@ public class ComunaDAO implements DatosConexion {
         this.Provincia = Provincia;
     }
     
-       public ArrayList<ComunaDTO> listarComunasPorProvincia(int id){
+    public ArrayList<ComunaDTO> listarComunasPorProvincia(int id){
         ArrayList<ComunaDTO> listarComuna = new ArrayList<ComunaDTO>();
         try{
             Class.forName(DRIVER);
@@ -82,5 +83,30 @@ public class ComunaDAO implements DatosConexion {
             System.out.println("Error : " + e);
             return listarComuna;
         }
-    }      
-}
+    }
+    
+    public  String[] listarProporComuna(int id){
+    ArrayList<String> a = new ArrayList<String>();
+   try{
+    Class.forName(DRIVER);
+    Connection conexion = DriverManager.getConnection(URL,USUARIO,CLAVE);
+     Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT Region.name,Region.id,Province.name,Province.id,commune.name,commune.id FROM Region INNER JOIN (Province INNER JOIN commune ON commune.id_province =Province.id) ON Province.id_region =Region.id where commune.id =" + id);
+    while(resultado.next())
+    {
+        a.add(resultado.getString(1));
+        a.add(resultado.getString(2));
+        a.add(resultado.getString(3));
+        a.add(resultado.getString(4));
+        a.add(resultado.getString(5));
+        a.add(resultado.getString(6));
+
+    }
+
+    return (String[]) a.toArray(new String[a.size()]);
+    }catch(Exception e){
+            System.out.println("Error : " + e);
+            return null;
+        }
+    }
+    }
