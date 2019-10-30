@@ -79,6 +79,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuAdminstracion.add(jMenuItem5);
 
         jMenuItem2.setText("Roles");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         menuAdminstracion.add(jMenuItem2);
 
         jMenuItem3.setText("Unidades Internas");
@@ -110,7 +115,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addComponent(panelEscritorio)
         );
 
-        pack();
+        setBounds(0, 0, 852, 488);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -126,6 +131,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ManejadorRol mantenedorRol = new ManejadorRol();
+        panelEscritorio.add(mantenedorRol);
+        mantenedorRol.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

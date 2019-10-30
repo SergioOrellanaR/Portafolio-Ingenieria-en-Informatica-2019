@@ -48,6 +48,17 @@ public class RolDAO implements DatosConexion {
         this.nombre = nombre;
     }
     
-     
+    public String crearRol(){
+        try{
+          Class.forName(DRIVER);
+          Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+          Statement declaracion = conexion.createStatement();
+          declaracion.executeUpdate("INSERT INTO ROLE(NAME)VALUES " + "('"+this.getNombre()+"')'");
+          return "El registro de rol fue exitoso.";
+        }catch(Exception e){
+         System.out.println("Error : " + e);
+          return "No se pudo registrar el rol : " + e;
+    }
+    }
     
 }

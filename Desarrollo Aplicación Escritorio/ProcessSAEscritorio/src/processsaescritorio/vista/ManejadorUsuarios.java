@@ -418,7 +418,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                 .addGap(91, 91, 91))
         );
 
-        pack();
+        setBounds(500, 150, 934, 544);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
