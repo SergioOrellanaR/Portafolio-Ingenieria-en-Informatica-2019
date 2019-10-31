@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import static processsaescritorio.modelo.DatosConexion.CLAVE;
 import static processsaescritorio.modelo.DatosConexion.DRIVER;
@@ -60,5 +61,39 @@ public class RolDAO implements DatosConexion {
           return "No se pudo registrar el rol : " + e;
     }
     }
+    
+    public RolDTO obtenerUsuarioPorIdBD(int id){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT ROLE.ID, ROLE.NAME WHERE ROLE.ID = " + id);
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setNombre(resultado.getString(2));
+            }
+            conexion.close();
+        }catch(Exception e){
+            System.out.println("Error en obtención de rol desde BD: " + e);
+        }
+        return new RolDTO(this.getId(), this.getNombre());
+    } 
+    
+    public ArrayList<RolDTO> obtenerTodosLosRolesBD(){
+        ArrayList<RolDTO> listaRol = new ArrayList<RolDTO>();
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT ID FROM ROLE");
+            while (resultado.next()) {
+                listaRol.add(obtenerUsuarioPorIdBD(resultado.getInt(1)));
+            }
+            conexion.close();
+        }catch(Exception e){
+            System.out.println("Error en obtención de rol desde BD: " + e);
+        }
+        return listaRol;
+    } 
     
 }
