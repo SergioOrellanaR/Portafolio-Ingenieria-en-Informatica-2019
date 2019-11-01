@@ -138,9 +138,8 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        new RolDAO(0,txtName.getText()).crearRol(); 
-      
-        resetearTabla();
+        new RolDAO(0,txtName.getText()).crearRol();       
+        //resetearTabla();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
