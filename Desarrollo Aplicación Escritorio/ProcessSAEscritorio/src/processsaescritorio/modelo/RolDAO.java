@@ -54,7 +54,7 @@ public class RolDAO implements DatosConexion {
           Class.forName(DRIVER);
           Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
           Statement declaracion = conexion.createStatement();
-          declaracion.executeUpdate("INSERT INTO ROLE(NAME)VALUES " + "('"+this.getNombre()+"')'");
+          declaracion.executeUpdate("INSERT INTO ROLE(NAME)VALUES " + this.getNombre());
           return "El registro de rol fue exitoso.";
         }catch(Exception e){
          System.out.println("Error : " + e);
@@ -62,7 +62,7 @@ public class RolDAO implements DatosConexion {
     }
     }
     
-    public RolDTO obtenerUsuarioPorIdBD(int id){
+    public RolDTO obtenerRolPorIdBD(int id){
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
@@ -87,7 +87,7 @@ public class RolDAO implements DatosConexion {
             Statement declaracion = conexion.createStatement();
             ResultSet resultado = declaracion.executeQuery("SELECT ID FROM ROLE");
             while (resultado.next()) {
-                listaRol.add(obtenerUsuarioPorIdBD(resultado.getInt(1)));
+                listaRol.add(obtenerRolPorIdBD(resultado.getInt(1)));
             }
             conexion.close();
         }catch(Exception e){
