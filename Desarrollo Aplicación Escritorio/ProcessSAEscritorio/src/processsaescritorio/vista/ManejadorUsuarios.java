@@ -516,10 +516,12 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         cbxGender.setSelectedIndex(0);
         cbxCompany.setSelectedIndex(0);
         cbxAssignedUnit.setSelectedIndex(0);
-        txtName.removeAll();
-        txtLastName.removeAll();
-        txtPhone.removeAll();
-
+        txtName.setText("");
+        txtLastName.setText("");
+        txtPhone.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
