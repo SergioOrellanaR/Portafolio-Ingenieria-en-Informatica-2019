@@ -268,7 +268,7 @@ public class UsuarioDAO implements DatosConexion{
     }
     
     
-        public String actualizarUsuario(int id,String firstName){
+    public String actualizarUsuario(int id,String firstName){
         try{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
@@ -279,7 +279,21 @@ public class UsuarioDAO implements DatosConexion{
         }catch(Exception e){
             System.out.println("Error : " + e);
             return "No se pudo actualizar compañia : " + e;
-        }    
+        } 
+    }
+    
+    public String eliminarUsuario(int id){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("Delete from User_Info WHERE ID = "+ id +"");
+            conexion.close(); 
+           return "Se elimino exitosamente  fue exitosa.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo actualizar compañia : " + e;
+        } 
     }
      
     //Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 

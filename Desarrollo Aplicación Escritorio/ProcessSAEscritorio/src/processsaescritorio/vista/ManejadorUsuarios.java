@@ -28,6 +28,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     ArrayList<UsuarioDTO> listaUsuarios;
     private boolean usuarioIdentificado=false;
     private int idGeneral=0;
+    
     public ManejadorUsuarios() {
         initComponents();
         actualizarListaUsuarios();
@@ -36,6 +37,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         listadoGenero();
         cbxProvince.setEnabled(false);
         cbxCommune.setEnabled(false);
+       
     }
     
     public void resetearTabla()
@@ -118,6 +120,27 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         new UsuarioDAO().actualizarUsuario(idGeneral,txtName.getText());
 
     }
+    
+    public void limpiarFormulario()
+    {
+        usuarioIdentificado=false;
+        idGeneral=0;
+        tblUsuario.getSelectionModel().clearSelection();
+        txtName.setText("");
+        txtLastName.setText("");
+        txtPhone.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        txtEmail.setEditable(true);
+        btnBorrar.setEnabled(false);
+
+        cbxRegion.setSelectedIndex(cbxRegion.getSelectedIndex());
+        cbxGender.setSelectedIndex(cbxGender.getSelectedIndex());
+        cbxCompany.setSelectedIndex(cbxCompany.getSelectedIndex());
+        cbxAssignedUnit.setSelectedIndex(cbxAssignedUnit.getSelectedIndex());
+       //arreglar estas dos
+    }
+    
     public void actualizarListaUsuarios(){
         listaUsuarios = new Lista().listarUsuarios();
         String[] columnas = {"ID", "Nombre","Apellido"};
@@ -176,6 +199,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         btnRefrescar = new javax.swing.JButton();
         lbl = new javax.swing.JLabel();
+        btnBorrar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -281,6 +305,13 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBorrar.setText("Eliminar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -308,7 +339,9 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnGrabar)
                                         .addGap(29, 29, 29)
-                                        .addComponent(btnRefrescar))
+                                        .addComponent(btnRefrescar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBorrar))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,7 +451,8 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGrabar)
-                            .addComponent(btnRefrescar)))
+                            .addComponent(btnRefrescar)
+                            .addComponent(btnBorrar)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(23, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -510,28 +544,23 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxProvinceActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-        usuarioIdentificado=false;
-        idGeneral=0;
-        cbxRegion.setSelectedIndex(0);
-        cbxGender.setSelectedIndex(0);
-        cbxCompany.setSelectedIndex(0);
-        cbxAssignedUnit.setSelectedIndex(0);
-        txtName.setText("");
-        txtLastName.setText("");
-        txtPhone.setText("");
-        txtAddress.setText("");
-        txtEmail.setText("");
+       
+      limpiarFormulario();
         
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         int seleccion= tblUsuario.rowAtPoint(evt.getPoint());
         int id=Integer.parseInt(String.valueOf(tblUsuario.getValueAt(seleccion,0)));
+        
         usuarioIdentificado=true;
         idGeneral=id;
         cbxProvince.setEnabled(true);
-        cbxCommune.setEnabled(true); 
+        cbxCommune.setEnabled(true);
+        txtEmail.setEditable(false);
+        btnBorrar.setEnabled(true);
 
+       
         UsuarioDTO usuario=new UsuarioDAO().obtenerUsuarioPorIdBD(id);
         txtName.setText(usuario.getFirstname());
         txtLastName.setText(usuario.getLastname());
@@ -557,9 +586,16 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_tblUsuarioMouseClicked
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+               new Eliminar().eliminarUsuario(idGeneral);
+               resetearTabla();
+               limpiarFormulario();
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnRefrescar;
     private javax.swing.JComboBox<String> cbxAssignedUnit;
