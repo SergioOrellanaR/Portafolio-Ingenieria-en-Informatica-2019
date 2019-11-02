@@ -88,12 +88,35 @@ public class RolDAO implements DatosConexion {
             ResultSet resultado = declaracion.executeQuery("SELECT ID FROM ROLE");
             while (resultado.next()) {
                 listaRol.add(obtenerRolPorIdBD(resultado.getInt(1)));
+                
+
             }
             conexion.close();
         }catch(Exception e){
             System.out.println("Error en obtención de rol desde BD: " + e);
         }
         return listaRol;
+    }
+    
+       public ArrayList<RolDTO> listarRoles(){
+        
+        ArrayList<RolDTO> listarR = new ArrayList<RolDTO>();
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT id ,name FROM Role");
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setNombre(resultado.getString(2));
+                listarR.add(new RolDTO(this.getId(),this.getNombre()));              
+            }  
+            conexion.close();
+            return listarR;
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return listarR;
+        }
     } 
     
 }

@@ -23,6 +23,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     ArrayList<RolDTO> listaRol;
     public ManejadorRol() {
         initComponents();
+        actualizarListaRol();
     }
     
     public void resetearTabla()
@@ -151,7 +152,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public void actualizarListaRol(){
-        listaRol = new Lista().listarRol();
+        listaRol = new Lista().listarRoles();
         String[] columnas = {"ID", "Nombre"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0){
         @Override

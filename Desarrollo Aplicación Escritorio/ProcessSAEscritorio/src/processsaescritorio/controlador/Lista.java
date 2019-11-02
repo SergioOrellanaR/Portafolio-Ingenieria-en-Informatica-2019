@@ -72,8 +72,12 @@ public class Lista {
         return lista;
     }
     
-     public ArrayList<RolDTO> listarRol(){
+    public ArrayList<RolDTO> listarRol(){
         ArrayList<RolDTO> lista = new RolDAO().obtenerTodosLosRolesBD();
+        return lista;
+    }
+     public ArrayList<RolDTO> listarRoles(){
+        ArrayList<RolDTO> lista = new RolDAO().listarRoles();
         return lista;
     }
        
