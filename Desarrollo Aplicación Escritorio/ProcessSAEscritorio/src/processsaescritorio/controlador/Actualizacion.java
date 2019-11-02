@@ -14,9 +14,16 @@ public class Actualizacion {
     
                
         //actualizar compañia
-        public String actualizarCompania(int id,String nombre,String direccion,int idAreaTrabajo,int idComuna){
+    public String actualizarCompania(int id,String nombre,String direccion,int idAreaTrabajo,int idComuna){
         return new CompaniaDAO().actualizarCompañia(id, nombre, direccion, idAreaTrabajo, idComuna);
     }
+    
+    public String actualizarUsuario(int id,String nombre){
+        return new UsuarioDAO().actualizarUsuario(id, nombre);
+    }
+    
+   
+    
     
     
 }

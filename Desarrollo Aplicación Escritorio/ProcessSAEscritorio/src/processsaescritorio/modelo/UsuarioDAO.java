@@ -266,6 +266,22 @@ public class UsuarioDAO implements DatosConexion{
           return "No se pudo registrar compañia : " + e;
     }
     }
+    
+    
+        public String actualizarUsuario(int id,String firstName){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("UPDATE User_info SET firstname = '" + firstName+ "' WHERE ID = "+ id +"");
+            conexion.close(); 
+           return "Actualización  fue exitosa.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo actualizar compañia : " + e;
+        }    
+    }
+     
     //Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 
     //'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 1, 1, 1);
     //TO_DATE('" + fechaFormateada + "', 'YYYY-MM-DD:HH24:MI:SS'),

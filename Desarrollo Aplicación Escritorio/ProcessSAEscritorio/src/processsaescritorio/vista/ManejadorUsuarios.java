@@ -26,6 +26,8 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
      */
     
     ArrayList<UsuarioDTO> listaUsuarios;
+    private boolean usuarioIdentificado=false;
+    private int idGeneral=0;
     public ManejadorUsuarios() {
         initComponents();
         actualizarListaUsuarios();
@@ -110,7 +112,12 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     
     public LocalDate convertToLocalDate(Date dateToConvert){
     return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();}
-        
+    
+    public void actualizarDatosUsuario(){
+       
+        new UsuarioDAO().actualizarUsuario(idGeneral,txtName.getText());
+
+    }
     public void actualizarListaUsuarios(){
         listaUsuarios = new Lista().listarUsuarios();
         String[] columnas = {"ID", "Nombre","Apellido"};
@@ -423,7 +430,9 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
       
-
+        if (usuarioIdentificado) {
+            actualizarDatosUsuario();
+        }else{
         LocalDate birthdate=convertToLocalDate(dateBorn.getDate()); ;
       
         String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");   
@@ -435,8 +444,6 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         String[] arrayInternalU= cbxAssignedUnit.getSelectedItem().toString().split("-");   
          int id_unitAssig=Integer.parseInt(arrayInternalU[0]);
         
-        
-         
         int id_gender=3;
         if (cbxGender.getSelectedIndex()==0) {
             id_gender=1;
@@ -447,13 +454,9 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         {
             id_gender=3;
         }
-       
-        
-        
-        
         String pass=txtName.getText().substring(0,2)+txtLastName.getText().substring(0,2)+birthdate.getYear();
         new UsuarioDAO(0,txtName.getText(),txtLastName.getText(),txtAddress.getText(),txtPhone.getText(),birthdate,txtEmail.getText(),pass,id_commune,id_unitAssig,id_company,id_gender).crearUsuario(); 
-      
+        }
           resetearTabla();
         /*
         Insert into User_info (firstname, 
@@ -507,7 +510,8 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxProvinceActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-
+        usuarioIdentificado=false;
+        idGeneral=0;
         cbxRegion.setSelectedIndex(0);
         cbxGender.setSelectedIndex(0);
         cbxCompany.setSelectedIndex(0);
@@ -521,6 +525,8 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         int seleccion= tblUsuario.rowAtPoint(evt.getPoint());
         int id=Integer.parseInt(String.valueOf(tblUsuario.getValueAt(seleccion,0)));
+        usuarioIdentificado=true;
+        idGeneral=id;
         cbxProvince.setEnabled(true);
         cbxCommune.setEnabled(true); 
 
