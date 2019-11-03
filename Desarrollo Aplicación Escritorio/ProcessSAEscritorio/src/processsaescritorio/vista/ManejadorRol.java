@@ -23,7 +23,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
      */
     ArrayList<RolDTO> listaRol;
     ArrayList<PermisoDTO> listarPermisos;
-
+    private boolean rolIdentificado=false;
+    private int idGeneral=0;
+    
     public ManejadorRol() {
         initComponents();
         actualizarListaRol();
@@ -124,6 +126,11 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblRol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRolMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblRol);
 
         listPermisos.setToolTipText("");
@@ -136,27 +143,24 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGrabar)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(jButton3))
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(216, 216, 216)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 402, Short.MAX_VALUE))
+                                .addComponent(btnGrabar)
+                                .addGap(31, 31, 31)
+                                .addComponent(jButton3))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 546, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(312, 312, 312)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,9 +178,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                     .addComponent(jButton3))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setBounds(500, 150, 810, 610);
@@ -194,6 +198,17 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tblRolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRolMouseClicked
+        int seleccion= tblRol.rowAtPoint(evt.getPoint());
+        int id=Integer.parseInt(String.valueOf(tblRol.getValueAt(seleccion,0)));
+        
+        rolIdentificado=true;
+        idGeneral=id;
+
+        RolDTO rol=new RolDAO().obtenerRolPorIdBD(id);
+        txtName.setText(rol.getName());
+    }//GEN-LAST:event_tblRolMouseClicked
 
     public void actualizarListaRol(){
         listaRol = new Lista().listarRoles();

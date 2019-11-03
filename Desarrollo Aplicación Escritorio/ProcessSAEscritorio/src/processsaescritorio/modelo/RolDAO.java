@@ -67,7 +67,7 @@ public class RolDAO implements DatosConexion {
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT ROLE.ID, ROLE.NAME WHERE ROLE.ID = " + id);
+            ResultSet resultado = declaracion.executeQuery("SELECT ROLE.ID, ROLE.NAME FROM ROLE WHERE ROLE.ID = " + id);
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setNombre(resultado.getString(2));
@@ -87,9 +87,7 @@ public class RolDAO implements DatosConexion {
             Statement declaracion = conexion.createStatement();
             ResultSet resultado = declaracion.executeQuery("SELECT ID FROM ROLE");
             while (resultado.next()) {
-                listaRol.add(obtenerRolPorIdBD(resultado.getInt(1)));
-                
-
+                listaRol.add(obtenerRolPorIdBD(resultado.getInt(1)));               
             }
             conexion.close();
         }catch(Exception e){
@@ -118,5 +116,27 @@ public class RolDAO implements DatosConexion {
             return listarR;
         }
     } 
+    
+      /* public Integer validarNombreRol(String nombreRolIngresado){
+        
+        ArrayList<String> nombreRol= new ArrayList<String>();
+        int validacion=0;
+        String nombreRolBD="";
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT name FROM Role");
+            while (resultado.next()) {
+                this.setNombre(resultado.getString(1));
+                nombreRol.add(this.getNombre());  
+            }  
+            conexion.close();
+            return validacion;
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return validacion;
+        }
+    } */
     
 }
