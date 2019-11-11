@@ -47,7 +47,7 @@ public class RolPermisosDAO implements DatosConexion{
         this.idPermiso = idPermiso;
     }
     
-        public ArrayList<RolPermisosDTO> obtenerRolPermisos(){
+    public ArrayList<RolPermisosDTO> obtenerRolPermisos(){
         
         ArrayList<RolPermisosDTO> listar = new ArrayList<RolPermisosDTO>();
         try{
@@ -66,6 +66,22 @@ public class RolPermisosDAO implements DatosConexion{
             System.out.println("Error : " + e);
             return listar;
         }
-    } 
+    }
+    
+    //Registrar rol permisos
+    public String registrarPermisoPorRol(){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("INSERT INTO role_permissions (id_role, id_permission) VALUES ('"+this.getIdRol()+"','"+this.getIdPermiso()+"')");
+            //INSERT INTO permission (NAME,description )VALUES ('dato de prueba','Permite probar2');
+            conexion.close();
+            return "El registro de permiso fue exitoso.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo registrar permiso : " + e;
+        }        
+    }
     
 }
