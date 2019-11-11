@@ -35,7 +35,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         actualizarListaRol();
         listPermisos.setModel(list_model);
         listaPermisos();
-      
+
     }
     
     public void resetearTabla()
@@ -73,15 +73,6 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         return list.contains(testString);
     }
     
-    public void limpiarFormulario()
-    {
-        
-        idGeneral=0;
-        listPermisos.getSelectionModel().clearSelection();
-        tblRol.getSelectionModel().clearSelection();
-        txtName.setText("");
-    }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,7 +99,6 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         tblRol = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         listPermisos = new javax.swing.JList<>();
-        btnRefrescar = new javax.swing.JButton();
 
         jButton2.setText("Crear");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -149,17 +139,15 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblRol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRolMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblRol);
 
         listPermisos.setToolTipText("");
         jScrollPane2.setViewportView(listPermisos);
-
-        btnRefrescar.setText("Refrescar");
-        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefrescarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,24 +156,25 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGrabar)
                                 .addGap(31, 31, 31)
-                                .addComponent(btnRolPermisos)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnRefrescar)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(btnRolPermisos))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 369, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(312, 312, 312)
                 .addComponent(jLabel2)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,13 +188,12 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGrabar)
-                    .addComponent(btnRolPermisos)
-                    .addComponent(btnRefrescar))
+                    .addComponent(btnRolPermisos))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setBounds(500, 150, 633, 610);
@@ -214,7 +202,6 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         
         new Registro().registrarRol(0,txtName.getText());
-        actualizarListaRol();
         //resetearTabla();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
@@ -254,14 +241,10 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         
         rolIdentificado=true;
         idGeneral=id;
-   
+
         RolDTO rol=new RolDAO().obtenerRolPorIdBD(id);
         txtName.setText(rol.getName());
     }//GEN-LAST:event_tblRolMouseClicked
-
-    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-        limpiarFormulario();
-    }//GEN-LAST:event_btnRefrescarActionPerformed
 
     public void actualizarListaRol(){
         listaRol = new Lista().listarRoles();
@@ -285,7 +268,6 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnRolPermisos;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
