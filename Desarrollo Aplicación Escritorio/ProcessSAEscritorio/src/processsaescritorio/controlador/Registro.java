@@ -24,10 +24,6 @@ public class Registro {
         return new UsuarioDAO(0,nombre,apellido,direccion,telefono,cumpleanos,email,pass,comuna,unidad,compania,genero).crearUsuario();
     }
     
-    public String registrarPermisoPorRol(int rol, int permiso){
-        return new RolPermisosDAO(rol,permiso).registrarPermisoPorRol();
-    }
-    
     public String registrarRol (int id, String nombre){
         return new RolDAO(0, nombre).crearRol();
     }

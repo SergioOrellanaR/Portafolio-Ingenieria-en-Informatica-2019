@@ -5,11 +5,8 @@
  */
 package processsaescritorio.vista;
 
-import java.awt.Component;
-import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import processsaescritorio.controlador.*;
 import processsaescritorio.modelo.*;
@@ -29,14 +26,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     private boolean rolIdentificado=false;
     private int idGeneral=0;
     
-<<<<<<< HEAD
-=======
-    CustomListModel list_model = new CustomListModel();
->>>>>>> 10c3caa2a429ac5f5c31ba786d51369a4253bb00
     public ManejadorRol() {
         initComponents();
         actualizarListaRol();
-        listPermisos.setModel(list_model);
         listaPermisos();
 
     }
@@ -60,20 +52,12 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
             String description = String.valueOf(permiso.getDescripcion());
    
             Object[] elemento = {id,name,description};
-           
-            
-            list_model.addPermiso(permiso);
             dfl.addElement(id+"-"+name+"-"+description);
         }
         
-            //listPermisos.setModel(dfl);   
+            listPermisos.setModel(dfl);   
             
             
-    }
-    
-    private boolean containsString(String testString, ArrayList<String> list) 
-    {
-        return list.contains(testString);
     }
     
     
@@ -97,7 +81,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         txtName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnGrabar = new javax.swing.JButton();
-        btnRolPermisos = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRol = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -124,10 +108,10 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
             }
         });
 
-        btnRolPermisos.setText("Otorgar Permisos");
-        btnRolPermisos.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Otorgar Permisos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRolPermisosActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -165,15 +149,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGrabar)
                                 .addGap(31, 31, 31)
-<<<<<<< HEAD
                                 .addComponent(jButton3))
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 546, Short.MAX_VALUE))
-=======
-                                .addComponent(btnRolPermisos))
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 369, Short.MAX_VALUE))
->>>>>>> 10c3caa2a429ac5f5c31ba786d51369a4253bb00
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +175,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGrabar)
-                    .addComponent(btnRolPermisos))
+                    .addComponent(jButton3))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
@@ -205,12 +183,11 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(500, 150, 633, 610);
+        setBounds(500, 150, 810, 610);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        
-        new Registro().registrarRol(0,txtName.getText());
+        new RolDAO(0,txtName.getText()).crearRol();       
         //resetearTabla();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
@@ -218,42 +195,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnRolPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRolPermisosActionPerformed
-      // listPermisos.getSelectedValuesList();     
-        //ArrayList<int> b = new ArrayList<int>();
-       // System.out.println(listPermisos.getSelectedValuesList());
-       //hay que ponerle validaciones
-       int[] selection = listPermisos.getSelectedIndices();
-        for (int i = 0; i < list_model.getSize(); i++) {
-            for (String s : listPermisos.getSelectedValuesList()) {
-                if (list_model.getElementAt(i).toString().equalsIgnoreCase(s)) {
-                     System.out.println(list_model.getElementAt(i));
-                     new Registro().registrarPermisoPorRol(idGeneral,list_model.getIdPermiso(i));
-                }
-            }  
-//            if (list_model.getElementAt(i).toString().equalsIgnoreCase(listPermisos.getSelectedValue())) {
-//                            System.out.println(list_model.getElementAt(i));
-//
-//            }
-        }
-        /*
-        for (int i = 0; i <=listPermisos.getComponentCount(); i++) {
-            new Registro().registrarPermisoPorRol(i, 2);
-        }*/
-     
-        //JOptionPane.showConfirmDialog(rootPane, "Se ha encontrado y seleccionado la incidencia."+ listPermisos.getSelectedValuesList(), "Usuario encontrado", WIDTH);
-    }//GEN-LAST:event_btnRolPermisosActionPerformed
-
-    private void tblRolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRolMouseClicked
-        int seleccion= tblRol.rowAtPoint(evt.getPoint());
-        int id=Integer.parseInt(String.valueOf(tblRol.getValueAt(seleccion,0)));
-        
-        rolIdentificado=true;
-        idGeneral=id;
-
-        RolDTO rol=new RolDAO().obtenerRolPorIdBD(id);
-        txtName.setText(rol.getName());
-    }//GEN-LAST:event_tblRolMouseClicked
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tblRolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRolMouseClicked
         int seleccion= tblRol.rowAtPoint(evt.getPoint());
@@ -288,8 +232,8 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGrabar;
-    private javax.swing.JButton btnRolPermisos;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
