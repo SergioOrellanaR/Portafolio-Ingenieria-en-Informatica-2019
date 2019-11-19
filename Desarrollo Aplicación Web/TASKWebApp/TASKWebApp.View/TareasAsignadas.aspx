@@ -6,10 +6,10 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentBody" runat="server">
     <section class="section">
         <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
-        <asp:UpdatePanel ID="upTablaTareas" runat="server">
-            <ContentTemplate>
+        <!-- <asp:UpdatePanel ID="upTablaTareas" runat="server">
+            <ContentTemplate> -->
                 <div class="container text-center">
-                    <asp:Label ID="Label7" runat="server"><h2>Tareas Asignadas</h2></asp:Label>
+                    <h2><asp:Label ID="Label7" runat="server" Text="Tareas Asignadas"></asp:Label></h2>
                     <br />
                 </div>
 
@@ -38,8 +38,9 @@
                                 <td><asp:Label ID="lblSubFechaInicio" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
-                                <td><asp:Button ID="btnSubAceptar" runat="server" Text="+"  UseSubmitBehavior="false" /></td>
-                                <td><asp:Button ID="btnSubRechazar" runat="server" Text="-"  UseSubmitBehavior="false"/></td>
+                                <td><asp:Button ID="btnSubAceptar" runat="server" Text="+" OnClick="btnSubAceptar_Click" UseSubmitBehavior="false" /></td>
+                                <td><asp:Button ID="btnSubRechazar" runat="server" Text="-"  OnClick="btnSubRechazar_Click" UseSubmitBehavior="false"/></td>
+                                <asp:Label ID="lblIdTarea" runat="server" Text="" Visible="false"></asp:Label>
                             </tr>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -47,8 +48,8 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 </table>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+<!--             </ContentTemplate>
+        </asp:UpdatePanel>-->
 
         <asp:UpdatePanel ID="upTarea" runat="server">
             <ContentTemplate>
