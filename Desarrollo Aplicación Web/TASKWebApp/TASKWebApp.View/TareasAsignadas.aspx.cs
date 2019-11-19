@@ -73,13 +73,20 @@ namespace TASKWebApp.View
 
         protected void btnSubAceptar_Click(object sender, EventArgs e)
         {
+            int InProcessId = 2;
+            int errorCode = -1;
             Button button = (Button)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
-            int InProcessId = 2;
-            ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item)};
-            processedTask.Read();
-            processedTask.IdTaskStatus = InProcessId;
-            processedTask.Update();
+            int rowTaskId = GetRowTaskId(item); 
+
+            if (rowTaskId != errorCode)
+            {
+                ProcessedTask processedTask = new ProcessedTask() { Id = rowTaskId };
+                processedTask.Read();
+                processedTask.IdTaskStatus = InProcessId;
+                processedTask.Update();
+            }
+            
             Response.Redirect("TareasAsignadas.aspx");
         }
 
