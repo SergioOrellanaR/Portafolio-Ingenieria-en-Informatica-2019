@@ -17,7 +17,8 @@ namespace TASKWebApp.View
                 if (Session["ses"] != null)
                 {
                     User user = (User)Session["ses"];
-                    loadName(user);
+                    LoadName(user);
+                    LoadNumberOfPendentTasks(user);
                 }
                 else
                 {
@@ -26,10 +27,19 @@ namespace TASKWebApp.View
             }
         }
 
-        private void loadName (User user)
+        private void LoadName (User user)
         {
             string name = string.Format("{0} {1}", user.FirstName, user.LastName);
             lblName.Text = name;
+        }
+
+        private void LoadNumberOfPendentTasks(User user)
+        {
+            int pendentTasks = user.GetNumberOfPendentTasks();
+            if (pendentTasks > 0)
+            {
+                lblCantidadTareasAsignadas.Text = string.Format("({0})", pendentTasks);
+            }
         }
     }
 }

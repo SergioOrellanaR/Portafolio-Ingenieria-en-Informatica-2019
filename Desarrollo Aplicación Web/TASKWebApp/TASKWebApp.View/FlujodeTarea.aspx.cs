@@ -174,9 +174,6 @@ namespace TASKWebApp.View
                 EnableVisibleDiv(val, "divTareaUnica", item);
                 EnableVisibleDiv(!val, "divTareaRepetitiva", item);
                 EnableVisibleDiv(haveBrothers, "divDependencia", item);
-
-                //Val = tarea unica
-
                 LoadEditInformation(val, item, twl);
             }
         }

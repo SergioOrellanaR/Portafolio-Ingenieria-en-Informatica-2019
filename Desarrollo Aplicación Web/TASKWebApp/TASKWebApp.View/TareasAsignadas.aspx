@@ -24,15 +24,13 @@
                                     <th scope="col"><asp:Label ID="hdlblFechaInicio" runat="server" Text="Fecha Inicio"></asp:Label></th>
                                     <th scope="col"><asp:Label ID="hdlblFechaFin" runat="server" Text="Fecha Fin"></asp:Label></th>
                                     <th scope="col">Dependencia de</th>
-                                    <th scope="col"><asp:Label ID="hdlblAceptar" runat="server" Text="Agregar"></asp:Label></th>
-                                    <th scope="col"><asp:Label ID="hdlblRechazar" runat="server" Text="Eliminar"></asp:Label></th>
-
+                                    <th scope="col"><asp:Label ID="hdlblAceptar" runat="server" Text="Aceptar"></asp:Label></th>
+                                    <th scope="col"><asp:Label ID="hdlblRechazar" runat="server" Text="Rechazar"></asp:Label></th>
                                 </tr>
                             </thead>
                         <tbody>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        
                             <tr>
                                 <td><asp:Label ID="lblSubSeparator" runat="server" Text=""></asp:Label><asp:Label ID="lblSubNombre" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblAsignadaPor" runat="server" Text=""></asp:Label></td>
@@ -43,7 +41,6 @@
                                 <td><asp:Button ID="btnSubAceptar" runat="server" Text="+"  UseSubmitBehavior="false" /></td>
                                 <td><asp:Button ID="btnSubRechazar" runat="server" Text="-"  UseSubmitBehavior="false"/></td>
                             </tr>
-                         
                     </ItemTemplate>
                     <FooterTemplate>
                         </tbody>

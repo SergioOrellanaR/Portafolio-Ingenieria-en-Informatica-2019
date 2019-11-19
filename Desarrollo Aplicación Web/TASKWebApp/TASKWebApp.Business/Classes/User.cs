@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TASKWebApp.Business.Helpers;
+using TASKWebApp.Data;
 
 namespace TASKWebApp.Business.Classes
 {
@@ -276,6 +277,37 @@ namespace TASKWebApp.Business.Classes
             }
 
             return value;
+        }
+
+        public string FullName()
+        {
+            return FirstName + " " + LastName;
+        }
+
+        public List<ProcessedTask> GetUnexpiredActiveAndReassignedTasks()
+        {
+            int assignedStatus = 1;
+            int reassignedStatus = 4;
+            List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == assignedStatus || X.ID_TASKSTATUS == reassignedStatus) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
+            List<ProcessedTask> processedTasks = new List<ProcessedTask>();
+            foreach(PROCESSED_TASK task in tasks)
+            {
+                ProcessedTask pt = new ProcessedTask()
+                {
+                    Id = (int)task.ID
+                };
+                pt.Read();
+                processedTasks.Add(pt);
+            }
+            return processedTasks;
+        }
+
+        public int GetNumberOfPendentTasks()
+        {
+            int assignedStatus = 1;
+            int reassignedStatus = 4;
+            int numberOfPendentTasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == assignedStatus || X.ID_TASKSTATUS == reassignedStatus) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).Count();
+            return numberOfPendentTasks;
         }
     }
 
