@@ -859,6 +859,8 @@ namespace TASKWebApp.View
                                             {
                                                 if (!loopTaskSchedule.Create())
                                                     throw new Exception();
+                                                else
+                                                    InsertAssignmentForThisWeek(loopTaskSchedule);
                                             }
                                         }
                                     }
@@ -1026,6 +1028,8 @@ namespace TASKWebApp.View
                                 {
                                     if (!loopTaskSchedule.Create())
                                         throw new Exception();
+                                    else
+                                        InsertAssignmentForThisWeek(loopTaskSchedule);
                                 }
                             }
                             LoopTaskSchedule lts = new LoopTaskSchedule
@@ -1071,6 +1075,155 @@ namespace TASKWebApp.View
             {
                 Response.Redirect("FlujodeTarea.aspx", false);
             }
+        }
+
+        /// <summary>
+        /// Inserción de datos de repetitivas
+        /// </summary>
+        /// <param name="loopTaskSchedule"></param>
+        private void InsertAssignmentForThisWeek(LoopTaskSchedule loopTaskSchedule)
+        {
+            int? selectedDayOfWeek = loopTaskSchedule.DayOfWeek;
+            int? dayOfMonth = loopTaskSchedule.DayOfMonth;
+            int? idMonth = loopTaskSchedule.IdMonth;
+            int? numberOfWeek = loopTaskSchedule.NumberOfWeek;
+            DateTime now = DateTime.Now;
+            DateTime startTime = (DateTime)loopTaskSchedule.LoopTask.StartTime;
+            DateTime endTime = loopTaskSchedule.LoopTask.EndTime;
+            int actualDayOfWeek = DateTime.Today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)DateTime.Today.DayOfWeek;
+
+            if (idMonth == 13 || MonthBelongsToActualWeek(idMonth))
+            {
+                if (dayOfMonth == null && numberOfWeek == GetWeekNumberOfMonth(now))
+                {
+                    int differenceBetweenDays;
+                    if (selectedDayOfWeek == null)
+                    {
+                        int totalDaysOfWeek = 7;
+                        differenceBetweenDays = totalDaysOfWeek - actualDayOfWeek;
+
+                        if (TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0)
+                        {
+                            actualDayOfWeek++;
+                        }
+
+                        while (actualDayOfWeek < differenceBetweenDays)
+                        {
+                            CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                            actualDayOfWeek++;
+                        }
+                    }
+                    else if (selectedDayOfWeek > actualDayOfWeek || (selectedDayOfWeek == actualDayOfWeek && TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0))
+                    {
+                        differenceBetweenDays = ((int)selectedDayOfWeek) - actualDayOfWeek;
+                        CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                    }
+                }
+                else
+                {
+                    DateTime firstDayOfWeek = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+                    DateTime lastDayOfWeek = firstDayOfWeek.AddDays(6);
+                    int day = (int)dayOfMonth;
+                    DateTime wishedDay = new DateTime();
+                    if (firstDayOfWeek.Month == lastDayOfWeek.Month)
+                    {
+                        try
+                        {
+                            wishedDay = new DateTime(now.Year, now.Month, day);
+                        }
+                        catch (Exception e) { }
+                    }
+                    else if ((firstDayOfWeek.Month < lastDayOfWeek.Month) || (firstDayOfWeek.Month > lastDayOfWeek.Month && firstDayOfWeek.Year != lastDayOfWeek.Year))
+                    {
+                        try
+                        {
+                            if (day > firstDayOfWeek.Day)
+                            {
+                                wishedDay = new DateTime(now.Year, firstDayOfWeek.Month, day);
+                            }
+                            else if (day <= lastDayOfWeek.Day)
+                            {
+                                wishedDay = new DateTime(now.Year, lastDayOfWeek.Month, day);
+                            }
+                        }
+                        catch (Exception e) { }
+                    }
+
+                    if (wishedDay > firstDayOfWeek && wishedDay < lastDayOfWeek)
+                    {
+                        DateTime startDate = wishedDay.Date + startTime.TimeOfDay;
+                        DateTime endDate = wishedDay.Date + endTime.TimeOfDay;
+                        CreateProcessedTask(loopTaskSchedule, startDate, endDate);
+                    }
+                }
+            }
+        }
+
+        private bool CreateProcessedTask(LoopTaskSchedule loopTaskSchedule, DateTime startDate, DateTime endDate)
+        {
+            int assignedStatusId = 1;
+            ProcessedTask processedTask = new ProcessedTask()
+            {
+                Commentary = null,
+                AssignationDate = DateTime.Now,
+                IdTaskStatus = assignedStatusId,
+                TaskAssignment = loopTaskSchedule.LoopTask.TaskAssignment,
+                LoopTaskSchedule = loopTaskSchedule,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+            return processedTask.Create();
+        }
+
+        private bool CreateProcessedTask(LoopTaskSchedule loopTaskSchedule, DateTime startTime, DateTime endTime, int differenceBetweenDays)
+        {
+            int assignedStatusId = 1;
+            DateTime startDate = DateTime.Now.AddDays(differenceBetweenDays);
+            startDate = startDate.Date + startTime.TimeOfDay;
+            DateTime endDate = startDate.Date + endTime.TimeOfDay;
+            ProcessedTask processedTask = new ProcessedTask()
+            {
+                Commentary = null,
+                AssignationDate = DateTime.Now,
+                IdTaskStatus = assignedStatusId,
+                TaskAssignment = loopTaskSchedule.LoopTask.TaskAssignment,
+                LoopTaskSchedule = loopTaskSchedule,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+            return processedTask.Create();
+        }
+
+        private bool MonthBelongsToActualWeek(int? idMonth)
+        {
+            bool val = false;
+
+            if (idMonth != 13)
+            {
+                DateTime firstDayOfWeek = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+                DateTime lastDayOfWeek = firstDayOfWeek.AddDays(6);
+                if (firstDayOfWeek.Month == idMonth || lastDayOfWeek.Month == idMonth)
+                {
+                    val = true;
+                }
+            }
+
+            return val;
+        }
+
+
+        private int GetWeekNumberOfMonth(DateTime date)
+        {
+            date = date.Date;
+            DateTime firstMonthDay = new DateTime(date.Year, date.Month, 1);
+            DateTime firstMonthMonday = firstMonthDay.AddDays((DayOfWeek.Monday + 7 - firstMonthDay.DayOfWeek) % 7);
+            if (firstMonthMonday > date)
+            {
+                firstMonthDay = firstMonthDay.AddMonths(-1);
+                firstMonthMonday = firstMonthDay.AddDays((DayOfWeek.Monday + 7 - firstMonthDay.DayOfWeek) % 7);
+            }
+            int value = ((date - firstMonthMonday).Days / 7 + 1) + 1;
+            return value;
         }
 
         /*
