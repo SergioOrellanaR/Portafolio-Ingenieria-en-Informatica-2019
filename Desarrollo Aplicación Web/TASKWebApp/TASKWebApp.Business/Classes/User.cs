@@ -289,7 +289,6 @@ namespace TASKWebApp.Business.Classes
             int assignedStatus = 1;
             int reassignedStatus = 4;
             List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == assignedStatus || X.ID_TASKSTATUS == reassignedStatus) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
-            tasks.Sort((x, y) => DateTime.Compare(x.STARTDATE, y.ENDDATE));
             List<ProcessedTask> processedTasks = new List<ProcessedTask>();
             foreach(PROCESSED_TASK task in tasks)
             {
@@ -300,6 +299,7 @@ namespace TASKWebApp.Business.Classes
                 pt.Read();
                 processedTasks.Add(pt);
             }
+            processedTasks = processedTasks.OrderBy(x => x.StartDate).ToList();
             return processedTasks;
         }
 
