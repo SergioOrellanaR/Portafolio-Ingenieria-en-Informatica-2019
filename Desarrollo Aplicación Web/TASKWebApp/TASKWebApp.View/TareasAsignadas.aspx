@@ -6,13 +6,13 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentBody" runat="server">
     <section class="section">
         <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
-        <!-- <asp:UpdatePanel ID="upTablaTareas" runat="server">
-            <ContentTemplate> -->
+         <asp:UpdatePanel ID="upTablaTareas" runat="server">
+            <ContentTemplate> 
                 <div class="container text-center">
                     <h2><asp:Label ID="Label7" runat="server" Text="Tareas Asignadas"></asp:Label></h2>
                     <br />
                 </div>
-
+                
                 <table class="table table-hover">
                 <asp:Repeater ID="repTabla" runat="server">
                     <HeaderTemplate>
@@ -48,36 +48,35 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 </table>
-<!--             </ContentTemplate>
-        </asp:UpdatePanel>-->
+             </ContentTemplate>
+        </asp:UpdatePanel>
 
         <asp:UpdatePanel ID="upTarea" runat="server">
             <ContentTemplate>
-<asp:Repeater ID="repSubTask" runat="server">
-    <HeaderTemplate>
-        Contenido de repeater
-    </HeaderTemplate>
-    <ItemTemplate>
-        <div id="divTarea" runat="server">
+                <div id="divTareaRechazada" runat="server" visible="false">
+                    <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
                     <div id="InformacionRechazo" runat="server">
                         <div class="row">
-                            <asp:Label ID="Label3" CssClass="col-sm-2 " runat="server" Text="Motivo de Rechazo"></asp:Label>
+                            <div>
+                                <asp:Label ID="Label3" CssClass="col-sm-4 " runat="server" Text="Ingrese en detalle el motivo de rechazo de la tarea: "></asp:Label>
+                                <asp:Label ID="lblNombreTareaRechazada" runat="server" Text=""></asp:Label>
+                                <asp:Label ID="lblInternalId" runat="server" Text="" Visible="false"></asp:Label>
+                                
+                            </div>
                             <div class="col-md-4 form-group">
                                 <asp:TextBox ID="txtDescription" TextMode="multiline" Columns="50" Rows="5" runat="server" MaxLength="500" Style="margin: 0px; width: 539px; height: 190px;" />
                             </div>
                         </div>
                         <div class="row">
-            <div class="col-md-3 form-group">
-                <asp:Button ID="btnEnviar" runat="server" Text="Enviar" class="btn btn-info btn-lg btn-block" />
-            </div>
-        </div>
+                            <div class="col-md-3 form-group">
+                                <asp:Button ID="btnRechazar" runat="server" Text="Rechazar tarea" class="btn btn-info btn-lg btn-block" OnClick="btnRechazar_Click" />
+                            </div>
+                        </div>
                     </div>
-            </div>
-        </ItemTemplate>
-    </asp:Repeater>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
     </section>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Footer" runat="server">

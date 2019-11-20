@@ -118,7 +118,36 @@ namespace TASKWebApp.View
 
         private void LoadRejectForm(ProcessedTask processedTask)
         {
-            //ToDo.
+            lblMessage.Text = string.Empty;
+            divTareaRechazada.Visible = true;
+            lblNombreTareaRechazada.Text = processedTask.TaskAssignment.Task.Name;
+            lblInternalId.Text = processedTask.Id.ToString();
+            
+        }
+
+        protected void btnRechazar_Click(object sender, EventArgs e)
+        {
+            int rejectedStatusId = 5;
+
+            if(string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                lblMessage.Text = "Motivo de rechazo no puede ser vacío";
+            }
+            else
+            {
+                ProcessedTask processedTask = new ProcessedTask() { Id = int.Parse(lblInternalId.Text) };
+                if(processedTask.Read() && processedTask.TaskAssignment.ReceiverUser.Id == ((User)Session["ses"]).Id)
+                {
+                    processedTask.IdTaskStatus = rejectedStatusId;
+                    processedTask.Commentary = txtDescription.Text;
+                    processedTask.Update();
+                    Response.Redirect("TareasAsignadas.aspx");
+                }
+                else
+                {
+                    lblMessage.Text = "Error desconocido.";
+                }
+            }
         }
     }
 }
