@@ -21,4 +21,8 @@ public class Eliminar {
     public String eliminarUsuario (int id){
         return new UsuarioDAO().eliminarUsuario(id);
     }
+    
+    public String eliminarCompania (int id){
+        return new CompaniaDAO().eliminarCompania(id);
+    }
 }

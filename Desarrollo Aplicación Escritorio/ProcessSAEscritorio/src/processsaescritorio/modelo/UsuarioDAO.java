@@ -292,7 +292,7 @@ public class UsuarioDAO implements DatosConexion{
            return "Se elimino exitosamente  fue exitosa.";
         }catch(Exception e){
             System.out.println("Error : " + e);
-            return "No se pudo actualizar compañia : " + e;
+            return "No se pudo eliminar el usuario : " + e;
         } 
     }
      

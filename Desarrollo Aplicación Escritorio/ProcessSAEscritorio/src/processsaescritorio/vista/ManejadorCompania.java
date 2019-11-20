@@ -6,10 +6,17 @@
 package processsaescritorio.vista;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
+import processsaescritorio.controlador.Consulta;
+import processsaescritorio.controlador.Eliminar;
 import processsaescritorio.controlador.Lista;
+import processsaescritorio.controlador.Registro;
+import processsaescritorio.modelo.AreaTrabajoDTO;
+import processsaescritorio.modelo.CompaniaDAO;
 import processsaescritorio.modelo.CompaniaDTO;
 import processsaescritorio.modelo.ComunaDTO;
+import processsaescritorio.modelo.PermisoDTO;
 import processsaescritorio.modelo.ProvinciaDTO;
 import processsaescritorio.modelo.RegionDTO;
 
@@ -23,11 +30,21 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
      * Creates new form ManejadorCompania
      */
     ArrayList<CompaniaDTO> listaCompanias;
+    private boolean companiaIdentificada=false;
+    private int idGeneral=0;
     public ManejadorCompania() {
         initComponents();
-        listadoRegion();
+        listadoRegion();       
+        listadoAreaTrabajo();
+        actualizarListaCompania();
         cbxProvince.setEnabled(false);
         cbxCommune.setEnabled(false);
+    }
+    
+    public void resetearTabla()
+    {
+        listaCompanias.removeAll(listaCompanias);
+        actualizarListaCompania();
     }
     
     public void limpiarFormulario()
@@ -72,9 +89,16 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         }
     }
     
+    public void listadoAreaTrabajo(){
+        
+        for (AreaTrabajoDTO areaTrabajo:new Lista().listarAreasTrabajo()) {
+              cbxWorkingArea.addItem(areaTrabajo.getId()+"-"+areaTrabajo.getNombre());
+        }  
+    }
+    
     public void actualizarListaCompania(){
         listaCompanias = new Lista().listarCompanias();
-        String[] columnas = {"ID", "Nombre","Area de Trabajo","Comuna"};
+        String[] columnas = {"ID", "Nombre","Direccion","Area de Trabajo","Comuna"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0){
         @Override
         public boolean isCellEditable(int filas,int columnas){
@@ -85,14 +109,17 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         for(CompaniaDTO compania : listaCompanias){
             String id       = String.valueOf(compania.getId());
             String name     = String.valueOf(compania.getNombre());
+            String address     = String.valueOf(compania.getDireccion());
             String workingArea = String.valueOf(compania.getIdAreaTrabajo());
             String commune = String.valueOf(compania.getIdComuna());
    
-            Object[] elemento = {id,name,workingArea,commune};
+            Object[] elemento = {id,name,address,workingArea,commune};
             modeloTabla.addRow(elemento);
         };
         tblCompania.setModel(modeloTabla);
     }
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,7 +128,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxWorkingArea = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         cbxCommune = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
@@ -134,7 +161,11 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Dirección");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxWorkingArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxWorkingAreaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Area de Trabajo");
 
@@ -173,6 +204,11 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCompania.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCompaniaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCompania);
 
         btnGrabar.setText("Grabar");
@@ -203,35 +239,37 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addGap(41, 41, 41)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbxWorkingArea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addComponent(cbxRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGrabar)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnRefrescar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBorrar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(41, 41, 41)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGrabar)
+                                .addGap(29, 29, 29)
+                                .addComponent(btnRefrescar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBorrar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                 .addContainerGap())
@@ -250,21 +288,24 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(cbxWorkingArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(3, 3, 3)
-                        .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(3, 3, 3)
                         .addComponent(cbxRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(3, 3, 3)
-                        .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(3, 3, 3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxCommune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGrabar)
@@ -307,19 +348,16 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxRegionActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-
-        /*
-        Insert into User_info (firstname,
-            lastname, address, phone,
-            birthdate, email, password,
-            id_commune, id_assigned_unit,
-            id_company, id_gender) values ('Esteban',
-            'Silva','Melipilla 5','+56912121212',TO_DATE('02-07-1994', 'DD-MM-YYYY'),
-            'estaban.silva9587@gmail.com','cG9ydGFmb2xpbzIwMTk=',65,7,2,1);
-
-        //  LocalDate birthdate= LocalDate.of(2017, Month.MAY, 15);
-        // java.sql.Date date = new java.sql.Date(dateBorn.getDate());
-        */
+       
+        String[] arrayWorkingArea = cbxWorkingArea.getSelectedItem().toString().split("-");   
+        int id_workingArea=Integer.parseInt(arrayWorkingArea[0]);       
+        
+        String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");   
+        int id_commune=Integer.parseInt(arrayCommune[0]);
+         
+        new Registro().registrarCompania(txtName.getText(),txtAddress.getText(),id_workingArea,id_commune);
+        btnBorrar.setEnabled(false);
+        resetearTabla();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
@@ -329,9 +367,35 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
+        new Eliminar().eliminarCompania(idGeneral);
+        resetearTabla();
         limpiarFormulario();
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void cbxWorkingAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxWorkingAreaActionPerformed
+        
+    }//GEN-LAST:event_cbxWorkingAreaActionPerformed
+
+    private void tblCompaniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCompaniaMouseClicked
+        int seleccion= tblCompania.rowAtPoint(evt.getPoint());
+        int id=Integer.parseInt(String.valueOf(tblCompania.getValueAt(seleccion,0)));
+        
+        companiaIdentificada=true;
+        idGeneral=id;
+        btnBorrar.setEnabled(true);
+
+       
+        CompaniaDTO compania=new CompaniaDAO().obtenerCompaniaPorIdBD(id);
+        txtName.setText(compania.getNombre());
+        txtAddress.setText(compania.getDireccion());
+        cbxWorkingArea.setSelectedItem(id);
+        
+        String[] hola= new Consulta().listarPorComuna(compania.getIdComuna());
+        
+        cbxRegion.setSelectedItem(hola[1]+"-"+hola[0]);
+        cbxProvince.setSelectedItem(hola[3]+"-"+hola[2]);
+        cbxCommune.setSelectedItem(hola[5]+"-"+hola[4]);
+    }//GEN-LAST:event_tblCompaniaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -341,7 +405,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxCommune;
     private javax.swing.JComboBox<String> cbxProvince;
     private javax.swing.JComboBox<String> cbxRegion;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxWorkingArea;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

@@ -89,11 +89,14 @@ public class CompaniaDAO {
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT id ,name FROM company");
+            ResultSet resultado = declaracion.executeQuery("SELECT id ,name,address, id_working_area, id_commune FROM company");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setNombre(resultado.getString(2));
-                listarCompanias.add(new CompaniaDTO(this.getId(),this.getNombre()));
+                this.setDireccion(resultado.getString(3));
+                this.setIdAreaTrabajo(resultado.getInt(4));
+                this.setIdComuna(resultado.getInt(5));
+                listarCompanias.add(new CompaniaDTO(this.getId(),this.getNombre(),this.getDireccion(),this.getIdAreaTrabajo(),getIdComuna()));
                        
             }  
             conexion.close();
@@ -103,7 +106,27 @@ public class CompaniaDAO {
             return listarCompanias;
         }
     } 
-        
+    
+    public CompaniaDTO obtenerCompaniaPorIdBD(int id){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT id ,name,address, id_working_area, id_commune FROM company WHERE ID = " + id);
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setNombre(resultado.getString(2));
+                this.setDireccion(resultado.getString(3));
+                this.setIdAreaTrabajo(resultado.getInt(4));
+                this.setIdComuna(resultado.getInt(5));
+            }
+            conexion.close();
+        }catch(Exception e){
+            System.out.println("Error en obtención de compañia desde BD: " + e);
+        }
+        return new CompaniaDTO(this.getId(), this.getNombre(), this.getDireccion(), this.getIdAreaTrabajo(), this.getIdComuna());
+    }    
+    
     public String registrarCompanias(){
         try{
             Class.forName(DRIVER);
@@ -132,6 +155,21 @@ public class CompaniaDAO {
             return "No se pudo actualizar compañia : " + e;
         }    
     }
+    
+    public String eliminarCompania(int id){
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            declaracion.executeUpdate("Delete from COMPANY WHERE ID = "+ id +"");
+            conexion.close(); 
+           return "Se elimino exitosamente.";
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return "No se pudo eliminar compañia : " + e;
+        } 
+    }
+    
      
 }
         
