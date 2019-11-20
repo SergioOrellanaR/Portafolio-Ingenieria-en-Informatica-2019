@@ -717,31 +717,26 @@ namespace TASKWebApp.View
             DateTime endTime = loopTaskSchedule.LoopTask.EndTime;
             int actualDayOfWeek = DateTime.Today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)DateTime.Today.DayOfWeek;
 
-            if(idMonth == 13 || MonthBelongsToActualWeek(idMonth))
+            if (idMonth == 13 || MonthBelongsToActualWeek(idMonth))
             {
-                if (dayOfMonth == null && numberOfWeek == GetWeekNumberOfMonth(now))
+                if (dayOfMonth == null)
                 {
-                    int differenceBetweenDays;
-                    if (selectedDayOfWeek == null )
+                    if ((numberOfWeek == null || numberOfWeek == GetWeekNumberOfMonth(now)) && selectedDayOfWeek > actualDayOfWeek || (selectedDayOfWeek == actualDayOfWeek && TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0))
                     {
-                        int totalDaysOfWeek = 7;
-                        differenceBetweenDays = totalDaysOfWeek - actualDayOfWeek;
-
-                        if(TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0)
-                        {
-                            actualDayOfWeek++;
-                        }
-
-                        while(actualDayOfWeek < differenceBetweenDays)
-                        {
-                            CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
-                            actualDayOfWeek++;
-                        }
-                    }
-                    else if (selectedDayOfWeek > actualDayOfWeek || (selectedDayOfWeek == actualDayOfWeek && TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0))
-                    {
-                        differenceBetweenDays = ((int)selectedDayOfWeek) - actualDayOfWeek;
+                        int differenceBetweenDays = ((int)selectedDayOfWeek) - actualDayOfWeek;
                         CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                        //int totalDaysOfWeek = 7;
+                        //differenceBetweenDays = totalDaysOfWeek - actualDayOfWeek;
+                        //if (TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0)
+                        //{
+                        //    actualDayOfWeek++;
+                        //}
+
+                        //while (actualDayOfWeek < differenceBetweenDays)
+                        //{
+                        //    CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                        //    actualDayOfWeek++;
+                        //}
                     }
                 }
                 else
@@ -758,7 +753,7 @@ namespace TASKWebApp.View
                         }
                         catch (Exception e) { }
                     }
-                    else if ((firstDayOfWeek.Month < lastDayOfWeek.Month) || (firstDayOfWeek.Month> lastDayOfWeek.Month && firstDayOfWeek.Year != lastDayOfWeek.Year))
+                    else if ((firstDayOfWeek.Month < lastDayOfWeek.Month) || (firstDayOfWeek.Month > lastDayOfWeek.Month && firstDayOfWeek.Year != lastDayOfWeek.Year))
                     {
                         try
                         {
@@ -773,8 +768,8 @@ namespace TASKWebApp.View
                         }
                         catch (Exception e) { }
                     }
-                    
-                    if(wishedDay > firstDayOfWeek && wishedDay < lastDayOfWeek)
+
+                    if (wishedDay > firstDayOfWeek && wishedDay < lastDayOfWeek)
                     {
                         DateTime startDate = wishedDay.Date + startTime.TimeOfDay;
                         DateTime endDate = wishedDay.Date + endTime.TimeOfDay;

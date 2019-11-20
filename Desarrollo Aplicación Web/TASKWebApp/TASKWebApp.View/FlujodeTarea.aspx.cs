@@ -1094,29 +1094,24 @@ namespace TASKWebApp.View
 
             if (idMonth == 13 || MonthBelongsToActualWeek(idMonth))
             {
-                if (dayOfMonth == null && numberOfWeek == GetWeekNumberOfMonth(now))
+                if (dayOfMonth == null)
                 {
-                    int differenceBetweenDays;
-                    if (selectedDayOfWeek == null)
+                    if ((numberOfWeek == null || numberOfWeek == GetWeekNumberOfMonth(now)) && selectedDayOfWeek > actualDayOfWeek || (selectedDayOfWeek == actualDayOfWeek && TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0))
                     {
-                        int totalDaysOfWeek = 7;
-                        differenceBetweenDays = totalDaysOfWeek - actualDayOfWeek;
-
-                        if (TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0)
-                        {
-                            actualDayOfWeek++;
-                        }
-
-                        while (actualDayOfWeek < differenceBetweenDays)
-                        {
-                            CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
-                            actualDayOfWeek++;
-                        }
-                    }
-                    else if (selectedDayOfWeek > actualDayOfWeek || (selectedDayOfWeek == actualDayOfWeek && TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0))
-                    {
-                        differenceBetweenDays = ((int)selectedDayOfWeek) - actualDayOfWeek;
+                        int differenceBetweenDays = ((int)selectedDayOfWeek) - actualDayOfWeek;
                         CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                        //int totalDaysOfWeek = 7;
+                        //differenceBetweenDays = totalDaysOfWeek - actualDayOfWeek;
+                        //if (TimeSpan.Compare(startTime.TimeOfDay, now.TimeOfDay) > 0)
+                        //{
+                        //    actualDayOfWeek++;
+                        //}
+
+                        //while (actualDayOfWeek < differenceBetweenDays)
+                        //{
+                        //    CreateProcessedTask(loopTaskSchedule, startTime, endTime, differenceBetweenDays);
+                        //    actualDayOfWeek++;
+                        //}
                     }
                 }
                 else
