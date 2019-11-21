@@ -39,7 +39,7 @@
                                 <td><asp:Label ID="lblSubFechaFin" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
                                 <td><asp:Button ID="btnSubFinalizar" runat="server" Text="+" OnClick="btnSubFinalizar_Click" UseSubmitBehavior="false" /></td>
-                                <td><asp:Button ID="btnSubInformarProblema" runat="server" Text="-"  OnClick="btnSubInformarProblema_Click" UseSubmitBehavior="false"/></td>
+                                <td><asp:Button ID="btnSubInformarProblema" runat="server" Text="¡!"  OnClick="btnSubInformarProblema_Click" UseSubmitBehavior="false"/></td>
                                 <asp:Label ID="lblIdTarea" runat="server" Text="" Visible="false"></asp:Label>
                             </tr>
                     </ItemTemplate>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3 form-group">
-                                <asp:Button ID="btnInformarProblema" runat="server" Text="Informar Problema" class="btn btn-info btn-lg btn-block" OnClick="btnRechazar_Click" />
+                                <asp:Button ID="btnInformarProblema" runat="server" Text="Informar Problema" class="btn btn-info btn-lg btn-block" OnClick="btnInformarProblema_Click" />
                             </div>
                         </div>
                     </div>

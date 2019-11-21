@@ -12,18 +12,26 @@ namespace TASKWebApp.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                if (Session["ses"] != null)
+                if (!IsPostBack)
                 {
-                    User user = (User)Session["ses"];
-                    LoadName(user);
-                    LoadNumberOfPendentTasks(user);
+                    if (Session["ses"] != null)
+                    {
+                        User user = (User)Session["ses"];
+                        LoadName(user);
+                        LoadNumberOfPendentTasks(user);
+                        LoadNumberOfInProcessTasks(user);
+                    }
+                    else
+                    {
+                        Response.Redirect("Login.aspx");
+                    }
                 }
-                else
-                {
-                    Response.Redirect("Login.aspx");
-                }
+            }
+            catch
+            {
+                Response.Redirect("Login.aspx");
             }
         }
 
@@ -41,5 +49,15 @@ namespace TASKWebApp.View
                 lblCantidadTareasAsignadas.Text = string.Format("({0})", pendentTasks);
             }
         }
+
+        private void LoadNumberOfInProcessTasks(User user)
+        {
+            int inProcessTasks = user.GetNumberOfInProcessTasks();
+            if (inProcessTasks > 0)
+            {
+                lblCantidadTareasEnProceso.Text = string.Format("({0})", inProcessTasks);
+            }
+        }
+        
     }
 }

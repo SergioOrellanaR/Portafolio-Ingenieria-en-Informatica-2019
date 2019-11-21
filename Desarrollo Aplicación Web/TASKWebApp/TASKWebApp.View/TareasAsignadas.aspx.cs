@@ -15,7 +15,9 @@ namespace TASKWebApp.View
             User user = (User)Session["ses"];
             try
             {
-                List<ProcessedTask> activeAndReasignedTasks = user.GetUnexpiredActiveAndReassignedTasks();
+                int assignedStatus = 1;
+                int reassignedStatus = 4;
+                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(assignedStatus, reassignedStatus);
                 LoadTaskInformation(activeAndReasignedTasks);
             }
             catch

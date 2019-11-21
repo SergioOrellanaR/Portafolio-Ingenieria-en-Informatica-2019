@@ -24,9 +24,16 @@ namespace TASKWebApp.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadDefaultData();
+                if (!IsPostBack)
+                {
+                    LoadDefaultData();
+                }
+            }
+            catch
+            {
+                Response.Redirect("Home.aspx");
             }
             
         }

@@ -284,13 +284,22 @@ namespace TASKWebApp.Business.Classes
             return FirstName + " " + LastName;
         }
 
-        public List<ProcessedTask> GetUnexpiredActiveAndReassignedTasks()
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status)
         {
-            int assignedStatus = 1;
-            int reassignedStatus = 4;
-            List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == assignedStatus || X.ID_TASKSTATUS == reassignedStatus) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
+            List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ X.ID_TASKSTATUS == status && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
+            return ProcessTasks(tasks);
+        }
+
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status1, int status2)
+        {
+            List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == status1 || X.ID_TASKSTATUS == status2) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
+            return ProcessTasks(tasks);
+        }
+
+        public List<ProcessedTask> ProcessTasks(List<PROCESSED_TASK> tasks)
+        {
             List<ProcessedTask> processedTasks = new List<ProcessedTask>();
-            foreach(PROCESSED_TASK task in tasks)
+            foreach (PROCESSED_TASK task in tasks)
             {
                 ProcessedTask pt = new ProcessedTask()
                 {
@@ -308,6 +317,13 @@ namespace TASKWebApp.Business.Classes
             int assignedStatus = 1;
             int reassignedStatus = 4;
             int numberOfPendentTasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == assignedStatus || X.ID_TASKSTATUS == reassignedStatus) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).Count();
+            return numberOfPendentTasks;
+        }
+
+        public int GetNumberOfInProcessTasks()
+        {
+            int inProcess = 2;
+            int numberOfPendentTasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ X.ID_TASKSTATUS == inProcess && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).Count();
             return numberOfPendentTasks;
         }
     }
