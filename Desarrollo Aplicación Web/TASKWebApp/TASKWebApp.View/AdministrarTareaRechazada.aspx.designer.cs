@@ -22,13 +22,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.ScriptManager ScriptManager;
         
         /// <summary>
-        /// Control upTablaTareas.
+        /// Control upTablaTareasRechazadas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upTablaTareas;
+        protected global::System.Web.UI.UpdatePanel upTablaTareasRechazadas;
         
         /// <summary>
         /// Control Label7.
@@ -40,12 +40,39 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
-        /// Control repTabla.
+        /// Control repTablaRechazo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repTabla;
+        protected global::System.Web.UI.WebControls.Repeater repTablaRechazo;
+        
+        /// <summary>
+        /// Control upTablaTareasSuspendidas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTablaTareasSuspendidas;
+        
+        /// <summary>
+        /// Control Label1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// Control repTablaSuspension.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repTablaSuspension;
     }
 }
