@@ -67,3 +67,51 @@ left join role_permissions rpad on  (rpad.id_permission = perm.id AND rpad.id_ro
 left join role_permissions rpddp on (rpddp.id_permission = perm.id AND rpddp.id_role=2)
 left join role_permissions rpfun on (rpfun.id_permission = perm.id AND rpfun.id_role=3)
 order by idpermiso;
+
+CREATE OR REPLACE TRIGGER InsertOnHistory
+AFTER INSERT
+   ON PROCESSED_TASK
+   FOR EACH ROW
+   
+DECLARE
+   v_username varchar2(10);
+   
+BEGIN
+
+   Insert into processed_task_history
+   (ID_ASSIGNEDTASK, DESCRIPTION, EVENTDATETIME)
+   values 
+   (:new.id,'Se ha agregado una nueva tarea',SYSDATE);
+   
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER UpdateOnHistory
+AFTER UPDATE
+   ON PROCESSED_TASK
+   FOR EACH ROW
+DECLARE
+   new_status Nvarchar2(200);
+   old_status Nvarchar2(200);
+   v_justification Nvarchar2(1000);
+   v_idUserJustificator Integer;
+BEGIN
+v_justification := null;
+v_idUserJustificator := null;
+select status into new_status from task_status where id = :new.id_taskstatus;
+select status into old_status from task_status where id = :old.id_taskstatus;
+
+if :new.id_taskstatus = 5 OR :new.id_taskstatus = 9 then
+    v_justification := :new.commentary;
+    select id_receiveruser into v_idUserJustificator from task_assignment where  :new.id_task_assignment = id;
+END IF;
+
+   Insert into processed_task_history
+   (ID_ASSIGNEDTASK, DESCRIPTION, EVENTDATETIME, JUSTIFICATION, id_userjustificator)
+   values 
+   (:new.id,'Se ha actualizado la tarea de estado: '|| old_status || ' a estado: ' || new_status,SYSDATE,v_justification,v_idUserJustificator);   
+
+END;
+
+/
