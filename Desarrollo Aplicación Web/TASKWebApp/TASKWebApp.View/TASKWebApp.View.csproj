@@ -144,6 +144,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="TareasAsignadas.aspx" />
+    <Content Include="VerTareasActivas.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -247,6 +248,13 @@
     </Compile>
     <Compile Include="TareasAsignadas.aspx.designer.cs">
       <DependentUpon>TareasAsignadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VerTareasActivas.aspx.cs">
+      <DependentUpon>VerTareasActivas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerTareasActivas.aspx.designer.cs">
+      <DependentUpon>VerTareasActivas.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
