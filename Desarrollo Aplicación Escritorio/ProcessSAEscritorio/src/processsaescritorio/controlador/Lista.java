@@ -92,4 +92,10 @@ public class Lista {
         return lista;
 
     }
+    
+     public ArrayList<TareaDTO>listarTareas(){
+        ArrayList<TareaDTO> lista = new TareaDAO().ObtenerTareas();
+        return lista;
+
+    }
 }
