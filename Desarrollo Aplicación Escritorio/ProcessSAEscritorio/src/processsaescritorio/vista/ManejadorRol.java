@@ -202,7 +202,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         
         new Registro().registrarRol(0,txtName.getText());
-        //resetearTabla();
+        resetearTabla();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
