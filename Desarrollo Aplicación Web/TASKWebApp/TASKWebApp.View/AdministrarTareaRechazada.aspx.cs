@@ -17,7 +17,6 @@ namespace TASKWebApp.View
             {
                 int RejectedStatus = 5;
                 int SuspendedStatus = 9;
-                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(RejectedStatus);
                 LoadTaskInformation(RejectedStatus, user);
                 LoadTaskInformation(SuspendedStatus, user);
             }
@@ -36,7 +35,7 @@ namespace TASKWebApp.View
 
             if (status == RejectedStatus)
             {
-                tasks = user.SearchProcessedTaskByStatus(RejectedStatus);
+                tasks = user.SearchProcessedTaskByStatus(RejectedStatus, true);
                 if (tasks.Count > 0)
                 {
                     repTablaRechazo.DataSource = tasks;
@@ -51,7 +50,7 @@ namespace TASKWebApp.View
             }
             else if (status == SuspendedStatus)
             {
-                tasks = user.SearchProcessedTaskByStatus(SuspendedStatus);
+                tasks = user.SearchProcessedTaskByStatus(SuspendedStatus, true);
                 if (tasks.Count > 0)
                 {
                     repTablaSuspension.DataSource = tasks;
