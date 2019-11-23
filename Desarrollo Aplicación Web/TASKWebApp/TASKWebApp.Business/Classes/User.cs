@@ -290,6 +290,12 @@ namespace TASKWebApp.Business.Classes
             return ProcessTasks(tasks);
         }
 
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status, bool assigner)
+        {
+            List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ X.ID_TASKSTATUS == status && X.TASK_ASSIGNMENT.ID_ASSIGNERUSER == Id).ToList();
+            return ProcessTasks(tasks);
+        }
+
         public List<ProcessedTask> SearchProcessedTaskByStatus(int status1, int status2)
         {
             List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == status1 || X.ID_TASKSTATUS == status2) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
