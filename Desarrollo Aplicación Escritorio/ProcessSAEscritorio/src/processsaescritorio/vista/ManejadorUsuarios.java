@@ -491,19 +491,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         String pass=txtName.getText().substring(0,2)+txtLastName.getText().substring(0,2)+birthdate.getYear();
         new UsuarioDAO(0,txtName.getText(),txtLastName.getText(),txtAddress.getText(),txtPhone.getText(),birthdate,txtEmail.getText(),pass,id_commune,id_unitAssig,id_company,id_gender).crearUsuario(); 
         }
-          resetearTabla();
-        /*
-        Insert into User_info (firstname, 
-        lastname, address, phone, 
-        birthdate, email, password, 
-        id_commune, id_assigned_unit, 
-        id_company, id_gender) values ('Esteban',
-        'Silva','Melipilla 5','+56912121212',TO_DATE('02-07-1994', 'DD-MM-YYYY'),
-        'estaban.silva9587@gmail.com','cG9ydGFmb2xpbzIwMTk=',65,7,2,1);
-        
-         //  LocalDate birthdate= LocalDate.of(2017, Month.MAY, 15);
-        // java.sql.Date date = new java.sql.Date(dateBorn.getDate());
-        */
+          resetearTabla();        
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void cbxCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCompanyActionPerformed
