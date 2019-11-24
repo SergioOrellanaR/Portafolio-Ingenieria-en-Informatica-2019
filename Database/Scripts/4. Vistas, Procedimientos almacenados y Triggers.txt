@@ -20,6 +20,27 @@ inner join role rol on (rp.id_role = rol.id)
 where rol.name = 'Administrador'
 ;
 
+CREATE OR REPLACE VIEW VW_TASK_ASSOCIATED_TO_USER AS 
+select 
+ts.id as IdStatus,
+usa.id as IdAssignerUser,
+pt.Assignationdate as "Fecha Asignacion",
+pt.Startdate as "Fecha Inicio",
+pt.Enddate as "Fecha Fin",
+ts.status as "Estado",
+ta.name as "Nombre Tarea",
+ta.description as "Descripcion",
+usa.firstname ||' '|| usa.lastname as "Asignado Por",
+usr.firstname ||' '|| usr.lastname as "Asignado A",
+pt.commentary as "Justificacion"
+from 
+PROCESSED_TASK pt
+inner join task_status ts on (ts.id = pt.ID_TASKSTATUS)
+inner join TASK_ASSIGNMENT tas on (tas.id = pt.ID_TASK_ASSIGNMENT)
+inner join task ta on (ta.Id = tas.ID_TASK)
+inner join user_info usa on (usa.id = tas.ID_ASSIGNERUSER)
+inner join user_info usr on (usr.id = tas.ID_RECEIVERUSER);
+
 
 CREATE OR REPLACE VIEW VW_PERMISSION_DDP AS 
 select 
