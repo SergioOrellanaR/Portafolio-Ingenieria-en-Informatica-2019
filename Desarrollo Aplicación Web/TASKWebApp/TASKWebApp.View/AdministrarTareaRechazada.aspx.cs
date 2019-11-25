@@ -197,6 +197,12 @@ namespace TASKWebApp.View
             divEditarInfo.Visible = true;
             ddlResponsable.SelectedValue = processedTask.TaskAssignment.ReceiverUser.Id.ToString();
             lblInternalId.Text = processedTask.Id.ToString();
+            if (processedTask.TaskAssignment.Task.IsPredefined)
+            {
+                txtNombreTarea.Enabled = false;
+                txtDescripcion.Enabled = false;
+                lblMessage.Text = "Tarea predeterminada, no puede editar nombre ni descripción";
+            }
             txtNombreTarea.Text = processedTask.TaskAssignment.Task.Name;
             txtDescripcion.Text = processedTask.TaskAssignment.Task.Description;
             txtFechaInicio.Text = processedTask.StartDate.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
@@ -253,8 +259,12 @@ namespace TASKWebApp.View
                 ProcessedTask processedTask = new ProcessedTask() { Id = int.Parse(lblInternalId.Text) };
                 if (processedTask.Read() && processedTask.TaskAssignment.AssignerUser.Id == ((User)Session["ses"]).Id)
                 {
-                    processedTask.TaskAssignment.Task.Name = txtNombreTarea.Text;
-                    processedTask.TaskAssignment.Task.Description = txtDescripcion.Text;
+                    if(processedTask.TaskAssignment.Task.IsPredefined == false)
+                    {
+                        processedTask.TaskAssignment.Task.Name = txtNombreTarea.Text;
+                        processedTask.TaskAssignment.Task.Description = txtDescripcion.Text;
+                        processedTask.TaskAssignment.Task.Update();
+                    }
                     processedTask.Commentary = null;
                     processedTask.StartDate = startDate;
                     processedTask.EndDate = endDate;

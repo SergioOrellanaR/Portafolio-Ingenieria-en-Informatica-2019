@@ -849,7 +849,7 @@ namespace TASKWebApp.View
                 firstMonthDay = firstMonthDay.AddMonths(-1);
                 firstMonthMonday = firstMonthDay.AddDays((DayOfWeek.Monday + 7 - firstMonthDay.DayOfWeek) % 7);
             }
-            int value = ((date - firstMonthMonday).Days / 7 + 1)+1;
+            int value = ((date - firstMonthMonday).Days / 7 + 1);
             return value;
         }
     }
