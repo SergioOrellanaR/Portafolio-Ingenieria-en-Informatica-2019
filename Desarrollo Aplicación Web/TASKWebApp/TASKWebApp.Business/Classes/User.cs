@@ -302,6 +302,14 @@ namespace TASKWebApp.Business.Classes
             return ProcessTasks(tasks);
         }
 
+
+        public List<LoopTask> SearchAssignedLoopTask()
+        {
+            int isActiveId = 1;
+            List<LOOP_TASK> tasks = Connection.ProcessSA_DB.LOOP_TASK.Where(X => X.TASK_ASSIGNMENT.ID_ASSIGNERUSER == Id && X.ISACTIVE == isActiveId).ToList();
+            return ProcessLoopTask(tasks);
+        }
+
         public List<ProcessedTask> ProcessTasks(List<PROCESSED_TASK> tasks)
         {
             List<ProcessedTask> processedTasks = new List<ProcessedTask>();
@@ -316,6 +324,17 @@ namespace TASKWebApp.Business.Classes
             }
             processedTasks = processedTasks.OrderBy(x => x.StartDate).ToList();
             return processedTasks;
+        }
+
+        public List<LoopTask> ProcessLoopTask(List<LOOP_TASK> tasks)
+        {
+            List<LoopTask> LoopTasks = new List<LoopTask>();
+            foreach (LOOP_TASK task in tasks)
+            {
+                LoopTask loopTask = new LoopTask((int)task.ID);
+                LoopTasks.Add(loopTask);
+            }
+            return LoopTasks;
         }
 
         public int GetNumberOfPendentTasks()
