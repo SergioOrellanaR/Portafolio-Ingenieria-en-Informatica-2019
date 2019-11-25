@@ -15,6 +15,7 @@ namespace TASKWebApp.View
             User user = (User)Session["ses"];
             try
             {
+                LoadResponsibles();
                 int RejectedStatus = 5;
                 int SuspendedStatus = 9;
                 LoadTaskInformation(RejectedStatus, user);
@@ -47,6 +48,10 @@ namespace TASKWebApp.View
                         SetRowInTableInformation(item, tasks[i], status);
                     }
                 }
+                else
+                {
+                    lblTareasRechazadas.Text = "No tiene tareas rechazadas pendientes";
+                }
             }
             else if (status == SuspendedStatus)
             {
@@ -61,10 +66,14 @@ namespace TASKWebApp.View
                         SetRowInTableInformation(item, tasks[i], status);
                     }
                 }
+                else
+                {
+                    lblTareasSuspendidas.Text = "No tiene tareas suspendidas pendientes";
+                }
             }
             else
             {
-                Label7.Text = "Error!";
+                lblTareasRechazadas.Text = "Error!";
             }
         }
 
@@ -96,8 +105,28 @@ namespace TASKWebApp.View
             label.Text = information;
         }
 
+        protected void btnSubEditarRechazados_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            RepeaterItem item = (RepeaterItem)button.NamingContainer;
+            ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item, true) };
+            processedTask.Read();
+            LoadEditBox(processedTask);
+        }
+
+        protected void btnSubEditarSuspendidos_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            RepeaterItem item = (RepeaterItem)button.NamingContainer;
+            ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item, false) };
+            processedTask.Read();
+            LoadEditBox(processedTask);
+        }
+
+
         protected void btnSubEliminarRechazado_Click(object sender, EventArgs e)
         {
+            divEditarInfo.Visible = false;
             int closedId = 6;
             int errorCode = -1;
             Button button = (Button)sender;
@@ -118,6 +147,7 @@ namespace TASKWebApp.View
 
         protected void btnSubEliminarProblema_Click(object sender, EventArgs e)
         {
+            divEditarInfo.Visible = false;
             int failedId = 7;
             int errorCode = -1;
             Button button = (Button)sender;
@@ -162,5 +192,84 @@ namespace TASKWebApp.View
             }
         }
 
+        private void LoadEditBox(ProcessedTask processedTask)
+        {
+            divEditarInfo.Visible = true;
+            ddlResponsable.SelectedValue = processedTask.TaskAssignment.ReceiverUser.Id.ToString();
+            lblInternalId.Text = processedTask.Id.ToString();
+            txtNombreTarea.Text = processedTask.TaskAssignment.Task.Name;
+            txtDescripcion.Text = processedTask.TaskAssignment.Task.Description;
+            txtFechaInicio.Text = processedTask.StartDate.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
+            txtFechaFin.Text = processedTask.EndDate.ToLocalTime().ToString("yyyy-MM-ddTHH:mm");
+        }
+
+        private int GetRowTaskId(RepeaterItem item, bool isRejected)
+        {
+            try
+            {
+                int index = item.ItemIndex;
+                RepeaterItem IndItem;
+
+                if (isRejected)
+                    IndItem = repTablaRechazo.Items[index];
+                else
+                    IndItem = repTablaSuspension.Items[index];
+
+                Label label = (Label)IndItem.FindControl("lblIdTarea");
+                int idAssigned = int.Parse(label.Text);
+                return idAssigned;
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+        private void LoadResponsibles()
+        {
+            ddlResponsable.Items.Clear();
+            User user = (User)Session["ses"];
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(user.Id, string.Format("{0} {1} (Yo mismo)", user.FirstName, user.LastName));
+            user.GetEqualsAndSubordinatedString().ToList().ForEach(x => dictionary.Add(x.Key, x.Value));
+            ddlResponsable.DataSource = dictionary;
+            ddlResponsable.DataTextField = "Value";
+            ddlResponsable.DataValueField = "Key";
+            ddlResponsable.DataBind();
+        }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            int reassignedStatusId = 4;
+            DateTime startDate;
+            DateTime endDate;
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text) || string.IsNullOrWhiteSpace(txtNombreTarea.Text) || DateTime.TryParse(txtFechaInicio.Text, out startDate) == false || DateTime.TryParse(txtFechaFin.Text, out endDate) == false)
+            {
+                lblMessage.Text = "Los datos ingresados son inválidos";
+            }
+            else
+            {
+                ProcessedTask processedTask = new ProcessedTask() { Id = int.Parse(lblInternalId.Text) };
+                if (processedTask.Read() && processedTask.TaskAssignment.AssignerUser.Id == ((User)Session["ses"]).Id)
+                {
+                    processedTask.TaskAssignment.Task.Name = txtNombreTarea.Text;
+                    processedTask.TaskAssignment.Task.Description = txtDescripcion.Text;
+                    processedTask.StartDate = startDate;
+                    processedTask.EndDate = endDate;
+                    processedTask.AssignationDate = DateTime.Now;
+                    processedTask.IdTaskStatus = reassignedStatusId;
+                    processedTask.TaskAssignment.ReceiverUser = new User(int.Parse(ddlResponsable.SelectedValue));
+                    processedTask.TaskAssignment.Update();
+                    processedTask.TaskAssignment.Task.Update();
+                    processedTask.Update();
+                    Response.Redirect("AdministrarTareaRechazada.aspx");
+                }
+                else
+                {
+                    lblMessage.Text = "Error desconocido.";
+                }
+            }
+        }
     }
 }

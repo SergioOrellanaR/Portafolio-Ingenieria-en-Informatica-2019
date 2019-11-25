@@ -107,7 +107,6 @@ namespace TASKWebApp.Business.Classes
                 processedTask.STARTDATE = StartDate;
                 processedTask.ID_TASKSTATUS = IdTaskStatus;
                 processedTask.ID_TASK_ASSIGNMENT = TaskAssignment.Id;
-
                 if (LoopTaskSchedule != null)
                 {
                     processedTask.ID_SCHEDULED_LOOPTASK = LoopTaskSchedule.Id;
