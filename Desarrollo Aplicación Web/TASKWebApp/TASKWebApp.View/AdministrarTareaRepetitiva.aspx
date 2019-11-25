@@ -83,7 +83,7 @@
                             <asp:Label ID="Label13" runat="server" Text="Descripcion"></asp:Label>
                             &nbsp&nbsp&nbsp&nbsp<asp:TextBox ID="txtDescripcion" TextMode="multiline" Columns="50" Rows="5" runat="server" MaxLength="500" />
                             <br />
-                            <div id="divTareaRepetitiva" style="width: 50%; float: right;" runat="server" visible="false">
+                            <div id="divTareaRepetitiva" style="width: 50%; float: right;" runat="server" >
                                 <h4>Opciones de repetición</h4>
                                 <div style="width: 50%; float: left;">
                                     <asp:Label ID="Label9" runat="server" Text="Hora inicio"></asp:Label>

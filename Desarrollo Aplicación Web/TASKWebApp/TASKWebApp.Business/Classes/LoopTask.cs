@@ -134,11 +134,30 @@ namespace TASKWebApp.Business.Classes
         public bool IsDayOfWeek()
         {
             List<LoopTaskSchedule> ltsList = GetSchedule();
-
             if (ltsList[0].DayOfWeek != null)
                 return true;
             else
                 return false;
+
+
+        }
+
+        public int GetSelectedMonth()
+        {
+
+            return (int)GetSchedule()[0].IdMonth;
+        }
+
+        public int GetDayOfMonth()
+        {
+            return (int)GetSchedule()[0].DayOfMonth;
+        }
+
+        public void DeleteScheduledTasks()
+        {
+            List<LoopTaskSchedule> ltsList = GetSchedule();
+            foreach (LoopTaskSchedule lts in ltsList)
+                lts.Delete();
         }
     }
 }
