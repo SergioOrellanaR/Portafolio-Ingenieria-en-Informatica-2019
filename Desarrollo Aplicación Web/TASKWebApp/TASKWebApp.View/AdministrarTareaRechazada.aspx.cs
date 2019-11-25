@@ -255,6 +255,7 @@ namespace TASKWebApp.View
                 {
                     processedTask.TaskAssignment.Task.Name = txtNombreTarea.Text;
                     processedTask.TaskAssignment.Task.Description = txtDescripcion.Text;
+                    processedTask.Commentary = null;
                     processedTask.StartDate = startDate;
                     processedTask.EndDate = endDate;
                     processedTask.AssignationDate = DateTime.Now;
