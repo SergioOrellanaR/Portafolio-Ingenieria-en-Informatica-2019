@@ -14,7 +14,7 @@ import processsaescritorio.modelo.TareaDTO;
  *
  * @author yo
  */
-public class CustomListModel extends AbstractListModel {
+public class CustomListModelT extends AbstractListModel {
 
     private ArrayList lista = new ArrayList<>();
 
@@ -25,26 +25,22 @@ public class CustomListModel extends AbstractListModel {
 
     @Override
     public Object getElementAt(int index) {
-        PermisoDTO p = (PermisoDTO) lista.get(index);
+        TareaDTO p = (TareaDTO) lista.get(index);
         return p.getNombre();
     }
 
-    public int getIdPermiso(int index) {
-        PermisoDTO p = (PermisoDTO) lista.get(index);
+    public int getIdTarea(int index) {
+        TareaDTO p = (TareaDTO) lista.get(index);
         return p.getId();
     }
 
-    public void addPermiso(PermisoDTO p) {
-        lista.add(p);
-        this.fireIntervalAdded(this, getSize(), getSize() + 1);
-    }
-    
+ 
     public void addTarea(TareaDTO p) {
         lista.add(p);
         this.fireIntervalAdded(this, getSize(), getSize() + 1);
     }
 
-    public void eliminarPersona(int index0) {
+    public void eliminarTarea(int index0) {
         lista.remove(index0);
         this.fireIntervalRemoved(index0, getSize(), getSize() + 1);
     }
@@ -53,8 +49,8 @@ public class CustomListModel extends AbstractListModel {
         return lista.indexOf(index);
     }
 
-    public PermisoDTO getPermiso(int index) {
-        return (PermisoDTO) lista.get(index);
+    public TareaDTO getTarea(int index) {
+        return (TareaDTO) lista.get(index);
     }
 
 }

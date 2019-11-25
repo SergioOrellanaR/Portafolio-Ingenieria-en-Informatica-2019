@@ -8,6 +8,7 @@ package processsaescritorio.vista;
 import java.awt.Component;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,8 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
      */
     ArrayList<RolDTO> listaRol;
     ArrayList<PermisoDTO> listarPermisos;
+    ArrayList<RolPermisosDTO> listarP;
+
     private boolean rolIdentificado=false;
     private int idGeneral=0;
     
@@ -244,6 +247,23 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
 
         RolDTO rol=new RolDAO().obtenerRolPorIdBD(id);
         txtName.setText(rol.getName());
+        
+        listarP = new Lista().listarPermisosPorRol(id);
+        List<Integer> myList = new ArrayList<Integer>();
+        int[] indices;
+        for (int i = 0; i < list_model.getSize(); i++) {
+            for (RolPermisosDTO s : listarP) {
+                if (list_model.getIdPermiso(i)==s.getIdPermiso()) {
+                 
+                     myList.add(i);
+                  
+                }
+            }  
+        }
+       int[] primitive = myList.stream().mapToInt(Integer::intValue).toArray();
+        listPermisos.setSelectedIndices(primitive);
+    
+     
     }//GEN-LAST:event_tblRolMouseClicked
 
     public void actualizarListaRol(){

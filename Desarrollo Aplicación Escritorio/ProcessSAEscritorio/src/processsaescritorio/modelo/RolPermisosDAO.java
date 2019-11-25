@@ -84,4 +84,26 @@ public class RolPermisosDAO implements DatosConexion{
         }        
     }
     
+    public ArrayList<RolPermisosDTO> obtenerPermisosPorRoles(int rol){
+        
+        ArrayList<RolPermisosDTO> listar = new ArrayList<RolPermisosDTO>();
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("select id,name from permission join role_permissions rp on permission.id=rp.id_permission where rp.id_role="+rol);
+            while (resultado.next()) {
+                this.setIdRol(rol);
+                this.setIdPermiso(resultado.getInt(1));
+               listar.add(new RolPermisosDTO(this.getIdRol(),this.getIdPermiso()));              
+            }  
+            conexion.close();
+            return listar;
+        }catch(Exception e){
+            System.out.println("Error : " + e);
+            return listar;
+        }
+    }
+    
+    
 }

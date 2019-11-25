@@ -98,4 +98,18 @@ public class Lista {
         return lista;
 
     }
+     
+    public ArrayList<RolPermisosDTO> listarPermisosPorRol(int id){
+        ArrayList<RolPermisosDTO> lista = new RolPermisosDAO().obtenerPermisosPorRoles(id);
+        return lista;
+    }
+    
+    public ArrayList<TareaDTO> listarTareasChildren(int id){
+        ArrayList<TareaDTO> lista = new TareaDAO().ObtenerTareasH(id);
+        return lista;
+    }
+    
+
+    
+
 }

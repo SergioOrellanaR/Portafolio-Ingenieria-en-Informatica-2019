@@ -5,7 +5,11 @@
  */
 package processsaescritorio.vista;
 
+import java.awt.CheckboxGroup;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 import processsaescritorio.controlador.Lista;
 import processsaescritorio.modelo.*;
@@ -19,37 +23,90 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     /**
      * Creates new form FlujoTareas
      */
-    
     ArrayList<TareaDTO> listaTareas;
-    private int idGeneral=0;
-    
+    ArrayList<TareaDTO> listarChildren;
+
+    private int idGeneral = 0;
+    CustomListModelT list_model = new CustomListModelT();
+
     public FlujoTareas() {
         initComponents();
         actualizarListaTarea();
+        // listChildren.setModel(list_model);
+        // listaChildren();
     }
-    
-    
-        public void actualizarListaTarea(){
-        listaTareas = new Lista().listarTareas();
-        String[] columnas = {"ID", "Nombre","Descripcion","Activo"};
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0){
-        @Override
-        public boolean isCellEditable(int filas,int columnas){
-            return false;
-        }
-        };
+
+    /*
+      @SuppressWarnings("unchecked")
+    public void listaChildren(int idGeneral){
+        listarChildren=new Lista().listarTareasChildren(idGeneral);
+       
+        DefaultListModel dfl=new DefaultListModel();
         
-        for(TareaDTO tarea : listaTareas){
+        for(TareaDTO tarea : listarChildren){
             String id       = String.valueOf(tarea.getId());
             String name     = String.valueOf(tarea.getNombre());
-            String descripcion     = String.valueOf(tarea.getDescripcion());
-            String activo=Integer.valueOf(tarea.getActivo())==1?"Activo":"Inactivo";
-         
-          
-            Object[] elemento = {id,name,descripcion,activo};
+            String description = String.valueOf(tarea.getDescripcion());
+   
+            Object[] elemento = {id,name,description};
+           
+            
+            list_model.addTarea(tarea);
+            dfl.addElement(id+"-"+name+"-"+description);
+        }
+        
+            //listPermisos.setModel(dfl);
+    }*/
+
+    public void actualizarListaTarea() {
+        listaTareas = new Lista().listarTareas();
+        String[] columnas = {"ID", "Nombre", "Descripcion", "Activo"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                return false;
+            }
+        };
+        /*
+        for (TareaDTO listaTarea : listaTareas) {
+            JOptionPane.showConfirmDialog(rootPane, "Se ha encontrado y seleccionado la incidencia."+ listaTarea.getActivo());
+        }*/
+    
+        listaTareas.stream().map((tarea) -> {
+            String id = String.valueOf(tarea.getId());
+            String name = String.valueOf(tarea.getNombre());
+            String descripcion = String.valueOf(tarea.getDescripcion());
+            int activo = tarea.getActivo();
+            Object[] elemento = {id, name, descripcion, activo};
+            return elemento;
+        }).forEachOrdered((elemento) -> {
+            modeloTabla.addRow(elemento);
+        });
+;
+        tblTareas.setModel(modeloTabla);
+    }
+
+    public void ListaTareaC() {
+        listaTareas = new Lista().listarTareasChildren(idGeneral);
+        String[] columnas = {"ID", "Nombre", "Descripcion", "Dependencia", "Activo"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                return false;
+            }
+        };
+
+        for (TareaDTO tarea : listaTareas) {
+            String id = String.valueOf(tarea.getId());
+            String name = String.valueOf(tarea.getNombre());
+            String descripcion = String.valueOf(tarea.getDescripcion());
+            String Dependencia = String.valueOf(tarea.getIdDependenciaTarea());
+            String activo = Integer.valueOf(tarea.getActivo()) == 1 ? "Activo" : "Inactivo";
+
+            Object[] elemento = {id, name, descripcion, Dependencia, activo};
             modeloTabla.addRow(elemento);
         };
-        tblTareas.setModel(modeloTabla);
+        tblTareasC.setModel(modeloTabla);
     }
 
     /**
@@ -61,8 +118,20 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTareas = new javax.swing.JTable();
+        txtName = new javax.swing.JTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaTarea = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblTareasC = new javax.swing.JTable();
+        txtNameC = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtAreaTareaC = new javax.swing.JTextArea();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        rdTarea = new javax.swing.JRadioButton();
 
         tblTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,38 +151,151 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblTareas);
 
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
+        txtAreaTarea.setColumns(20);
+        txtAreaTarea.setRows(5);
+        jScrollPane2.setViewportView(txtAreaTarea);
+
+        tblTareasC.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblTareasC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTareasCMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblTareasC);
+
+        txtAreaTareaC.setColumns(20);
+        txtAreaTareaC.setRows(5);
+        jScrollPane3.setViewportView(txtAreaTareaC);
+
+        jRadioButton4.setText("jRadioButton4");
+
+        rdTarea.setText("Activo");
+        rdTarea.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(454, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtName)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+                    .addComponent(rdTarea))
+                .addGap(108, 108, 108)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jScrollPane4)
+                    .addComponent(txtNameC)
+                    .addComponent(jScrollPane3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNameC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdTarea))))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTareasMouseClicked
-             int seleccion= tblTareas.rowAtPoint(evt.getPoint());
-        int id=Integer.parseInt(String.valueOf(tblTareas.getValueAt(seleccion,0)));
-        
+        int seleccion = tblTareas.rowAtPoint(evt.getPoint());
+        int id = Integer.parseInt(String.valueOf(tblTareas.getValueAt(seleccion, 0)));
+
         //companiaIdentificada=true;
-        idGeneral=id;
-       // btnBorrar.setEnabled(true);
+        idGeneral = id;
+        TareaDTO tarea = new TareaDAO().ObtenerTareasPorId(id);
+
+        if (tarea.getActivo() == 1) {
+            rdTarea.doClick();
+            rdTarea.setSelected(true);
+        } else {
+            rdTarea.doClick();
+
+            rdTarea.setSelected(false);
+
+        }
+
+        txtName.setText(tarea.getNombre());
+        txtAreaTarea.setText(tarea.getDescripcion());
+
+        //rdTarea.s(true); 
+        ListaTareaC();
+        // listaChildren(idGeneral);
+        // btnBorrar.setEnabled(true);
     }//GEN-LAST:event_tblTareasMouseClicked
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void tblTareasCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTareasCMouseClicked
+        int seleccion = tblTareas.rowAtPoint(evt.getPoint());
+        int id = Integer.parseInt(String.valueOf(tblTareas.getValueAt(seleccion, 0)));
+        TareaDTO tarea = new TareaDAO().ObtenerTareasPorId(id);
+        txtNameC.setText(tarea.getNombre());
+        txtAreaTareaC.setText(tarea.getDescripcion());
+    }//GEN-LAST:event_tblTareasCMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JRadioButton rdTarea;
     private javax.swing.JTable tblTareas;
+    private javax.swing.JTable tblTareasC;
+    private javax.swing.JTextArea txtAreaTarea;
+    private javax.swing.JTextArea txtAreaTareaC;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNameC;
     // End of variables declaration//GEN-END:variables
 }
