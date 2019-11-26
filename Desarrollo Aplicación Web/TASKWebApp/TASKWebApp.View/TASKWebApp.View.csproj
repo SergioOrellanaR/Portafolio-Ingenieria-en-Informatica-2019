@@ -97,6 +97,7 @@
     <Content Include="CSS\StyleSheet.css" />
     <Content Include="CSS\StyleSheetMP.css" />
     <Content Include="CSS\StyleSheetRC.css" />
+    <Content Include="EstadoTareas.aspx" />
     <Content Include="FlujodeTarea.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\avatar.png" />
@@ -198,6 +199,13 @@
     </Compile>
     <Compile Include="CrearTarea.aspx.designer.cs">
       <DependentUpon>CrearTarea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EstadoTareas.aspx.cs">
+      <DependentUpon>EstadoTareas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EstadoTareas.aspx.designer.cs">
+      <DependentUpon>EstadoTareas.aspx</DependentUpon>
     </Compile>
     <Compile Include="FlujodeTarea.aspx.cs">
       <DependentUpon>FlujodeTarea.aspx</DependentUpon>
