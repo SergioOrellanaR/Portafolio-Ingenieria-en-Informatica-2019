@@ -100,5 +100,64 @@ namespace TASKWebApp.Business.Classes
                 return false;
             }
         }
+
+        public List<LoopTaskSchedule> GetSchedule()
+        {
+            List<LoopTaskSchedule> ltsList = new List<LoopTaskSchedule>();
+            List<Data.LOOP_TASK_SCHEDULE> ltsData = Connection.ProcessSA_DB.LOOP_TASK_SCHEDULE.Where(X => X.ID_LOOP_TASK == Id).ToList();
+
+            foreach (Data.LOOP_TASK_SCHEDULE lts in ltsData)
+            {
+                LoopTaskSchedule schedule = new LoopTaskSchedule((int)lts.ID);
+                ltsList.Add(schedule);
+            }
+            return ltsList;
+        }
+
+        public List<string> GetScheduleDistinct(bool getDayOfWeek)
+        {
+            List<Data.LOOP_TASK_SCHEDULE> ltsData = Connection.ProcessSA_DB.LOOP_TASK_SCHEDULE.Where(X => X.ID_LOOP_TASK == Id).ToList();
+            List<string> list = new List<string>();
+
+
+            foreach (Data.LOOP_TASK_SCHEDULE lts in ltsData)
+            {
+                LoopTaskSchedule schedule = new LoopTaskSchedule((int)lts.ID);
+                if(getDayOfWeek)
+                    list.Add(schedule.DayOfWeek.ToString());
+                else
+                    list.Add(schedule.NumberOfWeek.ToString());
+            }
+            return list.Distinct().ToList();
+        }
+
+        public bool IsDayOfWeek()
+        {
+            List<LoopTaskSchedule> ltsList = GetSchedule();
+            if (ltsList[0].DayOfWeek != null)
+                return true;
+            else
+                return false;
+
+
+        }
+
+        public int GetSelectedMonth()
+        {
+
+            return (int)GetSchedule()[0].IdMonth;
+        }
+
+        public int GetDayOfMonth()
+        {
+            return (int)GetSchedule()[0].DayOfMonth;
+        }
+
+        public void DeleteScheduledTasks()
+        {
+            List<LoopTaskSchedule> ltsList = GetSchedule();
+            foreach (LoopTaskSchedule lts in ltsList)
+                lts.Delete();
+        }
     }
 }

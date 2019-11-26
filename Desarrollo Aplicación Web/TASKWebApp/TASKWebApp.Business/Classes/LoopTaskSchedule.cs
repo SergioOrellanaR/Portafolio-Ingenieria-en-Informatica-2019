@@ -102,5 +102,37 @@ namespace TASKWebApp.Business.Classes
                 return false;
             }
         }
+
+        public bool Delete()
+        {
+            try
+            {
+                Data.LOOP_TASK_SCHEDULE loopTaskSchedule = Connection.ProcessSA_DB.LOOP_TASK_SCHEDULE.First(lts => lts.ID == Id);
+                UpdateProcessedTaskToNull();
+                Connection.ProcessSA_DB.LOOP_TASK_SCHEDULE.Remove(loopTaskSchedule);
+                Connection.ProcessSA_DB.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                log.Error("Ha ocurrido un error durante el update de LoopTaskSchedule. Id: "+Id, e);
+                return false;
+            }
+        }
+
+        public void UpdateProcessedTaskToNull()
+        {
+            int expiredStatus = 8;
+            List<Data.PROCESSED_TASK> processedTasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(pt => pt.ID_SCHEDULED_LOOPTASK == Id).ToList();
+            foreach (Data.PROCESSED_TASK pt in processedTasks)
+            {
+                pt.ID_TASKSTATUS = expiredStatus;
+                pt.ID_SCHEDULED_LOOPTASK = null;
+            }
+                
+            Connection.ProcessSA_DB.SaveChanges();
+        }
+
+
     }
 }
