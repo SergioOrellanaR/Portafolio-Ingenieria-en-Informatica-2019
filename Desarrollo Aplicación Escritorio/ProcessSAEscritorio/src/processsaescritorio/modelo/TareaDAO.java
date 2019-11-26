@@ -180,5 +180,20 @@ public class TareaDAO implements DatosConexion {
             return listaTareas;
         }
     }
+    
+        public String crearTarea(){
+        try{
+            
+          Class.forName(DRIVER);
+          Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+          Statement declaracion = conexion.createStatement();
+          declaracion.executeUpdate("INSERT INTO task(name,description,ispredefined,isactive,id_superior_task,id_dependent_task)VALUES "
+                  + "('"+this.getNombre()+"','"+this.getDescripcion()+"',"+this.getPredefinido()+","+(this.getActivo()==1?this.getActivo():null)+","+(this.getIdTareaSuperior()==0?null:this.getIdTareaSuperior())+","+(this.getIdDependenciaTarea()==0?null:this.getIdDependenciaTarea())+")");
+          return "El registro de tarea fue exitoso.";
+        }catch(Exception e){
+         System.out.println("Error : " + e);
+          return "No se pudo registrar Tarea : " + e;
+    }
+    }
 
 }
