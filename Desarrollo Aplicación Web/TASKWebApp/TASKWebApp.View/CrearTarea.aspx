@@ -131,7 +131,7 @@
                                 <div class="col-md-5 form-group">
                                     <asp:Label ID="Label5" runat="server" Text="Repetir los días: "></asp:Label>
                                 </div>
-                                <asp:DropDownList ID="ddlDiaDelMes" runat="server">
+                                <asp:DropDownList CssClass="form-control" ID="ddlDiaDelMes" runat="server">
                                     <asp:ListItem Text="1" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="2" Value="2"></asp:ListItem>
                                     <asp:ListItem Text="3" Value="3"></asp:ListItem>
@@ -165,6 +165,7 @@
                                     <asp:ListItem Text="31" Value="31"></asp:ListItem>
                                     <asp:ListItem Text="Último día de cada mes" Value="32"></asp:ListItem>
                                 </asp:DropDownList>
+                                <br />
                             </div>
 
                             <div id="divNumeroSemana" runat="server">
