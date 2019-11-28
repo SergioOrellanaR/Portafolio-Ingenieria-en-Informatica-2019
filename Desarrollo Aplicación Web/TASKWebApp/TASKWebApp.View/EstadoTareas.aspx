@@ -63,7 +63,7 @@
                               <asp:ListItem Text="Suspendido" Value="9"></asp:ListItem>
                           </asp:DropDownList>&nbsp&nbsp&nbsp&nbsp
                     
-                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" />
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" onclick="btnBuscar_Click" />
                         <br />
                     </div>
                 </div>
@@ -84,7 +84,26 @@
                         <br />
 
                         <div>
-                            <asp:GridView ID="grdTareas" runat="server"></asp:GridView>
+                            <asp:GridView ID="grdTareas" runat="server" 
+                                SelectedRowStyle-BackColor="Yellow" 
+                                AutoGenerateColumns="false"
+                                AllowPaging="true"
+                                PageSize = "10" 
+                                OnPageIndexChanging="grdTareas_PageIndexChanging" >
+                                <Columns>
+                                    <asp:BoundField  HeaderText="Fecha de asignación" DataField="AssignationDate" />
+                                    <asp:BoundField  HeaderText="Fecha de Inicio" DataField="StartDate" />
+                                    <asp:BoundField  HeaderText="Fecha de Fin" DataField="EndDate" />
+                                    <asp:BoundField  HeaderText="Estado" DataField="TaskStatus" />
+                                    <asp:BoundField  HeaderText="Nombre" DataField="TaskName" />
+                                    <asp:BoundField  HeaderText="Descripción" DataField="Description" />
+                                    <asp:BoundField  HeaderText="Nombre de asignador" DataField="AssignerName" />
+                                    <asp:BoundField  HeaderText="Nombre de recibidor" DataField="ReceiverName" />
+                                    <asp:BoundField  HeaderText="Justificación" DataField="Justification" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                        <div>
                             <asp:Button ID="btnImprimirReporte" runat="server" Text="Imprimir Reporte" Visible="false" />
                         </div>
                     </ContentTemplate>
