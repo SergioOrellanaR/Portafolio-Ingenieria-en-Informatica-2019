@@ -686,6 +686,7 @@ CREATE OR REPLACE VIEW VW_TASK_ASSOCIATED_TO_USER AS
 select 
 ts.id as IdStatus,
 usa.id as IdAssignerUser,
+usr.id as IDRECEIVERUSER,
 pt.Assignationdate as "Fecha Asignacion",
 pt.Startdate as "Fecha Inicio",
 pt.Enddate as "Fecha Fin",
