@@ -77,7 +77,7 @@ namespace TASKWebApp.View
         {
             int InProcessId = 2;
             int errorCode = -1;
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             int rowTaskId = GetRowTaskId(item); 
 
@@ -95,7 +95,7 @@ namespace TASKWebApp.View
         protected void btnSubRechazar_Click(object sender, EventArgs e)
         {
 
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item) };
             processedTask.Read();

@@ -51,9 +51,13 @@
                                 <td>
                                     <asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:Button ID="btnSubFinalizar" runat="server" Text="+" OnClick="btnSubFinalizar_Click" UseSubmitBehavior="false" /></td>
-                                <td>
-                                    <asp:Button ID="btnSubInformarProblema" runat="server" Text="¡!" OnClick="btnSubInformarProblema_Click" UseSubmitBehavior="false" /></td>
+                                <asp:LinkButton ID="btnSubFinalizar" runat="server" CssClass="btn btn-primary" OnClick="btnSubFinalizar_Click" UseSubmitBehavior="false">
+                                     <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                                </asp:LinkButton>
+                                <td class="text-center">
+                                <asp:LinkButton ID="btnSubInformarProblema" runat="server" CssClass="btn btn-danger" OnClick="btnSubInformarProblema_Click" UseSubmitBehavior="false">
+                                     <span aria-hidden="true" class="glyphicon glyphicon-alert"></span>
+                                </asp:LinkButton>
                                 <asp:Label ID="lblIdTarea" runat="server" Text="" Visible="false"></asp:Label>
                             </tr>
                         </ItemTemplate>
