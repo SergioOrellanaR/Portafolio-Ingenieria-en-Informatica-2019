@@ -81,7 +81,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="NAME" Type="nvarchar2" MaxLength="12" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar2" MaxLength="16" Nullable="false" />
         </EntityType>
         <EntityType Name="PERMISSION">
           <Key>
@@ -196,6 +196,33 @@
           </Key>
           <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NAME" Type="nvarchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PROCESSSA.VW_TASK_ASSOCIATED_TO_USER' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VW_TASK_ASSOCIATED_TO_USER">
+          <Key>
+            <PropertyRef Name="IDSTATUS" />
+            <PropertyRef Name="IDASSIGNERUSER" />
+            <PropertyRef Name="IDRECEIVERUSER" />
+            <PropertyRef Name="Fecha Asignacion" />
+            <PropertyRef Name="Fecha Inicio" />
+            <PropertyRef Name="Fecha Fin" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Nombre Tarea" />
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="IDSTATUS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDASSIGNERUSER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDRECEIVERUSER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="Fecha Asignacion" Type="date" Nullable="false" />
+          <Property Name="Fecha Inicio" Type="date" Nullable="false" />
+          <Property Name="Fecha Fin" Type="date" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="Nombre Tarea" Type="nvarchar2" MaxLength="255" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar2" MaxLength="1000" Nullable="false" />
+          <Property Name="Asignado Por" Type="nvarchar2" MaxLength="511" />
+          <Property Name="Asignado A" Type="nvarchar2" MaxLength="511" />
+          <Property Name="Justificacion" Type="nvarchar2" MaxLength="1000" />
         </EntityType>
         <Association Name="ASSIGNED_TASK_PROC_TASK_FK">
           <End Role="TASK_ASSIGNMENT" Type="Self.TASK_ASSIGNMENT" Multiplicity="1" />
@@ -555,6 +582,22 @@
           <EntitySet Name="TASK_STATUS" EntityType="Self.TASK_STATUS" Schema="PROCESSSA" store:Type="Tables" />
           <EntitySet Name="USER_INFO" EntityType="Self.USER_INFO" Schema="PROCESSSA" store:Type="Tables" />
           <EntitySet Name="WORKING_AREA" EntityType="Self.WORKING_AREA" Schema="PROCESSSA" store:Type="Tables" />
+          <EntitySet Name="VW_TASK_ASSOCIATED_TO_USER" EntityType="Self.VW_TASK_ASSOCIATED_TO_USER" store:Type="Views" store:Schema="PROCESSSA">
+            <DefiningQuery>SELECT 
+"VW_TASK_ASSOCIATED_TO_USER"."IDSTATUS" AS "IDSTATUS", 
+"VW_TASK_ASSOCIATED_TO_USER"."IDASSIGNERUSER" AS "IDASSIGNERUSER", 
+"VW_TASK_ASSOCIATED_TO_USER"."IDRECEIVERUSER" AS "IDRECEIVERUSER", 
+"VW_TASK_ASSOCIATED_TO_USER"."Fecha Asignacion" AS "Fecha Asignacion", 
+"VW_TASK_ASSOCIATED_TO_USER"."Fecha Inicio" AS "Fecha Inicio", 
+"VW_TASK_ASSOCIATED_TO_USER"."Fecha Fin" AS "Fecha Fin", 
+"VW_TASK_ASSOCIATED_TO_USER"."Estado" AS "Estado", 
+"VW_TASK_ASSOCIATED_TO_USER"."Nombre Tarea" AS "Nombre Tarea", 
+"VW_TASK_ASSOCIATED_TO_USER"."Descripcion" AS "Descripcion", 
+"VW_TASK_ASSOCIATED_TO_USER"."Asignado Por" AS "Asignado Por", 
+"VW_TASK_ASSOCIATED_TO_USER"."Asignado A" AS "Asignado A", 
+"VW_TASK_ASSOCIATED_TO_USER"."Justificacion" AS "Justificacion"
+FROM "PROCESSSA"."VW_TASK_ASSOCIATED_TO_USER" "VW_TASK_ASSOCIATED_TO_USER"</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="ASSIGNED_TASK_PROC_TASK_FK" Association="Self.ASSIGNED_TASK_PROC_TASK_FK">
             <End Role="TASK_ASSIGNMENT" EntitySet="TASK_ASSIGNMENT" />
             <End Role="PROCESSED_TASK" EntitySet="PROCESSED_TASK" />
@@ -801,6 +844,7 @@
             <End Role="PERMISSION" EntitySet="PERMISSION" />
             <End Role="ROLE" EntitySet="ROLE" />
           </AssociationSet>
+          <EntitySet Name="VW_TASK_ASSOCIATED_TO_USER" EntityType="ProcessSAModel.VW_TASK_ASSOCIATED_TO_USER" />
         </EntityContainer>
         <EntityType Name="ASSIGNED_UNIT">
           <Key>
@@ -1356,6 +1400,31 @@
           <End Type="ProcessSAModel.PERMISSION" Role="PERMISSION" Multiplicity="*" />
           <End Type="ProcessSAModel.ROLE" Role="ROLE" Multiplicity="*" />
         </Association>
+        <EntityType Name="VW_TASK_ASSOCIATED_TO_USER">
+          <Key>
+            <PropertyRef Name="IDSTATUS" />
+            <PropertyRef Name="IDASSIGNERUSER" />
+            <PropertyRef Name="IDRECEIVERUSER" />
+            <PropertyRef Name="Fecha_Asignacion" />
+            <PropertyRef Name="Fecha_Inicio" />
+            <PropertyRef Name="Fecha_Fin" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Nombre_Tarea" />
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="IDSTATUS" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDASSIGNERUSER" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDRECEIVERUSER" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="Fecha_Asignacion" Type="DateTime" Nullable="false" />
+          <Property Name="Fecha_Inicio" Type="DateTime" Nullable="false" />
+          <Property Name="Fecha_Fin" Type="DateTime" Nullable="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre_Tarea" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Asignado_Por" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="Asignado_A" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="Justificacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1574,6 +1643,24 @@
               <ScalarProperty Name="ID" ColumnName="ID_PERMISSION" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="VW_TASK_ASSOCIATED_TO_USER">
+            <EntityTypeMapping TypeName="ProcessSAModel.VW_TASK_ASSOCIATED_TO_USER">
+              <MappingFragment StoreEntitySet="VW_TASK_ASSOCIATED_TO_USER">
+                <ScalarProperty Name="Justificacion" ColumnName="Justificacion" />
+                <ScalarProperty Name="Asignado_A" ColumnName="Asignado A" />
+                <ScalarProperty Name="Asignado_Por" ColumnName="Asignado Por" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre_Tarea" ColumnName="Nombre Tarea" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha_Fin" ColumnName="Fecha Fin" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha Inicio" />
+                <ScalarProperty Name="Fecha_Asignacion" ColumnName="Fecha Asignacion" />
+                <ScalarProperty Name="IDRECEIVERUSER" ColumnName="IDRECEIVERUSER" />
+                <ScalarProperty Name="IDASSIGNERUSER" ColumnName="IDASSIGNERUSER" />
+                <ScalarProperty Name="IDSTATUS" ColumnName="IDSTATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

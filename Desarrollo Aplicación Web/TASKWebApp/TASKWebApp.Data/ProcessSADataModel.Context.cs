@@ -45,5 +45,6 @@ namespace TASKWebApp.Data
         public DbSet<TASK_STATUS> TASK_STATUS { get; set; }
         public DbSet<USER_INFO> USER_INFO { get; set; }
         public DbSet<WORKING_AREA> WORKING_AREA { get; set; }
+        public DbSet<VW_TASK_ASSOCIATED_TO_USER> VW_TASK_ASSOCIATED_TO_USER { get; set; }
     }
 }
