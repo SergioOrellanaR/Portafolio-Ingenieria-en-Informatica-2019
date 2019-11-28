@@ -44,7 +44,7 @@
 			</li>
 			<li class="nav-item"><a href="TareasAsignadas.aspx" class="nav-link"><i class="glyphicon glyphicon-exclamation-sign"></i><span>Tareas pendientes de revisión</span><asp:Label ID="lblCantidadTareasAsignadas" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
 			<li class="nav-item"><a href="VerTareasActivas.aspx" class="nav-link"><i class="glyphicon glyphicon-tasks"></i><span>Tareas activas</span><asp:Label ID="lblCantidadTareasEnProceso" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
-			<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-briefcase"></i><span>Estado Tareas</span></a></li>		
+			<li class="nav-item"><a href="EstadoTareas.aspx" class="nav-link"><i class="fa fa-briefcase"></i><span>Estado Tareas</span></a></li>		
 			<li class="nav-item dropdown">
 				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                     <asp:Label ID="lblName" runat="server" Text=""></asp:Label><b class="caret"></b></a>
