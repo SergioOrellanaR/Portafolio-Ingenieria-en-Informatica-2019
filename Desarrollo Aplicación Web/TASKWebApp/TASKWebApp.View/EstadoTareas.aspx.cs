@@ -16,7 +16,7 @@ namespace TASKWebApp.View
             {
                 User user = (User)Session["ses"];
                 LoadResponsibles(user);
-                //LoadDefaultDataGridData(user);
+                LoadDefaultDataGridData(user);
             }
             catch
             {
@@ -43,6 +43,12 @@ namespace TASKWebApp.View
             List<ViewAssociatedTaskToUser> list = user.RealizeFiltering(user.Id, idAllMonths, DateTime.Now.Year, idAllStatus, true);
             grdTareas.DataSource = list;
             grdTareas.DataBind();
+            btnImprimirReporte.Visible = true;
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
