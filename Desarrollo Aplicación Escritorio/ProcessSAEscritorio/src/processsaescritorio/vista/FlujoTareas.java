@@ -28,6 +28,8 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     ArrayList<TareaDTO> listarChildren;
 
     private int idGeneral = 0;
+    private int idTareaC = 0;
+
     CustomListModelT list_model = new CustomListModelT();
 
     public FlujoTareas() {
@@ -58,25 +60,30 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         
             //listPermisos.setModel(dfl);
     }*/
-    
-    public void resetearTablaTarea()
-    {
+    public void resetearTablaTarea() {
         listaTareas.removeAll(listaTareas);
         actualizarListaTarea();
     }
-    
-      public void resetearTablaTareaC()
-    {
-        listaTareas.removeAll(listaTareas);
+
+    public void resetearTablaTareaC() {
+        listarChildren.removeAll(listarChildren);
         actualizarListaTarea();
     }
-    
-    
-    public void limpiarFormularioTarea()
-    {
+
+    public void limpiarFormularioTarea() {
         tblTareas.getSelectionModel().clearSelection();
         txtName.setText("");
         txtAreaTarea.setText("");
+        //btnBorrar.setEnabled(false);
+    }
+    
+  
+
+    public void limpiarFormularioTareaC() {
+        tblTareasC.getSelectionModel().clearSelection();
+        txtNameC.setText("");
+        txtAreaTareaC.setText("");
+        cbxTareasC.setSelectedIndex(cbxTareasC.getSelectedIndex());
         //btnBorrar.setEnabled(false);
     }
 
@@ -93,18 +100,18 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         for (TareaDTO listaTarea : listaTareas) {
             JOptionPane.showConfirmDialog(rootPane, "Se ha encontrado y seleccionado la incidencia."+ listaTarea.getActivo());
         }*/
-    
+
         listaTareas.stream().map((tarea) -> {
             String id = String.valueOf(tarea.getId());
             String name = String.valueOf(tarea.getNombre());
             String descripcion = String.valueOf(tarea.getDescripcion());
-            String activo =  Integer.valueOf(tarea.getActivo()) == 1 ? "Activo" : "Inactivo";
+            String activo = Integer.valueOf(tarea.getActivo()) == 1 ? "Activo" : "Inactivo";
             Object[] elemento = {id, name, descripcion, activo};
             return elemento;
         }).forEachOrdered((elemento) -> {
             modeloTabla.addRow(elemento);
         });
-;
+        ;
         tblTareas.setModel(modeloTabla);
     }
 
@@ -129,8 +136,15 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         }).forEachOrdered((elemento) -> {
             modeloTabla.addRow(elemento);
         });
-;
+        ;
         tblTareasC.setModel(modeloTabla);
+    }
+
+    public void listadoTareaChildren() {
+
+        for (TareaDTO tarea : new Lista().listarTareasChildrenDependientes(idTareaC, idGeneral)) {
+            cbxTareasC.addItem(tarea.getId() + "-" + tarea.getNombre());
+        }
     }
 
     /**
@@ -162,6 +176,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnGrabarC = new javax.swing.JButton();
+        cbxTareasC = new javax.swing.JComboBox<>();
 
         tblTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -258,20 +273,29 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
                             .addGap(20, 20, 20)))
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addGap(108, 108, 108)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rdTareaC)
-                            .addComponent(jScrollPane4)
-                            .addComponent(txtNameC)
-                            .addComponent(jScrollPane3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(566, 566, 566)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGrabarC))
-                .addContainerGap(247, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGrabarC)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxTareasC, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(rdTareaC))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(182, 182, 182)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(txtNameC, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,20 +313,22 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNameC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdTarea))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdTareaC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdTarea))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbxTareasC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rdTareaC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -314,7 +340,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -341,8 +367,12 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         txtName.setText(tarea.getNombre());
         txtAreaTarea.setText(tarea.getDescripcion());
 
-        //rdTarea.s(true); 
+        //rdTarea.s(true);
+        limpiarFormularioTareaC();
         ListaTareaC();
+        cbxTareasC.removeAllItems();
+        listadoTareaChildren();
+
         // listaChildren(idGeneral);
         // btnBorrar.setEnabled(true);
     }//GEN-LAST:event_tblTareasMouseClicked
@@ -354,31 +384,50 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     private void tblTareasCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTareasCMouseClicked
         int seleccion = tblTareasC.rowAtPoint(evt.getPoint());
         int id = Integer.parseInt(String.valueOf(tblTareasC.getValueAt(seleccion, 0)));
+        idTareaC = id;
         TareaDTO tareax = new TareaDAO().ObtenerTareasPorId(id);
 
-          if (tareax.getActivo() == 1) {
+        if (tareax.getActivo() == 1) {
             rdTareaC.doClick();
             rdTareaC.setSelected(true);
         } else {
-            
-            rdTareaC.setSelected(false);
             rdTareaC.doClick();
+            rdTareaC.setSelected(false);
         }
-        
+        cbxTareasC.removeAllItems();
+        listadoTareaChildren();
         txtNameC.setText(tareax.getNombre());
         txtAreaTareaC.setText(tareax.getDescripcion());
     }//GEN-LAST:event_tblTareasCMouseClicked
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        new Registro().registrarTarea(txtName.getText(),txtAreaTarea.getText(),1,1,0,0);
+        int activo = 0;
+        if (rdTarea.isSelected()) {
+                activo = 1;
+            } else {
+                activo = 0;
+            }
+
+        new Registro().registrarTarea(txtName.getText(), txtAreaTarea.getText(), 1, activo, 0, 0);
         resetearTablaTarea();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnGrabarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarCActionPerformed
-        if (idGeneral!=0){
-            new Registro().registrarTarea(txtNameC.getText(),txtAreaTareaC.getText(),1,0,idGeneral,0);
-        }else{
-              JOptionPane.showMessageDialog(rootPane, "No estas preparado aún");
+        int activo = 0;
+        if (idGeneral != 0) {
+            if (rdTareaC.isSelected()) {
+                activo = 1;
+            } else {
+                activo = 0;
+            }
+
+            String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
+            int dependenciaId = Integer.parseInt(arrayCommune[0]);
+          
+            new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, activo, idGeneral, dependenciaId);
+            resetearTablaTareaC();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No estas preparado aún");
         }
     }//GEN-LAST:event_btnGrabarCActionPerformed
 
@@ -387,6 +436,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnGrabarC;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbxTareasC;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

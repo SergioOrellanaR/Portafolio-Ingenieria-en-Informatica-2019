@@ -104,7 +104,7 @@ public class TareaDAO implements DatosConexion {
             Class.forName(DRIVER);
             Connection conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id_superior_task IS NULL");
+            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id_superior_task IS NULL order by id");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setNombre(resultado.getString(2));
@@ -130,7 +130,7 @@ public class TareaDAO implements DatosConexion {
             Class.forName(DRIVER);
             Connection conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id=" + id);
+            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id=" + id+" order by id");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setNombre(resultado.getString(2));
@@ -161,7 +161,7 @@ public class TareaDAO implements DatosConexion {
             Class.forName(DRIVER);
             Connection conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id_superior_task =" + id);
+            ResultSet resultado = declaracion.executeQuery("select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where ispredefined=1 and id_superior_task =" + id+" order by id");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setNombre(resultado.getString(2));
@@ -181,7 +181,35 @@ public class TareaDAO implements DatosConexion {
         }
     }
     
-        public String crearTarea(){
+     public ArrayList<TareaDTO> ObtenerTareasHDependencia(int id,int superiorTask) {
+
+        ArrayList<TareaDTO> listaTareas = new ArrayList<TareaDTO>();
+        try {
+            Class.forName(DRIVER);
+            Connection conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("Select id,name,description,ispredefined,isactive,id_superior_task,id_dependent_task from task where isPredefined=1 and id_superior_task="+superiorTask +" and id!="+id+" order by id");
+            while (resultado.next()) {
+                this.setId(resultado.getInt(1));
+                this.setNombre(resultado.getString(2));
+                this.setDescripcion(resultado.getString(3));
+                this.setPredefinido(resultado.getInt(4));
+                this.setActivo(resultado.getInt(5));
+                this.setIdTareaSuperior(resultado.getInt(6));
+                this.setIdDependenciaTarea(resultado.getInt(7));
+                listaTareas.add(new TareaDTO(this.getId(), this.getNombre(), this.getDescripcion(), this.getPredefinido(), this.getActivo(), this.getIdTareaSuperior(), this.getIdDependenciaTarea()));
+                //  listaRegiones.add(new RegionDTO(this.getId(),this.getNombre()));              
+            }
+            conexion.close();
+            return listaTareas;
+        } catch (Exception e) {
+            System.out.println("Error : " + e);
+            return listaTareas;
+        }
+    }
+    
+    
+    public String crearTarea(){
         try{
             
           Class.forName(DRIVER);

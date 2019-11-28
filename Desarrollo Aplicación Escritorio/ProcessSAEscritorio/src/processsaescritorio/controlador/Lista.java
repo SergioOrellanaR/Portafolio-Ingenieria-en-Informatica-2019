@@ -108,6 +108,10 @@ public class Lista {
         ArrayList<TareaDTO> lista = new TareaDAO().ObtenerTareasH(id);
         return lista;
     }
+    public ArrayList<TareaDTO> listarTareasChildrenDependientes(int id,int superiorTask){
+        ArrayList<TareaDTO> lista = new TareaDAO().ObtenerTareasHDependencia(id,superiorTask);
+        return lista;
+    }
     
 
     
