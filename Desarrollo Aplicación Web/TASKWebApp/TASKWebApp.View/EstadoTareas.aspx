@@ -51,9 +51,16 @@
 
                         <asp:Label ID="lblEstado" runat="server" Text="Por estado:"></asp:Label>&nbsp&nbsp&nbsp&nbsp
                           <asp:DropDownList ID="ddlEstados" runat="server">
-                              <asp:ListItem Text="Todos los estados" Value="1"></asp:ListItem>
-                              <asp:ListItem Text="Completado" Value="2"></asp:ListItem>
-                              <asp:ListItem Text="Pendiente" Value="3"></asp:ListItem>
+                              <asp:ListItem Text="Todos" Value="0"></asp:ListItem>
+                              <asp:ListItem Text="Asignado" Value="1"></asp:ListItem>
+                              <asp:ListItem Text="En proceso" Value="2"></asp:ListItem>
+                              <asp:ListItem Text="Completado" Value="3"></asp:ListItem>
+                              <asp:ListItem Text="Reasignado" Value="4"></asp:ListItem>
+                              <asp:ListItem Text="Rechazado" Value="5"></asp:ListItem>
+                              <asp:ListItem Text="Cerrado" Value="6"></asp:ListItem>
+                              <asp:ListItem Text="Fallido" Value="7"></asp:ListItem>
+                              <asp:ListItem Text="Vencido" Value="8"></asp:ListItem>
+                              <asp:ListItem Text="Suspendido" Value="9"></asp:ListItem>
                           </asp:DropDownList>&nbsp&nbsp&nbsp&nbsp
                     
                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" />
@@ -75,8 +82,9 @@
                         <br />
                         <br />
                         <br />
+
                         <div>
-                            <asp:Button ID="btnReporte" runat="server" Text="Imprimir Reporte" Visible="false" />
+                            <asp:Button ID="btnImprimirReporte" runat="server" Text="Imprimir Reporte" Visible="false" />
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
