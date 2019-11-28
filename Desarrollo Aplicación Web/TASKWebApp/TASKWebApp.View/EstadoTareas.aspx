@@ -84,6 +84,7 @@
                         <br />
 
                         <div>
+                            <asp:GridView ID="grdTareas" runat="server"></asp:GridView>
                             <asp:Button ID="btnImprimirReporte" runat="server" Text="Imprimir Reporte" Visible="false" />
                         </div>
                     </ContentTemplate>

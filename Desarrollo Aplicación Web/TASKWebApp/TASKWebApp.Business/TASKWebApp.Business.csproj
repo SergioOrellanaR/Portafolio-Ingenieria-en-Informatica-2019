@@ -108,6 +108,7 @@
     <Compile Include="Classes\Task.cs" />
     <Compile Include="Classes\TaskAssignment.cs" />
     <Compile Include="Classes\User.cs" />
+    <Compile Include="Classes\ViewAssociatedTaskToUser.cs" />
     <Compile Include="Helpers\ComboBoxDataLoader.cs" />
     <Compile Include="Helpers\Connection.cs" />
     <Compile Include="Helpers\PasswordEncryptor.cs" />
