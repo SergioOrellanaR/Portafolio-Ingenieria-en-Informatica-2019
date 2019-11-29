@@ -388,6 +388,8 @@ namespace TASKWebApp.Business.Classes
                 filteredList.Add(associatedTask);
             }
 
+            filteredList = filteredList.OrderBy(x => x.StartDate).ToList();
+
             return filteredList;
         }
 
