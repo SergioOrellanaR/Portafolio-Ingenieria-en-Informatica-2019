@@ -395,7 +395,7 @@ namespace TASKWebApp.Business.Classes
         {
             List<VW_TASK_ASSOCIATED_TO_USER> taskList = Connection.ProcessSA_DB.VW_TASK_ASSOCIATED_TO_USER.ToList();
             if (isAssigner)
-                taskList = Connection.ProcessSA_DB.VW_TASK_ASSOCIATED_TO_USER.Where(X => X.IDASSIGNERUSER == idUser && X.Fecha_Inicio.Year == year).ToList();
+                taskList = Connection.ProcessSA_DB.VW_TASK_ASSOCIATED_TO_USER.Where(X => (X.IDASSIGNERUSER == idUser || X.IDRECEIVERUSER == idUser) && X.Fecha_Inicio.Year == year).ToList();
             else
                 taskList = Connection.ProcessSA_DB.VW_TASK_ASSOCIATED_TO_USER.Where(X => X.IDRECEIVERUSER == idUser && X.Fecha_Inicio.Year == year).ToList();
             return taskList;

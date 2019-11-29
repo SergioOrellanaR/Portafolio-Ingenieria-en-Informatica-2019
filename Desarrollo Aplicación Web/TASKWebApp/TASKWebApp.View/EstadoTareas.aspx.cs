@@ -9,6 +9,7 @@ using TASKWebApp.Business.Classes;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web.UI;
+using System.Globalization;
 
 namespace TASKWebApp.View
 {
@@ -96,6 +97,80 @@ namespace TASKWebApp.View
             grdTareas.DataBind();
         }
 
+        private string GenerateReportTitle()
+        {
+            string responsible;
+            string dates;
+            string status;
+            string message = null;
+            
+            if (searchedList != null && searchedList.Count>0)
+            {
+                ViewAssociatedTaskToUser task = searchedList[0];
+
+                if (ddlResponsable.SelectedIndex == 0)
+                    responsible = task.AssignerName;
+                else
+                    responsible = task.ReceiverName;
+
+                int idMonth = int.Parse(ddlMeses.SelectedValue);
+                int year = int.Parse(ddlAño.SelectedValue);
+
+                if (idMonth != 13)
+                    dates = "de "+year.ToString();
+                else
+                    dates = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(idMonth) + "de " + year.ToString();
+
+                int stat = int.Parse(ddlEstados.SelectedValue);
+
+                if (stat == 0)
+                    status = "Todos los estados";
+                else
+                    status = task.TaskStatus;
+
+                message = string.Format("Tareas de {0} {1} ({2})", responsible, dates, status);
+            }
+
+            return message;
+        }
+
+        private string GenerateReportName()
+        {
+            string responsible;
+            string dates;
+            string status;
+            string message = null;
+
+            if (searchedList != null && searchedList.Count > 0)
+            {
+                ViewAssociatedTaskToUser task = searchedList[0];
+
+                if (ddlResponsable.SelectedIndex == 0)
+                    responsible = task.AssignerName;
+                else
+                    responsible = task.ReceiverName;
+
+                int idMonth = int.Parse(ddlMeses.SelectedValue);
+                int year = int.Parse(ddlAño.SelectedValue);
+
+                if (idMonth == 13)
+                    dates = year.ToString();
+                else
+                    dates = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(idMonth) + "_" + year.ToString();
+
+                int stat = int.Parse(ddlEstados.SelectedValue);
+
+                if (stat == 0)
+                    status = "Todos";
+                else
+                    status = task.TaskStatus;
+
+                message = string.Format("{0}_{1}_({2}).pdf", responsible, dates, status);
+            }
+
+            return message;
+        }
+
         protected void btnGeneratePDF_Click(object sender, EventArgs e)
         {
             try
@@ -105,25 +180,15 @@ namespace TASKWebApp.View
                 string reportPath = startPath+"Reports\\Reporte.pdf";
 
                 DataTable dtbl = MakeDatatable();
-                ExportDataTableToPdf(dtbl, reportPath, "Reporte", startPath);
+                ExportDataTableToPdf(dtbl, reportPath, GenerateReportTitle(), startPath);
                 HttpResponse response = HttpContext.Current.Response;
-                //response.ContentType = "Application/pdf";
-                //response.AppendHeader("Content-Disposition", "attachment; filename=ReporteMemero.pdf");
-                //Response.TransmitFile(Server.MapPath("~/Reports/Reporte.pdf"));
-                //response.End();
-                ////response.Clear();
-                ////response.AppendHeader("content-disposition", "attachment; filename=Reportes.pdf");
-                ////response.ContentType = "application/octet-stream";
-                ////response.WriteFile(reportPath);
-                ////response.Flush();
-                ////response.End();
                 response.Clear();
-                response.AppendHeader("content-disposition", "attachment; filename=Reportes.pdf");
+                response.AppendHeader("content-disposition", "attachment; filename="+ GenerateReportName());
                 response.ContentType = "application/octet-stream";
                 response.WriteFile(reportPath);
-                response.Flush(); // Sends all currently buffered output to the client.
-                response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-                HttpContext.Current.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                response.Flush(); 
+                response.SuppressContent = true; 
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
             catch (Exception exce)
             {
@@ -171,11 +236,12 @@ namespace TASKWebApp.View
 
                 document.Add(new Chunk("\n", fntHead));
 
-                //EScribir la tabla:
+                //Escribir la tabla:
                 PdfPTable table = new PdfPTable(dtbl.Columns.Count);
+                table.WidthPercentage = 100;
                 //Header de tabla.
                 BaseFont btnColumnHeader = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                Font fntColumnHeader = new Font(btnColumnHeader, 6, 1, BaseColor.WHITE);
+                Font fntColumnHeader = new Font(btnColumnHeader, 7, 1, BaseColor.WHITE);
                 for (int i = 0; i < dtbl.Columns.Count; i++)
                 {
                     PdfPCell cell = new PdfPCell();
@@ -184,11 +250,16 @@ namespace TASKWebApp.View
                     table.AddCell(cell);
                 }
                 //Datos de table.
+                BaseFont btnColumnData = BaseFont.CreateFont();
+                Font fntColumnData = new Font(btnColumnData, 6, 0); 
                 for (int i = 0; i < dtbl.Rows.Count; i++)
                 {
                     for (int j = 0; j < dtbl.Columns.Count; j++)
                     {
-                        table.AddCell(dtbl.Rows[i][j].ToString());
+
+                        PdfPCell cell = new PdfPCell();
+                        cell.AddElement(new Chunk(dtbl.Rows[i][j].ToString(), fntColumnData));
+                        table.AddCell(cell);
                     }
                 }
                 document.Add(table);

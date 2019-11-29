@@ -91,9 +91,9 @@
                                 PageSize = "10" 
                                 OnPageIndexChanging="grdTareas_PageIndexChanging" >
                                 <Columns>
-                                    <asp:BoundField  HeaderText="Fecha de asignación" DataField="AssignationDate" />
-                                    <asp:BoundField  HeaderText="Fecha de Inicio" DataField="StartDate" />
-                                    <asp:BoundField  HeaderText="Fecha de Fin" DataField="EndDate" />
+                                    <asp:BoundField  HeaderText="Fecha de asignación" DataField="AssignationDate" dataformatstring="{0:dd/MM/yyyy HH:mm}" htmlencode="false" />
+                                    <asp:BoundField  HeaderText="Fecha de Inicio" DataField="StartDate" dataformatstring="{0:dd/MM/yyyy HH:mm}" htmlencode="false" />
+                                    <asp:BoundField  HeaderText="Fecha de Fin" DataField="EndDate" dataformatstring="{0:dd/MM/yyyy HH:mm}" htmlencode="false" />
                                     <asp:BoundField  HeaderText="Estado" DataField="TaskStatus" />
                                     <asp:BoundField  HeaderText="Nombre" DataField="TaskName" />
                                     <asp:BoundField  HeaderText="Descripción" DataField="Description" />
