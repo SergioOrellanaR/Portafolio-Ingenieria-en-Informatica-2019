@@ -160,7 +160,7 @@ namespace TASKWebApp.View
         {
             divEditarInfo.Visible = false;
             int errorCode = -1;
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
 
             int rowTaskId = GetRowTaskId(item);
@@ -193,7 +193,7 @@ namespace TASKWebApp.View
 
         protected void btnSubEditarRepetitivo_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             LoopTask loopTask = new LoopTask(GetRowTaskId(item));
             LoadEditBox(loopTask);
