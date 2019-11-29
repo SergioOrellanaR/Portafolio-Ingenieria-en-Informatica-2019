@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
 using TASKWebApp.Business.Classes;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Web.UI;
 
 namespace TASKWebApp.View
 {
@@ -15,6 +19,8 @@ namespace TASKWebApp.View
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+            scriptManager.RegisterPostBackControl(this.btnGeneratePDF);
             try
             {
                 User user = (User)Session["ses"];
@@ -57,7 +63,7 @@ namespace TASKWebApp.View
         {
             grdTareas.DataSource = list;
             grdTareas.DataBind();
-            btnImprimirReporte.Visible = true;
+            btnGeneratePDF.Visible = true;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -89,5 +95,140 @@ namespace TASKWebApp.View
             grdTareas.DataSource = searchedList;
             grdTareas.DataBind();
         }
+
+        protected void btnGeneratePDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //string projectPath = @"~/Reports/Reporte.pdf";
+                string startPath = AppContext.BaseDirectory;
+                string reportPath = startPath+"Reports\\Reporte.pdf";
+
+                DataTable dtbl = MakeDatatable();
+                ExportDataTableToPdf(dtbl, reportPath, "Reporte", startPath);
+                HttpResponse response = HttpContext.Current.Response;
+                //response.ContentType = "Application/pdf";
+                //response.AppendHeader("Content-Disposition", "attachment; filename=ReporteMemero.pdf");
+                //Response.TransmitFile(Server.MapPath("~/Reports/Reporte.pdf"));
+                //response.End();
+                ////response.Clear();
+                ////response.AppendHeader("content-disposition", "attachment; filename=Reportes.pdf");
+                ////response.ContentType = "application/octet-stream";
+                ////response.WriteFile(reportPath);
+                ////response.Flush();
+                ////response.End();
+                response.Clear();
+                response.AppendHeader("content-disposition", "attachment; filename=Reportes.pdf");
+                response.ContentType = "application/octet-stream";
+                response.WriteFile(reportPath);
+                response.Flush(); // Sends all currently buffered output to the client.
+                response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                HttpContext.Current.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            }
+            catch (Exception exce)
+            {
+                string val = exce.Message;
+            }
+        }
+
+        private void ExportDataTableToPdf(DataTable dtbl, String pdfPath, string header, string startPath)
+        {
+
+            try
+            {
+                FileStream fs = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                Document document = new Document();
+                document.SetPageSize(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                document.Open();
+
+                //Report Header
+                BaseFont bfntHead = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                Font fntHead = new Font(bfntHead, 16, 1, iTextSharp.text.BaseColor.GRAY);
+                Paragraph prgHeading = new Paragraph();
+                prgHeading.Alignment = Element.ALIGN_CENTER;
+                prgHeading.Add(new Chunk(header.ToUpper(), fntHead));
+                document.Add(prgHeading);
+
+                //Author
+                Paragraph prgAuthor = new Paragraph();
+                BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                Font fntAuthor = new Font(btnAuthor, 8, 2, BaseColor.GRAY);
+                prgAuthor.Alignment = Element.ALIGN_LEFT;
+                prgAuthor.Add(new Chunk("Fecha de reporte: " + DateTime.Now.ToShortDateString(), fntAuthor));
+                document.Add(prgAuthor);
+
+                //Img
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(startPath+ "img\\logo.png");
+                logo.ScaleAbsoluteWidth(67);
+                logo.ScaleAbsoluteHeight(53);
+                logo.Alignment = Element.ALIGN_RIGHT;
+                document.Add(logo);
+
+                //Separador de Linea.
+                Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 0.0F)));
+                document.Add(p);
+
+                document.Add(new Chunk("\n", fntHead));
+
+                //EScribir la tabla:
+                PdfPTable table = new PdfPTable(dtbl.Columns.Count);
+                //Header de tabla.
+                BaseFont btnColumnHeader = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                Font fntColumnHeader = new Font(btnColumnHeader, 6, 1, BaseColor.WHITE);
+                for (int i = 0; i < dtbl.Columns.Count; i++)
+                {
+                    PdfPCell cell = new PdfPCell();
+                    cell.BackgroundColor = BaseColor.GRAY;
+                    cell.AddElement(new Chunk(dtbl.Columns[i].ColumnName.ToUpper(), fntColumnHeader));
+                    table.AddCell(cell);
+                }
+                //Datos de table.
+                for (int i = 0; i < dtbl.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dtbl.Columns.Count; j++)
+                    {
+                        table.AddCell(dtbl.Rows[i][j].ToString());
+                    }
+                }
+                document.Add(table);
+                document.Close();
+                writer.Close();
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+                string val = e.Message;
+            }
+        }
+
+        DataTable MakeDatatable()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Fecha de asignación");
+            dt.Columns.Add("Fecha de Inicio");
+            dt.Columns.Add("Fecha de Fin");
+            dt.Columns.Add("Estado");
+            dt.Columns.Add("Nombre");
+            dt.Columns.Add("Descripción");
+            dt.Columns.Add("Nombre de asignador");
+            dt.Columns.Add("Nombre de recibidor");
+            dt.Columns.Add("Justificación");
+
+            foreach (GridViewRow row in grdTareas.Rows)
+            {
+                DataRow dr = dt.NewRow();
+                for (int j = 0; j < grdTareas.Columns.Count; j++)
+                {
+                    dr[j] = row.Cells[j].Text;
+                }
+
+                dt.Rows.Add(dr);
+            }
+
+            return dt;
+        }
+
+        
     }
 }

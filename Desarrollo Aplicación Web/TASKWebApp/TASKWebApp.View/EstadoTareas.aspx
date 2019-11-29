@@ -104,7 +104,7 @@
                             </asp:GridView>
                         </div>
                         <div>
-                            <asp:Button ID="btnImprimirReporte" runat="server" Text="Imprimir Reporte" Visible="false" />
+                            <asp:Button ID="btnGeneratePDF" runat="server" Text="Imprimir Reporte" Visible="false" OnClick="btnGeneratePDF_Click"/>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

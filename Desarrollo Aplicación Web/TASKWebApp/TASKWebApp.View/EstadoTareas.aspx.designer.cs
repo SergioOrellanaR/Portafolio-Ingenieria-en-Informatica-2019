@@ -148,12 +148,12 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.GridView grdTareas;
         
         /// <summary>
-        /// Control btnImprimirReporte.
+        /// Control btnGeneratePDF.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImprimirReporte;
+        protected global::System.Web.UI.WebControls.Button btnGeneratePDF;
     }
 }

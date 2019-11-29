@@ -363,9 +363,15 @@ namespace TASKWebApp.Business.Classes
                 taskList = taskList.Where(X => X.IDSTATUS == idStatus).ToList();
 
             List<ViewAssociatedTaskToUser> filteredList = new List<ViewAssociatedTaskToUser>();
-
+            string justification;
             foreach (VW_TASK_ASSOCIATED_TO_USER task in taskList)
             {
+
+                if (task.Justificacion == null)
+                    justification = "-";
+                else
+                    justification = task.Justificacion;
+
                 ViewAssociatedTaskToUser associatedTask = new ViewAssociatedTaskToUser()
                 {
                     AssignationDate = task.Fecha_Asignacion,
@@ -376,7 +382,7 @@ namespace TASKWebApp.Business.Classes
                     Description = task.Descripcion,
                     AssignerName = task.Asignado_Por,
                     ReceiverName = task.Asignado_A,
-                    Justification = task.Justificacion
+                    Justification = justification
                 };
 
                 filteredList.Add(associatedTask);
