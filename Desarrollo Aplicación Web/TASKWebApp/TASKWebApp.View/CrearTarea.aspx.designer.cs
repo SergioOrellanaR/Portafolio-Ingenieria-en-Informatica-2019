@@ -103,13 +103,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.DropDownList ddlTareasPredeterminadas;
         
         /// <summary>
-        /// Control Label8.
+        /// Control Label6.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// Control txtNombreTarea.
@@ -121,13 +121,13 @@ namespace TASKWebApp.View {
         protected global::System.Web.UI.WebControls.TextBox txtNombreTarea;
         
         /// <summary>
-        /// Control Label13.
+        /// Control Label7.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label13;
+        protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
         /// Control txtDescripcion.

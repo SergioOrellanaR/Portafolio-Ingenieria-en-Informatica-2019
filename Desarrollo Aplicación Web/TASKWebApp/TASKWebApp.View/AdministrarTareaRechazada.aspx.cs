@@ -107,7 +107,7 @@ namespace TASKWebApp.View
 
         protected void btnSubEditarRechazados_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item, true) };
             processedTask.Read();
@@ -116,7 +116,7 @@ namespace TASKWebApp.View
 
         protected void btnSubEditarSuspendidos_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             ProcessedTask processedTask = new ProcessedTask() { Id = GetRowTaskId(item, false) };
             processedTask.Read();
@@ -129,7 +129,7 @@ namespace TASKWebApp.View
             divEditarInfo.Visible = false;
             int closedId = 6;
             int errorCode = -1;
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
 
             int rowTaskId = GetRowTaskId(item, closedId);
@@ -150,7 +150,7 @@ namespace TASKWebApp.View
             divEditarInfo.Visible = false;
             int failedId = 7;
             int errorCode = -1;
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             int rowTaskId = GetRowTaskId(item, failedId);
 

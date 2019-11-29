@@ -24,8 +24,8 @@
             </div>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    <div id="message">
-                        <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                    <div id="message" class="text-center">
+                        <strong><asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label></strong>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

@@ -73,7 +73,7 @@
             <ContentTemplate>
                     <div class="col-md-offset-3">
                         <div id="divInformarProblema" runat="server" visible="false" class="center-block">
-                            <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                            <strong><asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Size="Medium"></asp:Label></strong>
                             <div id="InformacionProblema" runat="server">
                                 <div class="row form-group">
                                     <div>
