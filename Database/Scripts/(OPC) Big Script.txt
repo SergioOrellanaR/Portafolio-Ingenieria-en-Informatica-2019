@@ -1414,6 +1414,7 @@ Insert into Internal_Unit (id_role, name) values (3,'Desarrollador');
 Insert into Internal_Unit (id_role, name) values (3,'Analista QA');
 Insert into Internal_Unit (id_role, name) values (3,'Practicante informática');
 Insert into Internal_Unit (id_role, name) values (1,'Admin'); 
+Insert into Internal_Unit (id_role, name) values (2,'Diseñador de procesos');
 
 
 --Insert de Assigned_Unit
@@ -1427,6 +1428,7 @@ Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values
 Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 7, 6); 
 Insert into Assigned_Unit (id_company, id_internalunit, id_superior_unit) values (2, 8, 7);
 Insert into Assigned_Unit (id_company, id_internalunit) values (1, 9); 
+Insert into Assigned_Unit (id_company, id_internalunit) values (1, 10); 
 
 --Insert de Usuarios
 Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Sergio Leonel', 'Orellana Rey', 'Williams Rebolledo 2605', '+56974241612',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'serorellanar@gmail.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 1, 1, 1);
@@ -1443,7 +1445,7 @@ Insert into User_info (firstname, lastname, address, phone, birthdate, email, pa
 Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Ingrid','Garrido','Atlántida 3471','+56913131313',TO_DATE('10-09-1993', 'DD-MM-YYYY'),'ingrid.garrido1234567@gmail.com','cG9ydGFmb2xpbzIwMTk=',92,8,2,2);
 Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Valeria','Alegria','Los conquistadores 378','+56914141414',TO_DATE('12-03-1998', 'DD-MM-YYYY'),'valerialegria2000@gmail.com','cG9ydGFmb2xpbzIwMTk=',100,9,2,2);
 Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Administrador', 'de sistema', 'Calle admin 123', '+56977777777',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'admin@admin.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 10, 1, 1);
-
+Insert into User_info (firstname, lastname, address, phone, birthdate, email, password, id_commune, id_assigned_unit, id_company, id_gender) values ('Diseñador', 'de procesos', 'Calle proceso 123', '+56988888888',TO_DATE('16-04-1994', 'DD-MM-YYYY'), 'proceso@proceso.com', 'cG9ydGFmb2xpbzIwMTk=', 100, 11, 1, 1);
 COMMIT;
 
 
