@@ -776,7 +776,7 @@ namespace TASKWebApp.View
                         catch (Exception e) { }
                     }
 
-                    if (wishedDay > firstDayOfWeek && wishedDay < lastDayOfWeek)
+                    if (wishedDay >= firstDayOfWeek && wishedDay <= lastDayOfWeek)
                     {
                         DateTime startDate = wishedDay.Date + startTime.TimeOfDay;
                         DateTime endDate = wishedDay.Date + endTime.TimeOfDay;
