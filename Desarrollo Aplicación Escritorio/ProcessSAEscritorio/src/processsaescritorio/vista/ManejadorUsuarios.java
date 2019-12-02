@@ -61,6 +61,9 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     public void listadoGenero() {
 
         for (GeneroDTO genero : new Lista().listarGeneroPersona()) {
+            if (genero.getNombre().contains("defined")) {
+                genero.setNombre("Otro");
+            }
             cbxGender.addItem(genero.getNombre());
         }
     }
@@ -475,6 +478,10 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
                     String[] arrayInternalU = cbxAssignedUnit.getSelectedItem().toString().split("-");
                     int id_unitAssig = Integer.parseInt(arrayInternalU[0]);
+                    
+                    int assignedUnit=0;
+                    
+                   UnidadAsignadaDTO uni = new UnidadAsignadaDAO().obtenerUnidadPorNombre(arrayInternalU[1]);
 
                     int id_gender = 3;
                     if (cbxGender.getSelectedIndex() == 0) {
@@ -485,7 +492,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                         id_gender = 3;
                     }
                     String pass = txtName.getText().substring(0, 2) + txtLastName.getText().substring(0, 2) + birthdate.getYear();
-                    new UsuarioDAO(0, txtName.getText(), txtLastName.getText(), txtAddress.getText(), txtPhone.getText(), birthdate, txtEmail.getText(), pass, id_commune, id_unitAssig, id_company, id_gender).crearUsuario();
+                    new UsuarioDAO(0, txtName.getText(), txtLastName.getText(), txtAddress.getText(), txtPhone.getText(), birthdate, txtEmail.getText(), pass, id_commune, uni.getId(), id_company, id_gender).crearUsuario();
                 }
                 JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
                 resetearTabla();
