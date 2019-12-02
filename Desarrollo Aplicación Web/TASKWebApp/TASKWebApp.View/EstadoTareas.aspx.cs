@@ -25,7 +25,12 @@ namespace TASKWebApp.View
             try
             {
                 User user = (User)Session["ses"];
-                LoadResponsibles(user);
+
+                if (!IsPostBack)
+                {
+                    LoadResponsibles(user);
+                }
+                
                 
                 if (isDefaultLoad == null || isDefaultLoad == true)
                     LoadDefaultDataGridData(user);

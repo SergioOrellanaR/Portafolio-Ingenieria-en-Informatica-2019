@@ -15,7 +15,10 @@ namespace TASKWebApp.View
             User user = (User)Session["ses"];
             try
             {
-                LoadResponsibles();
+                if (!IsPostBack)
+                {
+                    LoadResponsibles();
+                }
                 int RejectedStatus = 5;
                 int SuspendedStatus = 9;
                 LoadTaskInformation(RejectedStatus, user);

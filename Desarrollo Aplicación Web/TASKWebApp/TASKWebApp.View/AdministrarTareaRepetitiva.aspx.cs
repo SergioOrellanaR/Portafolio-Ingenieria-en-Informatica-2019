@@ -16,7 +16,10 @@ namespace TASKWebApp.View
             User user = (User)Session["ses"];
             try
             {
-                LoadResponsibles();
+                if (!IsPostBack)
+                {
+                    LoadResponsibles();
+                }
                 LoadAssignedLoopTask(user);
             }
             catch
