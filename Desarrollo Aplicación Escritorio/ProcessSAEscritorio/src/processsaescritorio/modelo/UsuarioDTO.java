@@ -32,6 +32,10 @@ public class UsuarioDTO {
         this.birthdate = birthdate;
     }
 
+    public UsuarioDTO() {
+    }
+    
+
     public int getId() {
         return id;
     }

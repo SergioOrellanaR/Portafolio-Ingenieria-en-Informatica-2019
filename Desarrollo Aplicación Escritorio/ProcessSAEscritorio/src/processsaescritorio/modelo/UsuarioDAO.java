@@ -184,8 +184,9 @@ public class UsuarioDAO implements DatosConexion{
             Class.forName(DRIVER);
             Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
             Statement declaracion = conexion.createStatement();
-            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE, USER_INFO.BIRTHDATE, USER_INFO.EMAIL, USER_INFO.PASSWORD, "
-                    + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "'AND USER_INFO.PASSWORD = '"+ clave +"'");
+            String encoded = Base64.getEncoder().encodeToString(clave.getBytes());
+            ResultSet resultado = declaracion.executeQuery("SELECT USER_INFO.ID, USER_INFO.FIRSTNAME, USER_INFO.LASTNAME, USER_INFO.ADDRESS, USER_INFO.PHONE,TO_CHAR(USER_INFO.BIRTHDATE, 'YYYY-MM-DD'), USER_INFO.EMAIL, USER_INFO.PASSWORD, "
+                    + "USER_INFO.ID_COMMUNE, USER_INFO.ID_ASSIGNED_UNIT, USER_INFO.ID_COMPANY, USER_INFO.ID_GENDER FROM USER_INFO WHERE USER_INFO.EMAIL = '" + email + "'AND USER_INFO.PASSWORD = '"+ encoded +"'");
             while (resultado.next()) {
                 this.setId(resultado.getInt(1));
                 this.setFirstname(resultado.getString(2));
@@ -252,6 +253,47 @@ public class UsuarioDAO implements DatosConexion{
         }
         return validacion;
     }
+    
+      public int validarPermisoUsuarioBD(int idUsuario,int idPermiso){
+        int validacion = 0;
+        int getAssignedUnit = 0;
+        int getInternalUnit = 0;
+        int getIdRole = 0;
+        int getPermisoValido = 0;
+        try{
+            Class.forName(DRIVER);
+            Connection conexion =  DriverManager.getConnection(URL,USUARIO,CLAVE);
+            Statement declaracion = conexion.createStatement();
+            ResultSet resultado = declaracion.executeQuery("SELECT COUNT(ID) FROM USER_INFO WHERE USER_INFO.id ="+ idUsuario);            
+            while (resultado.next()) {    
+                validacion = resultado.getInt(1);
+                ResultSet id_assigned_unit = declaracion.executeQuery("SELECT ID_ASSIGNED_UNIT FROM USER_INFO WHERE USER_INFO.id = "+id);                
+                if (id_assigned_unit.next()) {
+                    getAssignedUnit = id_assigned_unit.getInt(1);
+                }
+                ResultSet id_internal_unit = declaracion.executeQuery("SELECT ID_INTERNALUNIT FROM ASSIGNED_UNIT WHERE ID = '"+ getAssignedUnit +"'");
+                if (id_internal_unit.next()) {
+                    getInternalUnit= id_internal_unit.getInt(1);
+                }                
+                ResultSet id_role = declaracion.executeQuery("SELECT ID_ROLE FROM INTERNAL_UNIT WHERE ID = '"+ getInternalUnit +"'");
+                if (id_role.next()) {
+                    getIdRole= id_role.getInt(1);
+                }                
+                ResultSet permisoValido = declaracion.executeQuery("SELECT ID_PERMISSION,ID_ROLE FROM ROLE_PERMISSIONS WHERE ID_ROLE = '"+ getIdRole + "' AND ID_PERMISSION ="+idPermiso);
+                if (permisoValido.next()) {
+                    if (true) {
+                        getPermisoValido = permisoValido.getInt(1);
+                        validacion=validacion+1;
+                    }
+                }
+            }
+            conexion.close();
+        }catch(Exception e){
+            System.out.println("Error en obtención de permiso desde BD: " + e);
+        }
+        return validacion;
+    }
+    
     
     public String crearUsuario(){
         try{

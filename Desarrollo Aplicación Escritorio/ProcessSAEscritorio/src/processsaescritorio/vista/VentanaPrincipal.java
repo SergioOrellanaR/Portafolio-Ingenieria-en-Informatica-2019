@@ -5,6 +5,11 @@
  */
 package processsaescritorio.vista;
 
+import javax.swing.JOptionPane;
+import processsaescritorio.controlador.Consulta;
+import processsaescritorio.modelo.Global;
+import processsaescritorio.modelo.RolPermisosDAO;
+import processsaescritorio.modelo.RolPermisosDTO;
 import processsaescritorio.modelo.UsuarioDTO;
 
 /**
@@ -24,6 +29,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          this.setExtendedState(MAXIMIZED_BOTH);
         this.usuarioSesion = usuarioSesion;
         this.ventanaPadre = ventanaPadre;
+        RolPermisosDTO permisosU= new RolPermisosDAO().validarPermisoUsuarioBD(usuarioSesion.getId(),31);
+    JOptionPane.showMessageDialog(null, "Probando"+usuarioSesion.getId(), "Grabar", JOptionPane.PLAIN_MESSAGE);
+    //JOptionPane.showMessageDialog(null, "Probando"+  permisosU.getIdRol(), "Grabar", JOptionPane.PLAIN_MESSAGE);
+
+        if (permisosU.getIdRol()==2) {
+            jMenuItem1.setEnabled(false);
+            jMenuItem1.setVisible(false);
+            jMenuItem5.setEnabled(false);
+            jMenuItem5.setVisible(false);
+            jMenuItem2.setEnabled(false);
+            jMenuItem2.setVisible(false);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

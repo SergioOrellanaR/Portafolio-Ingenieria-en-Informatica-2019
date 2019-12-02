@@ -76,8 +76,6 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         txtAreaTarea.setText("");
         //btnBorrar.setEnabled(false);
     }
-    
-  
 
     public void limpiarFormularioTareaC() {
         tblTareasC.getSelectionModel().clearSelection();
@@ -138,6 +136,21 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         });
         ;
         tblTareasC.setModel(modeloTabla);
+    }
+
+    public int nivelTarea(int idParental) {
+         int nivel=0;
+        for (TareaDTO listaTarea : listarChildren) {
+            if (listaTarea.getId()==idParental) {
+                nivel++;
+                for (TareaDTO listaTareax : listarChildren) {
+                    if (listaTarea.getIdDependenciaTarea()==listaTareax.getId()) {
+                        nivel++;
+                    }
+                }
+            }
+        }
+        return nivel;
     }
 
     public void listadoTareaChildren() {
@@ -403,10 +416,10 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         int activo = 0;
         if (rdTarea.isSelected()) {
-                activo = 1;
-            } else {
-                activo = 0;
-            }
+            activo = 1;
+        } else {
+            activo = 0;
+        }
 
         new Registro().registrarTarea(txtName.getText(), txtAreaTarea.getText(), 1, activo, 0, 0);
         resetearTablaTarea();
@@ -423,7 +436,9 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
             String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
             int dependenciaId = Integer.parseInt(arrayCommune[0]);
-          
+            
+            
+            nivelTarea(dependenciaId);
             new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, activo, idGeneral, dependenciaId);
             resetearTablaTareaC();
         } else {

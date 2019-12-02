@@ -207,8 +207,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(new Consulta().validarUsuario(txtEmailUsuario.getText(),String.valueOf(txtClaveUsuario.getPassword())) == 2){
             UsuarioDTO usuarioSesion = new UsuarioDAO().obtenerUsuarioPorIdBD(txtEmailUsuario.getText(),String.valueOf(txtClaveUsuario.getPassword()) );
+             //se codifico clave 
             new VentanaPrincipal(usuarioSesion, this).show();
             this.setVisible(false);
+            Global.globalUserProfile=usuarioSesion;
+
             txtEmailUsuario.setText("");
             txtClaveUsuario.setText("");
         }else{

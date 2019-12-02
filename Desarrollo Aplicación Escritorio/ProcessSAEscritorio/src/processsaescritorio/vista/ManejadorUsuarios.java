@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 package processsaescritorio.vista;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import processsaescritorio.controlador.*;
 import processsaescritorio.modelo.*;
-
 
 /**
  *
@@ -24,11 +25,10 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     /**
      * Creates new form ManejadorUsuarios
      */
-    
     ArrayList<UsuarioDTO> listaUsuarios;
-    private boolean usuarioIdentificado=false;
-    private int idGeneral=0;
-    
+    private boolean usuarioIdentificado = false;
+    private int idGeneral = 0;
+
     public ManejadorUsuarios() {
         initComponents();
         actualizarListaUsuarios();
@@ -37,94 +37,87 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         listadoGenero();
         cbxProvince.setEnabled(false);
         cbxCommune.setEnabled(false);
-       
+
     }
-    
-    public void resetearTabla()
-    {
+
+    public void resetearTabla() {
         listaUsuarios.removeAll(listaUsuarios);
         actualizarListaUsuarios();
     }
-    public void listadoCompania(){
-          for (CompaniaDTO compania:new Lista().listarCompanias()) {
-              cbxCompany.addItem(compania.getId()+"-"+compania.getNombre());
-          }
+
+    public void listadoCompania() {
+        for (CompaniaDTO compania : new Lista().listarCompanias()) {
+            cbxCompany.addItem(compania.getId() + "-" + compania.getNombre());
+        }
     }
-    
-    public void listadoRegion(){
-        
-        for (RegionDTO region:new Lista().listarRegiones()) {
-              cbxRegion.addItem(region.getId()+"-"+region.getNombre());
-        }                  
+
+    public void listadoRegion() {
+
+        for (RegionDTO region : new Lista().listarRegiones()) {
+            cbxRegion.addItem(region.getId() + "-" + region.getNombre());
+        }
     }
-    
-    public void listadoGenero(){
-        
-        for (GeneroDTO genero:new Lista().listarGeneroPersona()) {
-              cbxGender.addItem(genero.getNombre());
-        }                  
+
+    public void listadoGenero() {
+
+        for (GeneroDTO genero : new Lista().listarGeneroPersona()) {
+            cbxGender.addItem(genero.getNombre());
+        }
     }
-    
+
     ///unidad interna buscada por undiad asignada por compañia
-    public void listadoUnidadAsignada(){
-       
-        String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");   
-        int id_company=Integer.parseInt(arrayCompany[0]);
-        
-        
-        for (UnidadAsignadaDTO unidadAsignada:new Lista().listarUnidadAsignadaPorCompania(id_company)) {
-          
-            String nombre=new Consulta().buscarunidad(unidadAsignada.getId_internalUnit());
-            cbxAssignedUnit.addItem(unidadAsignada.getId()+"-"+nombre);
+    public void listadoUnidadAsignada() {
+
+        String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");
+        int id_company = Integer.parseInt(arrayCompany[0]);
+
+        for (UnidadAsignadaDTO unidadAsignada : new Lista().listarUnidadAsignadaPorCompania(id_company)) {
+
+            String nombre = new Consulta().buscarunidad(unidadAsignada.getId_internalUnit());
+            cbxAssignedUnit.addItem(unidadAsignada.getId() + "-" + nombre);
         }
     }
 
-    
-    public void listadoProvincia(){
-        
-        String[] arrayRegion= cbxRegion.getSelectedItem().toString().split("-");
-        int id_region=Integer.parseInt(arrayRegion[0]);
-        
-        for (ProvinciaDTO provincia:new Lista().listarProvincias(id_region))
-        {
-            cbxProvince.addItem(provincia.getId()+"-"+provincia.getNombre());       
+    public void listadoProvincia() {
+
+        String[] arrayRegion = cbxRegion.getSelectedItem().toString().split("-");
+        int id_region = Integer.parseInt(arrayRegion[0]);
+
+        for (ProvinciaDTO provincia : new Lista().listarProvincias(id_region)) {
+            cbxProvince.addItem(provincia.getId() + "-" + provincia.getNombre());
         }
     }
-    
-    
-    public void listadoComuna(){
-        
-        String[] arrayRegion= cbxProvince.getSelectedItem().toString().split("-");
-        int id_province=Integer.parseInt(arrayRegion[0]);
-        
-        
-        for (ComunaDTO comuna:new Lista().listarComunasPorProvincia(id_province))
-        {
-            cbxCommune.addItem(comuna.getId()+"-"+comuna.getNombre());
-   
+
+    public void listadoComuna() {
+
+        String[] arrayRegion = cbxProvince.getSelectedItem().toString().split("-");
+        int id_province = Integer.parseInt(arrayRegion[0]);
+
+        for (ComunaDTO comuna : new Lista().listarComunasPorProvincia(id_province)) {
+            cbxCommune.addItem(comuna.getId() + "-" + comuna.getNombre());
+
         }
     }
-    
+
     public Date convertToDateViaInstant(LocalDate dateToConvert) {
-    return java.util.Date.from(dateToConvert.atStartOfDay()
-      .atZone(ZoneId.systemDefault())
-      .toInstant());
+        return java.util.Date.from(dateToConvert.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
     }
-    
-    
-    public LocalDate convertToLocalDate(Date dateToConvert){
-    return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();}
-    
-    public void actualizarDatosUsuario(){
-       
-        new UsuarioDAO().actualizarUsuario(idGeneral,txtName.getText());
+
+    public LocalDate convertToLocalDate(Date dateToConvert) {
+        return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public void actualizarDatosUsuario() {
+
+        new UsuarioDAO().actualizarUsuario(idGeneral, txtName.getText());
 
     }
-    
-    public void limpiarFormulario()
-    {
-        usuarioIdentificado=false;
-        idGeneral=0;
+
+    public void limpiarFormulario() {
+        usuarioIdentificado = false;
+        idGeneral = 0;
         tblUsuario.getSelectionModel().clearSelection();
         txtName.setText("");
         txtLastName.setText("");
@@ -138,29 +131,30 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         cbxGender.setSelectedIndex(cbxGender.getSelectedIndex());
         cbxCompany.setSelectedIndex(cbxCompany.getSelectedIndex());
         cbxAssignedUnit.setSelectedIndex(cbxAssignedUnit.getSelectedIndex());
-       //arreglar estas dos
+        //arreglar estas dos
     }
-    
-    public void actualizarListaUsuarios(){
+
+    public void actualizarListaUsuarios() {
         listaUsuarios = new Lista().listarUsuarios();
-        String[] columnas = {"ID", "Nombre","Apellido"};
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0){
-        @Override
-        public boolean isCellEditable(int filas,int columnas){
-            return false;
-        }
+        String[] columnas = {"ID", "Nombre", "Apellido"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                return false;
+            }
         };
-        
-        for(UsuarioDTO usuario : listaUsuarios){
-            String id       = String.valueOf(usuario.getId());
-            String name     = String.valueOf(usuario.getFirstname());
+
+        for (UsuarioDTO usuario : listaUsuarios) {
+            String id = String.valueOf(usuario.getId());
+            String name = String.valueOf(usuario.getFirstname());
             String lastName = String.valueOf(usuario.getLastname());
-   
-            Object[] elemento = {id,name,lastName};
+
+            Object[] elemento = {id, name, lastName};
             modeloTabla.addRow(elemento);
         };
         tblUsuario.setModel(modeloTabla);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -463,39 +457,48 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-      
-        if (usuarioIdentificado) {
-            actualizarDatosUsuario();
-        }else{
-        LocalDate birthdate=convertToLocalDate(dateBorn.getDate()); ;
-      
-        String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");   
-        int id_company=Integer.parseInt(arrayCompany[0]);
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
+        // ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/processsaescritorio/src/imagenes/ok.png"));
         
-        String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");   
-        int id_commune=Integer.parseInt(arrayCommune[0]);
-        
-        String[] arrayInternalU= cbxAssignedUnit.getSelectedItem().toString().split("-");   
-         int id_unitAssig=Integer.parseInt(arrayInternalU[0]);
-        
-        int id_gender=3;
-        if (cbxGender.getSelectedIndex()==0) {
-            id_gender=1;
-        }else if(cbxGender.getSelectedIndex()==1)
-        {
-            id_gender=2;
-        }else
-        {
-            id_gender=3;
+        if (resp == 0) {
+            try {
+                if (usuarioIdentificado) {
+                    actualizarDatosUsuario();
+                } else {
+                    LocalDate birthdate = convertToLocalDate(dateBorn.getDate());;
+
+                    String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");
+                    int id_company = Integer.parseInt(arrayCompany[0]);
+
+                    String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");
+                    int id_commune = Integer.parseInt(arrayCommune[0]);
+
+                    String[] arrayInternalU = cbxAssignedUnit.getSelectedItem().toString().split("-");
+                    int id_unitAssig = Integer.parseInt(arrayInternalU[0]);
+
+                    int id_gender = 3;
+                    if (cbxGender.getSelectedIndex() == 0) {
+                        id_gender = 1;
+                    } else if (cbxGender.getSelectedIndex() == 1) {
+                        id_gender = 2;
+                    } else {
+                        id_gender = 3;
+                    }
+                    String pass = txtName.getText().substring(0, 2) + txtLastName.getText().substring(0, 2) + birthdate.getYear();
+                    new UsuarioDAO(0, txtName.getText(), txtLastName.getText(), txtAddress.getText(), txtPhone.getText(), birthdate, txtEmail.getText(), pass, id_commune, id_unitAssig, id_company, id_gender).crearUsuario();
+                }
+                JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
+                resetearTabla();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            }
+
         }
-        String pass=txtName.getText().substring(0,2)+txtLastName.getText().substring(0,2)+birthdate.getYear();
-        new UsuarioDAO(0,txtName.getText(),txtLastName.getText(),txtAddress.getText(),txtPhone.getText(),birthdate,txtEmail.getText(),pass,id_commune,id_unitAssig,id_company,id_gender).crearUsuario(); 
-        }
-          resetearTabla();        
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void cbxCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCompanyActionPerformed
-        if (cbxCompany.getSelectedItem()!=null) {
+        if (cbxCompany.getSelectedItem() != null) {
             cbxAssignedUnit.removeAllItems();
             listadoUnidadAsignada();
         }
@@ -510,7 +513,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPhoneActionPerformed
 
     private void cbxAssignedUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAssignedUnitActionPerformed
-     
+
     }//GEN-LAST:event_cbxAssignedUnitActionPerformed
 
     private void cbxCommuneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCommuneActionPerformed
@@ -518,69 +521,73 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxCommuneActionPerformed
 
     private void cbxRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRegionActionPerformed
-         cbxProvince.setEnabled(true); 
-          cbxProvince.removeAllItems();
-          listadoProvincia();
+        cbxProvince.setEnabled(true);
+        cbxProvince.removeAllItems();
+        listadoProvincia();
     }//GEN-LAST:event_cbxRegionActionPerformed
 
     private void cbxProvinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinceActionPerformed
-        if (cbxProvince.getSelectedItem()!=null) {
-          cbxCommune.setEnabled(true); 
-          cbxCommune.removeAllItems();
-          listadoComuna();
+        if (cbxProvince.getSelectedItem() != null) {
+            cbxCommune.setEnabled(true);
+            cbxCommune.removeAllItems();
+            listadoComuna();
         }
     }//GEN-LAST:event_cbxProvinceActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-       
-      limpiarFormulario();
-        
+
+        limpiarFormulario();
+
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
-        int seleccion= tblUsuario.rowAtPoint(evt.getPoint());
-        int id=Integer.parseInt(String.valueOf(tblUsuario.getValueAt(seleccion,0)));
-        
-        usuarioIdentificado=true;
-        idGeneral=id;
+        int seleccion = tblUsuario.rowAtPoint(evt.getPoint());
+        int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(seleccion, 0)));
+
+        usuarioIdentificado = true;
+        idGeneral = id;
         cbxProvince.setEnabled(true);
         cbxCommune.setEnabled(true);
         txtEmail.setEditable(false);
         btnBorrar.setEnabled(true);
 
-       
-        UsuarioDTO usuario=new UsuarioDAO().obtenerUsuarioPorIdBD(id);
+        UsuarioDTO usuario = new UsuarioDAO().obtenerUsuarioPorIdBD(id);
         txtName.setText(usuario.getFirstname());
         txtLastName.setText(usuario.getLastname());
         txtPhone.setText(usuario.getPhone());
         txtEmail.setText(usuario.getEmail());
         txtAddress.setText(usuario.getAddress());
 
-        
-        String[] hola= new Consulta().listarPorComuna(usuario.getIdCommune());
-        
-        cbxRegion.setSelectedItem(hola[1]+"-"+hola[0]);
-        cbxProvince.setSelectedItem(hola[3]+"-"+hola[2]);
-        cbxCommune.setSelectedItem(hola[5]+"-"+hola[4]);
-        
+        String[] hola = new Consulta().listarPorComuna(usuario.getIdCommune());
+
+        cbxRegion.setSelectedItem(hola[1] + "-" + hola[0]);
+        cbxProvince.setSelectedItem(hola[3] + "-" + hola[2]);
+        cbxCommune.setSelectedItem(hola[5] + "-" + hola[4]);
+
         dateBorn.setDate(convertToDateViaInstant(usuario.getBirthdate()));
-       
-        new Lista().listarCompanias().stream().filter((compania) -> (compania.getId()==usuario.getIdCompany())).forEachOrdered((compania) -> {
-                cbxCompany.setSelectedItem(compania.toString());
+
+        new Lista().listarCompanias().stream().filter((compania) -> (compania.getId() == usuario.getIdCompany())).forEachOrdered((compania) -> {
+            cbxCompany.setSelectedItem(compania.toString());
         });
-        new Lista().listarGeneroPersona().stream().filter((genero) -> (genero.getId()==usuario.getIdGender())).forEachOrdered((genero) -> {
-                cbxGender.setSelectedItem(genero.toString());
+        new Lista().listarGeneroPersona().stream().filter((genero) -> (genero.getId() == usuario.getIdGender())).forEachOrdered((genero) -> {
+            cbxGender.setSelectedItem(genero.toString());
         });
-     
+
     }//GEN-LAST:event_tblUsuarioMouseClicked
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-               new Eliminar().eliminarUsuario(idGeneral);
-               resetearTabla();
-               limpiarFormulario();
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Eliminar", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+
+            new Eliminar().eliminarUsuario(idGeneral);
+            resetearTabla();
+            limpiarFormulario();
+            JOptionPane.showMessageDialog(null, "Eliminado exitosamente.",
+                    "Eliminar", JOptionPane.PLAIN_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;

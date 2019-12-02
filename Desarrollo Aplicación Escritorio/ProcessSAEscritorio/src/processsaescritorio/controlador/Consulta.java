@@ -20,7 +20,15 @@ public class Consulta {
     
     public int validarUsuario(String email, String clave){
         return new UsuarioDAO().validarUsuarioBD(email, clave);
-    }  
+    }
+    
+    public int validarPermiso(int id,int permiso){
+        return new UsuarioDAO().validarPermisoUsuarioBD(id, permiso);
+    }
+     
+    public RolPermisosDTO validarPermisoUsuarios(int id,int permiso){
+        return new RolPermisosDAO().validarPermisoUsuarioBD(id, permiso);
+    } 
     
     public String buscarunidad(int id){
         return new UnidadInternaDAO().nombreUnidad(id);
