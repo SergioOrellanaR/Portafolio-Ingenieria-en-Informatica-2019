@@ -102,7 +102,7 @@
                                         <th scope="col">Responsable</th>
                                         <th scope="col">Motivo Suspensión</th>
                                         <th scope="col">
-                                            <asp:Label ID="hdlblEditar" runat="server" OnClick="btnSubEditarSuspendidos_Click" Text="Editar"></asp:Label></th>
+                                            <asp:Label ID="hdlblEditar" runat="server" Text="Editar"></asp:Label></th>
                                         <th scope="col">
                                             <asp:Label ID="hdlblEliminar" runat="server" Text="Eliminar"></asp:Label></th>
                                     </tr>
@@ -125,7 +125,7 @@
                                     <td>
                                         <asp:Label ID="lblMotivo" runat="server" Text=""></asp:Label></td>
                                     <td>
-                                    <asp:LinkButton ID="btnSubEdit" runat="server" CssClass="btn btn-primary" OnClick="btnSubEditarRechazados_Click" UseSubmitBehavior="false">
+                                    <asp:LinkButton ID="btnSubEdit" runat="server" CssClass="btn btn-primary" OnClick="btnSubEditarSuspendidos_Click" UseSubmitBehavior="false">
                                      <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
                                         </asp:LinkButton>
                                     <td>
