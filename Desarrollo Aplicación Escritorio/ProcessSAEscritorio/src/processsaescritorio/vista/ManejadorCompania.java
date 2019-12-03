@@ -7,6 +7,7 @@ package processsaescritorio.vista;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import processsaescritorio.controlador.Consulta;
 import processsaescritorio.controlador.Eliminar;
@@ -30,25 +31,24 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
      * Creates new form ManejadorCompania
      */
     ArrayList<CompaniaDTO> listaCompanias;
-    private boolean companiaIdentificada=false;
-    private int idGeneral=0;
+    private boolean companiaIdentificada = false;
+    private int idGeneral = 0;
+
     public ManejadorCompania() {
         initComponents();
-        listadoRegion();       
+        listadoRegion();
         listadoAreaTrabajo();
         actualizarListaCompania();
         cbxProvince.setEnabled(false);
         cbxCommune.setEnabled(false);
     }
-    
-    public void resetearTabla()
-    {
+
+    public void resetearTabla() {
         listaCompanias.removeAll(listaCompanias);
         actualizarListaCompania();
     }
-    
-    public void limpiarFormulario()
-    {
+
+    public void limpiarFormulario() {
         tblCompania.getSelectionModel().clearSelection();
         txtName.setText("");
         txtAddress.setText("");
@@ -57,68 +57,63 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         cbxRegion.setSelectedIndex(cbxRegion.getSelectedIndex());
     }
 
-    public void listadoRegion(){
-        
-        for (RegionDTO region:new Lista().listarRegiones()) {
-              cbxRegion.addItem(region.getId()+"-"+region.getNombre());
-        }                  
-    }
-    
-    public void listadoProvincia(){
-        
-        String[] arrayRegion= cbxRegion.getSelectedItem().toString().split("-");
-        int id_region=Integer.parseInt(arrayRegion[0]);
-        
-        for (ProvinciaDTO provincia:new Lista().listarProvincias(id_region))
-        {
-            cbxProvince.addItem(provincia.getId()+"-"+provincia.getNombre());       
+    public void listadoRegion() {
+
+        for (RegionDTO region : new Lista().listarRegiones()) {
+            cbxRegion.addItem(region.getId() + "-" + region.getNombre());
         }
     }
-    
-    
-    public void listadoComuna(){
-        
-        String[] arrayRegion= cbxProvince.getSelectedItem().toString().split("-");
-        int id_province=Integer.parseInt(arrayRegion[0]);
-        
-        
-        for (ComunaDTO comuna:new Lista().listarComunasPorProvincia(id_province))
-        {
-            cbxCommune.addItem(comuna.getId()+"-"+comuna.getNombre());
-   
+
+    public void listadoProvincia() {
+
+        String[] arrayRegion = cbxRegion.getSelectedItem().toString().split("-");
+        int id_region = Integer.parseInt(arrayRegion[0]);
+
+        for (ProvinciaDTO provincia : new Lista().listarProvincias(id_region)) {
+            cbxProvince.addItem(provincia.getId() + "-" + provincia.getNombre());
         }
     }
-    
-    public void listadoAreaTrabajo(){
-        
-        for (AreaTrabajoDTO areaTrabajo:new Lista().listarAreasTrabajo()) {
-              cbxWorkingArea.addItem(areaTrabajo.getId()+"-"+areaTrabajo.getNombre());
-        }  
+
+    public void listadoComuna() {
+
+        String[] arrayRegion = cbxProvince.getSelectedItem().toString().split("-");
+        int id_province = Integer.parseInt(arrayRegion[0]);
+
+        for (ComunaDTO comuna : new Lista().listarComunasPorProvincia(id_province)) {
+            cbxCommune.addItem(comuna.getId() + "-" + comuna.getNombre());
+
+        }
     }
-    
-    public void actualizarListaCompania(){
+
+    public void listadoAreaTrabajo() {
+
+        for (AreaTrabajoDTO areaTrabajo : new Lista().listarAreasTrabajo()) {
+            cbxWorkingArea.addItem(areaTrabajo.getId() + "-" + areaTrabajo.getNombre());
+        }
+    }
+
+    public void actualizarListaCompania() {
         listaCompanias = new Lista().listarCompanias();
-        String[] columnas = {"ID", "Nombre","Direccion","Area de Trabajo","Comuna"};
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0){
-        @Override
-        public boolean isCellEditable(int filas,int columnas){
-            return false;
-        }
+        String[] columnas = {"ID", "Nombre", "Direccion", "Area de Trabajo", "Comuna"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                return false;
+            }
         };
-        
-        for(CompaniaDTO compania : listaCompanias){
-            String id       = String.valueOf(compania.getId());
-            String name     = String.valueOf(compania.getNombre());
-            String address     = String.valueOf(compania.getDireccion());
+
+        for (CompaniaDTO compania : listaCompanias) {
+            String id = String.valueOf(compania.getId());
+            String name = String.valueOf(compania.getNombre());
+            String address = String.valueOf(compania.getDireccion());
             String workingArea = String.valueOf(compania.getIdAreaTrabajo());
             String commune = String.valueOf(compania.getIdComuna());
-   
-            Object[] elemento = {id,name,address,workingArea,commune};
+
+            Object[] elemento = {id, name, address, workingArea, commune};
             modeloTabla.addRow(elemento);
         };
         tblCompania.setModel(modeloTabla);
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -334,7 +329,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxCommuneActionPerformed
 
     private void cbxProvinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProvinceActionPerformed
-        if (cbxProvince.getSelectedItem()!=null) {
+        if (cbxProvince.getSelectedItem() != null) {
             cbxCommune.setEnabled(true);
             cbxCommune.removeAllItems();
             listadoComuna();
@@ -348,16 +343,24 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxRegionActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-       
-        String[] arrayWorkingArea = cbxWorkingArea.getSelectedItem().toString().split("-");   
-        int id_workingArea=Integer.parseInt(arrayWorkingArea[0]);       
-        
-        String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");   
-        int id_commune=Integer.parseInt(arrayCommune[0]);
-         
-        new Registro().registrarCompania(txtName.getText(),txtAddress.getText(),id_workingArea,id_commune);
-        btnBorrar.setEnabled(false);
-        resetearTabla();
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            try {
+                String[] arrayWorkingArea = cbxWorkingArea.getSelectedItem().toString().split("-");
+                int id_workingArea = Integer.parseInt(arrayWorkingArea[0]);
+
+                String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");
+                int id_commune = Integer.parseInt(arrayCommune[0]);
+
+                new Registro().registrarCompania(txtName.getText(), txtAddress.getText(), id_workingArea, id_commune);
+                btnBorrar.setEnabled(false);
+                resetearTabla();
+                JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
@@ -367,34 +370,39 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        new Eliminar().eliminarCompania(idGeneral);
-        resetearTabla();
-        limpiarFormulario();
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Eliminar", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            new Eliminar().eliminarCompania(idGeneral);
+            resetearTabla();
+            limpiarFormulario();
+            JOptionPane.showMessageDialog(null, "Eliminado exitosamente.",
+                    "Eliminar", JOptionPane.PLAIN_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void cbxWorkingAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxWorkingAreaActionPerformed
-        
+
     }//GEN-LAST:event_cbxWorkingAreaActionPerformed
 
     private void tblCompaniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCompaniaMouseClicked
-        int seleccion= tblCompania.rowAtPoint(evt.getPoint());
-        int id=Integer.parseInt(String.valueOf(tblCompania.getValueAt(seleccion,0)));
-        
-        companiaIdentificada=true;
-        idGeneral=id;
+        int seleccion = tblCompania.rowAtPoint(evt.getPoint());
+        int id = Integer.parseInt(String.valueOf(tblCompania.getValueAt(seleccion, 0)));
+
+        companiaIdentificada = true;
+        idGeneral = id;
         btnBorrar.setEnabled(true);
 
-       
-        CompaniaDTO compania=new CompaniaDAO().obtenerCompaniaPorIdBD(id);
+        CompaniaDTO compania = new CompaniaDAO().obtenerCompaniaPorIdBD(id);
         txtName.setText(compania.getNombre());
         txtAddress.setText(compania.getDireccion());
         cbxWorkingArea.setSelectedItem(id);
-        
-        String[] hola= new Consulta().listarPorComuna(compania.getIdComuna());
-        
-        cbxRegion.setSelectedItem(hola[1]+"-"+hola[0]);
-        cbxProvince.setSelectedItem(hola[3]+"-"+hola[2]);
-        cbxCommune.setSelectedItem(hola[5]+"-"+hola[4]);
+
+        String[] hola = new Consulta().listarPorComuna(compania.getIdComuna());
+
+        cbxRegion.setSelectedItem(hola[1] + "-" + hola[0]);
+        cbxProvince.setSelectedItem(hola[3] + "-" + hola[2]);
+        cbxCommune.setSelectedItem(hola[5] + "-" + hola[4]);
     }//GEN-LAST:event_tblCompaniaMouseClicked
 
 

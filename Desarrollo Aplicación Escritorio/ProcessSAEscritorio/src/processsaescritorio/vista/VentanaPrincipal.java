@@ -34,12 +34,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //JOptionPane.showMessageDialog(null, "Probando"+  permisosU.getIdRol(), "Grabar", JOptionPane.PLAIN_MESSAGE);
 
         if (permisosU.getIdRol()==2) {
-            jMenuItem1.setEnabled(false);
-            jMenuItem1.setVisible(false);
-            jMenuItem5.setEnabled(false);
-            jMenuItem5.setVisible(false);
-            jMenuItem2.setEnabled(false);
-            jMenuItem2.setVisible(false);
+            menuAdminstracion.setEnabled(false);
+            menuAdminstracion.setVisible(false);
+          
         }
     }
     /**
@@ -58,7 +55,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuFlujoTarea = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 204, 255));
@@ -105,15 +103,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("Unidades Internas");
         menuAdminstracion.add(jMenuItem3);
 
-        jMenuItem4.setText("Flujo de Tareas");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(menuAdminstracion);
+
+        jMenu1.setText("Procesos");
+
+        menuFlujoTarea.setText("Flujo de tareas");
+        menuFlujoTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuFlujoTareaActionPerformed(evt);
             }
         });
-        menuAdminstracion.add(jMenuItem4);
+        jMenu1.add(menuFlujoTarea);
 
-        jMenuBar1.add(menuAdminstracion);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -137,12 +139,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mantenedorUsuario.setVisible(true); 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        FlujoTareas flujo = new FlujoTareas();
-        panelEscritorio.add(flujo);
-        flujo.setVisible(true); 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ManejadorCompania mantenedorCompania = new ManejadorCompania();
         panelEscritorio.add(mantenedorCompania);
@@ -155,15 +151,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mantenedorRol.setVisible(true); 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void menuFlujoTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFlujoTareaActionPerformed
+        FlujoTareas flujo = new FlujoTareas();
+        panelEscritorio.add(flujo);
+        flujo.setVisible(true); 
+    }//GEN-LAST:event_menuFlujoTareaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu menuAdminstracion;
+    private javax.swing.JMenuItem menuFlujoTarea;
     private javax.swing.JDesktopPane panelEscritorio;
     // End of variables declaration//GEN-END:variables
 }

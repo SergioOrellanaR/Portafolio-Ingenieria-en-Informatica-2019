@@ -38,12 +38,19 @@
                 <Property name="text" type="java.lang.String" value="Unidades Internas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Procesos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuFlujoTarea">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Flujo de Tareas"/>
+                <Property name="text" type="java.lang.String" value="Flujo de tareas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFlujoTareaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

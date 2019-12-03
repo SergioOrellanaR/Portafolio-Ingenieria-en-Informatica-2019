@@ -139,12 +139,12 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     }
 
     public int nivelTarea(int idParental) {
-         int nivel=0;
+        int nivel = 0;
         for (TareaDTO listaTarea : listarChildren) {
-            if (listaTarea.getId()==idParental) {
+            if (listaTarea.getId() == idParental) {
                 nivel++;
                 for (TareaDTO listaTareax : listarChildren) {
-                    if (listaTarea.getIdDependenciaTarea()==listaTareax.getId()) {
+                    if (listaTarea.getIdDependenciaTarea() == listaTareax.getId()) {
                         nivel++;
                     }
                 }
@@ -415,34 +415,50 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         int activo = 0;
-        if (rdTarea.isSelected()) {
-            activo = 1;
-        } else {
-            activo = 0;
-        }
 
-        new Registro().registrarTarea(txtName.getText(), txtAreaTarea.getText(), 1, activo, 0, 0);
-        resetearTablaTarea();
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
+        // ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/processsaescritorio/src/imagenes/ok.png"));
+        if (resp == 0) {
+            try {
+                if (rdTarea.isSelected()) {
+                    activo = 1;
+                } else {
+                    activo = 0;
+                }
+
+                new Registro().registrarTarea(txtName.getText(), txtAreaTarea.getText(), 1, activo, 0, 0);
+                resetearTablaTarea();
+                JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            }
+
+        }
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnGrabarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarCActionPerformed
         int activo = 0;
-        if (idGeneral != 0) {
-            if (rdTareaC.isSelected()) {
-                activo = 1;
-            } else {
-                activo = 0;
-            }
+        int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
+        if (resp == 0) {
+            try {
+                if (idGeneral != 0) {
+                    if (rdTareaC.isSelected()) {
+                        activo = 1;
+                    } else {
+                        activo = 0;
+                    }
 
-            String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
-            int dependenciaId = Integer.parseInt(arrayCommune[0]);
-            
-            
-            nivelTarea(dependenciaId);
-            new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, activo, idGeneral, dependenciaId);
-            resetearTablaTareaC();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "No estas preparado aún");
+                    String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
+                    int dependenciaId = Integer.parseInt(arrayCommune[0]);
+
+                    nivelTarea(dependenciaId);
+                    new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, activo, idGeneral, dependenciaId);
+                    resetearTablaTareaC();
+                    JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnGrabarCActionPerformed
 
