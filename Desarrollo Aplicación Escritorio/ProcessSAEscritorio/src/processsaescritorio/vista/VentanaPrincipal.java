@@ -26,11 +26,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     VentanaPrincipal(UsuarioDTO usuarioSesion, Login aThis) {
         initComponents();
+        // this.setSize(1080, 1080);
          this.setExtendedState(MAXIMIZED_BOTH);
         this.usuarioSesion = usuarioSesion;
         this.ventanaPadre = ventanaPadre;
         RolPermisosDTO permisosU= new RolPermisosDAO().validarPermisoUsuarioBD(usuarioSesion.getId(),31);
-    JOptionPane.showMessageDialog(null, "Probando"+usuarioSesion.getId(), "Grabar", JOptionPane.PLAIN_MESSAGE);
+    //JOptionPane.showMessageDialog(null, "Probando"+usuarioSesion.getId(), "Grabar", JOptionPane.PLAIN_MESSAGE);
     //JOptionPane.showMessageDialog(null, "Probando"+  permisosU.getIdRol(), "Grabar", JOptionPane.PLAIN_MESSAGE);
 
         if (permisosU.getIdRol()==2) {
@@ -62,6 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 204, 255));
 
         panelEscritorio.setBackground(new java.awt.Color(255, 255, 255));
+        panelEscritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
         panelEscritorio.setLayout(panelEscritorioLayout);
