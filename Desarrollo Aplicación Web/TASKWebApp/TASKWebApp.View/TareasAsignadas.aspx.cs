@@ -50,7 +50,7 @@ namespace TASKWebApp.View
 
         private void SetRowInTableInformation(RepeaterItem item, ProcessedTask processedTask)
         {
-            Color color = GetKpiColor(processedTask);
+            Color color = GetKPIColor(processedTask);
 
             SetTableindividualLabelInformation("lblSubNombre", processedTask.TaskAssignment.Task.Name, item, color);
             SetTableindividualLabelInformation("lblAsignadaPor", processedTask.TaskAssignment.AssignerUser.FullName(), item, color);
@@ -70,7 +70,7 @@ namespace TASKWebApp.View
             SetTableindividualLabelInformation("lblIdTarea", processedTask.Id.ToString(), item, color);
         }
 
-        private Color GetKpiColor(ProcessedTask processedTask)
+        private Color GetKPIColor(ProcessedTask processedTask)
         {
             Color color;
             DateTime now = DateTime.Now;
