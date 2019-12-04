@@ -635,7 +635,7 @@ namespace TASKWebApp.View
 
         private void SetTableIndividualButtonInformation(string buttonName, RepeaterItem item, bool val)
         {
-            Button button = (Button)item.FindControl(buttonName);
+            LinkButton button = (LinkButton)item.FindControl(buttonName);
             button.Enabled = val;
             button.Visible = val;
         }
@@ -648,21 +648,21 @@ namespace TASKWebApp.View
 
         protected void btnSubAdd_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Add", item.ItemIndex);
         }
 
         protected void btnSubDelete_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Delete", item.ItemIndex);
         }
 
         protected void btnSubEdit_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
+            LinkButton button = (LinkButton)sender;
             RepeaterItem item = (RepeaterItem)button.NamingContainer;
             Session["TaskWithLevels"] = UpdateTableInformation(GetTableDataSource(), "Update", item.ItemIndex);
         }

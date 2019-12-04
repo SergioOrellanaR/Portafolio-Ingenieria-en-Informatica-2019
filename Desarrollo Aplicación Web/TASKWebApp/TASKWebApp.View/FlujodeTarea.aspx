@@ -10,7 +10,7 @@
         <asp:UpdatePanel ID="upTablaTareas" runat="server">
             <ContentTemplate>
                 <div class="container text-center">
-                    <asp:Label ID="Label7" runat="server"><h2>Crear Flujo de Tareas - Tareas Unicas</h2></asp:Label>
+                    <asp:Label ID="Label7" runat="server"><h2>Flujo de Tareas</h2></asp:Label>
                     <br />
                 </div>
 
@@ -50,11 +50,11 @@
                                 <td>
                                     <asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:Button ID="btnSubAdd" runat="server" Text="+" OnClick="btnSubAdd_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:LinkButton ID="btnSubAdd" runat="server" Text="+" OnClick="btnSubAdd_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
                                 <td>
-                                    <asp:Button ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:LinkButton ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
                                 <td>
-                                    <asp:Button ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" /></td>
+                                    <asp:LinkButton ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
                             </tr>
 
                         </ItemTemplate>
