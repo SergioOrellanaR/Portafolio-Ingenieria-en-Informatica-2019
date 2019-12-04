@@ -70,7 +70,6 @@
             <ContentTemplate>
                 <asp:Repeater ID="repSubTask" runat="server">
                     <HeaderTemplate>
-                        Contenido de repeater
                     </HeaderTemplate>
                     <ItemTemplate>
                         <div id="divTarea" runat="server">
