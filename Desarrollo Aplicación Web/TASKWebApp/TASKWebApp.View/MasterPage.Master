@@ -49,9 +49,9 @@
 				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                     <asp:Label ID="lblName" runat="server" Text=""></asp:Label><b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="ActualizarDatos.aspx" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
+					<li><a href="ActualizarDatos.aspx" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
 					<li class="divider dropdown-divider"></li>
-					<li><a href="CerrarSesion.aspx" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
+					<li><a href="CerrarSesion.aspx" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesión</a></li>
 				</ul>
 			</li>
 		</ul>
