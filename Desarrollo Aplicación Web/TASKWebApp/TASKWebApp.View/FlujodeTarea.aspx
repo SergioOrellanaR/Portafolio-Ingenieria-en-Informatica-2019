@@ -50,11 +50,17 @@
                                 <td>
                                     <asp:Label ID="lblSubDependencia" runat="server" Text=""></asp:Label></td>
                                 <td>
-                                    <asp:LinkButton ID="btnSubAdd" runat="server" Text="+" OnClick="btnSubAdd_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
+                                    <asp:LinkButton ID="btnSubAdd" runat="server" CssClass="btn btn-primary" OnClick="btnSubAdd_Click" UseSubmitBehavior="false">
+                                     <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+                                    </asp:LinkButton>
                                 <td>
-                                    <asp:LinkButton ID="btnSubDelete" runat="server" Text="-" OnClick="btnSubDelete_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
+                                    <asp:LinkButton ID="btnSubDelete" runat="server" CssClass="btn btn-primary" OnClick="btnSubDelete_Click" UseSubmitBehavior="false">
+                                     <span aria-hidden="true" class="glyphicon glyphicon-minus"></span>
+                                    </asp:LinkButton>
                                 <td>
-                                    <asp:LinkButton ID="btnSubEdit" runat="server" Text="Editar" OnClick="btnSubEdit_Click" UseSubmitBehavior="false" ></asp:LinkButton></td>
+                                    <asp:LinkButton ID="btnSubEdit" runat="server" CssClass="btn btn-primary" OnClick="btnSubEdit_Click" UseSubmitBehavior="false">
+                                     <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
+                                    </asp:LinkButton>
                             </tr>
 
                         </ItemTemplate>
