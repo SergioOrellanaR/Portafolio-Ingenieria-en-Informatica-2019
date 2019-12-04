@@ -31,6 +31,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
     public ManejadorUsuarios() {
         initComponents();
+
         actualizarListaUsuarios();
         listadoCompania();
         listadoRegion();
@@ -198,8 +199,6 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         lbl = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
 
-        setClosable(true);
-        setMaximizable(true);
         setTitle("Manejo de Usuarios");
 
         tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
@@ -247,9 +246,6 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         txtLastName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLastNameKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtLastNameKeyTyped(evt);
             }
         });
 
@@ -487,7 +483,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                 .addGap(91, 91, 91))
         );
 
-        setBounds(500, 150, 1049, 544);
+        setBounds(0, 0, 1049, 544);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed

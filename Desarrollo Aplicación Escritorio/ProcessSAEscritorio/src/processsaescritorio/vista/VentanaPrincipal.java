@@ -26,8 +26,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     VentanaPrincipal(UsuarioDTO usuarioSesion, Login aThis) {
         initComponents();
-        // this.setSize(1080, 1080);
-         this.setExtendedState(MAXIMIZED_BOTH);
+        this.setSize(1080, 900);
+     //    this.setExtendedState(MAXIMIZED_BOTH);
+       this.setLocationRelativeTo(null);
         this.usuarioSesion = usuarioSesion;
         this.ventanaPadre = ventanaPadre;
         RolPermisosDTO permisosU= new RolPermisosDAO().validarPermisoUsuarioBD(usuarioSesion.getId(),31);
@@ -150,7 +151,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         ManejadorRol mantenedorRol = new ManejadorRol();
         panelEscritorio.add(mantenedorRol);
-        mantenedorRol.setVisible(true); 
+        mantenedorRol.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void menuFlujoTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFlujoTareaActionPerformed

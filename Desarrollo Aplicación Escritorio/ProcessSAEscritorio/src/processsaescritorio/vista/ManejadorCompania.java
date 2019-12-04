@@ -139,6 +139,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setTitle("Compañia");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,7 +314,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(500, 150, 985, 410);
+        setBounds(0, 0, 985, 410);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
