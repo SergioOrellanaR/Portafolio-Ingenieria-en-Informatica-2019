@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TASKWebApp.Business.Classes;
+using System.Drawing;
 
 namespace TASKWebApp.View
 {
@@ -49,28 +50,46 @@ namespace TASKWebApp.View
 
         private void SetRowInTableInformation(RepeaterItem item, ProcessedTask processedTask)
         {
-            SetTableindividualLabelInformation("lblSubNombre", processedTask.TaskAssignment.Task.Name, item);
-            SetTableindividualLabelInformation("lblAsignadaPor", processedTask.TaskAssignment.AssignerUser.FullName(), item);
-            SetTableindividualLabelInformation("lblSubDescripcion", processedTask.TaskAssignment.Task.Description, item);
-            SetTableindividualLabelInformation("lblSubFechaInicio", processedTask.StartDate.ToString(), item);
-            SetTableindividualLabelInformation("lblSubFechaFin", processedTask.EndDate.ToString(), item);
+            Color color = GetKpiColor(processedTask);
+
+            SetTableindividualLabelInformation("lblSubNombre", processedTask.TaskAssignment.Task.Name, item, color);
+            SetTableindividualLabelInformation("lblAsignadaPor", processedTask.TaskAssignment.AssignerUser.FullName(), item, color);
+            SetTableindividualLabelInformation("lblSubDescripcion", processedTask.TaskAssignment.Task.Description, item, color);
+            SetTableindividualLabelInformation("lblSubFechaInicio", processedTask.StartDate.ToString(), item, color);
+            SetTableindividualLabelInformation("lblSubFechaFin", processedTask.EndDate.ToString(), item, color);
 
             if (processedTask.TaskAssignment.Task.DependentTask != null)
             {
-                SetTableindividualLabelInformation("lblSubDependencia", processedTask.TaskAssignment.Task.DependentTask.Name, item);
+                SetTableindividualLabelInformation("lblSubDependencia", processedTask.TaskAssignment.Task.DependentTask.Name, item, color);
             }
             else
             {
-                SetTableindividualLabelInformation("lblSubDependencia", "Ninguna", item);
+                SetTableindividualLabelInformation("lblSubDependencia", "Ninguna", item, color);
             }
 
-            SetTableindividualLabelInformation("lblIdTarea", processedTask.Id.ToString(), item);
+            SetTableindividualLabelInformation("lblIdTarea", processedTask.Id.ToString(), item, color);
         }
 
-        private void SetTableindividualLabelInformation(string labelName, string information, RepeaterItem item)
+        private Color GetKpiColor(ProcessedTask processedTask)
+        {
+            Color color;
+            DateTime now = DateTime.Now;
+
+            if (processedTask.StartDate < now)
+                color = Color.Red;
+            else if (processedTask.StartDate.Date == now.Date)
+                color = Color.DarkKhaki;
+            else
+                color = Color.Green;
+
+            return color;
+        }
+
+        private void SetTableindividualLabelInformation(string labelName, string information, RepeaterItem item, Color color)
         {
             Label label = (Label)item.FindControl(labelName);
             label.Text = information;
+            label.ForeColor = color;
         }
 
         protected void btnSubAceptar_Click(object sender, EventArgs e)
