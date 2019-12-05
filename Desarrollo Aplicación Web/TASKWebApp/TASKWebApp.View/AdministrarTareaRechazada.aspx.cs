@@ -39,7 +39,7 @@ namespace TASKWebApp.View
 
             if (status == RejectedStatus)
             {
-                tasks = user.SearchProcessedTaskByStatus(RejectedStatus, true);
+                tasks = user.SearchProcessedTaskByStatus(RejectedStatus, true, true);
                 if (tasks.Count > 0)
                 {
                     repTablaRechazo.DataSource = tasks;
@@ -58,7 +58,7 @@ namespace TASKWebApp.View
             }
             else if (status == SuspendedStatus)
             {
-                tasks = user.SearchProcessedTaskByStatus(SuspendedStatus, true);
+                tasks = user.SearchProcessedTaskByStatus(SuspendedStatus, true, true);
                 if (tasks.Count > 0)
                 {
                     repTablaSuspension.DataSource = tasks;

@@ -19,7 +19,7 @@ namespace TASKWebApp.View
             try
             {
                 int inProcessStatus = 2;
-                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(inProcessStatus, false);
+                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(inProcessStatus, false, true);
                 LoadTaskInformation(activeAndReasignedTasks);
             }
             catch
