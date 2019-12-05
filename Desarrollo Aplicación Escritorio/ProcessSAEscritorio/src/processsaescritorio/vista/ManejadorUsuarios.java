@@ -220,6 +220,11 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                 tblUsuarioMouseClicked(evt);
             }
         });
+        tblUsuario.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tblUsuarioComponentResized(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsuario);
 
         btnGrabar.setText("Grabar");
@@ -262,6 +267,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha de nacimiento");
 
+        cbxCompany.setMaximumRowCount(4);
         cbxCompany.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCompanyActionPerformed(evt);
@@ -293,6 +299,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Unidad Asignada");
 
+        cbxAssignedUnit.setMaximumRowCount(4);
         cbxAssignedUnit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxAssignedUnitActionPerformed(evt);
@@ -307,6 +314,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Dirección");
 
+        cbxCommune.setMaximumRowCount(4);
         cbxCommune.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCommuneActionPerformed(evt);
@@ -315,6 +323,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Comuna");
 
+        cbxRegion.setMaximumRowCount(4);
         cbxRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxRegionActionPerformed(evt);
@@ -323,6 +332,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Region");
 
+        cbxProvince.setMaximumRowCount(4);
         cbxProvince.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxProvinceActionPerformed(evt);
@@ -492,7 +502,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
         // ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/processsaescritorio/src/imagenes/ok.png"));
-        
+
         if (resp == 0) {
             try {
                 if (usuarioIdentificado) {
@@ -508,10 +518,10 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
                     String[] arrayInternalU = cbxAssignedUnit.getSelectedItem().toString().split("-");
                     int id_unitAssig = Integer.parseInt(arrayInternalU[0]);
-                    
-                    int assignedUnit=0;
-                    
-                   UnidadAsignadaDTO uni = new UnidadAsignadaDAO().obtenerUnidadPorNombre(arrayInternalU[1]);
+
+                    int assignedUnit = 0;
+
+                    UnidadAsignadaDTO uni = new UnidadAsignadaDAO().obtenerUnidadPorNombre(arrayInternalU[1]);
 
                     int id_gender = 3;
                     if (cbxGender.getSelectedIndex() == 0) {
@@ -628,15 +638,15 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     private void txtPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (c<'0'||c>'9') {
+        if (c < '0' || c > '9') {
             evt.consume();
         }
     }//GEN-LAST:event_txtPhoneKeyTyped
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         // TODO add your handling code here:
-        
-         if(txtName.getText().length()>=40 ) {  
+
+        if (txtName.getText().length() >= 40) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNameKeyTyped
@@ -647,14 +657,14 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
     private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
         // TODO add your handling code here:
-         if(txtEmail.getText().length()>=50 ) {  
+        if (txtEmail.getText().length() >= 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtEmailKeyTyped
 
     private void txtAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyTyped
         // TODO add your handling code here:
-        if(txtAddress.getText().length()>=50 ) {  
+        if (txtAddress.getText().length() >= 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAddressKeyTyped
@@ -665,10 +675,21 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
 
     private void txtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyTyped
         // TODO add your handling code here:
-             if(txtLastName.getText().length()>=40 ) {  
+        if (txtLastName.getText().length() >= 40) {
             evt.consume();
         }
     }//GEN-LAST:event_txtLastNameKeyTyped
+
+    private void tblUsuarioComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblUsuarioComponentResized
+        // TODO add your handling code here:
+        tblUsuario.getColumnModel().getColumn(0).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblUsuario.getColumnModel().getColumn(1).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblUsuario.getColumnModel().getColumn(2).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(150);
+        // tblRol.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }//GEN-LAST:event_tblUsuarioComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -56,7 +56,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuUnidadInterna = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuFlujoTarea = new javax.swing.JMenuItem();
 
@@ -103,8 +103,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuAdminstracion.add(jMenuItem2);
 
-        jMenuItem3.setText("Unidades Internas");
-        menuAdminstracion.add(jMenuItem3);
+        menuUnidadInterna.setText("Unidades Internas");
+        menuUnidadInterna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUnidadInternaActionPerformed(evt);
+            }
+        });
+        menuAdminstracion.add(menuUnidadInterna);
 
         jMenuBar1.add(menuAdminstracion);
 
@@ -151,8 +156,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         ManejadorRol mantenedorRol = new ManejadorRol();
         panelEscritorio.add(mantenedorRol);
-        mantenedorRol.setVisible(true);
-        
+        mantenedorRol.setVisible(true);       
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void menuFlujoTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFlujoTareaActionPerformed
@@ -161,16 +165,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         flujo.setVisible(true); 
     }//GEN-LAST:event_menuFlujoTareaActionPerformed
 
+    private void menuUnidadInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUnidadInternaActionPerformed
+        ManejadorUnidadInterna unidad = new ManejadorUnidadInterna();
+        panelEscritorio.add(unidad);
+        unidad.setVisible(true); 
+    }//GEN-LAST:event_menuUnidadInternaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu menuAdminstracion;
     private javax.swing.JMenuItem menuFlujoTarea;
+    private javax.swing.JMenuItem menuUnidadInterna;
     private javax.swing.JDesktopPane panelEscritorio;
     // End of variables declaration//GEN-END:variables
 }

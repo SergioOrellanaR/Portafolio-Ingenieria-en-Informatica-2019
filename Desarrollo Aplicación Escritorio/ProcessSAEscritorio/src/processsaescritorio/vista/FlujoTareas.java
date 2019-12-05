@@ -138,7 +138,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         tblTareasC.setModel(modeloTabla);
     }
 
-    public int nivelTarea(int idParental) {
+   /* public int nivelTarea(int idParental) {
         int nivel = 0;
         for (TareaDTO listaTarea : listarChildren) {
             if (listaTarea.getId() == idParental) {
@@ -151,13 +151,16 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
             }
         }
         return nivel;
-    }
+    }*/
 
     public void listadoTareaChildren() {
-
-        for (TareaDTO tarea : new Lista().listarTareasChildrenDependientes(idTareaC, idGeneral)) {
+        
+        if (idTareaC!=0 && idGeneral!=0) {
+            for (TareaDTO tarea : new Lista().listarTareasChildrenDependientes(idTareaC, idGeneral)) {
             cbxTareasC.addItem(tarea.getId() + "-" + tarea.getNombre());
         }
+        }
+        
     }
 
     /**
@@ -448,20 +451,28 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
                 if (idGeneral != 0) {
                     if (rdTareaC.isSelected()) {
                         activo = 1;
-                    } else {
+                    } 
+                    /*else {
                         activo = 0;
+                    }*/
+
+                   
+                    int dependenciaId =0;
+
+                    if (cbxTareasC.getSelectedItem().toString().length()==0) {
+                       dependenciaId=0;
+                    }else{
+                      String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
+                       dependenciaId=Integer.parseInt(arrayCommune[0]);
                     }
 
-                    String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
-                    int dependenciaId = Integer.parseInt(arrayCommune[0]);
-
-                    nivelTarea(dependenciaId);
-                    new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, activo, idGeneral, dependenciaId);
+                 //   nivelTarea(dependenciaId);
+                    new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, 1, idGeneral, dependenciaId);
                     resetearTablaTareaC();
                     JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes"+e, "Grabar", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnGrabarCActionPerformed

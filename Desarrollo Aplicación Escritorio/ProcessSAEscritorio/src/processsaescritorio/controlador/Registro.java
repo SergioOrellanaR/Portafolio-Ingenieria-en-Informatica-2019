@@ -36,4 +36,9 @@ public class Registro {
     public String registrarTarea(String name, String description, int ispredefined, int isactive, int id_superior_task, int id_dependent_task) {
         return new TareaDAO(0, name, description, ispredefined, isactive, id_superior_task, id_dependent_task).crearTarea();
     }
+    
+    public String registrarUnidadInterna(int idRol, String nombre)
+    {
+        return new UnidadInternaDAO(0,idRol,nombre).registrarUnidadInterna();
+    }
 }

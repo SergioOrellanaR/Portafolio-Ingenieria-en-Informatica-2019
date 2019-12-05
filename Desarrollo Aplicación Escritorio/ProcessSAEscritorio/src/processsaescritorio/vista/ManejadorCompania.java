@@ -94,7 +94,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
     public void actualizarListaCompania() {
         listaCompanias = new Lista().listarCompanias();
-        String[] columnas = {"ID", "Nombre", "Direccion", "Area de Trabajo", "Comuna"};
+        String[] columnas = {"ID", "Nombre", "Direccion"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int filas, int columnas) {
@@ -106,10 +106,9 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
             String id = String.valueOf(compania.getId());
             String name = String.valueOf(compania.getNombre());
             String address = String.valueOf(compania.getDireccion());
-            String workingArea = String.valueOf(compania.getIdAreaTrabajo());
-            String commune = String.valueOf(compania.getIdComuna());
+         
 
-            Object[] elemento = {id, name, address, workingArea, commune};
+            Object[] elemento = {id, name, address};
             modeloTabla.addRow(elemento);
         };
         tblCompania.setModel(modeloTabla);
@@ -157,6 +156,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Dirección");
 
+        cbxWorkingArea.setMaximumRowCount(4);
         cbxWorkingArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxWorkingAreaActionPerformed(evt);
@@ -165,6 +165,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Area de Trabajo");
 
+        cbxCommune.setMaximumRowCount(4);
         cbxCommune.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCommuneActionPerformed(evt);
@@ -173,6 +174,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Comuna");
 
+        cbxProvince.setMaximumRowCount(4);
         cbxProvince.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxProvinceActionPerformed(evt);
@@ -181,6 +183,7 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Provincia");
 
+        cbxRegion.setMaximumRowCount(4);
         cbxRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxRegionActionPerformed(evt);
@@ -203,6 +206,11 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         tblCompania.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCompaniaMouseClicked(evt);
+            }
+        });
+        tblCompania.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tblCompaniaComponentResized(evt);
             }
         });
         jScrollPane1.setViewportView(tblCompania);
@@ -405,6 +413,17 @@ public class ManejadorCompania extends javax.swing.JInternalFrame {
         cbxProvince.setSelectedItem(hola[3] + "-" + hola[2]);
         cbxCommune.setSelectedItem(hola[5] + "-" + hola[4]);
     }//GEN-LAST:event_tblCompaniaMouseClicked
+
+    private void tblCompaniaComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblCompaniaComponentResized
+             // TODO add your handling code here:
+        tblCompania.getColumnModel().getColumn(0).setResizable(false);
+        tblCompania.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblCompania.getColumnModel().getColumn(1).setResizable(false);
+        tblCompania.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblCompania.getColumnModel().getColumn(2).setResizable(false);
+        tblCompania.getColumnModel().getColumn(2).setPreferredWidth(150);
+        // tblRol.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }//GEN-LAST:event_tblCompaniaComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

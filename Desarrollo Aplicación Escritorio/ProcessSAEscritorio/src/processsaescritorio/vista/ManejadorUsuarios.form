@@ -232,6 +232,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblUsuarioMouseClicked"/>
+            <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="tblUsuarioComponentResized"/>
           </Events>
         </Component>
       </SubComponents>
@@ -287,6 +288,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxCompany">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="4"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
@@ -339,6 +341,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxAssignedUnit">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="4"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
@@ -362,6 +365,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxCommune">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="4"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
@@ -380,6 +384,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxRegion">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="4"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
@@ -398,6 +403,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxProvince">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="4"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
