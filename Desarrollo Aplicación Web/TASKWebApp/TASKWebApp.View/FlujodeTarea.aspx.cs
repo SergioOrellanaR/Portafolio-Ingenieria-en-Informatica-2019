@@ -106,10 +106,9 @@ namespace TASKWebApp.View
         {
             List<TaskWithLevel> taskList = new List<TaskWithLevel>();
 
-
-
             if (taskFlowInfo.IsPredefined)
             {
+                taskList.Add(new TaskWithLevel { Task = taskFlowInfo.OriginalTask, virtualId = taskFlowInfo.OriginalTask.Id });
                 foreach (Task task in taskFlowInfo.OriginalTask.LoadChildTasks().Values.ToList())
                 {
                     taskList.Add(new TaskWithLevel { Task = task, virtualId = task.Id });
