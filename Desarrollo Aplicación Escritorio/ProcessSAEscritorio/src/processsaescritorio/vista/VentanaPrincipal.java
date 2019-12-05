@@ -51,6 +51,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         panelEscritorio = new javax.swing.JDesktopPane();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAdminstracion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -66,15 +67,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelEscritorio.setBackground(new java.awt.Color(255, 255, 255));
         panelEscritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jButton1.setText("Cerrar Sesión");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        panelEscritorio.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
         panelEscritorio.setLayout(panelEscritorioLayout);
         panelEscritorioLayout.setHorizontalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 836, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
+                .addGap(0, 739, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
+                .addGap(0, 405, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
 
         menuAdminstracion.setText("Administración");
@@ -171,8 +185,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         unidad.setVisible(true); 
     }//GEN-LAST:event_menuUnidadInternaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        new Login().setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
