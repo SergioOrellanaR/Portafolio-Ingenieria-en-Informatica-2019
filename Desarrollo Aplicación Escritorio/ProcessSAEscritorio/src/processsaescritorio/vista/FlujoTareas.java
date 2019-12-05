@@ -191,6 +191,10 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         btnGrabarC = new javax.swing.JButton();
         cbxTareasC = new javax.swing.JComboBox<>();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         tblTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

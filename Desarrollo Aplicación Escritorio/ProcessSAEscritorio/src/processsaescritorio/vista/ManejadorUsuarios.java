@@ -199,6 +199,9 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         lbl = new javax.swing.JLabel();
         btnBorrar = new javax.swing.JButton();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Manejo de Usuarios");
 
         tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
