@@ -284,22 +284,22 @@ namespace TASKWebApp.Business.Classes
             return FirstName + " " + LastName;
         }
 
-        public List<ProcessedTask> SearchProcessedTaskByStatus(int status)
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status, bool orderByStart)
         {
             List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ X.ID_TASKSTATUS == status && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
-            return ProcessTasks(tasks);
+            return ProcessTasks(tasks, orderByStart);
         }
 
-        public List<ProcessedTask> SearchProcessedTaskByStatus(int status, bool assigner)
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status, bool assigner, bool orderByStart)
         {
             List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ X.ID_TASKSTATUS == status && X.TASK_ASSIGNMENT.ID_ASSIGNERUSER == Id).ToList();
-            return ProcessTasks(tasks);
+            return ProcessTasks(tasks, orderByStart);
         }
 
-        public List<ProcessedTask> SearchProcessedTaskByStatus(int status1, int status2)
+        public List<ProcessedTask> SearchProcessedTaskByStatus(int status1, int status2, bool orderByStart)
         {
             List<PROCESSED_TASK> tasks = Connection.ProcessSA_DB.PROCESSED_TASK.Where(X => /*X.ENDDATE>DateTime.Now*/ (X.ID_TASKSTATUS == status1 || X.ID_TASKSTATUS == status2) && X.TASK_ASSIGNMENT.ID_RECEIVERUSER == Id).ToList();
-            return ProcessTasks(tasks);
+            return ProcessTasks(tasks, orderByStart);
         }
 
 
@@ -310,7 +310,7 @@ namespace TASKWebApp.Business.Classes
             return ProcessLoopTask(tasks);
         }
 
-        public List<ProcessedTask> ProcessTasks(List<PROCESSED_TASK> tasks)
+        public List<ProcessedTask> ProcessTasks(List<PROCESSED_TASK> tasks, bool  orderByStart)
         {
             List<ProcessedTask> processedTasks = new List<ProcessedTask>();
             foreach (PROCESSED_TASK task in tasks)
@@ -322,7 +322,12 @@ namespace TASKWebApp.Business.Classes
                 pt.Read();
                 processedTasks.Add(pt);
             }
-            processedTasks = processedTasks.OrderBy(x => x.StartDate).ToList();
+
+            if(orderByStart)
+                processedTasks = processedTasks.OrderBy(x => x.StartDate).ToList();
+            else
+                processedTasks = processedTasks.OrderBy(x => x.EndDate).ToList();
+
             return processedTasks;
         }
 
