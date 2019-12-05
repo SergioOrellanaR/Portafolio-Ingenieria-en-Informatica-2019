@@ -18,7 +18,7 @@ namespace TASKWebApp.View
             {
                 int assignedStatus = 1;
                 int reassignedStatus = 4;
-                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(assignedStatus, reassignedStatus);
+                List<ProcessedTask> activeAndReasignedTasks = user.SearchProcessedTaskByStatus(assignedStatus, reassignedStatus, true);
                 LoadTaskInformation(activeAndReasignedTasks);
             }
             catch
