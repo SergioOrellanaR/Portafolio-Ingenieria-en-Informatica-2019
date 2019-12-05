@@ -26,7 +26,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
      */
     ArrayList<TareaDTO> listaTareas;
     ArrayList<TareaDTO> listarChildren;
-
+    ArrayList<TareaDTO> tareasMas;
     private int idGeneral = 0;
     private int idTareaC = 0;
 
@@ -35,8 +35,17 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     public FlujoTareas() {
         initComponents();
         actualizarListaTarea();
-        // listChildren.setModel(list_model);
-        // listaChildren();
+       // tareasMas = new ArrayList();
+        //listarChildren = new ArrayList();
+        tblTareasC.setEnabled(false);
+        tblTareasC.setVisible(false);
+        cbxTareasC.setEnabled(false);
+        cbxTareasC.setVisible(false);
+        cbxTareasC.setEnabled(false);
+        cbxTareasC.setVisible(false);
+        rdTareaC.setEnabled(false);
+        rdTareaC.setVisible(false);
+
     }
 
     /*
@@ -66,8 +75,11 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     }
 
     public void resetearTablaTareaC() {
-        listarChildren.removeAll(listarChildren);
-        actualizarListaTarea();
+        tblTareasC.setEnabled(true);
+     
+        ListaTareaC(); 
+        
+ 
     }
 
     public void limpiarFormularioTarea() {
@@ -79,15 +91,15 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
     public void limpiarFormularioTareaC() {
         tblTareasC.getSelectionModel().clearSelection();
-        txtNameC.setText("");
-        txtAreaTareaC.setText("");
+        //txtNameC.setText("");
+        //txtAreaTareaC.setText("");
         cbxTareasC.setSelectedIndex(cbxTareasC.getSelectedIndex());
         //btnBorrar.setEnabled(false);
     }
 
     public void actualizarListaTarea() {
         listaTareas = new Lista().listarTareas();
-        String[] columnas = {"ID", "Nombre", "Descripcion", "Activo"};
+        String[] columnas = {"ID", "Nombre","Activo"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int filas, int columnas) {
@@ -102,9 +114,8 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         listaTareas.stream().map((tarea) -> {
             String id = String.valueOf(tarea.getId());
             String name = String.valueOf(tarea.getNombre());
-            String descripcion = String.valueOf(tarea.getDescripcion());
             String activo = Integer.valueOf(tarea.getActivo()) == 1 ? "Activo" : "Inactivo";
-            Object[] elemento = {id, name, descripcion, activo};
+            Object[] elemento = {id, name, activo};
             return elemento;
         }).forEachOrdered((elemento) -> {
             modeloTabla.addRow(elemento);
@@ -115,7 +126,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
     public void ListaTareaC() {
         listaTareas = new Lista().listarTareasChildren(idGeneral);
-        String[] columnas = {"ID", "Nombre", "Descripcion", "Dependencia", "Activo"};
+        String[] columnas = {"ID", "Nombre","Dependencia", "Activo"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int filas, int columnas) {
@@ -126,10 +137,9 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         listaTareas.stream().map((tarea) -> {
             String id = String.valueOf(tarea.getId());
             String name = String.valueOf(tarea.getNombre());
-            String descripcion = String.valueOf(tarea.getDescripcion());
             String Dependencia = String.valueOf(tarea.getIdDependenciaTarea());
             String activo = Integer.valueOf(tarea.getActivo()) == 1 ? "Activo" : "Inactivo";
-            Object[] elemento = {id, name, descripcion, Dependencia, activo};
+            Object[] elemento = {id, name, Dependencia, activo};
             return elemento;
         }).forEachOrdered((elemento) -> {
             modeloTabla.addRow(elemento);
@@ -138,7 +148,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         tblTareasC.setModel(modeloTabla);
     }
 
-   /* public int nivelTarea(int idParental) {
+    /* public int nivelTarea(int idParental) {
         int nivel = 0;
         for (TareaDTO listaTarea : listarChildren) {
             if (listaTarea.getId() == idParental) {
@@ -152,15 +162,15 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         }
         return nivel;
     }*/
-
     public void listadoTareaChildren() {
         
-        if (idTareaC!=0 && idGeneral!=0) {
-            for (TareaDTO tarea : new Lista().listarTareasChildrenDependientes(idTareaC, idGeneral)) {
-            cbxTareasC.addItem(tarea.getId() + "-" + tarea.getNombre());
-        }
-        }
+            if (idTareaC != 0 && idGeneral != 0) {
+                for (TareaDTO tarea : new Lista().listarTareasChildrenDependientes(idTareaC, idGeneral)) {
+                    cbxTareasC.addItem(tarea.getId() + "-" + tarea.getNombre());
+                }
+            }
         
+
     }
 
     /**
@@ -181,18 +191,15 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         txtAreaTarea = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblTareasC = new javax.swing.JTable();
-        txtNameC = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtAreaTareaC = new javax.swing.JTextArea();
         rdTareaC = new javax.swing.JRadioButton();
         rdTarea = new javax.swing.JRadioButton();
         btnGrabar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         btnGrabarC = new javax.swing.JButton();
         cbxTareasC = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
         setMaximizable(true);
@@ -212,6 +219,11 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         tblTareas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTareasMouseClicked(evt);
+            }
+        });
+        tblTareas.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tblTareasComponentResized(evt);
             }
         });
         jScrollPane1.setViewportView(tblTareas);
@@ -242,11 +254,12 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
                 tblTareasCMouseClicked(evt);
             }
         });
+        tblTareasC.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tblTareasCComponentResized(evt);
+            }
+        });
         jScrollPane4.setViewportView(tblTareasC);
-
-        txtAreaTareaC.setColumns(20);
-        txtAreaTareaC.setRows(5);
-        jScrollPane3.setViewportView(txtAreaTareaC);
 
         rdTareaC.setText("Activo");
 
@@ -262,11 +275,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Descripción");
 
-        jLabel2.setText("Nombre");
-
-        jLabel3.setText("Nombre");
-
-        jLabel4.setText("Descripción");
+        lblNombre.setText("Nombre");
 
         btnGrabarC.setText("Grabar");
         btnGrabarC.addActionListener(new java.awt.event.ActionListener() {
@@ -275,92 +284,85 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
             }
         });
 
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtName)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGrabar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(rdTarea)
-                            .addGap(20, 20, 20)))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(566, 566, 566)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGrabarC)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGap(686, 686, 686)
+                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxTareasC, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(rdTareaC))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(182, 182, 182)
+                            .addGap(25, 25, 25)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(txtNameC, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)))))
-                .addContainerGap(212, Short.MAX_VALUE))
+                                .addComponent(lblNombre)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtName)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(btnGrabar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(rdTarea)
+                                                .addGap(18, 18, 18))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+                                        .addComponent(jLabel1))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(61, 61, 61)
+                                            .addComponent(btnGrabarC)
+                                            .addGap(26, 26, 26)
+                                            .addComponent(cbxTareasC, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rdTareaC))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(16, 16, 16)
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(lblNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNameC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rdTarea))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnGrabar)
+                                    .addComponent(rdTarea))
+                                .addGap(22, 22, 22))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cbxTareasC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdTareaC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnGrabar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnGrabarC)))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                                    .addComponent(rdTareaC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGrabarC))
+                                .addGap(19, 19, 19)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         pack();
@@ -369,6 +371,16 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     private void tblTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTareasMouseClicked
         int seleccion = tblTareas.rowAtPoint(evt.getPoint());
         int id = Integer.parseInt(String.valueOf(tblTareas.getValueAt(seleccion, 0)));
+        if (id!=0) {
+            tblTareasC.setEnabled(true);
+            tblTareasC.setVisible(true);
+            cbxTareasC.setEnabled(true);
+            cbxTareasC.setVisible(true);
+            cbxTareasC.setEnabled(true);
+            cbxTareasC.setVisible(true);
+            rdTareaC.setVisible(true);
+            rdTareaC.setEnabled(true);
+        }
 
         //companiaIdentificada=true;
         idGeneral = id;
@@ -405,6 +417,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         int seleccion = tblTareasC.rowAtPoint(evt.getPoint());
         int id = Integer.parseInt(String.valueOf(tblTareasC.getValueAt(seleccion, 0)));
         idTareaC = id;
+        
         TareaDTO tareax = new TareaDAO().ObtenerTareasPorId(id);
 
         if (tareax.getActivo() == 1) {
@@ -416,8 +429,8 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         }
         cbxTareasC.removeAllItems();
         listadoTareaChildren();
-        txtNameC.setText(tareax.getNombre());
-        txtAreaTareaC.setText(tareax.getDescripcion());
+        txtName.setText(tareax.getNombre());
+        txtAreaTarea.setText(tareax.getDescripcion());
     }//GEN-LAST:event_tblTareasCMouseClicked
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
@@ -445,37 +458,58 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
     private void btnGrabarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarCActionPerformed
         int activo = 0;
+
         int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Grabar", JOptionPane.YES_NO_OPTION);
+        // ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/processsaescritorio/src/imagenes/ok.png"));
         if (resp == 0) {
             try {
-                if (idGeneral != 0) {
-                    if (rdTareaC.isSelected()) {
-                        activo = 1;
-                    } 
-                    /*else {
-                        activo = 0;
-                    }*/
-
-                   
-                    int dependenciaId =0;
-
-                    if (cbxTareasC.getSelectedItem().toString().length()==0) {
-                       dependenciaId=0;
-                    }else{
-                      String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
-                       dependenciaId=Integer.parseInt(arrayCommune[0]);
-                    }
-
-                 //   nivelTarea(dependenciaId);
-                    new Registro().registrarTarea(txtNameC.getText(), txtAreaTareaC.getText(), 1, 1, idGeneral, dependenciaId);
-                    resetearTablaTareaC();
-                    JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
+                if (rdTarea.isSelected()) {
+                    activo = 1;
+                } else {
+                    activo = 0;
                 }
+                int dependenciaId = 0;
+                if (cbxTareasC.getSelectedItem() != null) {
+                    String[] arrayCommune = cbxTareasC.getSelectedItem().toString().split("-");
+                    dependenciaId = Integer.parseInt(arrayCommune[0]);
+                }
+
+                new Registro().registrarTarea(txtName.getText(), txtAreaTarea.getText(), 1, 1, idGeneral, dependenciaId);
+                resetearTablaTareaC();
+                  //listarChildren.removeAll(listarChildren);
+                //  ListaTareaC();
+                JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes"+e, "Grabar", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ingrese datos correspondientes", "Grabar", JOptionPane.PLAIN_MESSAGE);
             }
+
         }
     }//GEN-LAST:event_btnGrabarCActionPerformed
+
+    private void tblTareasComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblTareasComponentResized
+          // TODO add your handling code here:
+        tblTareas.getColumnModel().getColumn(0).setResizable(false);
+        tblTareas.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblTareas.getColumnModel().getColumn(1).setResizable(false);
+        tblTareas.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblTareas.getColumnModel().getColumn(2).setResizable(false);
+        tblTareas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        // tblRol.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }//GEN-LAST:event_tblTareasComponentResized
+
+    private void tblTareasCComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblTareasCComponentResized
+        if (tblTareasC.isEnabled()) {
+        tblTareasC.getColumnModel().getColumn(0).setResizable(false);
+        tblTareasC.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblTareasC.getColumnModel().getColumn(1).setResizable(false);
+        tblTareasC.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblTareasC.getColumnModel().getColumn(2).setResizable(false);
+        tblTareasC.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tblTareasC.getColumnModel().getColumn(3).setResizable(false);
+        tblTareasC.getColumnModel().getColumn(3).setPreferredWidth(50); 
+        }
+   
+    }//GEN-LAST:event_tblTareasCComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -485,20 +519,17 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxTareasC;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JRadioButton rdTarea;
     private javax.swing.JRadioButton rdTareaC;
     private javax.swing.JTable tblTareas;
     private javax.swing.JTable tblTareasC;
     private javax.swing.JTextArea txtAreaTarea;
-    private javax.swing.JTextArea txtAreaTareaC;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtNameC;
     // End of variables declaration//GEN-END:variables
 }
