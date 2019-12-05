@@ -23,50 +23,50 @@
 
 </head>
 <body>
-    <form id="form1" runat="server">
-    
+    <div class="section">
+        <form id="form1" runat="server">
+            <nav class="navbar navbar-inverse navbar-expand-xl navbar-dark">
+                <div class="navbar-header d-flex col">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/TASKlogo.png" /></a>
+                </div>
+                <!-- Collection of nav links, forms, and other content for toggling -->
+                <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+                    <ul class="nav navbar-nav navbar-right ml-auto">
+                        <li class="nav-item"><a href="CrearTarea.aspx" class="nav-link"><i class="glyphicon glyphicon-calendar"></i><span>Crear Tarea</span></a></li>
+                        <li class="nav-item dropdown">
+                            <a data-toggle="dropdown" class="nav-link dropdown-toggle user-action" href="#"><i class="glyphicon glyphicon-folder-open"></i>Administrar Tareas<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="AdministrarTareaRepetitiva.aspx" class="dropdown-item">Administrar Tareas Repetitivas</a></li>
+                                <li><a href="AdministrarTareaRechazada.aspx" class="dropdown-item">Administrar Tareas Rechazadas y Suspendidas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a href="TareasAsignadas.aspx" class="nav-link"><i class="glyphicon glyphicon-exclamation-sign"></i><span>Tareas pendientes de revisión</span><asp:Label ID="lblCantidadTareasAsignadas" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
+                        <li class="nav-item"><a href="VerTareasActivas.aspx" class="nav-link"><i class="glyphicon glyphicon-tasks"></i><span>Tareas activas</span><asp:Label ID="lblCantidadTareasEnProceso" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
+                        <li class="nav-item"><a href="EstadoTareas.aspx" class="nav-link"><i class="fa fa-briefcase"></i><span>Estado Tareas</span></a></li>
+                        <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                                <asp:Label ID="lblName" runat="server" Text=""></asp:Label><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="ActualizarDatos.aspx" class="dropdown-item"><i class="fa fa-user-o"></i>Perfil</a></li>
+                                <li class="divider dropdown-divider"></li>
+                                <li><a href="CerrarSesion.aspx" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-<nav class="navbar navbar-inverse navbar-expand-xl navbar-dark">
-	<div class="navbar-header d-flex col">
-		<a class="navbar-brand" href="#">
-            <img src="img/TASKlogo.png" /></a>  
-	</div>
-	<!-- Collection of nav links, forms, and other content for toggling -->
-	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
-		<ul class="nav navbar-nav navbar-right ml-auto">
-			<li class="nav-item"><a href="CrearTarea.aspx" class="nav-link"><i class="glyphicon glyphicon-calendar"></i><span>Crear Tarea</span></a></li>
-            <li class="nav-item dropdown">
-				<a data-toggle="dropdown" class="nav-link dropdown-toggle user-action" href="#"><i class="glyphicon glyphicon-folder-open"></i>Administrar Tareas<b class="caret"></b></a>
-				<ul class="dropdown-menu">					
-					<li><a href="AdministrarTareaRepetitiva.aspx" class="dropdown-item">Administrar Tareas Repetitivas</a></li>
-					<li><a href="AdministrarTareaRechazada.aspx" class="dropdown-item">Administrar Tareas Rechazadas y Suspendidas</a></li>
-				</ul>
-			</li>
-			<li class="nav-item"><a href="TareasAsignadas.aspx" class="nav-link"><i class="glyphicon glyphicon-exclamation-sign"></i><span>Tareas pendientes de revisión</span><asp:Label ID="lblCantidadTareasAsignadas" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
-			<li class="nav-item"><a href="VerTareasActivas.aspx" class="nav-link"><i class="glyphicon glyphicon-tasks"></i><span>Tareas activas</span><asp:Label ID="lblCantidadTareasEnProceso" runat="server" Text="" ForeColor="Red"></asp:Label></a></li>
-			<li class="nav-item"><a href="EstadoTareas.aspx" class="nav-link"><i class="fa fa-briefcase"></i><span>Estado Tareas</span></a></li>		
-			<li class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                    <asp:Label ID="lblName" runat="server" Text=""></asp:Label><b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li><a href="ActualizarDatos.aspx" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
-					<li class="divider dropdown-divider"></li>
-					<li><a href="CerrarSesion.aspx" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesión</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-</nav>
-
-        <div class="content">
-            <asp:ContentPlaceHolder ID="ContentBody" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <div class="footer">
-            <asp:ContentPlaceHolder ID="Footer" runat="server">
-                <p>By NOVA SMART Copyright © Todos los Derechos Reservados</p>
-            </asp:ContentPlaceHolder>            
-        </div>
-    </form>
+            <div class="content">
+                <asp:ContentPlaceHolder ID="ContentBody" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="footer">
+                <asp:ContentPlaceHolder ID="Footer" runat="server">
+                    <p>By NOVA SMART Copyright © Todos los Derechos Reservados</p>
+                </asp:ContentPlaceHolder>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
