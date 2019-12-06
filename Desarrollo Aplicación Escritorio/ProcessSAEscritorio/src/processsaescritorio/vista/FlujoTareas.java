@@ -99,7 +99,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
 
     public void actualizarListaTarea() {
         listaTareas = new Lista().listarTareas();
-        String[] columnas = {"ID", "Nombre","Activo"};
+        String[] columnas = {"ID", "Nombre"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int filas, int columnas) {
@@ -514,8 +514,7 @@ public class FlujoTareas extends javax.swing.JInternalFrame {
         tblTareas.getColumnModel().getColumn(0).setPreferredWidth(10);
         tblTareas.getColumnModel().getColumn(1).setResizable(false);
         tblTareas.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tblTareas.getColumnModel().getColumn(2).setResizable(false);
-        tblTareas.getColumnModel().getColumn(2).setPreferredWidth(100);
+
         // tblRol.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }//GEN-LAST:event_tblTareasComponentResized
 
