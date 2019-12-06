@@ -543,7 +543,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                         id_gender = 3;
                     }
                     String pass = txtName.getText().substring(0, 2) + txtLastName.getText().substring(0, 2) + birthdate.getYear();
-                    new UsuarioDAO(0, txtName.getText(), txtLastName.getText(), txtAddress.getText(), txtPhone.getText(), birthdate, txtEmail.getText(), pass, id_commune, uni.getId(), id_company, id_gender).crearUsuario();
+                    new UsuarioDAO(0, txtName.getText(), txtLastName.getText(), txtAddress.getText().trim(), txtPhone.getText().trim(), birthdate, txtEmail.getText().trim(), pass, id_commune, uni.getId(), id_company, id_gender).crearUsuario();
                 }
                 JOptionPane.showMessageDialog(null, "Grabado exitosamente.", "Grabar", JOptionPane.PLAIN_MESSAGE);
                 resetearTabla();
