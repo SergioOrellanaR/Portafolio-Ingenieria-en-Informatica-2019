@@ -104,6 +104,9 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
         });
 
         setClosable(true);
+        setTitle("Manejador Rol");
+        setAlignmentX(0.0F);
+        setAlignmentY(0.0F);
 
         jLabel1.setText("Nombre");
 
@@ -192,7 +195,7 @@ public class ManejadorRol extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(500, 150, 633, 610);
+        setBounds(0, 0, 633, 610);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed

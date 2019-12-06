@@ -92,6 +92,9 @@ public class ManejadorUnidadInterna extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         cbxRoles = new javax.swing.JComboBox<>();
 
+        setClosable(true);
+        setTitle("Manejador unidades internas");
+
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
