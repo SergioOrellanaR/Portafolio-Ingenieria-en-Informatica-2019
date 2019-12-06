@@ -38,7 +38,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         listadoGenero();
         cbxProvince.setEnabled(false);
         cbxCommune.setEnabled(false);
-
+        dateBorn.setMaxSelectableDate(new Date());
     }
 
     public void resetearTabla() {
@@ -114,8 +114,48 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     }
 
     public void actualizarDatosUsuario() {
+        
+         LocalDate birthdate = convertToLocalDate(dateBorn.getDate());;
+                    String[] arrayCompany = cbxCompany.getSelectedItem().toString().split("-");
+                    int id_company = Integer.parseInt(arrayCompany[0]);
 
-        new UsuarioDAO().actualizarUsuario(idGeneral, txtName.getText());
+                    String[] arrayCommune = cbxCommune.getSelectedItem().toString().split("-");
+                    int id_commune = Integer.parseInt(arrayCommune[0]);
+
+                    String[] arrayInternalU = cbxAssignedUnit.getSelectedItem().toString().split("-");
+                    int id_unitAssig = Integer.parseInt(arrayInternalU[0]);
+
+                    int assignedUnit = 0;
+
+                    UnidadAsignadaDTO uni = new UnidadAsignadaDAO().obtenerUnidadPorNombre(arrayInternalU[1]);
+
+                    int id_gender = 3;
+                    if (cbxGender.getSelectedIndex() == 0) {
+                        id_gender = 1;
+                    } else if (cbxGender.getSelectedIndex() == 1) {
+                        id_gender = 2;
+                    } else {
+                        id_gender = 3;
+                    }
+                    
+                    /*
+                    firstName,String lastname,String address,String phone,LocalDate dateBorn,String email,int commune,int assigned,int company, int gender 
+                    */
+                    
+                    new UsuarioDAO().actualizarUsuario(idGeneral, txtName.getText().trim());
+                    new UsuarioDAO().actualizarUsuarioLastname(idGeneral, txtLastName.getText().trim());
+                    new UsuarioDAO().actualizarUsuarioAddress(idGeneral, txtAddress.getText().trim());
+                    new UsuarioDAO().actualizarUsuarioPhone(idGeneral, txtPhone.getText());
+                    //new UsuarioDAO().actualizarUsuarioEmail(idGeneral, txtEmail.getText().trim());
+                    new UsuarioDAO().actualizarUsuarioBorn(idGeneral, birthdate);
+                    new UsuarioDAO().actualizarUsuarioCommune(idGeneral,id_commune );
+                    new UsuarioDAO().actualizarUsuarioAssigned(idGeneral, uni.getId());
+                    new UsuarioDAO().actualizarUsuarioCompany(idGeneral, id_company);
+                    new UsuarioDAO().actualizarUsuarioGender(idGeneral, id_gender);
+                    
+                    
+                    
+          //new UsuarioDAO().actualizarUsuario(idGeneral, txtName.getText().trim(),txtLastName.getText().trim(),txtAddress.getText().trim(),txtPhone.getText(),birthdate,txtEmail.getText().trim(),id_commune, uni.getId(), id_company, id_gender);
 
     }
 
@@ -226,6 +266,11 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
                 tblUsuarioComponentResized(evt);
             }
         });
+        tblUsuario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblUsuarioPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsuario);
 
         btnGrabar.setText("Grabar");
@@ -265,6 +310,11 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         });
 
         dateBorn.setDateFormatString("MM,dd, yyyy");
+        dateBorn.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateBornPropertyChange(evt);
+            }
+        });
 
         jLabel4.setText("Fecha de nacimiento");
 
@@ -601,7 +651,7 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         int seleccion = tblUsuario.rowAtPoint(evt.getPoint());
         int id = Integer.parseInt(String.valueOf(tblUsuario.getValueAt(seleccion, 0)));
-
+     
         usuarioIdentificado = true;
         idGeneral = id;
         cbxProvince.setEnabled(true);
@@ -701,6 +751,20 @@ public class ManejadorUsuarios extends javax.swing.JInternalFrame {
         tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(150);
         // tblRol.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }//GEN-LAST:event_tblUsuarioComponentResized
+
+    private void dateBornPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateBornPropertyChange
+           dateBorn.setMaxSelectableDate(new Date());
+    }//GEN-LAST:event_dateBornPropertyChange
+
+    private void tblUsuarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblUsuarioPropertyChange
+        // TODO add your handling code here:
+          tblUsuario.getColumnModel().getColumn(0).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblUsuario.getColumnModel().getColumn(1).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblUsuario.getColumnModel().getColumn(2).setResizable(false);
+        tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(150);
+    }//GEN-LAST:event_tblUsuarioPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
