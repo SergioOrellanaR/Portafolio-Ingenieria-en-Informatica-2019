@@ -86,9 +86,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
-                .addGap(0, 405, Short.MAX_VALUE)
-                .addComponent(jButton1))
+            .addGroup(panelEscritorioLayout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(0, 405, Short.MAX_VALUE))
         );
 
         menuAdminstracion.setText("Administración");
