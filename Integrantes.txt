@@ -1,7 +1,9 @@
-Sergio Orellana
-Brayan M�ndez
-Claudio Rios
-Barbara Herrera
-Cristian Arias
+-Sergio Orellana: Arquitecto de solución, DBA, Desarrollador Backend C#. GitHub: https://github.com/SergioOrellanaR
 
-Salu2
+-Brayan Mèndez: Desarrollador Frontend asp.net, Desarrollador Java. GitHub: https://github.com/Sprohh
+
+-Claudio Rios: Desarrollador Java. GitHub: https://github.com/claudiowl
+
+-Barbara Herrera: Desarrollador Frontend asp.net. GitHub: https://github.com/barbyherrera
+
+-Cristian Arias: Jefe de proyectos. GitHub: https://github.com/Hellschrei
