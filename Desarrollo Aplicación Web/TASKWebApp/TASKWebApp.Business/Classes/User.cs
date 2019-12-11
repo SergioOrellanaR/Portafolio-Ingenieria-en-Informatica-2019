@@ -426,7 +426,7 @@ namespace TASKWebApp.Business.Classes
         {
             try
             {
-                Data.USER_INFO usr = Connection.ProcessSA_DB.USER_INFO.First(user => Email.Equals(user.EMAIL, StringComparison.InvariantCultureIgnoreCase) && EntityFunctions.TruncateTime(Birthdate) == EntityFunctions.TruncateTime(user.BIRTHDATE));
+                Data.USER_INFO usr = Connection.ProcessSA_DB.USER_INFO.First(user => Email.ToLower() == user.EMAIL.ToLower() && EntityFunctions.TruncateTime(Birthdate) == EntityFunctions.TruncateTime(user.BIRTHDATE));
                 return true;
             }
             catch (Exception e)
